@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBaseUrl: 'http://6b859bebbe46.ngrok.io/erportal-0.0.1/',
+  loginUrl: 'secured/user/login',
+  resetPasswordUrl: 'secured/user/password-reset',
+  userProfileUrl: 'secured/user/load-user-profile/web'
 };
 
 /*
