@@ -2,12 +2,12 @@
   <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
           <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">Budget</h2>
+              <h2 class="content-header-title float-left mb-0">Employee</h2>
               <div class="breadcrumb-wrapper col-12">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item active">Budget
+                      <li class="breadcrumb-item active">Employee
                       </li>
                   </ol>
               </div>
@@ -36,8 +36,8 @@
               <div class="card">
                   <div class="card-header ml-auto">
                     <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                      [routerLink]="['/admin/budget/create-budget']">
-                      <i class="feather icon-plus-circle"></i> Create Budget
+                      [routerLink]="['/admin/employee/create-employee']">
+                      <i class="feather icon-plus-circle"></i> Create Employee
                     </button>
                   </div>
                   <div class="card-content">
@@ -50,7 +50,7 @@
                                 <table class="table table-bordered mb-0">
                                   <thead>
                                       <tr>
-                                          <th>Budget Name</th>
+                                          <th>Employee Name</th>
                                           <th>Period</th>
                                           <th>Start Date</th>
                                           <th>End Date</th>
@@ -63,9 +63,9 @@
                                           <th></th>
                                       </tr>
                                   </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let details of budgetDetails, let i = index;">
+                                  <tbody class="table-hover table-striped" *ngFor="let details of employeeDetails, let i = index;">
                                       <tr >
-                                          <th scope="row">{{details.budgetName}}</th>
+                                          <th scope="row">{{details.employeeName}}</th>
                                           <td>{{details.period}}</td>
                                           <td>{{details.startDate}}</td>
                                           <td>{{details.endDate}}</td>
@@ -83,7 +83,7 @@
                                                       Action
                                                   </button>
                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton101">
-                                                      <a class="dropdown-item" [routerLink]="['/admin/budget/view-budget']">View</a>
+                                                      <a class="dropdown-item" [routerLink]="['/admin/Employee/view-Employee']">View</a>
                                                       <a class="dropdown-item" href="#">Update</a>
                                                       <a class="dropdown-item" href="#">Approve</a>
                                                   </div>

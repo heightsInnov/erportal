@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
-import { CreateBudgetComponent } from './create-budget/create-budget.component';
-import { ViewBudgetComponent } from './view-budget/view-budget.component';
+import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 
 @Component({
-  selector: 'app-budget',
-  templateUrl: './budget.component.html',
-  styleUrls: ['./budget.component.css']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
 })
 
-export class BudgetComponent implements OnInit {
+export class EmployeeComponent implements OnInit {
 
-  budgetDetails = [
+  employeeDetails = [
     {
-      budgetName : '2020 Budget',
+      employeeName : '2020 employee',
       period : 'MONTHLY',
       startDate: '',
       endDate: '',
@@ -25,7 +25,7 @@ export class BudgetComponent implements OnInit {
       status: 'ACTIVE'
     },
     {
-      budgetName : '2020 Budget',
+      employeeName : '2020 employee',
       period : 'QUATERLY',
       startDate: '',
       endDate: '',
@@ -37,7 +37,7 @@ export class BudgetComponent implements OnInit {
       status: 'ACTIVE'
     },
     {
-      budgetName : '2020 Budget',
+      employeeName : '2020 employee',
       period : 'YEARLY',
       startDate: '',
       endDate: '',

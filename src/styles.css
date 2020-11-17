@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+
+html body .content {
+  margin-left: 0px !important;
+}
+
+
+.nb-theme-default nb-sidebar .scrollable {
+  padding: 0px !important;
+}
+
+/* .nb-theme-default nb-layout .layout .layout-container nb-sidebar.fixed, .nb-theme-default nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
+  top: 0.7rem !important;
+} */
+
+.nb-theme-default nb-layout-header nav {
+  padding: 0 !important;
+}
+
+nb-layout-header nav {
+  display: block !important;
+}
+
+.nb-theme-default nb-actions.size-tiny nb-action {
+  font-size: .9375rem !important;
+  height: 1rem;
+  padding: 0 0.3rem !important;
+}
+
+nb-list-item.list-item:hover {
+  animation-delay: .1s;
+  transition: all .2s;
+  transform: translateY(-4px);
+  box-shadow: 0 3px 10px 0 #ccc;
+  animation: fadeIn .5s linear;
+  border-top: 1px solid #dae1e7;
+  animation-fill-mode: both;
+}

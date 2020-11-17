@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ILoginPayload } from 'src/app/core/models/IUser';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -28,15 +30,12 @@ export class LoginComponent implements OnInit {
   }
 
   getAuthorizationToken() {
-    console.log('runnin auth....');
+    console.log('im in geth auth');
     if (localStorage.getItem('jwt') === null || localStorage.getItem('jwt') === undefined) {
-      console.log('im inside runnin auth again lol....');
+      console.log('i am in get auth again');
       this.auth.getAuthorizationToken().subscribe(
         data => {
-          const keys = data.headers.keys();
-          const headers = keys.map(key => `${key}: ${data.headers.get(key)}`);
           console.log(data);
-          console.log(headers);
         },
         error => {
           console.log(error);
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       password: [null, Validators.required],
-      username: [null, Validators.compose([Validators.required, Validators.email])]
+      username: [null, Validators.compose([Validators.required])]
     });
   }
 
@@ -76,22 +75,35 @@ export class LoginComponent implements OnInit {
     this.auth.login(payload).subscribe(
       data => {
         console.log(data);
-        if (data.user) {
-            localStorage.setItem('user', JSON.stringify(data.user));
-          }
+        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;') {
+          localStorage.setItem('user', JSON.stringify(data.responseObject));
+          this.toastr.success(`Welcome ${data.responseObject.emp_firstname} ${data.responseObject.emp_lastname}`, 'You are logged in!');
+          this.router.navigate(['admin']);
+        } else if (data.responseCode === '99' && data.responseMessage === 'FAILED;') {
+          this.loginError = {
+                              status: true,
+                              message: 'Invalid Username or Password'
+                            };
+        }
       },
       error => {
-        // if (error.status === 422) {
-        //   this.loginError = {
-        //                       status: true,
-        //                       message: error.error.message
-        //                     };
-        // } else {
-        //   this.loginError = {
-        //                       status: true,
-        //                       message: error.error.message
-        //                     };
-        // }
+        console.log(error);
+        if (error.status === 422) {
+          this.loginError = {
+                              status: true,
+                              message: error.error.message
+                            };
+        } else if (error.status === 403) {
+          this.loginError = {
+                              status: true,
+                              message: 'Invalid Username or Password'
+                            };
+        } else {
+          this.loginError = {
+                              status: true,
+                              message: error.error.error
+                            };
+        }
       }
     );
   }

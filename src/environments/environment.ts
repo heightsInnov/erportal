@@ -4,10 +4,15 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://6b859bebbe46.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'http://ab8f8831644a.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
-  userProfileUrl: 'secured/user/load-user-profile/web'
+  userProfileUrl: 'secured/user/load-user-profile/web',
+  createActivityUrl: 'secured/activity/create-activity',
+  updateActivityUrl: 'secured/activity/update-activity',
+  getActivityUrl: 'secured/activity/get-user-activity',
+  getActivityStatusURL: 'secured/activity/get-activity-status',
+  getUnitsUrl: 'secured/get-units'
 };
 
 /*

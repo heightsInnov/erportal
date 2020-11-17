@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { RouterModule } from '@angular/router';
+// import { NbMenuModule } from '@nebular/theme';
 
 
 
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   declarations: [HeaderComponent, FooterComponent, SideNavComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    // NbMenuModule
   ],
   exports: [HeaderComponent, FooterComponent, SideNavComponent],
 })

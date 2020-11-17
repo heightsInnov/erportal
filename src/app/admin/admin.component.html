@@ -1,25 +1,6 @@
-<body class="vertical-layout vertical-menu-modern dark-layout 2-columns  navbar-floating footer-static"
-  data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="dark-layout">
-  <app-side-nav></app-side-nav>
-  <div class="app-content content">
-    <app-header></app-header>
-    <div class="content-wrapper">
-      <!-- <div class="content-header row">
-      </div> -->
-      <!-- <div class="content-body"> -->
-        <router-outlet></router-outlet>
-      <!-- </div> -->
-    </div>
-  </div>
-  <div class="sidenav-overlay"></div>
-  <div class="drag-target"></div>
-  <app-footer></app-footer>
-</body>
-
 <nb-layout>
 
-  <nb-layout-header subheader>
-    <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+  <nb-layout-header fixed>
     <app-header></app-header>
   </nb-layout-header>
 
@@ -34,4 +15,5 @@
   <nb-layout-footer>
     <app-footer></app-footer>
   </nb-layout-footer>
+
 </nb-layout>

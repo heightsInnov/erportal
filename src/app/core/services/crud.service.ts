@@ -15,11 +15,10 @@ export class CrudService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      console.log('An error Occured: ', error.error);
+      return throwError (error.error);
     } else {
-      console.log(`Backend returned: `, error);
+      return throwError (error);
     }
-    return throwError ('Something Bad Just happened right now');
   }
 
   createData(endpoint, data): Observable<any> {

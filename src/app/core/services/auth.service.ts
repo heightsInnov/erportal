@@ -31,9 +31,14 @@ export class AuthService {
   getAuthorizationToken(): Observable<any> {
     const url = this.baseUrl + 'login';
     const payload: ILoginPayload = {username: 'web', password: 'weberp@123'};
-    return this.http.post<any>(url, payload, { observe: 'response'} ).pipe(
+    console.log('auth');
+    return this.http.post<any>(url, payload, { observe: 'response'}).pipe(
       map(response => {
-        return response;
+        if (response.status === 200 && response.headers.has('authorization')) {
+          const token = response.headers.get('authorization');
+          this.setTokenInLocalStorage(token);
+        }
+        return response.body;
       }),
       catchError(this.handleError)
     );

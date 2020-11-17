@@ -4,7 +4,8 @@ import { LayoutModule } from '../layout/layout.module';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NbLayoutModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbActionsModule, NbCardModule, NbContextMenuModule, NbDialogModule, NbInputModule, NbLayoutModule, NbListModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -16,8 +17,8 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'budget',
-        loadChildren: () => import('./budget/budget.module').then(m => m.BudgetModule)
+        path: 'employee',
+        loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule)
       },
       {
         path: 'project',
@@ -37,9 +38,16 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule,
     LayoutModule,
     NbLayoutModule,
-    NbSidebarModule
+    NbSidebarModule,
+    NbCardModule,
+    NbInputModule,
+    NbListModule,
+    NbActionsModule,
+    NbDialogModule.forChild(),
+    NbContextMenuModule
   ]
 })
 export class AdminModule { }
