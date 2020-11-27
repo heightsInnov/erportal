@@ -1,0 +1,96 @@
+<div class="content-header row">
+  <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+          <div class="col-12">
+              <h2 class="content-header-title float-left mb-0">Employee</h2>
+              <div class="breadcrumb-wrapper col-12">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item active">Employee
+                      </li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+      <div class="form-group breadcrum-right">
+          <div class="dropdown">
+              <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" [routerLink]="['/admin']">Dashboard</a>
+                <a class="dropdown-item" [routerLink]="['/admin/project']">Project</a>
+                <a class="dropdown-item" [routerLink]="['/admin/task']">Task</a>
+              </div>
+          </div>
+      </div>
+  </div> -->
+</div>
+
+<div class="content-body">
+  <!-- Zero configuration table -->
+  <section id="basic-datatable">
+    <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-header ml-auto">
+                <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
+                  [routerLink]="['/admin/employee/create-employee']">
+                  <i class="feather icon-plus-circle"></i> Create Employee
+                </button>
+              </div>
+              <div class="card-content">
+                <div class="card-body card-dashboard">
+                  <div class="row" id="table-bordered">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-content">
+                          <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                              <thead>
+                                <tr>
+                                  <th>Oracle ID</th>
+                                  <th>Username</th>
+                                  <th>Name</th>
+                                  <th>Email</th>
+                                  <th>Role</th>
+                                  <th>Gender</th>
+                                  <th>Age</th>
+                                  <th>Unit</th>
+                                  <th>Department</th>
+                                  <th>Employment Date</th>
+                                </tr>
+                              </thead>
+                              <tbody class="table-hover table-striped" *ngFor="let details of allEmployees, let i = index;">
+                                  <tr>
+                                    <th>{{details.emp_id + '000' + i}}</th>
+                                    <td>{{details.emp_username}}</td>
+                                    <td>{{details.emp_firstname + ' ' + details.emp_lastname}}</td>
+                                    <td>{{details.emp_email}}</td>
+                                    <td>{{details.emp_role}}</td>
+                                    <th>{{details.emp_gender}}</th>
+                                    <td>{{details.emp_age}}</td>
+                                    <td>{{details.emp_present_posting_deployment}}</td>
+                                    <td>{{details.emp_present_current_Department}}</td>
+                                    <td>{{details.emp_employment_date | date}}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
+                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username}">View</button>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+</div>

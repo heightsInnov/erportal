@@ -21,12 +21,48 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
+              "src/assets/fonts/font-awesome/fonts",
+              "src/assets/fonts/flag-icon-css/flags/1x1",
+              "src/assets/fonts/flag-icon-css/flags/4x3",
+              "src/assets/fonts/feather/fonts",
+              "src/assets/auth/login.json",
               "src/assets"
             ],
             "styles": [
+              "node_modules/@nebular/theme/styles/prebuilt/default.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/fonts/font-awesome/css/font-awesome.css",
+              "src/assets/fonts/feather/iconfont.css",
+              "src/assets/fonts/flag-icon-css/css/flag-icon.min.css",
+              "src/assets/vendors/css/vendors.min.css",
+              "src/assets/vendors/css/charts/apexcharts.css",
+              "src/assets/vendors/css/extensions/tether-theme-arrows.css",
+              "src/assets/vendors/css/extensions/tether.min.css",
+              "src/assets/vendors/css/extensions/shepherd-theme-default.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/bootstrap-extended.css",
+              "src/assets/css/colors.css",
+              "src/assets/css/components.css",
+              "src/assets/css/themes/dark-layout.css",
+              "src/assets/css/themes/semi-dark-layout.css",
+              "src/assets/css/core/menu/menu-types/vertical-menu.css",
+              "src/assets/css/core/colors/palette-gradient.css",
+              "src/assets/css/plugins/animate/animate.css",
+              "src/assets/css/plugins/forms/form-inputs-groups.css",
+              "src/assets/css/plugins/forms/wizard.css",
+              "src/assets/css/plugins/extensions/toastr.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/vendors/js/vendors.min.js",
+              "src/assets/js/core/libraries/jquery.min.js",
+              "src/assets/js/core/libraries/bootstrap.min.js",
+              "src/assets/js/core/app-menu.js",
+              "src/assets/js/core/app.js",
+              "src/assets/js/scripts/components.js",
+              "src/assets/js/scripts/customizer.min.js",
+              "src/assets/js/scripts/footer.min.js"
+            ]
           },
           "configurations": {
             "production": {
