@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
-import { NbDialogRef, NbDialogService, NbMenuService, NbOverlayRef, NB_WINDOW } from '@nebular/theme';
+import { Component, Inject, OnInit, TemplateRef} from '@angular/core';
+import { NbDialogService, NbMenuService, NB_WINDOW } from '@nebular/theme';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit{
 
   constructor(
     private dialogService: NbDialogService,
-    // protected dialogRef: NbDialogRef<>,
     private fb: FormBuilder,
     private crudService: CrudService,
     private router: Router,
@@ -70,7 +69,6 @@ export class DashboardComponent implements OnInit{
         }),
       )
       .subscribe(menu => {
-        this.window.alert(`${menu.action} with ${menu.id} was clicked!`);
         this.open(this.activityStatusModal,
                     {
                       action: menu.action,
@@ -229,7 +227,7 @@ export class DashboardComponent implements OnInit{
       data => {
         console.log(data);
         if (data.responseCode === '00'){
-          this.units = data.responseObject;
+          this.units = data.responseObject.unit;
         }
       },
       error => {

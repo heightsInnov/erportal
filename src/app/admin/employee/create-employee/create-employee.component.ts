@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbStepComponent, NbStepperComponent } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
 import { IEducationDataPayload, IEmployeePayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
 import { CrudService } from 'src/app/core/services/crud.service';
@@ -13,7 +14,8 @@ const countryandstate = require('countrycitystatejson');
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-
+  stepComponent: NbStepComponent;
+  stepperComponent: NbStepperComponent;
   createEmployeeForm: FormGroup;
   addEmployeeExperienceForm: FormGroup;
   addEmployeeEducationDetailsForm: FormGroup;
@@ -22,7 +24,8 @@ export class CreateEmployeeComponent implements OnInit {
   employeeUrl = environment.employeeUrl;
   getUnitsUrl = environment.getUnitsUrl;
   adminUser = JSON.parse(localStorage.getItem('user'));
-
+  designations: any[];
+  linearMode = true;
   stepperLabel = {
                     labelOne: 'Create Employee',
                     labelTwo: 'Add Employment Experience',
@@ -46,12 +49,13 @@ export class CreateEmployeeComponent implements OnInit {
             ];
 
   roles = ['ADMIN', 'STAFF', 'NON_STAFF'];
-  educationCategory = ['Primary', 'Secondary', 'Tetiary', 'Post-Graduate', 'MSc', 'PhD'];
+  educationCategory = ['Primary', 'Secondary', 'Tetiary'];
   departments: any[];
   listCountries = countryandstate.getCountries();
   selectedCountryCode: string;
   listStates: any[];
   listLGA: any[];
+  departmentPositions: any;
 
   constructor(
                 private fb: FormBuilder,
@@ -179,7 +183,8 @@ export class CreateEmployeeComponent implements OnInit {
     return this.createEmployeeForm.controls;
   }
 
-  onSubmit(formPayload, formname: string){
+  onSubmit(formPayload, formname: string, stepperComponent){
+    this.stepperComponent = stepperComponent;
     if (formname === 'createEmployeeForm') {
       console.log(formPayload);
       const payload: IEmployeePayload = {
@@ -208,7 +213,7 @@ export class CreateEmployeeComponent implements OnInit {
         emp_professional_affiliaions: formPayload.emp_professional_affiliaions.value,
         emp_lastname: formPayload.emp_lastname.value,
         emp_present_posting_date: formPayload.emp_present_posting_date.value,
-        emp_current_department: formPayload.emp_current_department.value,
+        emp_current_department: formPayload.emp_current_department.value.name,
         emp_establisment_file_no: formPayload.emp_establisment_file_no.value,
         emp_place_of_birth: formPayload.emp_place_of_birth.value,
         emp_marital_status: formPayload.emp_marital_status.value,
@@ -258,6 +263,9 @@ export class CreateEmployeeComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        this.toastr.info('Employee Created!', 'Successful');
+        this.linearMode = false;
+        this.stepperComponent.next();
       },
       error => {
         console.log(error);
@@ -269,6 +277,8 @@ export class CreateEmployeeComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        this.toastr.info('Employee Experience Added!', 'Successful');
+        this.stepperComponent.next();
       },
       error => {
         console.log(error);
@@ -280,6 +290,8 @@ export class CreateEmployeeComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        this.toastr.info('Employee Education Details Added!', 'Successful');
+        this.stepperComponent.next();
       },
       error => {
         console.log(error);
@@ -291,6 +303,9 @@ export class CreateEmployeeComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        this.toastr.info('Employee Next of Kin Details added!', 'Successful');
+        this.stepperComponent.reset();
+        this.goToEmployee();
       },
       error => {
         console.log(error);
@@ -303,7 +318,8 @@ export class CreateEmployeeComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00'){
-          this.departments = data.responseObject;
+          this.departments = data.responseObject.unit;
+          this.departmentPositions = data.responseObject.designations;
         }
       },
       error => {
@@ -323,5 +339,17 @@ export class CreateEmployeeComponent implements OnInit {
     const state = this.createEmployeeFormData.emp_state.value;
     this.listLGA = countryandstate.getCities(this.selectedCountryCode, state);
     console.log(this.listLGA);
+  }
+
+  getDesignationBasedOnDepartment() {
+    const department = this.createEmployeeFormData.emp_current_department.value.code;
+    this.designations = this.departmentPositions.filter(position => { if (department === position.unit_code) {
+                                                                        return position;
+                                                                      }
+                                                                    });
+  }
+
+  goToEmployee() {
+    this.router.navigate(['/admin/employee']);
   }
 }

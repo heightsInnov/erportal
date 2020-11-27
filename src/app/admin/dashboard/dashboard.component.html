@@ -91,8 +91,8 @@
           <nb-list-item class="list-item" *ngFor="let activity of todos;">
             <div class="row">
               <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
+                <div class="row justify-content-between">
+                  <div class="mr-auto d-flex align-items-center">
                       <i class="fa fa-circle-o text-bold-700 text-blue"></i>
                       <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
                       <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
@@ -100,7 +100,7 @@
                   <div class="ml-auto d-flex">
                     <nb-actions size="tiny">
                       <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                  nbContextMenuTag="activity-actions" nbContextMenuTrigger="hover">
+                                  nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
                         <i class="feather icon-activity"></i>
                       </nb-action>
                       <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
@@ -165,8 +165,11 @@
                   </div>
                   <div class="ml-auto d-flex">
                     <nb-actions size="tiny">
-                      <nb-action [nbContextMenu]="activityActions" nbContextMenuTag="activity-actions" nbContextMenuTrigger="hover"><i class="feather icon-activity"></i></nb-action>
-                      <nb-action (click)="open(activityModal, 'update')"><i class="feather icon-edit"></i></nb-action>
+                      <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                  nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                        <i class="feather icon-activity"></i>
+                        </nb-action>
+                      <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
                       <nb-action><i class="feather icon-trash"></i></nb-action>
                     </nb-actions>
                   </div>
@@ -224,7 +227,7 @@
               <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input">
                 <div class="modal-header">
                   <h5 class="modal-title"> {{ data.title | titlecase}} Activity</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close()">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm();">
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
