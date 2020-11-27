@@ -37,16 +37,16 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper orientation="horizontal">
-                  <nb-step [label]="stepperLabel.labelOne">
+                <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
+                  <nb-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
                     <!-- <ng-template #labelOne>Create Staff</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
-                  <nb-step [label]="stepperLabel.labelTwo">
+                  <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
                     <!-- <ng-template #labelTwo>Add Employee nextOfKin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
                   </nb-step>
-                  <nb-step [label]="stepperLabel.labelThree">
+                  <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelThree">
                     <!-- <ng-template #labelThree>Add Education Details</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </nb-step>
@@ -54,7 +54,7 @@
                     <!-- <ng-template #labelFour>Add Family Details</ng-template> -->
                     <!-- <ng-container *ngTemplateOutlet="labelOneView"></ng-container> -->
                   </nb-step>
-                  <nb-step [label]="stepperLabel.labelFive">
+                  <nb-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
                     <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </nb-step>
@@ -69,7 +69,7 @@
 
 
 <ng-template #labelOneView>
-  <form  [formGroup]="createEmployeeForm" (ngSubmit)="onSubmit(createEmployeeFormData, 'createEmployeeForm') "class="form">
+  <form  [formGroup]="createEmployeeForm" (ngSubmit)="onSubmit(createEmployeeFormData, 'createEmployeeForm', createEmployeeStepper) "class="form">
     <div class="form-body">
       <div class="row">
         <div class="col-12">
@@ -431,10 +431,10 @@
                         <select [ngClass]="{'form-control' : true,
                                               'is-invalid' : (createEmployeeFormData.emp_current_department.dirty || createEmployeeFormData.emp_current_department.touched) && createEmployeeFormData.emp_current_department.invalid,
                                               'is-valid' : (createEmployeeFormData.emp_current_department.dirty || createEmployeeFormData.emp_current_department.touched) && createEmployeeFormData.emp_current_department.valid
-                                              }" id="current_dept" formControlName="emp_current_department">
+                                              }" id="current_dept" formControlName="emp_current_department" (change)="getDesignationBasedOnDepartment()">
                           <option [value]="null">Select Department</option>
                           <ng-container *ngFor="let dept of departments">
-                            <option [value]="dept.name">{{ dept.name }}</option>
+                            <option [ngValue]="dept">{{ dept.name }}</option>
                           </ng-container>
                         </select>
 
@@ -499,8 +499,8 @@
                                             'is-valid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.valid
                                             }" id="ppdeployment" formControlName="emp_present_posting_deployment">
                           <option [value]="null">Select PPD</option>
-                          <ng-container *ngFor="let dept of departments">
-                            <option [value]="dept.name">{{ dept.name }}</option>
+                          <ng-container *ngFor="let designation of designations">
+                            <option [value]="designation.desig_name">{{ designation.desig_name }}</option>
                           </ng-container>
                         </select>
 
@@ -601,7 +601,7 @@
 </ng-template>
 
 <ng-template #labelTwoView>
-  <form  [formGroup]="addEmployeeExperienceForm" (ngSubmit)="onSubmit(addEmployeeExperienceFormData, 'addEmployeeExperienceForm')" class="form form-vertical">
+  <form  [formGroup]="addEmployeeExperienceForm" (ngSubmit)="onSubmit(addEmployeeExperienceFormData, 'addEmployeeExperienceForm', createEmployeeStepper)" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <ng-container formArrayName="experience">
@@ -707,12 +707,13 @@
         </ng-container>
         <div class="col-12 mr-auto">
           <div class="form-group">
-            <button type="button" (click)="populateFormArrayData('addEmployeeExperienceForm')" class="btn btn-outline-info mr-1 mb-1 waves-effect waves-light">Add More Experience</button>
+            <button type="button" (click)="populateFormArrayData('addEmployeeExperienceForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add More Experience</button>
+            <button type="reset" (click)="addEmployeeExperienceForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
           </div>
         </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-            <button type="reset" (click)="addEmployeeExperienceForm.reset()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear all</button>
+            <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
     </div>
@@ -720,7 +721,7 @@
 </ng-template>
 
 <ng-template #labelThreeView>
-  <form  [formGroup]="addEmployeeEducationDetailsForm" (ngSubmit)="onSubmit(addEmployeeEducationDetailsFormData, 'addEmployeeEducationDetailsForm')" class="form form-vertical">
+  <form  [formGroup]="addEmployeeEducationDetailsForm" (ngSubmit)="onSubmit(addEmployeeEducationDetailsFormData, 'addEmployeeEducationDetailsForm', createEmployeeStepper)" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <ng-container formArrayName="education">
@@ -847,12 +848,14 @@
         </ng-container>
         <div class="col-12 mr-auto">
           <div class="form-group">
-            <button type="button" (click)="populateFormArrayData('addEmployeeEducationDetailsForm')" class="btn btn-outline-info mr-1 mb-1 waves-effect waves-light">Add More Details</button>
+            <button type="button" (click)="populateFormArrayData('addEmployeeEducationDetailsForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add More Details</button>
+            <button type="reset" (click)="addEmployeeEducationDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
           </div>
         </div>
         <div class="col-12">
+            <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
             <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-            <button type="reset" (click)="addEmployeeEducationDetailsForm.reset()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear all</button>
+            <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
     </div>
@@ -941,7 +944,7 @@
 </ng-template> -->
 
 <ng-template #labelFiveView>
-  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm')" class="form form-vertical">
+  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm', createEmployeeStepper)" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <div class="col-12 mb-2">
@@ -1012,9 +1015,15 @@
             </nb-accordion-item>
           </nb-accordion>
         </div>
+        <div class="col-12 mr-auto">
+          <div class="form-group">
+            <button type="reset" (click)="addEmployeeNextOfKinDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+          </div>
+        </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-            <button type="reset" (click)="addEmployeeNextOfKinDetailsForm.reset()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear all</button>
+          <button type="button" (click)="createEmployeeStepper.previous()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Prev</button>
+          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="reset" (click)="createEmployeeStepper.reset(); goToEmployee();" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
     </div>
