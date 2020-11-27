@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import { CrudService } from 'src/app/core/services/crud.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-employee',
@@ -11,51 +13,31 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 
 export class EmployeeComponent implements OnInit {
 
-  employeeDetails = [
-    {
-      employeeName : '2020 employee',
-      period : 'MONTHLY',
-      startDate: '',
-      endDate: '',
-      amountApproved: 200000,
-      amountUtilized: 50000,
-      remainingAmount: 70000,
-      utilization: '60%',
-      createdBy: 'Precious Usanga',
-      status: 'ACTIVE'
-    },
-    {
-      employeeName : '2020 employee',
-      period : 'QUATERLY',
-      startDate: '',
-      endDate: '',
-      amountApproved: 1200000,
-      amountUtilized: 500000,
-      remainingAmount: 700000,
-      utilization: '60%',
-      createdBy: 'Precious Usanga',
-      status: 'ACTIVE'
-    },
-    {
-      employeeName : '2020 employee',
-      period : 'YEARLY',
-      startDate: '',
-      endDate: '',
-      amountApproved: 12000000,
-      amountUtilized: 5000000,
-      remainingAmount: 7000000,
-      utilization: '60%',
-      createdBy: 'Precious Usanga',
-      status: 'ACTIVE'
-    }
-  ];
+  getAllEmployeeUrl = environment.getAllEmployeeUrl;
+  allEmployees: any[];
 
   constructor(
     private router: Router,
+    private crudService: CrudService,
   ) {
    }
 
   ngOnInit(): void {
+    this.getAllEmployee(this.getAllEmployeeUrl);
+  }
+
+  getAllEmployee(url: string) {
+    this.crudService.getData(url).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00'){
+          this.allEmployees = data.responseObject;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~10.2.2",
     "@angular/router": "~10.2.2",
     "@nebular/theme": "^6.2.1",
+    "bs-custom-file-input": "^1.3.4",
+    "countrycitystatejson": "^20.8.9-a",
     "ngx-toastr": "^13.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

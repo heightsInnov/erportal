@@ -8,11 +8,13 @@ import { NbSidebarService } from '@nebular/theme';
 })
 export class HeaderComponent implements OnInit {
 
+  userDetails: any;
   constructor(
     private sidebarService: NbSidebarService
   ) { }
 
   ngOnInit(): void {
+    this.getUserDetails();
   }
 
   toggle() {
@@ -20,4 +22,7 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  getUserDetails() {
+    this.userDetails = JSON.parse(localStorage.getItem('user'));
+  }
 }

@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   payload: ILoginPayload;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
+  logo = {url: '../../../assets/images/lagos_logo.png'};
 
   constructor(
     private fb: FormBuilder,
@@ -75,14 +76,14 @@ export class LoginComponent implements OnInit {
     this.auth.login(payload).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;') {
+        if (data.responseCode === '00') {
           localStorage.setItem('user', JSON.stringify(data.responseObject));
-          this.toastr.success(`Welcome ${data.responseObject.emp_firstname} ${data.responseObject.emp_lastname}`, 'You are logged in!');
+          this.toastr.success(`Welcome ${data.responseObject.emp_firstname} ${data.responseObject.emp_lastname}`, data.responseMessage);
           this.router.navigate(['admin']);
-        } else if (data.responseCode === '99' && data.responseMessage === 'FAILED;') {
+        } else if (data.responseCode === '99') {
           this.loginError = {
                               status: true,
-                              message: 'Invalid Username or Password'
+                              message: data.responseMessage
                             };
         }
       },

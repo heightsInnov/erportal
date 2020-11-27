@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CrudService } from 'src/app/core/services/crud.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-project',
@@ -8,53 +10,30 @@ import { Router } from '@angular/router';
 })
 export class ProjectComponent implements OnInit {
 
-  projectDetails = [
-    {
-      projectName : 'Road Construction',
-      description: '2.5Km Ijebu-Ode Road Construction',
-      budget: '2020 Budget',
-      startDate: '',
-      endDate: '',
-      amountApproved: 2000,
-      amountUtilized: 500,
-      remainingAmount: 700,
-      utilization: '60%',
-      awardedTo: 'Precious Usanga',
-      status: 'Ongoing'
-    },
-    {
-      projectName : 'Classroom Construction',
-      description: '2000 block classroom construction in rural areas',
-      budget: '2020 Budget',
-      startDate: '',
-      endDate: '',
-      amountApproved: 12000,
-      amountUtilized: 5000,
-      remainingAmount: 7000,
-      utilization: '60%',
-      awardedTo: 'Ayotola Jinadu',
-      status: 'Ongoing'
-    },
-    {
-      projectName : 'Street Light Repairs',
-      description: 'Repair of all bad street light in the state',
-      budget: '2020 Budget',
-      startDate: '',
-      endDate: '',
-      amountApproved: 1000000,
-      amountUtilized: 1000000,
-      remainingAmount: 1000000,
-      utilization: '100%',
-      awardedTo: 'Precious Usanga',
-      status: 'Completed'
-    }
-  ];
-
+  getHandoverNotesUrl = environment.getHandoverNotesUrl;
+  handoverNotes: any[];
   constructor(
-    private router: Router
+    private router: Router,
+    private crudService: CrudService,
+
   ) { }
 
   ngOnInit(): void {
+    this.getHandoverNotes(this.getHandoverNotesUrl);
+  }
+
+  getHandoverNotes(url: string) {
+    this.crudService.getData(url).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00'){
+          this.handoverNotes = data.responseObject;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

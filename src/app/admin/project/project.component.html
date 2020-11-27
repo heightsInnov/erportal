@@ -2,19 +2,19 @@
   <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
           <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">Project</h2>
+              <h2 class="content-header-title float-left mb-0">Handovers</h2>
               <div class="breadcrumb-wrapper col-12">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item active"><a>Project</a>
+                      <li class="breadcrumb-item active"><a>Handovers</a>
                       </li>
                   </ol>
               </div>
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
       <div class="form-group breadcrum-right">
           <div class="dropdown">
               <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
@@ -25,7 +25,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="content-body">
@@ -36,8 +36,8 @@
               <div class="card">
                   <div class="card-header ml-auto">
                     <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                      [routerLink]="['/admin/project/create-project']">
-                      <i class="feather icon-plus-circle"></i> Create Project
+                      [routerLink]="['/admin/handover/create-handover']">
+                      <i class="feather icon-plus-circle"></i> Create Handover
                     </button>
                   </div>
                   <div class="card-content">
@@ -50,49 +50,45 @@
                                 <table class="table table-bordered mb-0">
                                   <thead>
                                       <tr>
-                                          <th>Project Name</th>
-                                          <th>Description</th>
-                                          <th>Budget</th>
-                                          <th>Start Date</th>
-                                          <th>End Date</th>
-                                          <th>Amount Approved</th>
-                                          <th>Amount Utilized</th>
-                                          <th>Remaining Amount</th>
-                                          <th>% Utilization</th>
-                                          <th>Awarded To</th>
-                                          <th>Status</th>
-                                          <th></th>
+                                        <th>S/N</th>
+                                        <th>Resignee Name</th>
+                                        <th>Resignee Address</th>
+                                        <th>Resignee Phone</th>
+                                        <th>Takeover Name</th>
+                                        <th>Reason</th>
+                                        <th>Witness</th>
+                                        <th>Effective Date</th>
+                                        <th></th>
                                       </tr>
                                   </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let details of projectDetails, let i = index;">
-                                      <tr >
-                                          <th scope="row">{{details.projectName}}</th>
-                                          <td>{{details.description}}</td>
-                                          <td>{{details.budget}}</td>
-                                          <td>{{details.startDate}}</td>
-                                          <td>{{details.endDate}}</td>
-                                          <th>{{details.amountApproved}}</th>
-                                          <td>{{details.amountUtilized}}</td>
-                                          <td>{{details.remainingAmount}}</td>
-                                          <td>{{details.utilization}}</td>
-                                          <td>{{details.awardedTo}}</td>
-                                          <td>{{details.status}}</td>
-                                          <td>
-                                            <div class="btn-group">
-                                              <div class="dropdown">
-                                                  <button class="btn bg-gradient-primary dropdown-toggle mr-1 mb-1 waves-effect waves-light"
-                                                    type="button" id="dropdownMenuButton101" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      Action
-                                                  </button>
-                                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton101">
-                                                      <a class="dropdown-item" [routerLink]="['/admin/project/view-project']">View</a>
-                                                      <a class="dropdown-item" [routerLink]="['/admin/project/update-project']">Update</a>
-                                                      <a class="dropdown-item" href="#">Approve</a>
-                                                  </div>
-                                              </div>
+                                  <tbody class="table-hover table-striped">
+                                    <ng-container *ngFor="let note of handoverNotes, let i = index;">
+                                      <tr>
+                                        <td scope="row"> {{ i + 1 }} </td>
+                                        <td>{{note.resignee_name}}</td>
+                                        <td>{{note.resignee_address}}</td>
+                                        <td>{{note.resignee_phone}}</td>
+                                        <td>{{note.takeover_name}}</td>
+                                        <td>{{note.handover_reason}}</td>
+                                        <th>{{note.handover_witness}}</th>
+                                        <td>{{note.handover_effective_date | date}}</td>
+                                        <td>
+                                          <div class="btn-group">
+                                            <div class="dropdown">
+                                                <button class="btn bg-gradient-primary dropdown-toggle mr-1 mb-1 waves-effect waves-light"
+                                                  type="button" id="dropdownMenuButton101" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    View
+                                                </button>
+                                                <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton101">
+                                                    <a class="dropdown-item" [routerLink]="['/admin/handover/view-handover']">View</a>
+                                                    <a class="dropdown-item" [routerLink]="['/admin/handover/update-handover']">Update</a>
+                                                    <a class="dropdown-item" href="#">Approve</a>
+                                                </div> -->
                                             </div>
-                                          </td>
+                                          </div>
+                                        </td>
                                       </tr>
+                                    </ng-container>
                                   </tbody>
                                 </table>
                               </div>

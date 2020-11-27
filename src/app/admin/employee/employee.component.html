@@ -14,7 +14,7 @@
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
       <div class="form-group breadcrum-right">
           <div class="dropdown">
               <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
@@ -25,84 +25,72 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="content-body">
   <!-- Zero configuration table -->
   <section id="basic-datatable">
-      <div class="row">
-          <div class="col-12">
-              <div class="card">
-                  <div class="card-header ml-auto">
-                    <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                      [routerLink]="['/admin/employee/create-employee']">
-                      <i class="feather icon-plus-circle"></i> Create Employee
-                    </button>
-                  </div>
-                  <div class="card-content">
-                    <div class="card-body card-dashboard">
-                      <div class="row" id="table-bordered">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead>
-                                      <tr>
-                                          <th>Employee Name</th>
-                                          <th>Period</th>
-                                          <th>Start Date</th>
-                                          <th>End Date</th>
-                                          <th>Amount Approved</th>
-                                          <th>Amount Utilized</th>
-                                          <th>Remaining Amount</th>
-                                          <th>% Utilization</th>
-                                          <th>Created By</th>
-                                          <th>Status</th>
-                                          <th></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let details of employeeDetails, let i = index;">
-                                      <tr >
-                                          <th scope="row">{{details.employeeName}}</th>
-                                          <td>{{details.period}}</td>
-                                          <td>{{details.startDate}}</td>
-                                          <td>{{details.endDate}}</td>
-                                          <th>{{details.amountApproved}}</th>
-                                          <td>{{details.amountUtilized}}</td>
-                                          <td>{{details.remainingAmount}}</td>
-                                          <td>{{details.utilization}}</td>
-                                          <td>{{details.createdBy}}</td>
-                                          <td>{{details.status}}</td>
-                                          <td>
-                                            <div class="btn-group">
-                                              <div class="dropdown">
-                                                  <button class="btn bg-gradient-primary dropdown-toggle mr-1 mb-1 waves-effect waves-light"
-                                                    type="button" id="dropdownMenuButton101" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      Action
-                                                  </button>
-                                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton101">
-                                                      <a class="dropdown-item" [routerLink]="['/admin/Employee/view-Employee']">View</a>
-                                                      <a class="dropdown-item" href="#">Update</a>
-                                                      <a class="dropdown-item" href="#">Approve</a>
-                                                  </div>
-                                              </div>
-                                            </div>
-                                          </td>
-                                      </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
+    <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-header ml-auto">
+                <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
+                  [routerLink]="['/admin/employee/create-employee']">
+                  <i class="feather icon-plus-circle"></i> Create Employee
+                </button>
+              </div>
+              <div class="card-content">
+                <div class="card-body card-dashboard">
+                  <div class="row" id="table-bordered">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-content">
+                          <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                              <thead>
+                                <tr>
+                                  <th>Oracle ID</th>
+                                  <th>Username</th>
+                                  <th>Name</th>
+                                  <th>Email</th>
+                                  <th>Role</th>
+                                  <th>Gender</th>
+                                  <th>Age</th>
+                                  <th>Unit</th>
+                                  <th>Department</th>
+                                  <th>Employment Date</th>
+                                </tr>
+                              </thead>
+                              <tbody class="table-hover table-striped" *ngFor="let details of allEmployees, let i = index;">
+                                  <tr>
+                                    <th>{{details.emp_id + '000' + i}}</th>
+                                    <td>{{details.emp_username}}</td>
+                                    <td>{{details.emp_firstname + ' ' + details.emp_lastname}}</td>
+                                    <td>{{details.emp_email}}</td>
+                                    <td>{{details.emp_role}}</td>
+                                    <th>{{details.emp_gender}}</th>
+                                    <td>{{details.emp_age}}</td>
+                                    <td>{{details.emp_present_posting_deployment}}</td>
+                                    <td>{{details.emp_present_current_Department}}</td>
+                                    <td>{{details.emp_employment_date | date}}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
+                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username}">View</button>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
               </div>
           </div>
       </div>
+    </div>
   </section>
 
 </div>

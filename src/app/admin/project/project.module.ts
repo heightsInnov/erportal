@@ -12,15 +12,15 @@ const route: Routes = [
     component: ProjectComponent
   },
   {
-    path: 'create-project',
+    path: 'create-handover',
     component: CreateProjectComponent
   },
   {
-    path: 'update-project',
+    path: 'update-handover',
     component: UpdateProjectComponent
   },
   {
-    path: 'view-project',
+    path: 'view-handover',
     component: ViewProjectComponent
   }
 ];

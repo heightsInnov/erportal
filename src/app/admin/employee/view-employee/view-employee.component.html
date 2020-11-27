@@ -2,21 +2,21 @@
   <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
           <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">View Budget</h2>
+              <h2 class="content-header-title float-left mb-0">View Employee</h2>
               <div class="breadcrumb-wrapper col-12">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item"><a [routerLink]="['/admin/budget']">Budget</a>
+                      <li class="breadcrumb-item"><a [routerLink]="['/admin/employee']">Employee</a>
                       </li>
-                      <li class="breadcrumb-item active"><a>View Budget</a>
+                      <li class="breadcrumb-item active"><a>View Employee</a>
                       </li>
                   </ol>
               </div>
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
       <div class="form-group breadcrum-right">
           <div class="dropdown">
               <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle   waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
@@ -27,10 +27,10 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 </div>
 
-<section>
+<!-- <section>
   <div class="row">
     <div class="col-lg-3 col-md-6 col-12">
         <div class="card">
@@ -359,4 +359,484 @@
         </div>
     </div>
   </div>
-</section>
+</section> -->
+
+<div class="content-body">
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <nb-tabset>
+                <nb-tab tabTitle="{{tabTitle.title_one | titlecase}}">
+                  <ng-container *ngTemplateOutlet="overview"></ng-container>
+                </nb-tab>
+                <nb-tab tabTitle="{{tabTitle.title_two | titlecase}}">
+                  <ng-container *ngTemplateOutlet="documents"></ng-container>
+                </nb-tab>
+               </nb-tabset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #overview>
+  <nb-card accent="info">
+    <nb-card-header>
+      <h5 class="card-title">Personal Information</h5>
+    </nb-card-header>
+    <nb-card-body *ngIf="employeeProfile !== null">
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div class="col-4">
+              <h6 class="bold">Name</h6>
+              <p *ngIf="">
+                {{ (employeeProfile.employeeDetails?.emp_firstname && employeeProfile.employeeDetails?.emp_middlename && employeeProfile.employeeDetails?.emp_lastname) ?
+                   employeeProfile.employeeDetails.emp_lastname + ', ' + employeeProfile.employeeDetails.emp_firstname + ' ' + employeeProfile.employeeDetails.emp_middlename : '-'}}
+              </p>
+            </div>
+            <div class="col-4">
+              <h6 class="bold">Marital Status</h6>
+              <p>{{ employeeProfile.employeeDetails?.emp_marital_status !== null ? employeeProfile.employeeDetails.emp_marital_status : '-'}}</p>
+            </div>
+            <div class="col-4">
+              <h6 class="bold">Gender</h6>
+              <p *ngIf="employeeProfile.employeeDetails?.emp_gender !== null">
+                {{ employeeProfile.employeeDetails.emp_gender === 'M' ? 'Male' : 'Female'}}
+              </p>
+            </div>
+            <div class="col-4">
+              <h6 class="bold">Date of Birth</h6>
+              <p>{{ employeeProfile.employeeDetails?.emp_dob !== null ? (employeeProfile.employeeDetails.emp_dob | date) : '-'}}</p>
+            </div>
+            <div class="col-4">
+              <h6 class="bold">Age</h6>
+              <p>{{ employeeProfile.employeeDetails?.emp_age !== null ? employeeProfile.employeeDetails.emp_age : '-'}}</p>
+            </div>
+            <div class="col-4">
+              <h6 class="bold">Place of Birth</h6>
+              <p>{{ employeeProfile.employeeDetails?.emp_place_of_birth !== null ? employeeProfile.employeeDetails.emp_place_of_birth : '-'}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card border-primary text-center bg-transparent">
+              <div class="card-content">
+                <div class="card-body">
+                  <ng-container *ngIf="employeeProfile.employeeDetails?.passport !== null">
+                    <img [src]="employeeProfile.employeeDetails.passport" alt="element 05" width="100" class="mb-1">
+                  </ng-container>
+                  <ng-container *ngIf="employeeProfile.employeeDetails?.passport === null">
+                    <h4>No Passport Uploaded</h4>
+                  </ng-container>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-3">
+          <h6 class="bold">Nationality</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_nationality !== null ? employeeProfile.employeeDetails.emp_nationality : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">State</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_state !== null ? employeeProfile.employeeDetails.emp_state : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">L.G.A</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_local_govt_ward !== null ? employeeProfile.employeeDetails.emp_local_govt_ward : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Address</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_address !== null ? employeeProfile.employeeDetails.emp_address : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Email</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_email !== null ? employeeProfile.employeeDetails.emp_email : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Religion</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_religion !== null ? employeeProfile.employeeDetails.emp_religion : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Primary Number</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_phone !== null ? employeeProfile.employeeDetails.emp_phone : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Mobile Number</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_gsm_no !== null ? employeeProfile.employeeDetails.emp_gsm_no : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Username</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_username !== null ? employeeProfile.employeeDetails.emp_username : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Role</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_role !== null ? employeeProfile.employeeDetails.emp_role : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Hobbies</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_hobbies !== null ? employeeProfile.employeeDetails.emp_hobbies : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Date Created</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_creation_date !== null ? employeeProfile.employeeDetails.emp_creation_date : '-'}}</p>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-12">
+          <h5 class="card-title bold">Employment Record</h5>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Employment Date</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_employment_date !== null ? (employeeProfile.employeeDetails.emp_employment_date | date) : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Confirmation Date</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_confirmation_date !== null ? (employeeProfile.employeeDetails.emp_confirmation_date | date) : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Date of First Employment</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_date_of_first_employment !== null ? (employeeProfile.employeeDetails.emp_date_of_first_employment | date) : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Current Department</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_current_department !== null ? employeeProfile.employeeDetails.emp_current_department : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Commission File No.</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_commission_file_no !== null ? employeeProfile.employeeDetails.emp_commission_file_no : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Establishment File No.</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_establishment_file_no !== null ? employeeProfile.employeeDetails.emp_establishment_file_no : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">PSO File No.</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_pso_file_no !== null ? employeeProfile.employeeDetails.emp_pso_file_no : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Present Posting Deployment</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_present_posting_deployment !== null ? employeeProfile.employeeDetails.emp_present_posting_deployment : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Present Posting Date</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_present_posting_date !== null ? (employeeProfile.employeeDetails.emp_present_posting_date | date) : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Retirement Date</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_retirement_date !== null ? (employeeProfile.employeeDetails.emp_retirement_date | date) : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Professional Affiliations</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_professional_affiliations !== null ? employeeProfile.employeeDetails.emp_professional_affiliations : '-'}}</p>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-12">
+          <h5 class="card-title bold">Employee Identification</h5>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">Employee ID</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_id !== null ? employeeProfile.employeeDetails.emp_id : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">ID Type</h6>
+          <p>{{ employeeProfile.employeeDetails?.emp_id_type !== null ? employeeProfile.employeeDetails.emp_id_type : '-'}}</p>
+        </div>
+        <div class="col-3">
+          <h6 class="bold">ID Number</h6>
+          <p>{{ employeeProfile.emp_id_no !== null ? employeeProfile.employeeDetails.emp_id_no : '-'}}</p>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-6">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <h5 class="card-title">Next of Kin</h5>
+              </nb-accordion-item-header>
+
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="bold">Name</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_name !== null ? employeeProfile.nextOfKin.nok_name : '-'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="bold">Relationship</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_relationship !== null ? employeeProfile.nextOfKin.nok_relationship : '-'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="bold">Phone</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_phone !== null ? employeeProfile.nextOfKin.nok_phone : '-'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="bold">Address</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_address !== null ? employeeProfile.nextOfKin.nok_address : '-'}}</p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+
+        <div class="col-6">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <h5 class="card-title">Family Details</h5>
+              </nb-accordion-item-header>
+
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-12">
+                    <h6 class="bold">Spouse Name</h6>
+                    <p>{{ employeeProfile.family?.spouse_name !== null ? employeeProfile.family.spouse_name : '-'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="bold">Children</h6>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child1_name !== null">
+                        {{ employeeProfile.family?.child1_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child2_name !== null">
+                        {{ employeeProfile.family?.child2_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child3_name !== null">
+                        {{ employeeProfile.family?.child3_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child4_name !== null">
+                        {{ employeeProfile.family?.child4_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child5_name !== null">
+                        {{ employeeProfile.family?.child5_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child6_name !== null">
+                        {{ employeeProfile.family?.child6_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child7_name !== null">
+                        {{ employeeProfile.family?.child7_name }}
+                      </li>
+                      <li class="list-group-item" *ngIf="employeeProfile.family?.child8_name !== null">
+                        {{ employeeProfile.family?.child8_name }}
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <div class="col-6">
+                    <h6 class="bold">Phone</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_phone !== null ? employeeProfile.nextOfKin.nok_phone : '-'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h6 class="bold">Address</h6>
+                    <p>{{ employeeProfile.nextOfKin?.nok_address !== null ? employeeProfile.nextOfKin.nok_address : '-'}}</p>
+                  </div> -->
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </div>
+
+      <div class="row mb-1">
+        <div class="col-12">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <h5 class="card-title">Work Experience</h5>
+              </nb-accordion-item-header>
+
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="table-responsive">
+                          <table class="table table-bordered mb-0">
+                            <thead>
+                              <tr>
+                                <th>S/N</th>
+                                <th>Company</th>
+                                <th>Position</th>
+                                <th>Job Description</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-hover table-striped" *ngFor="let experience of employeeProfile?.workExperience;">
+                              <tr>
+                                <th>{{ experience.exp_id }}</th>
+                                <td>{{ experience.exp_organization }}</td>
+                                <td>{{ experience.designation }}</td>
+                                <td>{{ experience.exp_responsibility }}</td>
+                                <td>{{ experience.exp_start_date }}</td>
+                                <th>{{ experience.exp_end_date }}</th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-12">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <h5 class="card-title">Education</h5>
+              </nb-accordion-item-header>
+
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="table-responsive">
+                          <table class="table table-bordered mb-0">
+                            <thead>
+                              <tr>
+                                <th>S/N</th>
+                                <th>Institution</th>
+                                <th>Degree</th>
+                                <th>Category</th>
+                                <th>CGPA</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-hover table-striped" *ngFor="let education of employeeProfile?.education;">
+                              <tr>
+                                <th>{{education.edu_id}}</th>
+                                <td>{{education.edu_institution}}</td>
+                                <td>{{education.edu_degree}}</td>
+                                <td>{{education.edu_category !== null ? education.edu_category : '-'}}</td>
+                                <td>{{education.edu_cgpa !== null ? education.edu_cgpa : '-'}}</td>
+                                <td>{{education.edu_start_date}}</td>
+                                <th>{{education.edu_end_date}}</th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #documents>
+  <nb-card accent="info">
+    <nb-card-header>
+      <div class="row">
+        <div class="ml-auto">
+          <button type="button" class="btn btn-outline-primary square mr-1 mb-1 waves-effect waves-light"
+            (click)="open(uploadDocumentModal, 'Upload Document')">
+            <span class="bold"><i class="feather icon-plus"></i>Add Document</span>
+          </button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-content">
+              <div class="table-responsive">
+                <table class="table table-bordered mb-0">
+                  <thead>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Document Category</th>
+                      <th>File Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-hover table-striped" *ngFor="let document of uploadedDocuments; let i = index;">
+                    <tr>
+                      <th>{{ i + 1}}</th>
+                      <td>{{document.doc_category}}</td>
+                      <td>{{document.doc_name}}</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #uploadDocumentModal let-data let-ref="dialogRef">
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+        <section class="todo-form">
+          <form [formGroup]="uploadForm" (ngSubmit)="onSubmit(uploadFormData)" class="todo-input">
+            <div class="modal-header">
+              <h5 class="modal-title">{{data.title | titlecase}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close()">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <fieldset class="form-group">
+                <label for="document_type">Document Type</label>
+                <select id="document_type" class="form-control" formControlName="upload_type">
+                    <option [value]="null">Select Type</option>
+                    <option *ngFor="let type of uploadTypes" [value]="type.name">{{ type.code }}</option>
+                </select>
+
+                <!-- <ng-container *ngIf="(formData.unit.dirty || formData.unit.touched) && formData.unit.invalid">
+                  <div *ngIf="formData.unit.errors.required" class="invalid-feedback">Please specify Unit</div>
+                </ng-container> -->
+              </fieldset>
+
+              <fieldset class="form-label-group form-group position-relative">
+                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="file">
+                <!-- <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="inputGroupFile01" formControlName="file">
+                  <label class="custom-file-label" for="inputGroupFile01">Select Document</label>
+                </div> -->
+              </fieldset>
+            </div>
+
+            <div class="modal-footer">
+              <fieldset class="form-group position-relative has-icon-left mb-0">
+                <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                  data-dismiss="modal">
+                  <i class="feather icon-upload d-block d-lg-none"></i>
+                    <span class="d-none d-lg-block">Upload</span></button>
+              </fieldset>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -4,15 +4,28 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://ab8f8831644a.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'http://bbf0e9f2feef.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
-  userProfileUrl: 'secured/user/load-user-profile/web',
+  employeeUrl: {
+                  createStaff: 'secured/user/create-staff',
+                  createFamily: 'secured/user/insert-family',
+                  createNextOfKin: 'secured/user/insert-next-of-kin',
+                  createExperience: 'secured/user/insert-experience-details',
+                  createEducation: 'secured/user/insert-education-details'
+                },
+  employeeProfileUrl: 'secured/user/load-user-profile',
   createActivityUrl: 'secured/activity/create-activity',
   updateActivityUrl: 'secured/activity/update-activity',
   getActivityUrl: 'secured/activity/get-user-activity',
   getActivityStatusURL: 'secured/activity/get-activity-status',
-  getUnitsUrl: 'secured/get-units'
+  updateActivityStatusURL: 'secured/activity/update-activity-status',
+  getUnitsUrl: 'secured/get-units',
+  getHandoverNotesUrl: 'secured/handover/get-all-handover/3',
+  getAllEmployeeUrl: 'secured/report/get-all-employee',
+  getUploadTypesUrl: 'secured/get-upload-types',
+  uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',
+  getEmployeeUploadsUrl: 'secured/user/'
 };
 
 /*

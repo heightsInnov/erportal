@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, TemplateRef} from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import { NbDialogRef, NbDialogService, NbMenuService, NbOverlayRef, NB_WINDOW } from '@nebular/theme';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,8 +14,8 @@ import { filter, map } from 'rxjs/operators';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
-
+export class DashboardComponent implements OnInit{
+  activityStatusModal: TemplateRef<any>;
   form: FormGroup;
   payload: ICreateActivity;
   updatePayload: IUpdateActivity;
@@ -24,20 +24,26 @@ export class DashboardComponent implements OnInit {
   getUnitsUrl = environment.getUnitsUrl;
   getActivityUrl = environment.getActivityUrl;
   getActivityStatusUrl = environment.getActivityStatusURL;
+  updateActivityStatusURL = environment.updateActivityStatusURL;
   activityStatuses: any[] = [];
   todos: any[] = [];
   inProgress: any[] = [];
   completed: any[] = [];
   units: any[] = [];
   activityId: string;
+  activityIdForStatus = '';
   userDetails = JSON.parse(localStorage.getItem('user'));
   activityActions = [
-                      {title: 'in progress'},
-                      {title: 'completed'}
+                      {title: 'in progress', data: this.activityIdForStatus},
+                      {title: 'completed', data: this.activityIdForStatus}
                     ];
   closeModal = false;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
   dialogRef: any;
+  activities: any[];
+  todoStatus: string;
+  inProgressStatus: string;
+  completedStatus: string;
 
   constructor(
     private dialogService: NbDialogService,
@@ -54,15 +60,29 @@ export class DashboardComponent implements OnInit {
     this.initForm(); // initialize reactive form on component init
     this.getUnits(this.getUnitsUrl); // get units/depts for activity
     this.getActivities(this.getActivityUrl);
-    this.getActivityStatus(this.getActivityStatusUrl)
+    this.getActivityStatus(this.getActivityStatusUrl);
+    // this.checkAvailabilty();
     this.nbMenuService.onItemClick()
       .pipe(
         filter(({ tag }) => tag === 'activity-actions'),
-        map(({ item: { title } }) => title),
+        map(({ item: { title, data }}) => {
+          return {action: title, id: data};
+        }),
       )
-      .subscribe(title => this.window.alert(`${title} was clicked!`));
+      .subscribe(menu => {
+        this.window.alert(`${menu.action} with ${menu.id} was clicked!`);
+        this.open(this.activityStatusModal,
+                    {
+                      action: menu.action,
+                      question: `do you want to move this activity to ${menu.action}?`,
+                      statusCode: menu.action === 'completed' ? 'C' : 'O',
+                      // id: menu.id
+                      id: this.activityIdForStatus
+                    },
+                  );
+        }
+      );
   }
-
   // build form controls
   initForm(): void {
     this.form = this.fb.group({
@@ -108,7 +128,7 @@ export class DashboardComponent implements OnInit {
     this.crudService.createData(path, payload).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;'){
+        if (data.responseCode === '00'){
           this.toastr.success('Activity Created', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
@@ -125,7 +145,7 @@ export class DashboardComponent implements OnInit {
     this.crudService.updateData(url, payload).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;'){
+        if (data.responseCode === '00'){
           this.toastr.success('Activity Updated', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
@@ -138,14 +158,40 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  // checkAvailabilty() {
+  //   if (this.activities === []) {
+  //     return 'no activity created';
+  //   } else if (this.activities !== []) {
+  //     if (this.todos === []) {
+  //       this.todoStatus = 'no pending activities for today';
+  //     } else {
+  //       this.todoStatus = 'pending activities';
+  //     }
+  //     if (this.inProgress === []) {
+  //       this.inProgressStatus = 'no ongoing activities for today';
+  //     } else {
+  //       this.inProgressStatus = 'ongoing activities';
+  //     }
+  //     if (this.completed === []) {
+  //       this.completedStatus = 'no completed activities for today';
+  //     } else {
+  //       this.completedStatus = 'completed activities';
+  //     }
+  //     return 'activities created';
+  //   }
+  // }
   getActivities(url: string) {
     const path = `${url}/${this.userDetails.emp_username}/A`;
     this.crudService.getData(path).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;'){
+        if (data.responseCode === '00'){
           if (data.responseObject) {
-            data.responseObject.forEach(activity => {
+            this.activities = data.responseObject;
+            this.todos = [];
+            this.inProgress = [];
+            this.completed = [];
+            this.activities.forEach(activity => {
               if (activity.status === 'P') {
                 this.todos.push(activity);
               } else if (activity.status === 'O') {
@@ -154,6 +200,7 @@ export class DashboardComponent implements OnInit {
                 this.completed.push(activity);
               }
             });
+            // this.checkAvailabilty();
           }
         }
       },
@@ -167,7 +214,7 @@ export class DashboardComponent implements OnInit {
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;'){
+        if (data.responseCode === '00'){
           this.activityStatuses = data.responseObject;
         }
       },
@@ -181,7 +228,7 @@ export class DashboardComponent implements OnInit {
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00' && data.responseMessage === 'SUCCESS;'){
+        if (data.responseCode === '00'){
           this.units = data.responseObject;
         }
       },
@@ -212,12 +259,47 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  changeActivityStatus(activityId, status, modalRef) {
+    this.dialogRef = modalRef;
+    const payload = {activityId, status};
+    console.log(payload);
+    this.crudService.updateData(this.updateActivityStatusURL, payload).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00'){
+          this.getActivities(this.getActivityUrl);
+          if (status === 'O') {
+            this.toastr.info('Moved to \'In Progress\'', '');
+          } else if (status === 'C') {
+            this.toastr.info('Moved to \'Completed\'', 'Successful');
+          }
+          this.close();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getActivityId(activity: string, template: TemplateRef<any>) {
+    console.log(`this is the activityId: ${activity}`);
+    console.log(`this is the template: ${template}`);
+    this.activityIdForStatus = activity;
+    this.activityStatusModal = template;
+  }
+
   clearForm() {
     this.form.reset();
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  getTodaysDate() {
+    const date = new Date().toDateString();
+    return date;
   }
 
 }

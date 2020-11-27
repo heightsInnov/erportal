@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { IEducationDataPayload, IEmployeePayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
+import { CrudService } from 'src/app/core/services/crud.service';
+import { environment } from 'src/environments/environment';
+const countryandstate = require('countrycitystatejson');
 
 @Component({
   selector: 'app-create-employee',
@@ -7,9 +14,314 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateEmployeeComponent implements OnInit {
 
-  constructor() { }
+  createEmployeeForm: FormGroup;
+  addEmployeeExperienceForm: FormGroup;
+  addEmployeeEducationDetailsForm: FormGroup;
+  addEmployeeNextOfKinDetailsForm: FormGroup;
+  addEmployeeFamilyDetailsForm: FormGroup;
+  employeeUrl = environment.employeeUrl;
+  getUnitsUrl = environment.getUnitsUrl;
+  adminUser = JSON.parse(localStorage.getItem('user'));
+
+  stepperLabel = {
+                    labelOne: 'Create Employee',
+                    labelTwo: 'Add Employment Experience',
+                    labelThree: 'Add Education Details',
+                    labelFour: 'Add Family Details',
+                    labelFive: 'Add Next Of Kin'
+                  };
+
+  maritalStatuses = [
+                      {name: 'Single (SG)', value: 'single'},
+                      {name: 'Married (MD)', value: 'married'},
+                      {name: 'Widowed (WD)', value: 'widowed'},
+                      {name: 'Divorced (DV)', value: 'divorced'},
+                      {name: 'Separated (SP)', value: 'separated'}
+                    ];
+  idTypes = [
+              {id: 'Int\'l passport'},
+              {id: 'National Identity Number'},
+              {id: 'Driver\'s License'},
+              {id: 'Voter\'s Number'}
+            ];
+
+  roles = ['ADMIN', 'STAFF', 'NON_STAFF'];
+  educationCategory = ['Primary', 'Secondary', 'Tetiary', 'Post-Graduate', 'MSc', 'PhD'];
+  departments: any[];
+  listCountries = countryandstate.getCountries();
+  selectedCountryCode: string;
+  listStates: any[];
+  listLGA: any[];
+
+  constructor(
+                private fb: FormBuilder,
+                private router: Router,
+                private crudService: CrudService,
+                private toastr: ToastrService
+              ) {}
 
   ngOnInit(): void {
+    this.initForm(); // initialize reactive form on component init
+    this.getUnits(this.getUnitsUrl);
   }
 
+  // build form controls
+  initForm(): void {
+    this.createEmployeeForm = this.fb.group({
+      emp_local_govt_ward: [null, Validators.required],
+      emp_id_no: [null, Validators.compose([Validators.required, Validators.minLength(9)])],
+      emp_nationality: [null, Validators.required],
+      emp_employment_date: [null, Validators.required],
+      emp_date_of_first_employment: [null, Validators.required],
+      emp_username: [null, Validators.required],
+      emp_gsm_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
+      emp_gender: [null, Validators.required],
+      emp_religion: [null, Validators.required],
+      emp_firstname: [null, Validators.required],
+      emp_state: [null, Validators.required],
+      emp_email: [null, Validators.compose([
+                                            Validators.required,
+                                            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+                                            Validators.email
+                                          ])],
+      emp_middlename: [null, Validators.required],
+      emp_role: [null, Validators.required],
+      emp_id_type: [null, Validators.required],
+      emp_confirmation_date: [null, Validators.required],
+      emp_phone: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
+      emp_present_posting_deployment: [null, Validators.required],
+      emp_address: [null, Validators.required],
+      emp_pso_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
+      emp_dob: [null, Validators.required],
+      emp_commission_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
+      emp_professional_affiliaions: [null, Validators.required],
+      emp_lastname: [null, Validators.required],
+      emp_present_posting_date: [null, Validators.required],
+      emp_current_department: [null, Validators.required],
+      emp_establisment_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
+      emp_place_of_birth: [null, Validators.required],
+      emp_marital_status: [null, Validators.required],
+      emp_hobbies: [null, Validators.required],
+    });
+    this.addEmployeeExperienceForm = this.fb.group({
+      experience: this.fb.array([this.addExperience()])
+    });
+    this.addEmployeeEducationDetailsForm = this.fb.group({
+      education: this.fb.array([this.addEducationDetails()])
+    });
+    this.addEmployeeFamilyDetailsForm = this.fb.group({
+      spouse_name: [null, Validators.required],
+
+    });
+    this.addEmployeeNextOfKinDetailsForm = this.fb.group({
+      nok_address: [null, Validators.required],
+      nok_phone: [null, Validators.required],
+      nok_name: [null, Validators.required],
+      nok_relationship: [null, Validators.required]
+    });
+
+  }
+
+  // addNextOfKinDetails(): FormGroup {
+  //   return this.fb.group({
+  //     nok_address: [null, Validators.required],
+  //     nok_phone: [null, Validators.required],
+  //     nok_name: [null, Validators.required],
+  //     nok_relationship: [null, Validators.required]
+  //   });
+  // }
+
+  addEducationDetails(): FormGroup {
+    return this.fb.group({
+      edu_category: [null, Validators.required],
+      edu_institution: [null, Validators.required],
+      edu_start_date: [null, Validators.required],
+      edu_degree: [null, Validators.required],
+      edu_cgpa: [null, Validators.required],
+      edu_end_date: [null, Validators.required]
+    });
+  }
+
+  addExperience(): FormGroup {
+    return this.fb.group({
+      exp_designation: [null, Validators.required],
+      exp_responsibility: [null, Validators.required],
+      exp_organization: [null, Validators.required],
+      exp_end_date: [null, Validators.required],
+      exp_start_date: [null, Validators.required]
+    });
+  }
+
+  populateFormArrayData(formname: string): void {
+    if (formname === 'addEmployeeExperienceForm') {
+      this.addEmployeeExperienceFormData.push(this.addExperience());
+    } else if (formname === 'addEmployeeEducationDetailsForm') {
+      this.addEmployeeEducationDetailsFormData.push(this.addEducationDetails());
+    }
+    // else if (formname === 'addEmployeeNextOfKinDetailsForm') {
+    //   this.addEmployeeNextOfKinDetailsFormData.push(this.addNextOfKinDetails());
+    // }
+  }
+
+  get addEmployeeNextOfKinDetailsFormData() {
+    return this.addEmployeeNextOfKinDetailsForm.controls;
+  }
+
+  get addEmployeeEducationDetailsFormData() {
+    return this.addEmployeeEducationDetailsForm.get('education') as FormArray;
+  }
+
+  get addEmployeeExperienceFormData() {
+    return this.addEmployeeExperienceForm.get('experience') as FormArray;
+  }
+
+  get createEmployeeFormData() {
+    return this.createEmployeeForm.controls;
+  }
+
+  onSubmit(formPayload, formname: string){
+    if (formname === 'createEmployeeForm') {
+      console.log(formPayload);
+      const payload: IEmployeePayload = {
+        emp_local_govt_ward: formPayload.emp_local_govt_ward.value,
+        emp_id_no: formPayload.emp_id_no.value,
+        emp_nationality: formPayload.emp_nationality.value.name,
+        emp_employment_date: formPayload.emp_employment_date.value,
+        emp_date_of_first_employment: formPayload.emp_date_of_first_employment.value,
+        emp_username: formPayload.emp_username.value,
+        emp_gsm_no: formPayload.emp_gsm_no.value,
+        emp_gender: formPayload.emp_gender.value,
+        emp_religion: formPayload.emp_religion.value,
+        emp_firstname: formPayload.emp_firstname.value,
+        emp_state: formPayload.emp_state.value,
+        emp_email: formPayload.emp_email.value,
+        emp_middlename: formPayload.emp_middlename.value,
+        emp_role: formPayload.emp_role.value,
+        emp_id_type: formPayload.emp_id_type.value,
+        emp_confirmation_date: formPayload.emp_confirmation_date.value,
+        emp_phone: formPayload.emp_phone.value,
+        emp_present_posting_deployment: formPayload.emp_present_posting_deployment.value,
+        emp_address: formPayload.emp_address.value,
+        emp_pso_file_no: formPayload.emp_pso_file_no.value,
+        emp_dob: formPayload.emp_dob.value,
+        emp_commission_file_no: formPayload.emp_commission_file_no.value,
+        emp_professional_affiliaions: formPayload.emp_professional_affiliaions.value,
+        emp_lastname: formPayload.emp_lastname.value,
+        emp_present_posting_date: formPayload.emp_present_posting_date.value,
+        emp_current_department: formPayload.emp_current_department.value,
+        emp_establisment_file_no: formPayload.emp_establisment_file_no.value,
+        emp_place_of_birth: formPayload.emp_place_of_birth.value,
+        emp_marital_status: formPayload.emp_marital_status.value,
+        emp_hobbies: formPayload.emp_hobbies.value,
+      };
+      console.log(payload);
+      this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload);
+    } else if (formname === 'addEmployeeExperienceForm') {
+      console.log(formPayload);
+      const payload = {
+        experience: formPayload.value
+      };
+      console.log(payload);
+      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.adminUser.emp_username}`, payload);
+    } else if (formname === 'addEmployeeEducationDetailsForm') {
+      console.log(formPayload);
+      const payload = {
+        education: formPayload.value
+      };
+      console.log(payload);
+      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.adminUser.emp_username}`, payload);
+    } else if (formname === 'addEmployeeNextOfKinDetailsForm') {
+      console.log(formPayload);
+      const payload: INextOfKinPayload = {
+        nok_address: formPayload.nok_address.value,
+        nok_phone: formPayload.nok_phone.value,
+        nok_name: formPayload.nok_name.value,
+        nok_relationship: formPayload.nok_relationship.value
+      };
+      console.log(payload);
+      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.adminUser.emp_username}`, payload);
+    }
+  }
+
+  deleteEntry(idx: number, formname: string) {
+    if (formname === 'addEmployeeExperienceForm') {
+      this.addEmployeeExperienceFormData.removeAt(idx);
+    } else if (formname === 'addEmployeeEducationDetailsForm') {
+      this.addEmployeeEducationDetailsFormData.removeAt(idx);
+    }
+    // else if (formname === 'addEmployeeNextOfKinDetailsForm') {
+    //   this.addEmployeeNextOfKinDetailsFormData.removeAt(idx);
+    // }
+  }
+
+  createEmployee(url: string, payload: IEmployeePayload) {
+    this.crudService.createData(url, payload).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  addEmployeeExperience(url: string, payload) {
+    this.crudService.createData(url, payload).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  addEmployeeEducationDetails(url: string, payload) {
+    this.crudService.createData(url, payload).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  addEmployeeNextOfKinDetails(url: string, payload: INextOfKinPayload) {
+    this.crudService.createData(url, payload).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getUnits(url: string) {
+    this.crudService.getData(url).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00'){
+          this.departments = data.responseObject;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getState() {
+    this.selectedCountryCode = this.createEmployeeFormData.emp_nationality.value.shortName;
+    console.log(this.selectedCountryCode);
+    this.listStates = countryandstate.getStatesByShort(this.selectedCountryCode);
+    console.log(this.listStates);
+  }
+
+  getLGA() {
+    const state = this.createEmployeeFormData.emp_state.value;
+    this.listLGA = countryandstate.getCities(this.selectedCountryCode, state);
+    console.log(this.listLGA);
+  }
 }
