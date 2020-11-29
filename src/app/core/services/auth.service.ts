@@ -75,15 +75,26 @@ export class AuthService {
   }
 
 
+  // getTokenHeader(request: HttpRequest<any>): HttpHeaders {
+  //   const token =
+  //   (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) ? localStorage.getItem('jwt') : '';
+  //   return token === '' ? new HttpHeaders({
+  //     'Content-Type': request.headers.get('Content-Type') || 'application/json'
+  //   }) : new HttpHeaders({
+  //     'Content-Type': request.headers.get('Content-Type') || 'application/json',
+  //     Authorization: token
+  //   });
+  // }
+
   getTokenHeader(request: HttpRequest<any>): HttpHeaders {
-    const token =
-    (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) ? localStorage.getItem('jwt') : '';
-    return token === '' ? new HttpHeaders({
-      'Content-Type': request.headers.get('Content-Type') || 'application/json'
-    }) : new HttpHeaders({
-      'Content-Type': request.headers.get('Content-Type') || 'application/json',
-      Authorization: token
-    });
+    const token = localStorage.getItem('jwt') !== null ? localStorage.getItem('jwt') : '';
+    console.log(localStorage.getItem('jwt'));
+    console.log(token);
+    if (token !== '') {
+      return new HttpHeaders({Authorization: token});
+    } else {
+      return new HttpHeaders({'Content-Type': 'application/json'});
+    }
   }
 
   setTokenInLocalStorage(token: any): void {
