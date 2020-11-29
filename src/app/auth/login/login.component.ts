@@ -104,7 +104,9 @@ export class LoginComponent implements OnInit {
                               status: true,
                               message: error.error.error
                             };
+          this.toastr.error('An Error Occured', 'Unsuccessful');
         }
+        this.toastr.error('An Error Occured', 'Unsuccessful');
       }
     );
   }
