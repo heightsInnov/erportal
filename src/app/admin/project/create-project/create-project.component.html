@@ -2,21 +2,21 @@
   <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
           <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">Create Project</h2>
+              <h2 class="content-header-title float-left mb-0">Create Handover</h2>
               <div class="breadcrumb-wrapper col-12">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item"><a [routerLink]="['/admin/project']">Project</a>
+                      <li class="breadcrumb-item"><a [routerLink]="['/admin/handover']">Handover</a>
                       </li>
-                      <li class="breadcrumb-item active"><a>Create Project</a>
+                      <li class="breadcrumb-item active"><a>Create Handover</a>
                       </li>
                   </ol>
               </div>
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
       <div class="form-group breadcrum-right">
           <div class="dropdown">
               <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle   waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
@@ -27,10 +27,10 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 </div>
 
-<div class="content-body">
+<!-- <div class="content-body">
   <section id="basic-vertical-layouts">
     <div class="row match-height">
       <div class="col-md-6 col-12">
@@ -98,4 +98,1230 @@
       </div>
     </div>
   </section>
+</div> -->
+
+<div class="content-body">
+  <section id="basic-vertical-layouts">
+    <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <nb-stepper orientation="horizontal">
+                  <nb-step [label]="stepperLabel.labelOne">
+                    <!-- <ng-template #labelOne>Create Staff</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
+                  </nb-step>
+                  <nb-step  [label]="stepperLabel.labelTwo">
+                    <!-- <ng-template #labelTwo>Add Employee nextOfKin</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelThree">
+                    <!-- <ng-template #labelThree>Add Education Details</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelFour">
+                    <!-- <ng-template #labelFour>Add Family Details</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelFive">
+                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelSix">
+                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelSixView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelSeven">
+                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelSevenView"></ng-container>
+                  </nb-step>
+                </nb-stepper>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
 </div>
+
+
+<ng-template #labelOneView>
+  <form  [formGroup]="handoverForm" (ngSubmit)="onSubmit(handoverFormData, 'handoverForm') "class="form">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12">
+          <nb-accordion>
+            <nb-accordion-item>
+              <nb-accordion-item-header>
+                <h5 class="card-title">Create Handover Note</h5>
+             </nb-accordion-item-header>
+
+             <nb-accordion-item-body>
+               <div class="row">
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="handoverStaff">Employee Name</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (handoverFormData.handoverStaff.dirty || handoverFormData.handoverStaff.touched) && handoverFormData.handoverStaff.invalid,
+                                                    'is-valid' : (handoverFormData.handoverStaff.dirty || handoverFormData.handoverStaff.touched) && handoverFormData.handoverStaff.valid
+                                                    }" id="handoverStaff" formControlName="handoverStaff" placeholder="Enter Name">
+                      <ng-container *ngIf="(handoverFormData.handoverStaff.dirty || handoverFormData.handoverStaff.touched) && handoverFormData.handoverStaff.invalid">
+                        <div *ngIf="handoverFormData.handoverStaff.errors.required" class="invalid-feedback">Please Enter Name of Employee Handing over</div>
+                      </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea  [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (handoverFormData.address.dirty || handoverFormData.address.touched) && handoverFormData.address.invalid,
+                                            'is-valid' : (handoverFormData.address.dirty || handoverFormData.address.touched) && handoverFormData.address.valid
+                                          }" id="address" rows="1" formControlName="address" placeholder="Enter Address"></textarea>
+                      <ng-container *ngIf="(handoverFormData.address.dirty || handoverFormData.address.touched) && handoverFormData.address.invalid">
+                        <div *ngIf="handoverFormData.address.errors.required" class="invalid-feedback">Please Enter Address</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="phonenumber">Phone </label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (handoverFormData.phonenumber.dirty || handoverFormData.phonenumber.touched) && handoverFormData.phonenumber.invalid,
+                                                    'is-valid' : (handoverFormData.phonenumber.dirty || handoverFormData.phonenumber.touched) && handoverFormData.phonenumber.valid
+                                                    }" id="phonenumber" formControlName="phonenumber" placeholder="Enter phone number">
+                    <ng-container *ngIf="(handoverFormData.phonenumber.dirty || handoverFormData.phonenumber.touched) && handoverFormData.phonenumber.invalid">
+                      <div *ngIf="handoverFormData.phonenumber.errors.required" class="invalid-feedback">Please Enter Phone Number</div>
+                      <div *ngIf="handoverFormData.phonenumber.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                      <div *ngIf="handoverFormData.phonenumber.errors.minLength" class="invalid-feedback">Phone Number cannot be less than 10 digits</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="takeoverStaff">Name of Takeover Staff</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (handoverFormData.takeoverStaff.dirty || handoverFormData.takeoverStaff.touched) && handoverFormData.takeoverStaff.invalid,
+                                                    'is-valid' : (handoverFormData.takeoverStaff.dirty || handoverFormData.takeoverStaff.touched) && handoverFormData.takeoverStaff.valid
+                                                    }" id="takeoverStaff" formControlName="takeoverStaff" placeholder="Enter Takeover Staff Name">
+                      <ng-container *ngIf="(handoverFormData.takeoverStaff.dirty || handoverFormData.takeoverStaff.touched) && handoverFormData.takeoverStaff.invalid">
+                        <div *ngIf="handoverFormData.takeoverStaff.errors.required" class="invalid-feedback">Please Enter Name of Takeover Staff</div>
+                      </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="handoverDate">Date of Handover</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.invalid,
+                                                    'is-valid' : (handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.valid
+                                                  }" id="handoverDate" formControlName="handoverDate">
+
+                    <ng-container *ngIf="(handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.invalid">
+                      <div *ngIf="handoverFormData.handoverDate.errors.required" class="invalid-feedback">Please Enter Effective Date of Handover</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="handoverReason">Reason for Handover</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (handoverFormData.handoverReason.dirty || handoverFormData.handoverReason.touched) && handoverFormData.handoverReason.invalid,
+                                          'is-valid' : (handoverFormData.handoverReason.dirty || handoverFormData.handoverReason.touched) && handoverFormData.handoverReason.valid
+                                          }" id="handoverReason" formControlName="handoverReason">
+                        <option [value]="null">Select Handover Reason</option>
+                        <ng-container *ngFor="let reason of handoverReasons">
+                          <option [value]="reason">{{ reason }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(handoverFormData.handoverReason.dirty || handoverFormData.handoverReason.touched) && handoverFormData.handoverReason.invalid">
+                        <div *ngIf="handoverFormData.handoverReason.errors.required" class="invalid-feedback">Please specify Reason for Handover</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="handoverWitness">Handover Witness </label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (handoverFormData.handoverWitness.dirty || handoverFormData.handoverWitness.touched) && handoverFormData.handoverWitness.invalid,
+                                                    'is-valid' : (handoverFormData.handoverWitness.dirty || handoverFormData.handoverWitness.touched) && handoverFormData.handoverWitness.valid
+                                                    }" id="handoverWitness" formControlName="handoverWitness" placeholder="Enter Witness Name">
+                      <ng-container *ngIf="(handoverFormData.handoverWitness.dirty || handoverFormData.handoverWitness.touched) && handoverFormData.handoverWitness.invalid">
+                        <div *ngIf="handoverFormData.handoverWitness.errors.required" class="invalid-feedback">Please Enter Name of Witness during Handover</div>
+                      </ng-container>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Create Note</button>
+                  <button type="reset" (click)="handoverForm.reset()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear Note</button>
+                </div>
+               </div>
+             </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #labelTwoView>
+  <form  [formGroup]="activitiesProjectsProposalForm" (ngSubmit)="populateActivitiesProjectsProposalTable(activitiesProjectsProposalFormData)" class="form form-vertical">
+    <div class="form-body">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            SUBMIT ACTIVITIES, PROJECTS AND PROPOSALS
+          </h5>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row mb-1">
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (activitiesProjectsProposalFormData.subject.dirty || activitiesProjectsProposalFormData.subject.touched) && activitiesProjectsProposalFormData.subject.invalid,
+                                        'is-valid' : (activitiesProjectsProposalFormData.subject.dirty || activitiesProjectsProposalFormData.subject.touched) && activitiesProjectsProposalFormData.subject.valid
+                                      }" id="subject" formControlName="subject" placeholder="Enter Subject">
+                  <ng-container *ngIf="(activitiesProjectsProposalFormData.subject.dirty || activitiesProjectsProposalFormData.subject.touched) && activitiesProjectsProposalFormData.subject.invalid">
+                    <div *ngIf="activitiesProjectsProposalFormData.subject.errors.required" class="invalid-feedback">Please Enter Subject</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="status">Current Status</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (activitiesProjectsProposalFormData.status.dirty || activitiesProjectsProposalFormData.status.touched) && activitiesProjectsProposalFormData.status.invalid,
+                                          'is-valid' : (activitiesProjectsProposalFormData.status.dirty || activitiesProjectsProposalFormData.status.touched) && activitiesProjectsProposalFormData.status.valid
+                                        }" id="status" formControlName="status">
+                      <option [value]="null">Select Status</option>
+                      <ng-container *ngFor="let status of statuses">
+                        <option [value]="status.code">{{ status.name }}</option>
+                      </ng-container>
+                    </select>
+
+                    <ng-container *ngIf="(activitiesProjectsProposalFormData.status.dirty || activitiesProjectsProposalFormData.status.touched) && activitiesProjectsProposalFormData.status.invalid">
+                      <div *ngIf="activitiesProjectsProposalFormData.status.errors.required" class="invalid-feedback">Please Select Current Status</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="actionRequired">Required Follow Up Action</label>
+                  <textarea  [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.invalid,
+                                          'is-valid' : (activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.valid
+                                        }" id="actionRequired" rows="3" formControlName="actionRequired" placeholder="State Required Follow up Action"></textarea>
+                  <ng-container *ngIf="(activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.invalid">
+                    <div *ngIf="activitiesProjectsProposalFormData.actionRequired.errors.required" class="invalid-feedback">Please State Required Follow up Action</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="expectedOutcome">Expected Outcome</label>
+                  <textarea  [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.invalid,
+                                          'is-valid' : (activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.valid
+                                        }" id="expectedOutcome" rows="3" formControlName="expectedOutcome" placeholder="State Expected Outcome"></textarea>
+                  <ng-container *ngIf="(activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.invalid">
+                    <div *ngIf="activitiesProjectsProposalFormData.expectedOutcome.errors.required" class="invalid-feedback">Please State Expected Outcome</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="actionTaker">By Whom</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (activitiesProjectsProposalFormData.actionTaker.dirty || activitiesProjectsProposalFormData.actionTaker.touched) && activitiesProjectsProposalFormData.actionTaker.invalid,
+                                        'is-valid' : (activitiesProjectsProposalFormData.actionTaker  .dirty || activitiesProjectsProposalFormData.actionTaker.touched) && activitiesProjectsProposalFormData.actionTaker.valid
+                                      }" id="actionTaker" formControlName="actionTaker" placeholder="Specify who will take action">
+                  <ng-container *ngIf="(activitiesProjectsProposalFormData.actionTaker.dirty || activitiesProjectsProposalFormData.actionTaker.touched) && activitiesProjectsProposalFormData.actionTaker.invalid">
+                    <div *ngIf="activitiesProjectsProposalFormData.actionTaker.errors.required" class="invalid-feedback">Please Specify who should take required action</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="completionDate">Expected Completion Date</label>
+                  <input type="date" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (activitiesProjectsProposalFormData.completionDate.dirty || activitiesProjectsProposalFormData.completionDate.touched) && activitiesProjectsProposalFormData.completionDate.invalid,
+                                                  'is-valid' : (activitiesProjectsProposalFormData.completionDate.dirty || activitiesProjectsProposalFormData.completionDate.touched) && activitiesProjectsProposalFormData.completionDate.valid
+                                                }" id="completionDate" formControlName="completionDate">
+                  <ng-container *ngIf="(activitiesProjectsProposalFormData.completionDate.dirty || activitiesProjectsProposalFormData.completionDate.touched) && activitiesProjectsProposalFormData.completionDate.invalid">
+                    <div *ngIf="activitiesProjectsProposalFormData.completionDate.errors.required" class="invalid-feedback">Please Enter Expected Completion Date</div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="reset" (click)="activitiesProjectsProposalForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                <button type="submit" [disabled]="!activitiesProjectsProposalForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <section id="basic-datatable">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row" id="table-bordered">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                          <thead class="thead-dark">
+                              <tr>
+                                <th>S/N</th>
+                                <th>Subject</th>
+                                <th>Current Status</th>
+                                <th>Follow Up Action Required</th>
+                                <th>By Whom</th>
+                                <th>Expected Outcome</th>
+                                <th>Expected Completion Date</th>
+                                <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-hover-animation table-hover table-striped">
+                            <ng-container *ngFor="let data of activitiesProjectsProposalTable, let i = index;">
+                              <tr>
+                                <td scope="row"> {{ i + 1 }} </td>
+                                <td>{{data.subject}}</td>
+                                <td>{{data.status}}</td>
+                                <td>{{data.followup_req}}</td>
+                                <td>{{data.followup_staff_id}}</td>
+                                <td>{{data.expected_outcome}}</td>
+                                <th>{{data.expected_comp_date | date}}</th>
+                                <td>
+                                  <div class="btn-group">
+                                    <div class="dropdown">
+                                        <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                          type="button" (click)="deleteTableData(i, 'activitiesProjectsProposalTable')">
+                                            Remove
+                                        </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-12">
+                        <button type="button" (click)="onSubmit(activitiesProjectsProposalTable, 'activitiesProjectsProposalForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Activities</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #labelThreeView>
+  <form  [formGroup]="documentRegisterForm" (ngSubmit)="populateDocumentRegistersTable(documentRegisterFormData)" class="form">
+    <div class="form-body">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            SUBMIT DOCUMENT REGISTER
+          </h5>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-4  col-md-6 col-12">
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (documentRegisterFormData.category.dirty || documentRegisterFormData.category.touched) && documentRegisterFormData.category.invalid,
+                                          'is-valid' : (documentRegisterFormData.category.dirty || documentRegisterFormData.category.touched) && documentRegisterFormData.category.valid
+                                        }" id="category" formControlName="category">
+                      <option [value]="null">Select Status</option>
+                      <ng-container *ngFor="let category of documentRegisterCategory?.subcat">
+                        <option [value]="category.subcat_id">{{ category.subcat_name }}</option>
+                      </ng-container>
+                    </select>
+
+                    <ng-container *ngIf="(documentRegisterFormData.category.dirty || documentRegisterFormData.category.touched) && documentRegisterFormData.category.invalid">
+                      <div *ngIf="documentRegisterFormData.category.errors.required" class="invalid-feedback">Please Select Document Register Category</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="documentRefNo">Document Reference No</label>
+                  <input type="text"  [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.documentRefNo.dirty || documentRegisterFormData.documentRefNo.touched) && documentRegisterFormData.documentRefNo.invalid,
+                                                  'is-valid' : (documentRegisterFormData.documentRefNo.dirty || documentRegisterFormData.documentRefNo.touched) && documentRegisterFormData.documentRefNo.valid
+                                                  }" id="documentRefNo" formControlName="documentRefNo" placeholder="0098643">
+                  <ng-container *ngIf="(documentRegisterFormData.documentRefNo.dirty || documentRegisterFormData.documentRefNo.touched) && documentRegisterFormData.documentRefNo.invalid">
+                    <div *ngIf="documentRegisterFormData.documentRefNo.errors.required" class="invalid-feedback">Please Enter Document Reference Number</div>
+                    <div *ngIf="documentRegisterFormData.documentRefNo.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                    <div *ngIf="documentRegisterFormData.documentRefNo.errors.minLength" class="invalid-feedback">Document Ref No cannot be less than 8 digits</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="documentTitle">Document Title</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.documentTitle.dirty || documentRegisterFormData.documentTitle.touched) && documentRegisterFormData.documentTitle.invalid,
+                                                  'is-valid' : (documentRegisterFormData.documentTitle.dirty || documentRegisterFormData.documentTitle.touched) && documentRegisterFormData.documentTitle.valid
+                                                }" id="documentTitle" formControlName="documentTitle" placeholder="Enter Document Title">
+                  <ng-container *ngIf="(documentRegisterFormData.documentTitle.dirty || documentRegisterFormData.documentTitle.touched) && documentRegisterFormData.documentTitle.invalid">
+                    <div *ngIf="documentRegisterFormData.documentTitle.errors.required" class="invalid-feedback">Please Enter Document Title</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="dateCreated">Date Created</label>
+                  <input type="date" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.dateCreated.dirty || documentRegisterFormData.dateCreated.touched) && documentRegisterFormData.dateCreated.invalid,
+                                                  'is-valid' : (documentRegisterFormData.dateCreated.dirty || documentRegisterFormData.dateCreated.touched) && documentRegisterFormData.dateCreated.valid
+                                                }" id="dateCreated" formControlName="dateCreated">
+                  <ng-container *ngIf="(documentRegisterFormData.dateCreated.dirty || documentRegisterFormData.dateCreated.touched) && documentRegisterFormData.dateCreated.invalid">
+                    <div *ngIf="documentRegisterFormData.dateCreated.errors.required" class="invalid-feedback">Please Enter Document Creation Date</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="fileDirectory">Electronic File Directory</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.fileDirectory.dirty || documentRegisterFormData.fileDirectory.touched) && documentRegisterFormData.fileDirectory.invalid,
+                                                  'is-valid' : (documentRegisterFormData.fileDirectory.dirty || documentRegisterFormData.fileDirectory.touched) && documentRegisterFormData.fileDirectory.valid
+                                                }" id="fileDirectory" formControlName="fileDirectory" placeholder="Enter Document Title">
+                  <ng-container *ngIf="(documentRegisterFormData.fileDirectory.dirty || documentRegisterFormData.fileDirectory.touched) && documentRegisterFormData.fileDirectory.invalid">
+                    <div *ngIf="documentRegisterFormData.fileDirectory.errors.required" class="invalid-feedback">Please Enter Electronic File Directory</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="locationOfHardCopy">Location of Hardcopy</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.locationOfHardCopy.dirty || documentRegisterFormData.locationOfHardCopy.touched) && documentRegisterFormData.locationOfHardCopy.invalid,
+                                                  'is-valid' : (documentRegisterFormData.locationOfHardCopy.dirty || documentRegisterFormData.locationOfHardCopy.touched) && documentRegisterFormData.locationOfHardCopy.valid
+                                                }" id="locationOfHardCopy" formControlName="locationOfHardCopy" placeholder="Enter Location of Hardcopy">
+                  <ng-container *ngIf="(documentRegisterFormData.locationOfHardCopy.dirty || documentRegisterFormData.locationOfHardCopy.touched) && documentRegisterFormData.locationOfHardCopy.invalid">
+                    <div *ngIf="documentRegisterFormData.locationOfHardCopy.errors.required" class="invalid-feedback">Please Enter Location of Hardcopy</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="documentOwner">Document Owner</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (documentRegisterFormData.documentOwner.dirty || documentRegisterFormData.documentOwner.touched) && documentRegisterFormData.documentOwner.invalid,
+                                                  'is-valid' : (documentRegisterFormData.documentOwner.dirty || documentRegisterFormData.documentOwner.touched) && documentRegisterFormData.documentOwner.valid
+                                                }" id="documentOwner" formControlName="documentOwner" placeholder="Enter Document Owner">
+                  <ng-container *ngIf="(documentRegisterFormData.documentOwner.dirty || documentRegisterFormData.documentOwner.touched) && documentRegisterFormData.documentOwner.invalid">
+                    <div *ngIf="documentRegisterFormData.documentOwner.errors.required" class="invalid-feedback">Please Enter Document Owner</div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="reset" (click)="documentRegisterForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                <button type="submit" [disabled]="!documentRegisterForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row" id="table-bordered">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                          <thead class="thead-dark">
+                              <tr>
+                                <th>S/N</th>
+                                <th>Category</th>
+                                <th>Document Ref No</th>
+                                <th>Document Title</th>
+                                <th>Date Created</th>
+                                <th>Electronic File Directory</th>
+                                <th>location of Hardcopy</th>
+                                <th>Document Owner</th>
+                                <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-hover-animation table-hover table-striped">
+                            <ng-container *ngFor="let data of documentRegisterTable, let i = index;">
+                              <tr>
+                                <td scope="row"> {{ i + 1 }} </td>
+                                <td>{{data.sub_category}}</td>
+                                <td>{{data.reference_number}}</td>
+                                <td>{{data.title}}</td>
+                                <td>{{data.date_created}}</td>
+                                <td>{{data.file_directory_name}}</td>
+                                <td>{{data.file_hard_copy_loc}}</td>
+                                <th>{{data.document_owner}}</th>
+                                <td>
+                                  <div class="btn-group">
+                                    <div class="dropdown">
+                                        <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                          type="button" (click)="deleteTableData(i, 'documentRegisterTable')">
+                                            Remove
+                                        </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-12">
+                        <button type="button" (click)="onSubmit(documentRegisterTable, 'documentRegisterForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Activities</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #labelFourView>
+  <form  [formGroup]="businessContactsForm" (ngSubmit)="populatebusinessContacts(businessContactsFormData)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">
+                SUBMIT BUSINESS CONTACTS
+              </h5>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <div class="row mb-1">
+
+                  <div class="col-lg-4  col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="category">Category</label>
+                      <fieldset class="form-group">
+                        <select [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (businessContactsFormData.category.dirty || businessContactsFormData.category.touched) && businessContactsFormData.category.invalid,
+                                              'is-valid' : (businessContactsFormData.category.dirty || businessContactsFormData.category.touched) && businessContactsFormData.category.valid
+                                            }" id="category" formControlName="category">
+                          <option [value]="null">Select Status</option>
+                          <ng-container *ngFor="let category of businessContactsCategory?.subcat">
+                            <option [value]="category.subcat_id">{{ category.subcat_name }}</option>
+                          </ng-container>
+                        </select>
+
+                        <ng-container *ngIf="(businessContactsFormData.category.dirty || businessContactsFormData.category.touched) && businessContactsFormData.category.invalid">
+                          <div *ngIf="businessContactsFormData.category.errors.required" class="invalid-feedback">Please Select Business Contact Category</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (businessContactsFormData.name.dirty || businessContactsFormData.name.touched) && businessContactsFormData.name.invalid,
+                                            'is-valid' : (businessContactsFormData.name.dirty || businessContactsFormData.name.touched) && businessContactsFormData.name.valid
+                                          }" id="name" formControlName="name" placeholder="Enter Name">
+                      <ng-container *ngIf="(businessContactsFormData.name.dirty || businessContactsFormData.name.touched) && businessContactsFormData.name.invalid">
+                        <div *ngIf="businessContactsFormData.name.errors.required" class="invalid-feedback">Please Enter Name</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="company">Company/Department</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (businessContactsFormData.company.dirty || businessContactsFormData.company.touched) && businessContactsFormData.company.invalid,
+                                            'is-valid' : (businessContactsFormData.company.dirty || businessContactsFormData.company.touched) && businessContactsFormData.company.valid
+                                          }" id="company" formControlName="company" placeholder="Enter Company/Department">
+                      <ng-container *ngIf="(businessContactsFormData.company.dirty || businessContactsFormData.company.touched) && businessContactsFormData.company.invalid">
+                        <div *ngIf="businessContactsFormData.company.errors.required" class="invalid-feedback">Please Enter Company/Department</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="designation">Designation</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (businessContactsFormData.designation.dirty || businessContactsFormData.designation.touched) && businessContactsFormData.designation.invalid,
+                                            'is-valid' : (businessContactsFormData.designation.dirty || businessContactsFormData.designation.touched) && businessContactsFormData.designation.valid
+                                          }" id="designation" formControlName="designation" placeholder="Enter Designation">
+                      <ng-container *ngIf="(businessContactsFormData.designation.dirty || businessContactsFormData.designation.touched) && businessContactsFormData.designation.invalid">
+                        <div *ngIf="businessContactsFormData.designation.errors.required" class="invalid-feedback">Please Enter Designation</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="address">Office Address</label>
+                      <textarea  [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (businessContactsFormData.officeAddress.dirty || businessContactsFormData.officeAddress.touched) && businessContactsFormData.officeAddress.invalid,
+                                              'is-valid' : (businessContactsFormData.officeAddress.dirty || businessContactsFormData.officeAddress.touched) && businessContactsFormData.officeAddress.valid
+                                            }" id="officeAddress" rows="1" formControlName="officeAddress" placeholder="Enter Office Address"></textarea>
+                      <ng-container *ngIf="(businessContactsFormData.officeAddress.dirty || businessContactsFormData.officeAddress.touched) && businessContactsFormData.officeAddress.invalid">
+                        <div *ngIf="businessContactsFormData.officeAddress.errors.required" class="invalid-feedback">Please Enter Office Address</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="phonenumber">Contact Phone No</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (businessContactsFormData.phonenumber.dirty || businessContactsFormData.phonenumber.touched) && businessContactsFormData.phonenumber.invalid,
+                                            'is-valid' : (businessContactsFormData.phonenumber.dirty || businessContactsFormData.phonenumber.touched) && businessContactsFormData.phonenumber.valid
+                                          }" id="phonenumber" formControlName="phonenumber" placeholder="Enter Contact Phone No">
+                      <ng-container *ngIf="(businessContactsFormData.phonenumber.dirty || businessContactsFormData.phonenumber.touched) && businessContactsFormData.phonenumber.invalid">
+                        <div *ngIf="businessContactsFormData.phonenumber.errors.required" class="invalid-feedback">Please Enter Contact Phone Number</div>
+                        <div *ngIf="businessContactsFormData.phonenumber.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                        <div *ngIf="businessContactsFormData.phonenumber.errors.minLength" class="invalid-feedback">Phonenumber cannot be less than 10 digits</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (businessContactsFormData.email.dirty || businessContactsFormData.email.touched) && businessContactsFormData.email.invalid,
+                                                      'is-valid' : (businessContactsFormData.email.dirty || businessContactsFormData.email.touched) && businessContactsFormData.email.valid
+                                                    }" id="email" formControlName="email">
+                      <ng-container *ngIf="(businessContactsFormData.email.dirty || businessContactsFormData.email.touched) && businessContactsFormData.email.invalid">
+                        <div *ngIf="businessContactsFormData.email.errors.required" class="invalid-feedback">Please Enter Email</div>
+                        <div *ngIf="businessContactsFormData.email.errors.pattern" class="invalid-feedback">Email is invalid</div>
+                        <div *ngIf="businessContactsFormData.email.errors.email" class="invalid-feedback">Please Enter valid Email</div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="reset" (click)="businessContactsForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                    <button type="submit" [disabled]="!businessContactsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                      <th>S/N</th>
+                      <th>Category</th>
+                      <th>Name</th>
+                      <th>Company/Department</th>
+                      <th>Designation</th>
+                      <th>Office Address</th>
+                      <th>Phone No</th>
+                      <th>Email</th>
+                      <th></th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover-animation table-hover table-striped">
+                  <ng-container *ngFor="let data of businessContactsTable, let i = index;">
+                    <tr>
+                      <td scope="row"> {{ i + 1 }} </td>
+                      <td>{{data.subcat}}</td>
+                      <td>{{data.name}}</td>
+                      <td>{{data.company_or_department}}</td>
+                      <td>{{data.designation}}</td>
+                      <td>{{data.office_address}}</td>
+                      <td>{{data.contact_phone}}</td>
+                      <th>{{data.contact_email}}</th>
+                      <td>
+                        <div class="btn-group">
+                          <div class="dropdown">
+                              <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                type="button" (click)="deleteTableData(i, 'businessContactsTable')">
+                                  Remove
+                              </button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12">
+              <button type="button" (click)="onSubmit(businessContactsTable, 'businessContactsForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Contacts</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #labelFiveView>
+  <form [formGroup]="toolsAndEquipmentsForm" (ngSubmit)="populatetoolsAndEquipments(toolsAndEquipmentsFormData)" class="form form-vertical">
+    <div class="form-body">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            SUBMIT TOOLS AND EQUIPMENTS
+          </h5>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row mb-1">
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="item">Item</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (toolsAndEquipmentsFormData.item.dirty || toolsAndEquipmentsFormData.item.touched) && toolsAndEquipmentsFormData.item.invalid,
+                                        'is-valid' : (toolsAndEquipmentsFormData.item.dirty || toolsAndEquipmentsFormData.item.touched) && toolsAndEquipmentsFormData.item.valid
+                                      }" id="item" formControlName="item" placeholder="Enter item">
+                  <ng-container *ngIf="(toolsAndEquipmentsFormData.item.dirty || toolsAndEquipmentsFormData.item.touched) && toolsAndEquipmentsFormData.item.invalid">
+                    <div *ngIf="toolsAndEquipmentsFormData.item.errors.required" class="invalid-feedback">Please Enter item</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="type">Item Type</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (toolsAndEquipmentsFormData.type.dirty || toolsAndEquipmentsFormData.type.touched) && toolsAndEquipmentsFormData.type.invalid,
+                                          'is-valid' : (toolsAndEquipmentsFormData.type.dirty || toolsAndEquipmentsFormData.type.touched) && toolsAndEquipmentsFormData.type.valid
+                                        }" id="type" formControlName="type">
+                      <option [value]="null">Select Item type</option>
+                      <ng-container *ngFor="let type of statuses">
+                        <option [value]="type">{{ type }}</option>
+                      </ng-container>
+                    </select>
+
+                    <ng-container *ngIf="(toolsAndEquipmentsFormData.type.dirty || toolsAndEquipmentsFormData.type.touched) && toolsAndEquipmentsFormData.type.invalid">
+                      <div *ngIf="toolsAndEquipmentsFormData.type.errors.required" class="invalid-feedback">Please Select Item Type</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="noOfUnits">No of Units</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (toolsAndEquipmentsFormData.noOfUnits.dirty || toolsAndEquipmentsFormData.noOfUnits.touched) && toolsAndEquipmentsFormData.noOfUnits.invalid,
+                                          'is-valid' : (toolsAndEquipmentsFormData.noOfUnits.dirty || toolsAndEquipmentsFormData.noOfUnits.touched) && toolsAndEquipmentsFormData.noOfUnits.valid
+                                        }" id="noOfUnits" formControlName="noOfUnits" placeholder="Enter No of Units">
+                  <ng-container *ngIf="(toolsAndEquipmentsFormData.noOfUnits.dirty || toolsAndEquipmentsFormData.noOfUnits.touched) && toolsAndEquipmentsFormData.noOfUnits.invalid">
+                    <div *ngIf="toolsAndEquipmentsFormData.noOfUnits.errors.required" class="invalid-feedback">Please Enter No of Units available</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="type">Current Condition</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (toolsAndEquipmentsFormData.currentCondition.dirty || toolsAndEquipmentsFormData.currentCondition.touched) && toolsAndEquipmentsFormData.currentCondition.invalid,
+                                          'is-valid' : (toolsAndEquipmentsFormData.currentCondition.dirty || toolsAndEquipmentsFormData.currentCondition.touched) && toolsAndEquipmentsFormData.currentCondition.valid
+                                        }" id="currentCondition" formControlName="currentCondition">
+                      <option [value]="null">Select Current Condition</option>
+                      <option value="good">GOOD</option>
+                      <option value="bad">BAD</option>
+                    </select>
+
+                    <ng-container *ngIf="(toolsAndEquipmentsFormData.currentCondition.dirty || toolsAndEquipmentsFormData.currentCondition.touched) && toolsAndEquipmentsFormData.currentCondition.invalid">
+                      <div *ngIf="toolsAndEquipmentsFormData.currentCondition.errors.required" class="invalid-feedback">Please Select Current Condition</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="currentLocation">Current Location</label>
+                  <textarea  [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (toolsAndEquipmentsFormData.currentLocation.dirty || toolsAndEquipmentsFormData.currentLocation.touched) && toolsAndEquipmentsFormData.currentLocation.invalid,
+                                          'is-valid' : (toolsAndEquipmentsFormData.currentLocation.dirty || toolsAndEquipmentsFormData.currentLocation.touched) && toolsAndEquipmentsFormData.currentLocation.valid
+                                        }" id="currentLocation" formControlName="currentLocation" placeholder="Enter Current Location"></textarea>
+                  <ng-container *ngIf="(toolsAndEquipmentsFormData.currentLocation.dirty || toolsAndEquipmentsFormData.currentLocation.touched) && toolsAndEquipmentsFormData.currentLocation.invalid">
+                    <div *ngIf="toolsAndEquipmentsFormData.currentLocation.errors.required" class="invalid-feedback">Please Enter Item Current location</div>
+                  </ng-container>
+                  </div>
+              </div>
+              <div class="col-12">
+                <button type="reset" (click)="toolsAndEquipmentsForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                <button type="submit" [disabled]="!toolsAndEquipmentsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </form>
+
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row" id="table-bordered">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                          <thead class="thead-dark">
+                              <tr>
+                                <th>S/N</th>
+                                <th>Item</th>
+                                <th>Type</th>
+                                <th>No of Units</th>
+                                <th>Current Condition</th>
+                                <th>Current Location</th>
+                                <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-hover-animation table-hover table-striped">
+                            <ng-container *ngFor="let data of toolsAndEquipmentsTable, let i = index;">
+                              <tr>
+                                <td scope="row"> {{ i + 1 }} </td>
+                                <td>{{data.item}}</td>
+                                <td>{{data.type}}</td>
+                                <td>{{data.no_of_units}}</td>
+                                <td>{{data.condition}}</td>
+                                <td>{{data.location}}</td>
+                                <td>
+                                  <div class="btn-group">
+                                    <div class="dropdown">
+                                        <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                          type="button" (click)="deleteTableData(i, 'toolsAndEquipmentsTable')">
+                                            Remove
+                                        </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-12">
+                        <button type="button" (click)="onSubmit(toolsAndEquipmentsTable, 'toolsAndEquipmentsForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Activities</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #labelSixView>
+  <form  [formGroup]="booksCdsSoftwaresForm" (ngSubmit)="populateBooksCdsSoftwares(booksCdsSoftwaresFormData)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">
+                SUBMIT BOOKS, CDS, SOFTWARES AND REFERENCE MANUALS
+              </h5>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <div class="row mb-1">
+
+                  <div class="col-lg-4  col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="category">Category</label>
+                      <fieldset class="form-group">
+                        <select [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (booksCdsSoftwaresFormData.category.dirty || booksCdsSoftwaresFormData.category.touched) && booksCdsSoftwaresFormData.category.invalid,
+                                              'is-valid' : (booksCdsSoftwaresFormData.category.dirty || booksCdsSoftwaresFormData.category.touched) && booksCdsSoftwaresFormData.category.valid
+                                            }" id="category" formControlName="category">
+                          <option [value]="null">Select Category</option>
+                          <ng-container *ngFor="let category of booksCdsSoftwaresCategory?.subcat">
+                            <option [value]="category.subcat_id">{{ category.subcat_name }}</option>
+                          </ng-container>
+                        </select>
+
+                        <ng-container *ngIf="(booksCdsSoftwaresFormData.category.dirty || booksCdsSoftwaresFormData.category.touched) && booksCdsSoftwaresFormData.category.invalid">
+                          <div *ngIf="booksCdsSoftwaresFormData.category.errors.required" class="invalid-feedback">Please Select Category</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="title">Title</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (booksCdsSoftwaresFormData.title.dirty || booksCdsSoftwaresFormData.title.touched) && booksCdsSoftwaresFormData.title.invalid,
+                                            'is-valid' : (booksCdsSoftwaresFormData.title.dirty || booksCdsSoftwaresFormData.title.touched) && booksCdsSoftwaresFormData.title.valid
+                                          }" id="title" formControlName="title" placeholder="Enter Title">
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.title.dirty || booksCdsSoftwaresFormData.title.touched) && booksCdsSoftwaresFormData.title.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.title.errors.required" class="invalid-feedback">Please Enter Title</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="fileName">Folder & File of Soft Copy</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (booksCdsSoftwaresFormData.fileName.dirty || booksCdsSoftwaresFormData.fileName.touched) && booksCdsSoftwaresFormData.fileName.invalid,
+                                            'is-valid' : (booksCdsSoftwaresFormData.fileName.dirty || booksCdsSoftwaresFormData.fileName.touched) && booksCdsSoftwaresFormData.fileName.valid
+                                          }" id="fileName" formControlName="fileName" placeholder="Enter Folder & File of Soft Copy">
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.fileName.dirty || booksCdsSoftwaresFormData.fileName.touched) && booksCdsSoftwaresFormData.fileName.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.fileName.errors.required" class="invalid-feedback">Please Enter Folder & File of Soft Copy</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="locationOfHardcopy">Location Of Hardcopy / CD</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (booksCdsSoftwaresFormData.locationOfHardcopy.dirty || booksCdsSoftwaresFormData.locationOfHardcopy.touched) && booksCdsSoftwaresFormData.locationOfHardcopy.invalid,
+                                            'is-valid' : (booksCdsSoftwaresFormData.locationOfHardcopy.dirty || booksCdsSoftwaresFormData.locationOfHardcopy.touched) && booksCdsSoftwaresFormData.locationOfHardcopy.valid
+                                          }" id="locationOfHardcopy" formControlName="locationOfHardcopy" placeholder="Enter Location Of Hardcopy / CD">
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.locationOfHardcopy.dirty || booksCdsSoftwaresFormData.locationOfHardcopy.touched) && booksCdsSoftwaresFormData.locationOfHardcopy.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.locationOfHardcopy.errors.required" class="invalid-feedback">Please Enter Location Of Hardcopy / CD</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="weblink">Weblink / Website Address</label>
+                      <textarea  [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (booksCdsSoftwaresFormData.weblink.dirty || booksCdsSoftwaresFormData.weblink.touched) && booksCdsSoftwaresFormData.weblink.invalid,
+                                              'is-valid' : (booksCdsSoftwaresFormData.weblink.dirty || booksCdsSoftwaresFormData.weblink.touched) && booksCdsSoftwaresFormData.weblink.valid
+                                            }" id="weblink" rows="1" formControlName="weblink" placeholder="Enter Weblink / Website Address"></textarea>
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.weblink.dirty || booksCdsSoftwaresFormData.weblink.touched) && booksCdsSoftwaresFormData.weblink.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.weblink.errors.required" class="invalid-feedback">Please Enter Weblink / Website Address</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="userId">User ID</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (booksCdsSoftwaresFormData.userId.dirty || booksCdsSoftwaresFormData.userId.touched) && booksCdsSoftwaresFormData.userId.invalid,
+                                            'is-valid' : (booksCdsSoftwaresFormData.userId.dirty || booksCdsSoftwaresFormData.userId.touched) && booksCdsSoftwaresFormData.userId.valid
+                                          }" id="userId" formControlName="userId" placeholder="Enter userId">
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.userId.dirty || booksCdsSoftwaresFormData.userId.touched) && booksCdsSoftwaresFormData.userId.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.userId.errors.required" class="invalid-feedback">Please Enter userId</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (booksCdsSoftwaresFormData.password.dirty || booksCdsSoftwaresFormData.password.touched) && booksCdsSoftwaresFormData.password.invalid,
+                                                      'is-valid' : (booksCdsSoftwaresFormData.password.dirty || booksCdsSoftwaresFormData.password.touched) && booksCdsSoftwaresFormData.password.valid
+                                                    }" id="password" formControlName="password">
+                      <ng-container *ngIf="(booksCdsSoftwaresFormData.password.dirty || booksCdsSoftwaresFormData.password.touched) && booksCdsSoftwaresFormData.password.invalid">
+                        <div *ngIf="booksCdsSoftwaresFormData.password.errors.required" class="invalid-feedback">Please Enter Password</div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="reset" (click)="booksCdsSoftwaresForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                    <button type="submit" [disabled]="!booksCdsSoftwaresForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                      <th>S/N</th>
+                      <th>Category</th>
+                      <th>Title</th>
+                      <th>Softcopy Folder/File Name</th>
+                      <th>Location of Hardcopy/CD</th>
+                      <th>Weblink / Website</th>
+                      <th>user ID</th>
+                      <th>Password</th>
+                      <th></th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover-animation table-hover table-striped">
+                  <ng-container *ngFor="let data of booksCdsSoftwaresTable, let i = index;">
+                    <tr>
+                      <td scope="row"> {{ i + 1 }} </td>
+                      <td>{{data.subcat}}</td>
+                      <td>{{data.title}}</td>
+                      <td>{{data.file_path}}</td>
+                      <td>{{data.hard_copy_loc}}</td>
+                      <td>{{data.website_weblink}}</td>
+                      <td>{{data.user_id}}</td>
+                      <th>{{data.password}}</th>
+                      <td>
+                        <div class="btn-group">
+                          <div class="dropdown">
+                              <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                type="button" (click)="deleteTableData(i, 'booksCdsSoftwaresTable')">
+                                  Remove
+                              </button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12">
+              <button type="button" (click)="onSubmit(booksCdsSoftwaresTable, 'booksCdsSoftwaresForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Contacts</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #labelSevenView>
+  <form [formGroup]="vehicleMaintenanceForm" (ngSubmit)="populateVehicleMaintenace(vehicleMaintenanceFormData)" class="form form-vertical">
+    <div class="form-body">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            SUBMIT VEHICLE MAINTENANCE
+          </h5>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row mb-1">
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="driverName">Driver Name</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (vehicleMaintenanceFormData.driverName.dirty || vehicleMaintenanceFormData.driverName.touched) && vehicleMaintenanceFormData.driverName.invalid,
+                                        'is-valid' : (vehicleMaintenanceFormData.driverName.dirty || vehicleMaintenanceFormData.driverName.touched) && vehicleMaintenanceFormData.driverName.valid
+                                      }" id="driverName" formControlName="driverName" placeholder="Enter Driver Name">
+                  <ng-container *ngIf="(vehicleMaintenanceFormData.driverName.dirty || vehicleMaintenanceFormData.driverName.touched) && vehicleMaintenanceFormData.driverName.invalid">
+                    <div *ngIf="vehicleMaintenanceFormData.driverName.errors.required" class="invalid-feedback">Please Enter Driver Name</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="form-group">
+                  <label for="vehicleType">Vehicle Type</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (vehicleMaintenanceFormData.vehicleType.dirty || vehicleMaintenanceFormData.vehicleType.touched) && vehicleMaintenanceFormData.vehicleType.invalid,
+                                          'is-valid' : (vehicleMaintenanceFormData.vehicleType.dirty || vehicleMaintenanceFormData.vehicleType.touched) && vehicleMaintenanceFormData.vehicleType.valid
+                                        }" id="type" formControlName="vehicleType">
+                      <option [value]="null">Select Item type</option>
+                      <option value="toyota">TOYOTA</option>
+                      <option value="mercedes">MERCEDES BENZ</option>
+                      <option value="hyundai">HYUNDAI</option>
+                      <option value="volvo">VOLVO</option>
+                      <option value="kia">KIA</option>
+                      <!-- <ng-container *ngFor="let type of statuses">
+                        <option [value]="type">{{ type }}</option>
+                      </ng-container> -->
+                    </select>
+
+                    <ng-container *ngIf="(vehicleMaintenanceFormData.vehicleType.dirty || vehicleMaintenanceFormData.vehicleType.touched) && vehicleMaintenanceFormData.vehicleType.invalid">
+                      <div *ngIf="vehicleMaintenanceFormData.vehicleType.errors.required" class="invalid-feedback">Please Select Vehicle Type</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="vehicleNo">Vehicle Number</label>
+                  <input type="text" [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (vehicleMaintenanceFormData.vehicleNo.dirty || vehicleMaintenanceFormData.vehicleNo.touched) && vehicleMaintenanceFormData.vehicleNo.invalid,
+                                          'is-valid' : (vehicleMaintenanceFormData.vehicleNo.dirty || vehicleMaintenanceFormData.vehicleNo.touched) && vehicleMaintenanceFormData.vehicleNo.valid
+                                        }" id="vehicleNo" formControlName="vehicleNo" placeholder="Enter Vehicle Number">
+                  <ng-container *ngIf="(vehicleMaintenanceFormData.vehicleNo.dirty || vehicleMaintenanceFormData.vehicleNo.touched) && vehicleMaintenanceFormData.vehicleNo.invalid">
+                    <div *ngIf="vehicleMaintenanceFormData.vehicleNo.errors.required" class="invalid-feedback">Please Enter Vehicle Number</div>
+                  </ng-container>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label for="vehicleStatus">Vehicle Status</label>
+                  <fieldset class="form-group">
+                    <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (vehicleMaintenanceFormData.vehicleStatus.dirty || vehicleMaintenanceFormData.vehicleStatus.touched) && vehicleMaintenanceFormData.vehicleStatus.invalid,
+                                          'is-valid' : (vehicleMaintenanceFormData.vehicleStatus.dirty || vehicleMaintenanceFormData.vehicleStatus.touched) && vehicleMaintenanceFormData.vehicleStatus.valid
+                                        }" id="vehicleStatus" formControlName="vehicleStatus">
+                      <option [value]="null">Select Vehicle Status</option>
+                      <option value="good">GOOD</option>
+                      <option value="bad">BAD</option>
+                    </select>
+
+                    <ng-container *ngIf="(vehicleMaintenanceFormData.vehicleStatus.dirty || vehicleMaintenanceFormData.vehicleStatus.touched) && vehicleMaintenanceFormData.vehicleStatus.invalid">
+                      <div *ngIf="vehicleMaintenanceFormData.vehicleStatus.errors.required" class="invalid-feedback">Please Select Vehicle Status</div>
+                    </ng-container>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="reset" (click)="vehicleMaintenanceForm.reset()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Clear</button>
+                <button type="submit" [disabled]="!vehicleMaintenanceForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </form>
+
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <div class="row" id="table-bordered">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                          <thead class="thead-dark">
+                              <tr>
+                                <th>S/N</th>
+                                <th>Driver Name</th>
+                                <th>Vehicle Type</th>
+                                <th>Vehicle Number</th>
+                                <th>Vehicle Status</th>
+                                <th></th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-hover-animation table-hover table-striped">
+                            <ng-container *ngFor="let data of vehicleMaintenanceTable, let i = index;">
+                              <tr>
+                                <td scope="row"> {{ i + 1 }} </td>
+                                <td>{{data.driver_name}}</td>
+                                <td>{{data.vehicle_type}}</td>
+                                <td>{{data.vehicle_number}}</td>
+                                <td>{{data.status}}</td>
+                                <td>
+                                  <div class="btn-group">
+                                    <div class="dropdown">
+                                        <button class="btn bg-gradient-danger mr-1 mb-1 waves-effect waves-light"
+                                          type="button" (click)="deleteTableData(i, 'vehicleMaintenanceTable')">
+                                            Remove
+                                        </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-12">
+                        <button type="button" (click)="onSubmit(vehicleMaintenanceTable, 'vehicleMaintenanceForm')" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Activities</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>

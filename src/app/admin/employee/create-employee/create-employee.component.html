@@ -37,25 +37,38 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
+                <!-- <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
                   <nb-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
-                    <!-- <ng-template #labelOne>Create Staff</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
                   <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
-                    <!-- <ng-template #labelTwo>Add Employee nextOfKin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
                   </nb-step>
                   <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelThree">
-                    <!-- <ng-template #labelThree>Add Education Details</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelFour">
-                    <!-- <ng-template #labelFour>Add Family Details</ng-template> -->
-                    <!-- <ng-container *ngTemplateOutlet="labelOneView"></ng-container> -->
+                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
                   <nb-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
-                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
+                    <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
+                  </nb-step>
+                </nb-stepper> -->
+
+                <nb-stepper #createEmployeeStepper orientation="horizontal" >
+                  <nb-step [label]="stepperLabel.labelOne">
+                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelTwo">
+                    <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelThree">
+                    <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelFour">
+                    <!-- <ng-container *ngTemplateOutlet="labelOneView"></ng-container> -->
+                  </nb-step>
+                  <nb-step [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </nb-step>
                 </nb-stepper>
@@ -853,9 +866,9 @@
           </div>
         </div>
         <div class="col-12">
-            <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
-            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-            <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+          <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
     </div>

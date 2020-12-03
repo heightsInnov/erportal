@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://a69488b31db9.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://fd4605a1689e.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -14,6 +14,19 @@ export const environment = {
                   createExperience: 'secured/user/insert-experience-details',
                   createEducation: 'secured/user/insert-education-details'
                 },
+
+  createHandoverNoteUrl: {
+                          createHandoverNote: '',
+                          addVehicleMaintenance: '',
+                          addDocumentRegister: '',
+                          addBusinessContact: '',
+                          addBooksCdsSoftwares: '',
+                          addToolsandEquipment: '',
+                          addActivities: '',
+                          getHandoverCategories: 'secured/handover/get-categories'
+                         },
+
+  getHandoverNotesUrl: 'secured/handover/get-all-handover',
   employeeProfileUrl: 'secured/user/load-user-profile',
   createActivityUrl: 'secured/activity/create-activity',
   updateActivityUrl: 'secured/activity/update-activity',
@@ -21,7 +34,6 @@ export const environment = {
   getActivityStatusURL: 'secured/activity/get-activity-status',
   updateActivityStatusURL: 'secured/activity/update-activity-status',
   getUnitsUrl: 'secured/get-units',
-  getHandoverNotesUrl: 'secured/handover/get-all-handover/3',
   getAllEmployeeUrl: 'secured/report/get-all-employee',
   getUploadTypesUrl: 'secured/get-upload-types',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',

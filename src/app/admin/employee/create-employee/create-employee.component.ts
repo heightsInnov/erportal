@@ -264,7 +264,7 @@ export class CreateEmployeeComponent implements OnInit {
       data => {
         console.log(data);
         this.toastr.info('Employee Created!', 'Successful');
-        this.linearMode = false;
+        // this.linearMode = false;
         this.stepperComponent.next();
       },
       error => {
