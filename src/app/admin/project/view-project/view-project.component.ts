@@ -23,7 +23,7 @@ export class ViewProjectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getStaffId()
+    this.getStaffId();
   }
 
   getStaffId() {
