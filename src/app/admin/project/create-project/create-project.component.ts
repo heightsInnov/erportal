@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class CreateProjectComponent implements OnInit {
 
   createHandoverNoteUrl = environment.createHandoverNoteUrl;
+  getHandoverNoteUrl = environment.getHandoverNotesUrl;
 
   userDetails = JSON.parse(localStorage.getItem('user'));
   handoverCategories: any[] = [];
@@ -59,6 +60,7 @@ export class CreateProjectComponent implements OnInit {
   };
   businessContactsForm: FormGroup;
   documentRegisterTable: any[] = [];
+  handoverId: any;
   constructor(
               private fb: FormBuilder,
               private router: Router,
@@ -181,27 +183,27 @@ export class CreateProjectComponent implements OnInit {
     } else if (formname === 'activitiesProjectsProposalForm') {
       const payload = this.activitiesProjectsProposalTable;
       console.log(payload);
-      this.addHandoverActivities(`${this.createHandoverNoteUrl.addActivities}/${this.userDetails.username}`, payload);
+      this.addHandoverActivities(`${this.createHandoverNoteUrl.addActivities}/${this.handoverId}`, payload);
     } else if (formname === 'documentRegisterForm') {
       const payload = this.documentRegisterTable;
       console.log(payload);
-      this.addHandoverDocumentRegister(`${this.createHandoverNoteUrl.addDocumentRegister}/${this.userDetails.username}`, payload);
+      this.addHandoverDocumentRegister(`${this.createHandoverNoteUrl.addDocumentRegister}/${this.handoverId}`, payload);
     } else if (formname === 'businessContactsForm') {
       const payload = this.businessContactsTable;
       console.log(payload);
-      this.addHandoverBusinessContacts(`${this.createHandoverNoteUrl.addBusinessContact}/${this.userDetails.username}`, payload);
+      this.addHandoverBusinessContacts(`${this.createHandoverNoteUrl.addBusinessContact}/${this.handoverId}`, payload);
     } else if (formname === 'toolsAndEquipmentsForm') {
       const payload = this.toolsAndEquipmentsTable;
       console.log(payload);
-      this.addHandoverToolsAndEquipment(`${this.createHandoverNoteUrl.addToolsandEquipment}/${this.userDetails.username}`, payload);
+      this.addHandoverToolsAndEquipment(`${this.createHandoverNoteUrl.addToolsandEquipment}/${this.handoverId}`, payload);
     } else if (formname === 'booksCdsSoftwaresForm') {
       const payload = this.booksCdsSoftwaresTable;
       console.log(payload);
-      this.addHandoverBooksCdsSoftwares(`${this.createHandoverNoteUrl.addBooksCdsSoftwares}/${this.userDetails.username}`, payload);
+      this.addHandoverBooksCdsSoftwares(`${this.createHandoverNoteUrl.addBooksCdsSoftwares}/${this.handoverId}`, payload);
     } else if (formname === 'vehicleMaintenanceForm') {
       const payload = this.vehicleMaintenanceTable;
       console.log(payload);
-      this.addHandoverVehicleMaintenance(`${this.createHandoverNoteUrl.addVehicleMaintenance}/${this.userDetails.username}`, payload);
+      this.addHandoverVehicleMaintenance(`${this.createHandoverNoteUrl.addVehicleMaintenance}/${this.handoverId}`, payload);
     }
   }
 
@@ -209,8 +211,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        this.toastr.success('Handover Created');
+        this.getHandoverId();
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
@@ -425,6 +429,19 @@ export class CreateProjectComponent implements OnInit {
               this.documentRegisterCategory = obj;
             }
           });
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getHandoverId() {
+    this.crudService.getData(`${this.getHandoverNoteUrl}/${this.userDetails.staff_id}`).subscribe(
+      data => {
+        if (data.responseCode === '00') {
+          this.handoverId = data.responseObject.handover_id;
         }
       },
       error => {

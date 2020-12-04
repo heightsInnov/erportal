@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://fd4605a1689e.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://ac911e27dd4a.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -12,13 +12,13 @@ export const environment = {
                 },
 
   createHandoverNoteUrl: {
-                          createHandoverNote: '',
-                          addVehicleMaintenance: '',
-                          addDocumentRegister: '',
+                          createHandoverNote: 'secured/handover/create-handover',
+                          addVehicleMaintenance: 'secured/handover/create-vehicle-maintenance',
+                          addDocumentRegister: 'secured/handover/create-document-register',
                           addBusinessContact: '',
-                          addBooksCdsSoftwares: '',
-                          addToolsandEquipment: '',
-                          addActivities: '',
+                          addBooksCdsSoftwares: 'secured/handover/create-bcsrm',
+                          addToolsandEquipment: 'secured/handover/create-tools-equipment',
+                          addActivities: 'secured/handover/create-act-proj-prop',
                           getHandoverCategories: 'secured/handover/get-categories'
                          },
 
