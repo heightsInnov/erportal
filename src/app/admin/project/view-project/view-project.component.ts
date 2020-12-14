@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class ViewProjectComponent implements OnInit {
 
   handoverId;
-  getHandoverNotesUrl = environment.getHandoverNotesUrl;
+  getHandoverDetailsUrl = environment.getHandoverDetailsUrl;
   handoverDetails;
 
   constructor(
@@ -41,7 +41,7 @@ export class ViewProjectComponent implements OnInit {
   }
 
   getHandoverDetails() {
-    const url = `${this.getHandoverNotesUrl}/${this.handoverId.id}`;
+    const url = `${this.getHandoverDetailsUrl}/${this.handoverId.id}`;
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);

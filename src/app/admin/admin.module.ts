@@ -10,6 +10,7 @@ import {
          NbListModule, NbSidebarModule, NbThemeModule
         } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,18 +20,22 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: 'employee',
-        loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule)
+        loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'handover',
-        loadChildren: () => import('./project/project.module').then(m => m.ProjectModule)
+        loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
+        canActivate: [AuthGuard]
       },
       {
-        path: 'documents',
-        loadChildren: () => import('./document/document.module').then(m => m.DocumentModule)
+        path: 'leave',
+        loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
+        canActivate: [AuthGuard]
       }
     ]
   },

@@ -7,6 +7,7 @@ import { ProjectComponent } from './project.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NbStepperModule, NbCardModule, NbAccordionModule, NbTabsetModule } from '@nebular/theme';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const route: Routes = [
   {
@@ -37,6 +38,7 @@ const route: Routes = [
     NbCardModule,
     NbAccordionModule,
     NbTabsetModule,
+    NgSelectModule
   ]
 })
 export class ProjectModule { }

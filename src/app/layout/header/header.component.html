@@ -59,17 +59,23 @@
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
-                    <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
+                    <!-- <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
                         <div class="search-input">
                             <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
                             <input class="input" type="text" placeholder="Explore Vuesax..." tabindex="-1" data-search="template-list" />
                             <div class="search-input-close"><i class="feather icon-x"></i></div>
                             <ul class="search-list"></ul>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="dropdown dropdown-user nav-item">
                         <div class="user-nav d-sm-flex d-none">
-                          <nb-user size="large" name="{{userDetails.emp_firstname + ' ' + userDetails.emp_lastname}}" title="Engineer" color="#cccccc"></nb-user>
+                          <nb-user size="large"
+                                   name="{{userDetails.emp_firstname + ' ' + userDetails.emp_lastname}}"
+                                   title="Engineer"
+                                   color="#cccccc"
+                                   [nbContextMenu]="items"
+                                   nbContextMenuTag="my-avatar-menu"
+                                   nbContextMenuTrigger="hover"></nb-user>
                         </div>
                     </li>
                 </ul>

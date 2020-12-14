@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://ac911e27dd4a.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://a6787a3d4cb2.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -16,17 +16,18 @@ export const environment = {
                 },
 
   createHandoverNoteUrl: {
-                          createHandoverNote: '',
-                          addVehicleMaintenance: '',
-                          addDocumentRegister: '',
-                          addBusinessContact: '',
-                          addBooksCdsSoftwares: '',
-                          addToolsandEquipment: '',
-                          addActivities: '',
+                          createHandoverNote: 'secured/handover/create-handover',
+                          addVehicleMaintenance: 'secured/handover/create-vehicle-maintenance',
+                          addDocumentRegister: 'secured/handover/create-document-register',
+                          addBusinessContact: 'secured/handover/create-business-contact',
+                          addBooksCdsSoftwares: 'secured/handover/create-bcsrm',
+                          addToolsandEquipment: 'secured/handover/create-tools-equipment',
+                          addActivities: 'secured/handover/create-act-proj-prop',
                           getHandoverCategories: 'secured/handover/get-categories'
                          },
 
   getHandoverNotesUrl: 'secured/handover/get-all-handover',
+  getHandoverDetailsUrl: 'secured/handover/get-handover-details',
   employeeProfileUrl: 'secured/user/load-user-profile',
   createActivityUrl: 'secured/activity/create-activity',
   updateActivityUrl: 'secured/activity/update-activity',
@@ -37,7 +38,10 @@ export const environment = {
   getAllEmployeeUrl: 'secured/report/get-all-employee',
   getUploadTypesUrl: 'secured/get-upload-types',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',
-  getEmployeeUploadsUrl: 'secured/user/'
+  getEmployeeUploadsUrl: 'secured/user/',
+  getDegreesUrl: 'secured/get-degrees',
+  getLeaveUrl: 'secured/leave/get-leaves',
+  createLeaveUrl: 'secured/leave/create-leave'
 };
 
 /*

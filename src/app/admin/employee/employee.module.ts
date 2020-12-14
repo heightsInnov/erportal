@@ -18,7 +18,7 @@ const routes: Routes = [
     component: CreateEmployeeComponent
   },
   {
-    path: 'view-employee',
+    path: 'view-employee/:username',
     component: ViewEmployeeComponent
   }
 ];

@@ -1,5 +1,6 @@
 export interface IEmployeePayload {
   emp_local_govt_ward: string;
+  emp_leave_days: number;
   emp_id_no: string;
   emp_nationality: string;
   emp_employment_date: Date;
@@ -31,10 +32,14 @@ export interface IEmployeePayload {
   emp_hobbies: string;
 }
 
+interface IChild {
+  name: string;
+  dob: Date;
+}
 
 export interface IFamilyPayload {
-  spouse_name?: string;
-  child_name?: string;
+  spouse_name: string;
+  children?: IChild[];
 }
 
 export interface INextOfKinPayload {

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 // import bsCustomFileInput from 'bs-custom-file-input';
 import { ToastrService } from 'ngx-toastr';
@@ -47,11 +47,11 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeUsername() {
-    this.route.queryParams.subscribe(
-      (params: Params) => {
-        if (params.username !== undefined) {
+    this.route.paramMap.subscribe(
+      (params: ParamMap) => {
+        if (params.get('username') !== undefined) {
           this.employeeUsername = {
-            username: params.username
+            username: params.get('username')
           };
           this.getEmployeeProfile();
           // this.getUploadedDocuments();

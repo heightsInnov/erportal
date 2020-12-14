@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,13 @@ export class CrudService {
 
   private baseUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private spinner: NgxSpinnerService
+    ) { }
 
   private handleError(error: HttpErrorResponse) {
+    this.spinner.hide();
     if (error.error instanceof ErrorEvent) {
       return throwError (error.error);
     } else {
@@ -23,8 +28,10 @@ export class CrudService {
 
   createData(endpoint, data): Observable<any> {
     const url = this.baseUrl + endpoint;
+    this.spinner.show();
     return this.http.post<any>(url, data).pipe(
       map(response => {
+        this.spinner.hide();
         return response;
       }),
       catchError(this.handleError)
@@ -33,8 +40,10 @@ export class CrudService {
 
   getData(endpoint): Observable<any> {
     const url = this.baseUrl + endpoint;
+    this.spinner.show();
     return this.http.get<any>(url).pipe(
       map(response => {
+        this.spinner.hide();
         return response;
       }),
       catchError(this.handleError)
@@ -43,8 +52,10 @@ export class CrudService {
 
   updateData(endpoint, data): Observable<any> {
     const url = this.baseUrl + endpoint;
+    this.spinner.show();
     return this.http.put<any>(url, data).pipe(
       map(response => {
+        this.spinner.hide();
         return response;
       }),
       catchError(this.handleError)
@@ -53,8 +64,10 @@ export class CrudService {
 
   deleteData(endpoint, data): Observable<any> {
     const url = this.baseUrl + endpoint;
+    this.spinner.show();
     return this.http.delete<any>(url, data).pipe(
       map(response => {
+        this.spinner.hide();
         return response;
       }),
       catchError(this.handleError)
@@ -63,8 +76,10 @@ export class CrudService {
 
   uploadData(endpoint, data): Observable<any> {
     const url = this.baseUrl + endpoint;
+    this.spinner.show();
     return this.http.post<any>(url, data).pipe(
       map(response => {
+        this.spinner.hide();
         // console.log(response);
         // this.getEventMessage(response, fileData);
         return response;

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbThemeModule, NbSidebarModule, NbMenuModule, NbDialogModule } from '@nebular/theme';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthGuard } from './core/guards/auth.guard';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,11 @@ import { ToastrModule } from 'ngx-toastr';
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     ToastrModule.forRoot(),
-    NbDialogModule.forRoot()
+    NbDialogModule.forRoot(),
+    NgxSpinnerModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

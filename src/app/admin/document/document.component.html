@@ -2,19 +2,19 @@
   <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
           <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">Documents</h2>
+              <h2 class="content-header-title float-left mb-0">Leave</h2>
               <div class="breadcrumb-wrapper col-12">
                   <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
                       </li>
-                      <li class="breadcrumb-item active"><a>Documents</a>
+                      <li class="breadcrumb-item active"><a>Leave</a>
                       </li>
                   </ol>
               </div>
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <!-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
       <div class="form-group breadcrum-right">
           <div class="dropdown">
               <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
@@ -25,124 +25,148 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="content-body">
-  <section id="basic-vertical-layouts">
-    <div class="row">
-        <div class="col-md-6 col-12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-body">
-                        <form class="form form-horizontal">
-                            <div class="form-body">
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="form-group row">
-                                        <div class="col-md-4">
-                                          <label class="" for="budget">Select Budget</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                          <fieldset class="form-group">
-                                            <select class="form-control" id="budget">
-                                              <option value="undefined">Select Budget</option>
-                                              <option *ngFor="let b of budgetList" [value]="b.value">{{b.budget}}</option>
-                                            </select>
-                                          </fieldset>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
-
-  <section id="basic-datatable">
+  <section>
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="row">
-                  <div class="col-6 py-2 px-2">
-                    <div class="form-group row">
-                      <div class="col-md-2">
-                        <span for="filter">Filter By</span>
-                      </div>
-                      <div class="col-md-6">
-                        <select class="form-control" id="filter">
-                          <option value="undefined">Select Filter</option>
-                          <option *ngFor="let f of filterList" [value]="f.value">{{f.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="card-header">
-                      <div class="card-title ml-auto">
-                        <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                            [routerLink]="['/admin/documents/create-document']">
-                            <i class="feather icon-plus-circle"></i> Create Document
-                            </button>
-                      </div>
-                      </div>
+              <div class="card-header">
+                <div class="card-title ml-auto">
+                  <button type="button" class="btn btn-outline-primary waves-effect waves-light" (click)="openModal(leaveModal)">
+                    <i class="feather icon-plus-circle"></i> Create Leave
+                  </button>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                      <thead>
+                          <tr>
+                            <th>Leave Type</th>
+                            <th>No of Leave Days</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Remaining Leave Quota</th>
+                          </tr>
+                      </thead>
+                      <tbody class="table-hover table-striped">
+                          <ng-container *ngFor="let details of leaves, let i = index;">
+                            <tr>
+                              <td scope="row">{{details.leave_type}}</td>
+                              <td>{{details.leave_no}}</td>
+                              <td>{{details.start_date}}</td>
+                              <td>{{details.end_date}}</td>
+                              <td>{{details.leave_left}}</td>
+                            </tr>
+                          </ng-container>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-                <div class="card-content">
-                  <div class="card-body card-dashboard">
-                    <div class="row" id="table-bordered">
-                      <div class="col-12">
-                        <div class="card">
-                          <div class="card-content">
-                            <div class="table-responsive">
-                              <table class="table table-bordered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Document Name</th>
-                                        <th>Description</th>
-                                        <th>Format</th>
-                                        <th>Uploaded By</th>
-                                        <th>Uploaded Time</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-hover table-striped" *ngFor="let details of documentList, let i = index;">
-                                    <tr >
-                                        <th scope="row">{{details.name}}</th>
-                                        <td>{{details.description}}</td>
-                                        <td>{{details.format}}</td>
-                                        <td>{{details.uploadedBy}}</td>
-                                        <th>{{details.uploadedTime}}</th>
-                                        <td>
-                                          <div class="btn-group">
-                                            <div class="dropdown">
-                                                <button class="btn bg-gradient-primary dropdown-toggle mr-1 mb-1 waves-effect waves-light"
-                                                  type="button" id="dropdownMenuButton101" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Action
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton101">
-                                                    <a class="dropdown-item" href="#">View</a>
-                                                    <a class="dropdown-item" href="#">Download</a>
-                                                </div>
-                                            </div>
-                                          </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              </div>
             </div>
         </div>
     </div>
 </section>
 </div>
+
+<ng-template #leaveModal let-data let-ref="dialogRef">
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <form [formGroup]="leaveForm" (ngSubmit)="onSubmit(leaveFormData)" class="form form-vertical">
+          <div class="form-body">
+            <div class="modal-header">
+              <h6 class="modal-title"> CREATE LEAVE </h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(leaveForm);">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="leave_type">Leave Type</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid,
+                                            'is-valid' : (leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.valid
+                                          }" id="leave_type" formControlName="leave_type">
+                        <option [value]="null">Select Leave type</option>
+                        <ng-container *ngFor="let type of leaveType">
+                          <option [value]="type.value">{{ type.name }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid">
+                        <div *ngIf="leaveFormData.leave_type.errors.required" class="invalid-feedback">Please Select Vehicle Type</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="leave_no">No of Leave Days</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid,
+                                          'is-valid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.valid
+                                        }" id="leave_no" formControlName="leave_no" placeholder="Enter No of Leave Days">
+                    <ng-container *ngIf="(leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid">
+                      <div *ngIf="leaveFormData.leave_no.errors.required" class="invalid-feedback">Please Enter No of Leave Days</div>
+                      <div *ngIf="leaveFormData.leave_no.errors.pattern" class="invalid-feedback">Only Digits allowed</div>
+                    </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="start_date">Leave Start Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.invalid,
+                                            'is-valid' : (leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.valid
+                                          }" id="start_date" formControlName="start_date">
+                    <ng-container *ngIf="(leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.invalid">
+                      <div *ngIf="leaveFormData.start_date.errors.required" class="invalid-feedback">Please Enter Leave Start Date</div>
+                    </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="end_date">Leave End Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.invalid,
+                                            'is-valid' : (leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.valid
+                                          }" id="end_date" formControlName="end_date">
+                    <ng-container *ngIf="(leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.invalid">
+                      <div *ngIf="leaveFormData.end_date.errors.required" class="invalid-feedback">Please Enter Leave End Date</div>
+                    </ng-container>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <fieldset class="form-group position-relative has-icon-left mb-0">
+                <button [disabled]="!leaveForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                  data-dismiss="modal">
+                  <i class="feather icon-check d-block d-lg-none"></i>
+                    <span class="d-none d-lg-block">Submit</span></button>
+              </fieldset>
+              <fieldset class="form-group position-relative has-icon-left mb-0">
+                  <button type="reset" (click)="leaveForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                    <i class="feather icon-x d-block d-lg-none"></i>
+                      <span class="d-none d-lg-block">Cancel</span>
+                    </button>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

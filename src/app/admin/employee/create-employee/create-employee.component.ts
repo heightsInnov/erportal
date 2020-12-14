@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbStepComponent, NbStepperComponent } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
-import { IEducationDataPayload, IEmployeePayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
+import { IEducationDataPayload, IEmployeePayload, IFamilyPayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 const countryandstate = require('countrycitystatejson');
@@ -22,6 +22,7 @@ export class CreateEmployeeComponent implements OnInit {
   addEmployeeNextOfKinDetailsForm: FormGroup;
   addEmployeeFamilyDetailsForm: FormGroup;
   employeeUrl = environment.employeeUrl;
+  getDegreesUrl = environment.getDegreesUrl;
   getUnitsUrl = environment.getUnitsUrl;
   adminUser = JSON.parse(localStorage.getItem('user'));
   designations: any[];
@@ -56,7 +57,7 @@ export class CreateEmployeeComponent implements OnInit {
   listStates: any[];
   listLGA: any[];
   departmentPositions: any;
-
+  educationDegrees: any[];
   constructor(
                 private fb: FormBuilder,
                 private router: Router,
@@ -106,6 +107,7 @@ export class CreateEmployeeComponent implements OnInit {
       emp_place_of_birth: [null, Validators.required],
       emp_marital_status: [null, Validators.required],
       emp_hobbies: [null, Validators.required],
+      emp_leave_days: [null, Validators.required]
     });
     this.addEmployeeExperienceForm = this.fb.group({
       experience: this.fb.array([this.addExperience()])
@@ -115,7 +117,7 @@ export class CreateEmployeeComponent implements OnInit {
     });
     this.addEmployeeFamilyDetailsForm = this.fb.group({
       spouse_name: [null, Validators.required],
-
+      children: this.fb.array([this.addFamilyChildrenDetails()])
     });
     this.addEmployeeNextOfKinDetailsForm = this.fb.group({
       nok_address: [null, Validators.required],
@@ -126,14 +128,12 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
-  // addNextOfKinDetails(): FormGroup {
-  //   return this.fb.group({
-  //     nok_address: [null, Validators.required],
-  //     nok_phone: [null, Validators.required],
-  //     nok_name: [null, Validators.required],
-  //     nok_relationship: [null, Validators.required]
-  //   });
-  // }
+  addFamilyChildrenDetails(): FormGroup {
+    return this.fb.group({
+      child_name: [null, Validators.required],
+      child_dob: [null, Validators.required]
+    });
+  }
 
   addEducationDetails(): FormGroup {
     return this.fb.group({
@@ -161,10 +161,20 @@ export class CreateEmployeeComponent implements OnInit {
       this.addEmployeeExperienceFormData.push(this.addExperience());
     } else if (formname === 'addEmployeeEducationDetailsForm') {
       this.addEmployeeEducationDetailsFormData.push(this.addEducationDetails());
+    } else if (formname === 'addEmployeeFamilyDetailsForm') {
+      if (this.addEmployeeFamilyDetailsFormData.children.length <= 8) {
+        this.addEmployeeFamilyDetailsFormData.children.push(this.addFamilyChildrenDetails());
+      } else {
+        this.toastr.warning('Cannot Add Above Eight(8) Children', 'Warning')
+      }
     }
-    // else if (formname === 'addEmployeeNextOfKinDetailsForm') {
-    //   this.addEmployeeNextOfKinDetailsFormData.push(this.addNextOfKinDetails());
-    // }
+  }
+
+  get addEmployeeFamilyDetailsFormData() {
+    return {
+            spouse_name: this.addEmployeeFamilyDetailsForm.get('spouse_name'),
+            children: this.addEmployeeFamilyDetailsForm.get('children') as FormArray
+           };
   }
 
   get addEmployeeNextOfKinDetailsFormData() {
@@ -218,6 +228,7 @@ export class CreateEmployeeComponent implements OnInit {
         emp_place_of_birth: formPayload.emp_place_of_birth.value,
         emp_marital_status: formPayload.emp_marital_status.value,
         emp_hobbies: formPayload.emp_hobbies.value,
+        emp_leave_days: formPayload.emp_leave_days.value,
       };
       console.log(payload);
       this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload);
@@ -245,6 +256,13 @@ export class CreateEmployeeComponent implements OnInit {
       };
       console.log(payload);
       this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.adminUser.emp_username}`, payload);
+    } else if (formname === 'addEmployeeFamilyDetailsForm') {
+      console.log(formPayload);
+      const payload = {
+        spouse_name: formPayload.spouse_name.value,
+        children: formPayload.children.value
+      };
+      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.adminUser.emp_username}`, payload);
     }
   }
 
@@ -253,10 +271,9 @@ export class CreateEmployeeComponent implements OnInit {
       this.addEmployeeExperienceFormData.removeAt(idx);
     } else if (formname === 'addEmployeeEducationDetailsForm') {
       this.addEmployeeEducationDetailsFormData.removeAt(idx);
+    } else if (formname === 'addEmployeeFamilyDetailsForm') {
+      this.addEmployeeFamilyDetailsFormData.children.removeAt(idx);
     }
-    // else if (formname === 'addEmployeeNextOfKinDetailsForm') {
-    //   this.addEmployeeNextOfKinDetailsFormData.removeAt(idx);
-    // }
   }
 
   createEmployee(url: string, payload: IEmployeePayload) {
@@ -313,6 +330,19 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
+  addEmployeeFamilyDetails(url: string, payload: IFamilyPayload) {
+    this.crudService.createData(url, payload).subscribe(
+      data => {
+        console.log(data);
+        this.toastr.info('Employee Family Details added!', 'Successful');
+        this.stepperComponent.next();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   getUnits(url: string) {
     this.crudService.getData(url).subscribe(
       data => {
@@ -347,6 +377,19 @@ export class CreateEmployeeComponent implements OnInit {
                                                                         return position;
                                                                       }
                                                                     });
+  }
+
+  getDegrees() {
+    this.crudService.getData(this.getDegreesUrl).subscribe(
+      data => {
+        if (data.responseCode === '00') {
+          this.educationDegrees = data.responseObject;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   goToEmployee() {

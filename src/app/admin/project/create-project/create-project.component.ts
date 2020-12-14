@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NbDialogService, NbStepperComponent } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
 import { IBusinessContacts, IHandoverNote, IDocumentRegister, IHandoverActivites, IToolsAndEquipment, IVehicleMaintenace } from 'src/app/core/models/IHandover';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
@@ -13,9 +15,10 @@ import { environment } from 'src/environments/environment';
 })
 export class CreateProjectComponent implements OnInit {
 
+  stepperComponent: NbStepperComponent;
   createHandoverNoteUrl = environment.createHandoverNoteUrl;
   getHandoverNoteUrl = environment.getHandoverNotesUrl;
-
+  getEmployeesUrl = environment.getAllEmployeeUrl;
   userDetails = JSON.parse(localStorage.getItem('user'));
   handoverCategories: any[] = [];
   handoverForm: FormGroup;
@@ -60,18 +63,51 @@ export class CreateProjectComponent implements OnInit {
   };
   businessContactsForm: FormGroup;
   documentRegisterTable: any[] = [];
+  itemType: any[] = [];
   handoverId: any;
+  employees$: Observable<any[]>;
   constructor(
               private fb: FormBuilder,
               private router: Router,
               private crudService: CrudService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private dialogService: NbDialogService
               ) { }
 
   ngOnInit(): void {
     this.initForm(); // initialize reactive form on component init
     // this.getStatus();
     // this.getHandoverCategories();
+    this.getEmployees();
+    console.log(this.userDetails);
+    this.setEmpNamePhone();
+  }
+
+  getEmployees() {
+    this.crudService.getData(this.getEmployeesUrl).subscribe(
+      data => {
+        console.log(data);
+        let response = [];
+        if (data.responseCode === '00') {
+          response = data.responseObject.map(emp => {
+            return {name: `${emp.emp_firstname} ${emp.emp_lastname}`, id: emp.emp_id};
+          });
+          this.employees$ = of(response);
+          console.log(this.employees$);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  setEmpNamePhone() {
+    this.handoverForm.patchValue({
+      handoverStaff: this.userDetails.emp_firstname !== null ? `${this.userDetails.emp_firstname} ${this.userDetails.emp_lastname}` : '',
+      phonenumber: this.userDetails.emp_phone !== null ? `${this.userDetails.emp_phone}` : '',
+      address: this.userDetails.emp_address !== null ? `${this.userDetails.emp_address}` : ''
+    });
   }
 
   initForm() {
@@ -166,7 +202,8 @@ export class CreateProjectComponent implements OnInit {
     return this.handoverForm.controls;
   }
 
-  onSubmit(formPayload, formname) {
+  onSubmit(formPayload, formname, stepperComponent?) {
+    this.stepperComponent = stepperComponent;
     console.log(formPayload);
     if (formname === 'handoverForm') {
       const payload: IHandoverNote = {
@@ -179,7 +216,8 @@ export class CreateProjectComponent implements OnInit {
         takeover_name: formPayload.takeoverStaff.value,
        };
       console.log(payload);
-      this.createHandoverNote(`${this.createHandoverNoteUrl.createHandoverNote}/${this.userDetails.username}`, payload);
+      this.createHandoverNote(`${this.createHandoverNoteUrl.createHandoverNote}/${this.userDetails.emp_username}`, payload);
+
     } else if (formname === 'activitiesProjectsProposalForm') {
       const payload = this.activitiesProjectsProposalTable;
       console.log(payload);
@@ -211,8 +249,13 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
-        this.toastr.success('Handover Created');
-        this.getHandoverId();
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.handoverId = data.responseObject.handover_id;
+          this.stepperComponent.next();
+        } else {
+          this.toastr.error(`${data.responseMessage}`);
+        }
       },
       error => {
         console.log(error);
@@ -224,6 +267,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.next();
+        }
       },
       error =>{
         console.log(error);
@@ -235,6 +282,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.next();
+        }
       },
       error =>{
         console.log(error);
@@ -246,6 +297,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.next();
+        }
       },
       error =>{
         console.log(error);
@@ -257,6 +312,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.next();
+        }
       },
       error =>{
         console.log(error);
@@ -268,6 +327,10 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.next();
+        }
       },
       error =>{
         console.log(error);
@@ -279,8 +342,11 @@ export class CreateProjectComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success(`${data.responseMessage}`);
+        }
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
@@ -370,7 +436,7 @@ export class CreateProjectComponent implements OnInit {
     console.log(formpayload);
     const tableData: IVehicleMaintenace = {
       driver_name: formpayload.driverName.value,
-      vehicle_number: formpayload.vehicleName.value,
+      vehicle_number: formpayload.vehicleNo.value,
       vehicle_type: formpayload.vehicleType.value,
       status: formpayload.vehicleStatus.value,
     };
@@ -437,16 +503,29 @@ export class CreateProjectComponent implements OnInit {
     );
   }
 
-  getHandoverId() {
-    this.crudService.getData(`${this.getHandoverNoteUrl}/${this.userDetails.staff_id}`).subscribe(
-      data => {
-        if (data.responseCode === '00') {
-          this.handoverId = data.responseObject.handover_id;
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  // getHandoverId() {
+  //   this.crudService.getData(`${this.getHandoverNoteUrl}/${this.userDetails.staff_id}`).subscribe(
+  //     data => {
+  //       if (data.responseCode === '00') {
+  //         this.handoverId = data.responseObject.handover_id;
+  //       }
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+
+
+  openModal(dialog: TemplateRef<any>){
+    this.dialogService.open(dialog);
+  }
+
+  clearForm(form: FormGroup) {
+    form.reset();
+  }
+
+  gotoHandover() {
+    this.router.navigate(['admin/handover']);
   }
 }

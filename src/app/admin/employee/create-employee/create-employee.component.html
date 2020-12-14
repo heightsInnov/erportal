@@ -66,7 +66,7 @@
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelFour">
-                    <!-- <ng-container *ngTemplateOutlet="labelOneView"></ng-container> -->
+                    <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
@@ -313,7 +313,7 @@
 
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-group">
-                    <label for="phone">Phonenumber 1</label>
+                    <label for="phone">Home Contact</label>
                     <input type="text" [ngClass]="{'form-control' : true,
                                                     'is-invalid' : (createEmployeeFormData.emp_phone.dirty || createEmployeeFormData.emp_phone.touched) && createEmployeeFormData.emp_phone.invalid,
                                                     'is-valid' : (createEmployeeFormData.emp_phone.dirty || createEmployeeFormData.emp_phone.touched) && createEmployeeFormData.emp_phone.valid
@@ -328,7 +328,7 @@
 
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-group">
-                    <label for="gsm_no">Phonenumber 2</label>
+                    <label for="gsm_no">Mobile Contact</label>
                     <input type="text" [ngClass]="{'form-control' : true,
                                                     'is-invalid' : (createEmployeeFormData.emp_gsm_no.dirty || createEmployeeFormData.emp_gsm_no.touched) && createEmployeeFormData.emp_gsm_no.invalid,
                                                     'is-valid' : (createEmployeeFormData.emp_gsm_no.dirty || createEmployeeFormData.emp_gsm_no.touched) && createEmployeeFormData.emp_gsm_no.valid
@@ -384,6 +384,19 @@
                                           }" rows="1" id="hobbies" formControlName="emp_hobbies" placeholder="Enter Hobbies"></textarea>
                     <ng-container *ngIf="(createEmployeeFormData.emp_hobbies.dirty || createEmployeeFormData.emp_hobbies.touched) && createEmployeeFormData.emp_hobbies.invalid">
                       <div *ngIf="createEmployeeFormData.emp_hobbies.errors.required" class="invalid-feedback">Please Enter Hobbies</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="leaveDays">No. of Leave Days</label>
+                    <input type="number" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.valid
+                                                  }" id="leaveDays" formControlName="emp_leave_days" placeholder="Enter No of Leave Days">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_leave_days.errors.required" class="invalid-feedback">Please Enter No of Leave Days</div>
                     </ng-container>
                   </div>
                 </div>
@@ -505,13 +518,13 @@
 
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-group">
-                      <label for="ppdeployment">Present Posting Deployment</label>
+                      <label for="ppdeployment">Present Posting/Deployment</label>
                       <fieldset class="form-group">
                         <select [ngClass]="{'form-control' : true,
                                             'is-invalid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.invalid,
                                             'is-valid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.valid
                                             }" id="ppdeployment" formControlName="emp_present_posting_deployment">
-                          <option [value]="null">Select PPD</option>
+                          <option [value]="null">Select Present Posting/Deployment</option>
                           <ng-container *ngFor="let designation of designations">
                             <option [value]="designation.desig_name">{{ designation.desig_name }}</option>
                           </ng-container>
@@ -609,8 +622,6 @@
     </div>
   </form>
 
-  <!-- <button nbStepperPrevious>prev</button>
-  <button nbStepperNext>next</button> -->
 </ng-template>
 
 <ng-template #labelTwoView>
@@ -725,7 +736,7 @@
           </div>
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+            <button type="submit" [disabled]="!addEmployeeExperienceForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
             <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
@@ -780,13 +791,28 @@
                     <div class="col-md-6 col-12">
                       <div class="form-group">
                         <label for="degree">Degree</label>
-                        <input type="text" [ngClass]="{'form-control' : true,
+                        <fieldset class="form-group">
+                          <select [ngClass]="{'form-control' : true,
+                                                'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
+                                                'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
+                                              }" id="degree" formControlName="edu_degree">
+                            <option [value]="null">Select Degree</option>
+                            <ng-container *ngFor="let degree of educationDegrees">
+                              <option [value]="degree.degree">{{ degree.degree }}</option>
+                            </ng-container>
+                          </select>
+
+                          <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
+                            <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
+                          </ng-container>
+                        </fieldset>
+                        <!-- <input type="text" [ngClass]="{'form-control' : true,
                                                         'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
                                                         'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
                                                       }" id="degree" formControlName="edu_degree" placeholder="Enter Degree">
                         <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
                           <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
-                        </ng-container>
+                        </ng-container> -->
                         </div>
                     </div>
 
@@ -867,7 +893,7 @@
         </div>
         <div class="col-12">
           <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
-          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="submit" [disabled]="!addEmployeeEducationDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
           <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
         </div>
       </div>
@@ -875,86 +901,87 @@
   </form>
 </ng-template>
 
-<!-- <ng-template #labelFourView>
-  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm')" class="form form-vertical">
+<ng-template #labelFourView>
+  <form  [formGroup]="addEmployeeFamilyDetailsForm" (ngSubmit)="onSubmit(addEmployeeFamilyDetailsFormData, 'addEmployeeFamilyDetailsForm', createEmployeeStepper)" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <div class="col-12 mb-2">
-          <nb-accordion>
-            <nb-accordion-item>
-              <nb-accordion-item-header>
-                <h5 class="card-title">
-                  Next of Kin Details
-                </h5>
-              </nb-accordion-item-header>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Add Family Details</h5>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
 
-              <nb-accordion-item-body>
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="form-group">
-                      <label for="nextOfKinName">Next of Kin Name</label>
+                      <label for="spouse_name">Spouse Name</label>
                       <input type="text" [ngClass]="{'form-control' : true,
-                                            'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.invalid,
-                                            'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.valid
-                                          }" id="nextOfKinName" formControlName="nok_name" placeholder="Enter Next of Kin Name">
-                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.invalid">
-                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_name.errors.required" class="invalid-feedback">Please Enter Next of Kin Name</div>
-                      </ng-container>
-                      </div>
-                  </div>
-
-                  <div class="col-md-6 col-12">
-                    <div class="form-group">
-                      <label for="nextOfKinRelationship">Next of Kin Relationship</label>
-                      <input type="text" [ngClass]="{'form-control' : true,
-                                                      'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.invalid,
-                                                      'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.valid
-                                                    }" id="nextOfKinRelationship" formControlName="nok_relationship" placeholder="Enter Relationship">
-                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.invalid">
-                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_relationship.errors.required" class="invalid-feedback">Please Enter Relationship with Next of Kin</div>
-                      </ng-container>
-                      </div>
-                  </div>
-
-                  <div class="col-md-6 col-12">
-                    <div class="form-group">
-                      <label for="nextOfKinPhone">Next of Kin Phone</label>
-                      <input type="text" [ngClass]="{'form-control' : true,
-                                                      'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.invalid,
-                                                      'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.valid
-                                                    }" id="nextOfKinPhone" formControlName="nok_phone" placeholder="Enter Phone Number">
-                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.invalid">
-                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_phone.errors.required" class="invalid-feedback">Please Enter Next of kin Phone Number</div>
-                      </ng-container>
-                      </div>
-                  </div>
-
-
-                  <div class="col-md-6 col-12">
-                    <div class="form-group">
-                      <label for="nextOfKinAddress">Next of Kin Address</label>
-                      <textarea  [ngClass]="{'form-control' : true,
-                                              'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.invalid,
-                                              'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.valid
-                                            }" id="nextOfKinAddress" rows="3" formControlName="nok_address" placeholder="Enter Next of Kin Address"></textarea>
-                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.invalid">
-                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_address.errors.required" class="invalid-feedback">Please Enter Next of kin Address</div>
+                                            'is-invalid' : (addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.invalid,
+                                            'is-valid' : (addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.valid
+                                          }" id="spouse_name" formControlName="spouse_name" placeholder="Enter Spouse Name">
+                      <ng-container *ngIf="(addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.invalid">
+                        <div *ngIf="addEmployeeFamilyDetailsFormData.spouse_name.errors.required" class="invalid-feedback">Please Enter Spouse Name</div>
                       </ng-container>
                     </div>
                   </div>
+
+                  <ng-container formArrayName="children">
+                    <div class="col-md-6 col-12 mb-2" *ngFor="let child of addEmployeeFamilyDetailsFormData.children.controls; let i = index;" [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-5 col-12">
+                          <div class="form-group">
+                            <label for="child_name">Child Name</label>
+                            <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').invalid,
+                                                  'is-valid' : (child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').valid
+                                                }" id="child_name" formControlName="child_name" placeholder="Enter Child Name">
+                            <ng-container *ngIf="(child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').invalid">
+                              <div *ngIf="child.get('child_name').errors.required" class="invalid-feedback">Please Enter Child Name</div>
+                            </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-12">
+                          <div class="form-group">
+                            <label for="child_dob">Child Date of Birth</label>
+                            <input type="date" [ngClass]="{'form-control' : true,
+                                                            'is-invalid' : (child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').invalid,
+                                                            'is-valid' : (child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').valid
+                                                          }" id="child_dob" formControlName="child_dob">
+                            <ng-container *ngIf="(child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').invalid">
+                              <div *ngIf="child.get('child_dob').errors.required" class="invalid-feedback">Please Enter Child Date of Birth</div>
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="col-md-2 mr-auto">
+                          <button type="button" (click)="deleteEntry(i, 'addEmployeeFamilyDetailsForm')" class="btn btn-sm btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <div class="col-12 mr-auto">
+                    <div class="form-group">
+                      <button type="button" (click)="populateFormArrayData('addEmployeeFamilyDetailsForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add Child</button>
+                      <button type="reset" (click)="addEmployeeFamilyDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+                    <button type="submit" [disabled]="!addEmployeeFamilyDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+                    <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+                  </div>
                 </div>
-              </nb-accordion-item-body>
-            </nb-accordion-item>
-          </nb-accordion>
-        </div>
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-            <button type="reset" (click)="addEmployeeNextOfKinDetailsForm.reset()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear all</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </form>
-</ng-template> -->
+</ng-template>
 
 <ng-template #labelFiveView>
   <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm', createEmployeeStepper)" class="form form-vertical">
@@ -1034,9 +1061,9 @@
           </div>
         </div>
         <div class="col-12">
-          <button type="button" (click)="createEmployeeStepper.previous()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Prev</button>
-          <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
-          <button type="reset" (click)="createEmployeeStepper.reset(); goToEmployee();" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+          <button type="button" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+          <button type="submit" [disabled]="!addEmployeeNextOfKinDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="reset" (click)="createEmployeeStepper.reset(); goToEmployee();" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip & Done</button>
         </div>
       </div>
     </div>
