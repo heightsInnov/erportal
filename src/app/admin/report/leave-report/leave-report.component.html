@@ -84,7 +84,7 @@
           <div class="card">
             <div class="card-header">
               <div class="ml-auto">
-                <button type="button" class="btn bg-gradient-primary mb-1 waves-effect waves-light">
+                <button type="button" [disabled]="leaveReports.length === 0" class="btn bg-gradient-primary mb-1 waves-effect waves-light">
                   <i class="feather icon-download"></i> Download Report
                 </button>
               </div>
