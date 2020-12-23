@@ -165,7 +165,7 @@ export class CreateEmployeeComponent implements OnInit {
       if (this.addEmployeeFamilyDetailsFormData.children.length <= 8) {
         this.addEmployeeFamilyDetailsFormData.children.push(this.addFamilyChildrenDetails());
       } else {
-        this.toastr.warning('Cannot Add Above Eight(8) Children', 'Warning')
+        this.toastr.warning('Cannot Add Above Eight(8) Children', 'Warning');
       }
     }
   }
@@ -281,7 +281,7 @@ export class CreateEmployeeComponent implements OnInit {
       data => {
         console.log(data);
         this.toastr.info('Employee Created!', 'Successful');
-        // this.linearMode = false;
+        this.linearMode = false;
         this.stepperComponent.next();
       },
       error => {

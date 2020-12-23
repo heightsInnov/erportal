@@ -56,9 +56,9 @@ export class CreateProjectComponent implements OnInit {
     labelOne: 'Handover Note',
     labelTwo: 'Add Activities',
     labelThree: 'Documents Register',
-    labelFour: 'Directory of Business Contacts',
+    labelFour: 'Business Contacts',
     labelFive: 'Tools and Equipment',
-    labelSix: 'Books, CDs ETC',
+    labelSix: 'Books, CDs, ETC',
     labelSeven: 'Vehicle Maintenance'
   };
   businessContactsForm: FormGroup;
@@ -66,6 +66,7 @@ export class CreateProjectComponent implements OnInit {
   itemType: any[] = [];
   handoverId: any;
   employees$: Observable<any[]>;
+  linearMode = true;
   constructor(
               private fb: FormBuilder,
               private router: Router,
@@ -77,7 +78,7 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(); // initialize reactive form on component init
     // this.getStatus();
-    // this.getHandoverCategories();
+    this.getHandoverCategories();
     this.getEmployees();
     console.log(this.userDetails);
     this.setEmpNamePhone();
@@ -252,6 +253,7 @@ export class CreateProjectComponent implements OnInit {
         if (data.responseCode === '00') {
           this.toastr.success(`${data.responseMessage}`);
           this.handoverId = data.responseObject.handover_id;
+          this.linearMode = false;
           this.stepperComponent.next();
         } else {
           this.toastr.error(`${data.responseMessage}`);
@@ -344,6 +346,8 @@ export class CreateProjectComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00') {
           this.toastr.success(`${data.responseMessage}`);
+          this.stepperComponent.reset();
+          this.gotoHandover();
         }
       },
       error => {

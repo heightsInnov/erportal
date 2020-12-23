@@ -107,8 +107,8 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper #createHandoverStepper orientation="horizontal" disableStepNavigation>
-                  <nb-step [label]="stepperLabel.labelOne">
+                <nb-stepper #createHandoverStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
+                  <nb-step [stepControl]="handoverForm" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
                   <nb-step  [label]="stepperLabel.labelTwo">
@@ -449,7 +449,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="activitiesProjectsProposalTable === undefined || activitiesProjectsProposalTable === []">
+                    <tr *ngIf="activitiesProjectsProposalTable.length === 0">
                       <td colspan="8">No Activity Created.</td>
                     </tr>
                   </tbody>
@@ -457,7 +457,7 @@
               </div>
 
               <div class="col-12 p-0">
-                <ng-container *ngIf="activitiesProjectsProposalTable !== undefined || activitiesProjectsProposalTable !== []">
+                <ng-container *ngIf="activitiesProjectsProposalTable.length > 0">
                   <button type="button" (click)="onSubmit(activitiesProjectsProposalTable, 'activitiesProjectsProposalForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Activities</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.next();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip</button>
@@ -663,7 +663,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="documentRegisterTable === undefined || documentRegisterTable === []">
+                    <tr *ngIf="documentRegisterTable.length === 0">
                       <td colspan="9">No Document Register Created.</td>
                     </tr>
                   </tbody>
@@ -672,7 +672,7 @@
 
               <div class="col-12 p-0">
                 <button type="button" (click)="createHandoverStepper.previous()" class="btn btn-outline-light mr-1 my-1 waves-effect waves-light">Prev</button>
-                <ng-container *ngIf="documentRegisterTable !== undefined || documentRegisterTable !== []">
+                <ng-container *ngIf="documentRegisterTable.length > 0">
                   <button type="button" (click)="onSubmit(documentRegisterTable, 'documentRegisterForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Registers</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.next();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip</button>
@@ -880,7 +880,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="businessContactsTable === undefined || businessContactsTable === []">
+                    <tr *ngIf="businessContactsTable.length === 0">
                       <td colspan="9">No Business Contact Created.</td>
                     </tr>
                   </tbody>
@@ -889,7 +889,7 @@
 
               <div class="col-12 p-0">
                 <button type="button" (click)="createHandoverStepper.previous()" class="btn btn-outline-light mr-1 my-1 waves-effect waves-light">Prev</button>
-                <ng-container *ngIf="businessContactsTable !== undefined || businessContactsTable !== []">
+                <ng-container *ngIf="businessContactsTable.length > 0">
                   <button type="button" (click)="onSubmit(businessContactsTable, 'businessContactsForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Contacts</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.next();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip</button>
@@ -1070,7 +1070,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="toolsAndEquipmentsTable === undefined || toolsAndEquipmentsTable === []">
+                    <tr *ngIf="toolsAndEquipmentsTable.length === 0">
                       <td colspan="7">No Tools or Equipment Created.</td>
                     </tr>
                   </tbody>
@@ -1079,7 +1079,7 @@
 
               <div class="col-12 p-0">
                 <button type="button" (click)="createHandoverStepper.previous()" class="btn btn-outline-light mr-1 my-1 waves-effect waves-light">Prev</button>
-                <ng-container *ngIf="toolsAndEquipmentsTable !== undefined || toolsAndEquipmentsTable !== []">
+                <ng-container *ngIf="toolsAndEquipmentsTable.length > 0">
                   <button type="button" (click)="onSubmit(toolsAndEquipmentsTable, 'toolsAndEquipmentsForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Tools & Equipment</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.next();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip</button>
@@ -1283,7 +1283,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="booksCdsSoftwaresTable === undefined || booksCdsSoftwaresTable === []">
+                    <tr *ngIf="booksCdsSoftwaresTable.length === 0">
                       <td colspan="9">No Books, CD's, Softwares or Reference Materials Created.</td>
                     </tr>
                   </tbody>
@@ -1292,7 +1292,7 @@
 
               <div class="col-12 p-0">
                 <button type="button" (click)="createHandoverStepper.previous()" class="btn btn-outline-light mr-1 my-1 waves-effect waves-light">Prev</button>
-                <ng-container *ngIf="booksCdsSoftwaresTable !== undefined || booksCdsSoftwaresTable !== []">
+                <ng-container *ngIf="booksCdsSoftwaresTable.length > 0">
                   <button type="button" (click)="onSubmit(booksCdsSoftwaresTable, 'booksCdsSoftwaresForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Files</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.next();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip</button>
@@ -1463,7 +1463,7 @@
                         </td>
                       </tr>
                     </ng-container>
-                    <tr *ngIf="vehicleMaintenanceTable === undefined || vehicleMaintenanceTable === []">
+                    <tr *ngIf="vehicleMaintenanceTable.length === 0">
                       <td colspan="6">No Vehicle Maintenance Created.</td>
                     </tr>
                   </tbody>
@@ -1472,7 +1472,7 @@
 
               <div class="col-12 p-0">
                 <button type="button" (click)="createHandoverStepper.previous()" class="btn btn-outline-light mr-1 my-1 waves-effect waves-light">Prev</button>
-                <ng-container *ngIf="vehicleMaintenanceTable !== undefined || vehicleMaintenanceTable !== []">
+                <ng-container *ngIf="vehicleMaintenanceTable.length > 0">
                   <button type="button" (click)="onSubmit(vehicleMaintenanceTable, 'vehicleMaintenanceForm', createHandoverStepper)" class="btn bg-gradient-primary mr-1 my-1 waves-effect waves-light">Save Listed Vehicle Maintenance</button>
                 </ng-container>
                 <button type="reset" (click)="createHandoverStepper.reset(); gotoHandover();" class="btn btn-outline-warning mr-1 my-1 waves-effect waves-light">Skip & Done</button>
