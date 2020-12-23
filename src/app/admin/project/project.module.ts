@@ -8,23 +8,28 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NbStepperModule, NbCardModule, NbAccordionModule, NbTabsetModule } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const route: Routes = [
   {
     path: '',
-    component: ProjectComponent
+    component: ProjectComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-handover',
-    component: CreateProjectComponent
+    component: CreateProjectComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'update-handover',
-    component: UpdateProjectComponent
+    component: UpdateProjectComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'view-handover',
-    component: ViewProjectComponent
+    component: ViewProjectComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

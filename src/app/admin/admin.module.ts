@@ -36,6 +36,11 @@ const routes: Routes = [
         path: 'leave',
         loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'report',
+        loadChildren: () => import('./report/report.module').then(m => m.ReportModule),
+        canActivate: [AuthGuard]
       }
     ]
   },

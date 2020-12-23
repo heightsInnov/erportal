@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://a6787a3d4cb2.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://cf6b7749128.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -25,6 +25,12 @@ export const environment = {
                           addActivities: 'secured/handover/create-act-proj-prop',
                           getHandoverCategories: 'secured/handover/get-categories'
                          },
+  reportsUrl: {
+                activityReport: 'secured/report/get-activity-report',
+                leaveReport: 'secured/report/get-leave-report',
+                handoverReport: 'secured/report/get-handover-report',
+                employeeReport: 'secured/report/get-employee-report'
+              },
 
   getHandoverNotesUrl: 'secured/handover/get-all-handover',
   getHandoverDetailsUrl: 'secured/handover/get-handover-details',

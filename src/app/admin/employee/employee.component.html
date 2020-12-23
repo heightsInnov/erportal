@@ -76,7 +76,7 @@
                                     <td>{{details.emp_employment_date | date}}</td>
                                     <td>
                                       <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
-                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username}">View</button>
+                                        [routerLink]="['/admin/employee/view-employee', details.emp_username]">View</button>
                                     </td>
                                   </tr>
                               </tbody>

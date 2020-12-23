@@ -107,33 +107,26 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper #createHandoverStepper orientation="horizontal">
+                <nb-stepper #createHandoverStepper orientation="horizontal" disableStepNavigation>
                   <nb-step [label]="stepperLabel.labelOne">
-                    <!-- <ng-template #labelOne>Create Staff</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
                   <nb-step  [label]="stepperLabel.labelTwo">
-                    <!-- <ng-template #labelTwo>Add Employee nextOfKin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelThree">
-                    <!-- <ng-template #labelThree>Add Education Details</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelFour">
-                    <!-- <ng-template #labelFour>Add Family Details</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelFive">
-                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelSix">
-                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelSixView"></ng-container>
                   </nb-step>
                   <nb-step [label]="stepperLabel.labelSeven">
-                    <!-- <ng-template #labelFive>Add Next Of Kin</ng-template> -->
                     <ng-container *ngTemplateOutlet="labelSevenView"></ng-container>
                   </nb-step>
                 </nb-stepper>

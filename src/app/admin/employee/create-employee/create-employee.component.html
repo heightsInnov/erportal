@@ -16,18 +16,6 @@
           </div>
       </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-      <div class="form-group breadcrum-right">
-          <div class="dropdown">
-              <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle   waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" [routerLink]="['/admin']">Dashboard</a>
-                <a class="dropdown-item" [routerLink]="['/admin/project']">Project</a>
-                <a class="dropdown-item" [routerLink]="['/admin/task']">Task</a>
-              </div>
-          </div>
-      </div>
-  </div>
 </div>
 
 <div class="content-body">
@@ -37,7 +25,7 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <!-- <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
+                <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
                   <nb-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </nb-step>
@@ -47,28 +35,10 @@
                   <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelThree">
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </nb-step>
-                  <nb-step [label]="stepperLabel.labelFour">
-                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
-                  </nb-step>
-                  <nb-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
-                    <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
-                  </nb-step>
-                </nb-stepper> -->
-
-                <nb-stepper #createEmployeeStepper orientation="horizontal" >
-                  <nb-step [label]="stepperLabel.labelOne">
-                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelTwo">
-                    <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelThree">
-                    <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelFour">
+                  <nb-step [stepControl]="addEmployeeFamilyDetailsForm" [label]="stepperLabel.labelFour">
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
                   </nb-step>
-                  <nb-step [label]="stepperLabel.labelFive">
+                  <nb-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </nb-step>
                 </nb-stepper>
@@ -1069,3 +1039,4 @@
     </div>
   </form>
 </ng-template>
+33

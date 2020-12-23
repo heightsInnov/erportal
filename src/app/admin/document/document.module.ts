@@ -4,15 +4,18 @@ import { DocumentComponent } from './document.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateDocumentComponent } from './create-document/create-document.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: DocumentComponent
+    component: DocumentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-leave',
-    component: CreateDocumentComponent
+    component: CreateDocumentComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

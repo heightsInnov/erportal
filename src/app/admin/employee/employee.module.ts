@@ -6,20 +6,24 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { EmployeeComponent } from './employee.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NbCardModule, NbTabsetModule, NbStepperModule, NbAccordionModule } from '@nebular/theme';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: EmployeeComponent
+    component: EmployeeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'create-employee',
-    component: CreateEmployeeComponent
+    component: CreateEmployeeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'view-employee/:username',
-    component: ViewEmployeeComponent
+    component: ViewEmployeeComponent,
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({
