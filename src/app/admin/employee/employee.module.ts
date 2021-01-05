@@ -5,7 +5,7 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EmployeeComponent } from './employee.component';
 import { Routes, RouterModule } from '@angular/router';
-import { NbCardModule, NbTabsetModule, NbStepperModule, NbAccordionModule } from '@nebular/theme';
+// import { NbCardModule, NbTabsetModule, NbStepperModule, NbAccordionModule } from '@nebular/theme';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 
@@ -34,10 +34,10 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    NbStepperModule,
-    NbCardModule,
-    NbAccordionModule,
-    NbTabsetModule,
+    // NbStepperModule,
+    // NbCardModule,
+    // NbAccordionModule,
+    // NbTabsetModule,
     // NbDialogModule.forChild()
   ]
 })

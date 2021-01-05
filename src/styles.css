@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-
-html body .content {
-  margin-left: 0px !important;
+html, body { height: 100%; }
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
 }
+/* html body .content {
+  margin-left: 0px !important;
+} */
 
 .bg-authentication {
   /* border-radius: 51px !important; */
@@ -20,16 +24,16 @@ html body .content {
               -6px -6px 38px #ffffff;
 } */
 
-.nb-theme-default nb-sidebar .scrollable {
+/* .nb-theme-default nb-sidebar .scrollable {
   padding: 0px !important;
 }
 .layout-container .content nb-layout-footer nav {
     display: block;
-}
+} */
 /* .nb-theme-default nb-layout .layout .layout-container nb-sidebar.fixed, .nb-theme-default nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
   top: 0.7rem !important;
 } */
-
+/*
 .nb-theme-default nb-layout-header nav {
   padding: 0 !important;
 }
@@ -73,12 +77,12 @@ nb-list-item.list-item:hover {
   border-bottom-width: 0;
   border-bottom-color: #007836;
   color: #fff;
-}
+} */
 
-.nb-theme-default nb-card.size-large {
+/* .nb-theme-default nb-card.size-large {
   min-height: 0rem !important;
-  /* max-height: 100rem !important; */
-}
+  max-height: 100rem !important;
+} */
 
 /* .nb-theme-default nb-card { */
   /* background-color: #fff;
@@ -95,9 +99,11 @@ nb-list-item.list-item:hover {
   scrollbar-face-color: #e4e9f2;
   scrollbar-track-color: #f7f9fc; */
 /* } */
-a {
+/* a {
   text-decoration: none !important;
-}
-.nb-theme-default nb-layout .layout {
+} */
+/* .nb-theme-default nb-layout .layout {
   background-color: #e3d3d3 !important;
-}
+} */
+
+

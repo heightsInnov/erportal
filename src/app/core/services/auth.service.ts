@@ -54,7 +54,7 @@ export class AuthService {
 
   login(payload: ILoginPayload): Observable<any> {
     const url = this.baseUrl + environment.loginUrl;
-    // this.spinner.show();
+    this.spinner.show();
     return this.http.post<any>(url, payload).pipe(
       map(response => {
         return response;

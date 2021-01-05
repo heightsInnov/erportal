@@ -134,6 +134,8 @@ export class LoginComponent implements OnInit {
                               status: true,
                               message: 'Invalid Username or Password'
                             };
+        } else if (error.status === 999) {
+          this.toastr.error('Please check internet connection', error.error);
         } else {
           this.loginError = {
                               status: true,

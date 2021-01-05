@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, TemplateRef} from '@angular/core';
-import { NbDialogService, NbMenuService, NB_WINDOW } from '@nebular/theme';
+// import { NbDialogService, NbMenuService, NB_WINDOW } from '@nebular/theme';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,6 +8,9 @@ import { ICreateActivity, IUpdateActivity } from 'src/app/core/models/IActivity'
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 import { filter, map } from 'rxjs/operators';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+declare const $: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -34,8 +37,9 @@ export class DashboardComponent implements OnInit{
   activityIdForStatus = '';
   userDetails = JSON.parse(localStorage.getItem('user'));
   activityActions = [
-                      {title: 'in progress', data: this.activityIdForStatus},
-                      {title: 'completed', data: this.activityIdForStatus}
+                      {title: 'in progress', icon: 'arrow_forward', method: ''},
+                      {title: 'completed', icon: 'double_arrow', method:''},
+                      // {title: 'update', icon: 'update', method: this.activityIdForStatus}
                     ];
   closeModal = false;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
@@ -44,15 +48,17 @@ export class DashboardComponent implements OnInit{
   todoStatus: string;
   inProgressStatus: string;
   completedStatus: string;
+  modal = {name: '', action: ''};
 
   constructor(
-    private dialogService: NbDialogService,
+    // private dialogService: NbDialogService,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private crudService: CrudService,
     private router: Router,
     private toastr: ToastrService,
-    private nbMenuService: NbMenuService,
-    @Inject(NB_WINDOW) private window
+    // private nbMenuService: NbMenuService,
+    // @Inject(NB_WINDOW) private window
   ) { }
 
   ngOnInit(): void {
@@ -61,25 +67,25 @@ export class DashboardComponent implements OnInit{
     this.getActivities(this.getActivityUrl);
     this.getActivityStatus(this.getActivityStatusUrl);
     // this.checkAvailabilty();
-    this.nbMenuService.onItemClick()
-      .pipe(
-        filter(({ tag }) => tag === 'activity-actions'),
-        map(({ item: { title, data }}) => {
-          return {action: title, id: data};
-        }),
-      )
-      .subscribe(menu => {
-        this.open(this.activityStatusModal,
-                    {
-                      action: menu.action,
-                      question: `do you want to move this activity to ${menu.action}?`,
-                      statusCode: menu.action === 'completed' ? 'C' : 'O',
-                      // id: menu.id
-                      id: this.activityIdForStatus
-                    },
-                  );
-        }
-      );
+    // this.nbMenuService.onItemClick()
+    //   .pipe(
+    //     filter(({ tag }) => tag === 'activity-actions'),
+    //     map(({ item: { title, data }}) => {
+    //       return {action: title, id: data};
+    //     }),
+    //   )
+    //   .subscribe(menu => {
+    //     this.open(this.activityStatusModal,
+    //                 {
+    //                   action: menu.action,
+    //                   question: `do you want to move this activity to ${menu.action}?`,
+    //                   statusCode: menu.action === 'completed' ? 'C' : 'O',
+    //                   // id: menu.id
+    //                   id: this.activityIdForStatus
+    //                 },
+    //               );
+    //     }
+    //   );
   }
   // build form controls
   initForm(): void {
@@ -130,7 +136,7 @@ export class DashboardComponent implements OnInit{
           this.toastr.success('Activity Created', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
-          this.close();
+          // this.close();
         }
       },
       error => {
@@ -147,7 +153,7 @@ export class DashboardComponent implements OnInit{
           this.toastr.success('Activity Updated', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
-          this.close();
+          // this.close();
         }
       },
       error => {
@@ -156,6 +162,17 @@ export class DashboardComponent implements OnInit{
     );
   }
 
+  getOptionMethod(modal: TemplateRef<any>, action, activityId){
+    this.openModal(modal,
+      {
+        action: action.title,
+        question: `do you want to move this activity to ${action.title}?`,
+        statusCode: action.title === 'completed' ? 'C' : 'O',
+        id: activityId
+      }
+    );
+
+  }
   // checkAvailabilty() {
   //   if (this.activities === []) {
   //     return 'no activity created';
@@ -236,7 +253,7 @@ export class DashboardComponent implements OnInit{
     );
   }
 
-  open(dialog: TemplateRef<any>, options, updateObj?) {
+  open(modalName, action, updateObj?) {
     if (updateObj) {
       this.activityId = updateObj.activityId;
       this.form.patchValue({
@@ -247,17 +264,31 @@ export class DashboardComponent implements OnInit{
         // status: updateObj.status
       });
     }
-    this.dialogService.open(
+    this.modal.name = modalName;
+    this.modal.action = action;
+    // this.dialogService.open(
+    //   dialog,
+    //   {
+    //     context: {
+    //                 title: options
+    //              }
+    //   }
+    // );
+  }
+
+  openModal(dialog: TemplateRef<any>, options) {
+    this.dialog.open(
       dialog,
       {
-        context: {
-                    title: options
-                 }
+        data: {
+                title: options
+              }
       }
     );
   }
 
-  changeActivityStatus(activityId, status, modalRef) {
+
+  changeActivityStatus(activityId, status, modalRef = '') {
     this.dialogRef = modalRef;
     const payload = {activityId, status};
     console.log(payload);
@@ -271,7 +302,7 @@ export class DashboardComponent implements OnInit{
           } else if (status === 'C') {
             this.toastr.info('Moved to \'Completed\'', 'Successful');
           }
-          this.close();
+          // this.close();
         }
       },
       error => {

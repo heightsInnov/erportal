@@ -1,50 +1,9 @@
-<!-- <div class="content-header row">
-  <div class="content-header-left col-md-9 col-12 mb-2">
-      <div class="row breadcrumbs-top">
-          <div class="col-12">
-              <h2 class="content-header-title float-left mb-0">Activity</h2>
-              <div class="breadcrumb-wrapper col-12">
-                  <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
-                      </li>
-                      <li class="breadcrumb-item active"><a>Activity</a>
-                      </li>
-                  </ol>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-      <div class="form-group breadcrum-right">
-          <div class="dropdown">
-              <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" [routerLink]="['/admin']">Dashboard</a>
-                <a class="dropdown-item" [routerLink]="['/admin/budget']">Budget</a>
-                <a class="dropdown-item" [routerLink]="['/admin/documents']">Documents</a>
-              </div>
-          </div>
-      </div>
-  </div> 'BRFirma', sans-serif
-</div> -->
-
 <div class="section">
   <div class="row">
     <div class="col-12">
       <div class="d-flex">
-        <div class="mr-auto">
-          <h2 class="content-header-title float-left mb-0">Activity</h2>
-          <div class="breadcrumb-wrapper">
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a [routerLink]="['/admin']">Dashboard</a>
-                  </li>
-                  <!-- <li class="breadcrumb-item active"><a>Activity</a>
-                  </li> -->
-              </ol>
-          </div>
-        </div>
         <div class="ml-auto">
-          <button type="button" class="btn btn-primary mr-1 mb-1 waves-effect waves-light" (click)="open(activityModal, 'create')">
+          <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#activityModal" (click)="open('activityModal', 'create')">
             <i class="feather icon-plus-circle"></i> Create Activity
           </button>
         </div>
@@ -53,10 +12,94 @@
   </div>
   <div class="row">
     <div class="col-md-4 col-6">
-      <nb-card status="info" size="large">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <h4 class="card-title">TODO</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <!-- <li class="list-group-item">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-times-o text-bold-700 text-red"></i>
+                        <span class="text-bold-600 ml-50">No Activity</span>
+                        <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                    </div>
+                  </div>
+                  <div class="d-flex pt-1 mb-0">
+                    <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="float-left d-flex justify-content-center align-items-center">
+                    <i class="fa fa-circle-o text-bold-600"></i>
+                    <span class="text-bold-600 ml-50">No Activity</span>
+                    <div class="badge badge-pill badge-glow badge-primary ml-1">444</div>
+                  </div>
+                  <div class="float-right d-flex">dfff</div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="d-flex pt-1 mb-0">
+                    <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
+                  </div>
+                </div>
+              </div>
+            </li> -->
+            <li class="list-group-item" *ngFor="let activity of todos;">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="float-left d-flex justify-content-center align-items-center">
+                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
+                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
+                  </div>
+                  <div class="float-right">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Activity options menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <ng-container *ngFor="let action of activityActions">
+                        <button mat-menu-item (click)="getOptionMethod(activityStatusModal, action, activity.activityId)">
+                          <mat-icon>{{ action.icon}}</mat-icon>
+                          <span>{{ action.title | uppercase}}</span>
+                        </button>
+                      </ng-container>
+                      <button mat-menu-item (click)="open('activityModal', 'update', activity)">
+                        <mat-icon>update</mat-icon>
+                        <span>Update</span>
+                      </button>
+                    </mat-menu>
+
+                    <!-- <nb-actions size="tiny">
+                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                          <i class="feather icon-activity"></i>
+                        </nb-action>
+                        <nb-action (click)="open('activityModal', 'update', activity)"><i class="feather icon-edit"></i></nb-action>
+                        <nb-action><i class="feather icon-trash"></i></nb-action>
+                      </nb-actions> -->
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="d-flex pt-1 mb-0">
+                    <span class="small">{{ activity.objectives }}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </ul>
+        </div>
+      </div>
+      <!-- <nb-card status="info" size="large">
         <nb-card-header>TODO</nb-card-header>
         <nb-list>
-          <!-- <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
+         `<nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
             <div class="row">
               <div class="col-sm-12">
                 <div class="d-flex justify-content-between">
@@ -87,7 +130,7 @@
                 </div>
               </div>
             </div>
-          </nb-list-item> -->
+          </nb-list-item>
           <nb-list-item class="list-item" *ngFor="let activity of todos;">
             <div class="row">
               <div class="col-sm-12">
@@ -115,14 +158,49 @@
             </div>
           </nb-list-item>
         </nb-list>
-      </nb-card>
+      </nb-card> -->
     </div>
 
     <div class="col-md-4 col-6">
-      <nb-card status="warning" size="large">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+          <h4 class="card-title">IN PROGRESS</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let activity of inProgress;">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="float-left d-flex justify-content-center align-items-center">
+                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
+                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
+                  </div>
+                  <div class="float-right d-flex">
+                    <!-- <nb-actions size="tiny">
+                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                          <i class="feather icon-activity"></i>
+                        </nb-action>
+                        <nb-action (click)="open('activityModal', 'update', activity)"><i class="feather icon-edit"></i></nb-action>
+                        <nb-action><i class="feather icon-trash"></i></nb-action>
+                    </nb-actions> -->
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="d-flex pt-1 mb-0">
+                    <span class="small">{{ activity.objectives }}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </ul>
+        </div>
+      </div>
+      <!-- <nb-card status="warning" size="large">
         <nb-card-header>IN PROGRESS</nb-card-header>
         <nb-list>
-          <!-- <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
+          <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
             <div class="row">
               <div class="col-sm-12">
                 <div class="d-flex justify-content-between">
@@ -153,7 +231,7 @@
                 </div>
               </div>
             </div>
-          </nb-list-item> -->
+          </nb-list-item>
           <nb-list-item class="list-item" *ngFor="let activity of inProgress;">
             <div class="row">
               <div class="col-sm-12">
@@ -181,11 +259,46 @@
             </div>
           </nb-list-item>
         </nb-list>
-      </nb-card>
+      </nb-card> -->
     </div>
 
     <div class="col-md-4 col-6">
-      <nb-card status="success" size="large">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+           <h4 class="card-title">COMPLETED</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let activity of completed;">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="float-left d-flex justify-content-center align-items-center">
+                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
+                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
+                  </div>
+                  <div class="float-right d-flex">
+                    <!-- <nb-actions size="tiny">
+                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                          <i class="feather icon-activity"></i>
+                        </nb-action>
+                        <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
+                        <nb-action><i class="feather icon-trash"></i></nb-action>
+                      </nb-actions> -->
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="d-flex pt-1 mb-0">
+                    <span class="small">{{ activity.objectives }}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+        </ul>
+        </div>
+      </div>
+      <!-- <nb-card status="success" size="large">
         <nb-card-header>COMPLETED</nb-card-header>
         <nb-list>
           <nb-list-item class="list-item"  *ngFor="let activity of completed;">
@@ -197,13 +310,13 @@
                       <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
                       <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
                   </div>
-                  <!-- <div class="ml-auto d-flex">
+                  <div class="ml-auto d-flex">
                     <nb-actions size="tiny">
                       <nb-action><i class="feather icon-info"></i></nb-action>
                       <nb-action><i class="feather icon-star"></i></nb-action>
                       <nb-action><i class="feather icon-trash"></i></nb-action>
                     </nb-actions>
-                  </div> -->
+                  </div>
                 </div>
                 <div class="d-flex pt-1 mb-0">
                   <span class="small">{{ activity.objectives }}</span>
@@ -213,21 +326,21 @@
 
           </nb-list-item>
         </nb-list>
-      </nb-card>
+      </nb-card> -->
     </div>
   </div>
 </div>
 
 
-<ng-template #activityModal let-data let-ref="dialogRef">
-  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
+<!-- <ng-template #activityModal let-data let-ref="dialogRef"> -->
+  <div class="modal fade show" id="activityModal" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
       <div class="modal-content">
           <section class="todo-form">
-              <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input">
+              <form [formGroup]="form" (ngSubmit)="onSubmit(formData, modal.name, modal.action)" class="todo-input">
                 <div class="modal-header">
-                  <h5 class="modal-title"> {{ data.title | titlecase}} Activity</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm();">
+                  <h5 class="modal-title"> {{ modal.action | titlecase}} Activity</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
@@ -293,10 +406,10 @@
                       <button [disabled]="!form.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
                         data-dismiss="modal">
                         <i class="feather icon-check d-block d-lg-none"></i>
-                          <span class="d-none d-lg-block">{{ data.title | titlecase}} Task</span></button>
+                          <span class="d-none d-lg-block">{{ modal.action | titlecase}}</span></button>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
-                      <button type="button" (click)="clearForm(); ref.close(); " class="btn btn-outline-light waves-effect waves-light"actions>
+                      <button type="button" (click)="clearForm();" data-dismiss="modal" class="btn btn-outline-light waves-effect waves-light actions">
                         <i class="feather icon-x d-block d-lg-none"></i>
                           <span class="d-none d-lg-block">Cancel</span>
                         </button>
@@ -307,17 +420,17 @@
       </div>
     </div>
   </div>
-</ng-template>
+<!-- </ng-template> -->
 
-<ng-template #activityStatusModal let-data let-ref="dialogRef">
-  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
+<ng-template #activityStatusModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
       <div class="modal-content">
           <section class="todo-form">
               <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
                 <div class="modal-header">
                   <h5 class="modal-title"> Change Activity Status</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close()">
+                  <button type="button" class="close" aria-label="Close" [mat-dialog-close]="true">
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
@@ -327,14 +440,14 @@
                 <div class="modal-footer">
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
-                      data-dismiss="modal" (click)="ref.close()">
+                       [mat-dialog-close]="true">
                       <i class="feather icon-times d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">NO</span>
                     </button>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                        data-dismiss="modal" (click)="changeActivityStatus(data.title.id, data.title.statusCode, ref)">
+                        (click)="changeActivityStatus(data.title.id, data.title.statusCode)">
                         <i class="feather icon-check d-block d-lg-none"></i>
                           <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
                           <span class="d-none d-lg-block">YES</span>

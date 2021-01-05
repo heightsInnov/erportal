@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NbThemeModule, NbSidebarModule, NbMenuModule, NbDialogModule } from '@nebular/theme';
+// import { NbThemeModule, NbSidebarModule, NbMenuModule, NbDialogModule } from '@nebular/theme';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { InternetInterceptor } from './core/interceptors/internet.interceptor';
+// import { MaterialModule } from './core/shared/material.module';
 
 @NgModule({
   declarations: [
@@ -25,16 +27,21 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NbThemeModule.forRoot(),
-    NbSidebarModule.forRoot(),
-    NbMenuModule.forRoot(),
+    // MaterialModule,
+    // NbThemeModule.forRoot(),
+    // NbSidebarModule.forRoot(),
+    // NbMenuModule.forRoot(),
     ToastrModule.forRoot(),
-    NbDialogModule.forRoot(),
+    // NbDialogModule.forRoot(),
     NgxSpinnerModule,
     BreadcrumbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, AuthGuard],
+  providers: [
+              {provide: HTTP_INTERCEPTORS, useClass: InternetInterceptor, multi: true},
+              {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+              AuthGuard
+             ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

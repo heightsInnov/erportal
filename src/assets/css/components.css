@@ -13,7 +13,7 @@ html body
 {
     height: 100%;
 
-    background-color: #e3d3d3;
+    background-color: #f8f8f8;
 
     direction: ltr;
     /*
@@ -1079,11 +1079,12 @@ body.fixed-footer footer.footer-dark
 }
 .main-menu .navbar-header .navbar-brand .brand-logo
 {
-    width: 35px;
-    height: 24px;
+    width: 55px;
+    height: 55px;
 
-    background: url('../../assets/images/logo/vuesax-logo.png') no-repeat;
-    background-position: -65px -54px;
+    background-image: url('../../assets/images/lagos_logo.png') no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 .main-menu .navbar-header .navbar-brand .brand-text
 {

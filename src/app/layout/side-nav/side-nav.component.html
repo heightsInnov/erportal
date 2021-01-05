@@ -1,23 +1,25 @@
  <!-- BEGIN: Main Menu-->
- <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow">
-    <!-- <div class="navbar-header">
-        <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto">
-              <a class="navbar-brand">
-                  <div class="brand-logo"></div>
-                  <h2 class="brand-text mb-0">ERP
-                    <i class="fa fa-stumbleupon-circle"></i>
-                  </h2>
+ <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav flex-row">
+          <li class="nav-item mr-auto">
+            <a class="navbar-brand" style="margin-top:.6rem !important;">
+                <!-- <div class="brand-logo"> -->
+                  <!-- <img src="../../../assets/images/lagos_logo.png" width="35" height="35" class="d-inline-block align-top" alt="" loading="lazy"> -->
+                <!-- </div> -->
+                <img src="../../../assets/images/lagos_logo.png" width="50" height="50" alt="" loading="lazy">
+
+                <h2 class="brand-text mb-0">ERP</h2>
+            </a>
+          </li>
+          <li class="nav-item nav-toggle" (click)="toggle()">
+              <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+                  <i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i>
+                  <i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i>
               </a>
-            </li>
-            <li class="nav-item nav-toggle" (click)="toggle()">
-                <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
-                    <i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i>
-                    <i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i>
-                </a>
-            </li>
-        </ul>
-    </div> -->
+          </li>
+      </ul>
+    </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
@@ -47,7 +49,7 @@
             </li> -->
             <!-- <li class=" nav-item"><a href="app-user.html"><i class="feather icon-bar-chart"></i><span class="menu-title" data-i18n="User dataTables">User dataTables</span></a>
             </li> -->
-            <li class="nav-item"><a><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Reports">Reports</span></a>
+            <li class="nav-item has-sub"><a><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Reports">Reports</span></a>
                 <ul class="menu-content">
                     <li class=" nav-item"><a [routerLink]="['/admin/report/employee-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Employee Report">Employee Report</span></a>
                     </li>
