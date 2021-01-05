@@ -18,11 +18,13 @@ const routes: Routes = [
   {
     path: 'create-employee',
     component: CreateEmployeeComponent,
+    data: { breadcrumb: 'Create Employee' },
     canActivate: [AuthGuard]
   },
   {
     path: 'view-employee/:username',
     component: ViewEmployeeComponent,
+    data: { breadcrumb: 'View Employee' },
     canActivate: [AuthGuard]
   }
 ];

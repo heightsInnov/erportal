@@ -18,7 +18,7 @@ export class HandoverReportComponent implements OnInit {
   employeeDetails = JSON.parse(localStorage.getItem('user'));
   getHandoverReportUrl = environment.reportsUrl.handoverReport;
   employeeUrl = environment.getAllEmployeeUrl;
-  handoverReports: any;
+  handoverReports: any[] = [];
   handoverReasons = ['Annual Leave', 'Final Exit', 'Reassignment'];
   filterBy = [
                 {value: 'takeover_staff', name: 'Takeover Staff'},

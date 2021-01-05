@@ -13,21 +13,25 @@ const routes: Routes = [
   {
     path: 'leave-report',
     component: LeaveReportComponent,
+    data: { breadcrumb: 'Leave Report' },
     canActivate: [AuthGuard]
   },
   {
     path: 'activity-report',
     component: ActivityReportComponent,
+    data: { breadcrumb: 'Activity Report' },
     canActivate: [AuthGuard]
   },
   {
     path: 'handover-report',
     component: HandoverReportComponent,
+    data: { breadcrumb: 'Handover Report' },
     canActivate: [AuthGuard]
   },
   {
     path: 'employee-report',
     component: EmployeeReportComponent,
+    data: { breadcrumb: 'Employee Report' },
     canActivate: [AuthGuard]
   }
 ];

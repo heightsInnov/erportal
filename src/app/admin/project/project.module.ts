@@ -19,6 +19,7 @@ const route: Routes = [
   {
     path: 'create-handover',
     component: CreateProjectComponent,
+    data: { breadcrumb: 'Create Handover' },
     canActivate: [AuthGuard]
   },
   {
@@ -29,6 +30,7 @@ const route: Routes = [
   {
     path: 'view-handover',
     component: ViewProjectComponent,
+    data: { breadcrumb: 'View Handover' },
     canActivate: [AuthGuard]
   }
 ];

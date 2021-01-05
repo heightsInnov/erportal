@@ -12,6 +12,7 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NbMenuModule.forRoot(),
     ToastrModule.forRoot(),
     NbDialogModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BreadcrumbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}, AuthGuard],

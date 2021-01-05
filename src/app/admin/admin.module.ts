@@ -20,17 +20,20 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Employee' },
       },
       {
         path: 'employee',
         loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Employee' },
       },
       {
         path: 'handover',
         loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Handover' },
       },
       {
         path: 'leave',

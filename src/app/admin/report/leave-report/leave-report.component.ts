@@ -16,7 +16,7 @@ export class LeaveReportComponent implements OnInit {
   filterForm: FormGroup;
   employeeDetails = JSON.parse(localStorage.getItem('user'));
   getLeaveUrl = environment.reportsUrl.leaveReport;
-  leaveReports: any;
+  leaveReports: any[] = [];
   payloadRange;
 
   constructor(

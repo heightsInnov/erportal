@@ -17,7 +17,7 @@ export class ActivityReportComponent implements OnInit {
   filterForm: FormGroup;
   employeeDetails = JSON.parse(localStorage.getItem('user'));
   getActivityReportUrl = environment.reportsUrl.activityReport;
-  activityReports: any;
+  activityReports: any[] = [];
   activityStatus = [{value: 'P', name: 'Todo'}, {value: 'O', name: 'In Progress'}, {value: 'C', name: 'Completed'}];
   activityPeriods = [
                       {value: 'D', name: 'Daily'},

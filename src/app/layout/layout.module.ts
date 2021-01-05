@@ -5,19 +5,24 @@ import { FooterComponent } from './footer/footer.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { RouterModule } from '@angular/router';
 import { NbUserModule, NbContextMenuModule } from '@nebular/theme';
+import { BreadcrumbModule as BM} from 'xng-breadcrumb';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import {BreadcrumbModule} from 'angular-crumbs';
 // import { NbMenuModule } from '@nebular/theme';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SideNavComponent],
+  declarations: [HeaderComponent, FooterComponent, SideNavComponent, BreadcrumbComponent],
   imports: [
     CommonModule,
     RouterModule,
     NbUserModule,
-    NbContextMenuModule
+    NbContextMenuModule,
+    BreadcrumbModule,
+    BM
     // NbMenuModule
   ],
-  exports: [HeaderComponent, FooterComponent, SideNavComponent],
+  exports: [HeaderComponent, FooterComponent, SideNavComponent, BreadcrumbComponent],
 })
 export class LayoutModule { }

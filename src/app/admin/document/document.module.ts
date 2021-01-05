@@ -15,6 +15,7 @@ const routes: Routes = [
   {
     path: 'create-leave',
     component: CreateDocumentComponent,
+    data: { breadcrumb: 'Create Leave' },
     canActivate: [AuthGuard]
   }
 ];
