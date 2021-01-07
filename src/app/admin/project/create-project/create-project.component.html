@@ -77,29 +77,29 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper #createHandoverStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
-                  <nb-step [stepControl]="handoverForm" [label]="stepperLabel.labelOne">
+                <mat-horizontal-stepper labelPosition="bottom" #createHandoverStepper [linear]="linearMode">
+                  <mat-step [stepControl]="handoverForm" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
-                  </nb-step>
-                  <nb-step  [label]="stepperLabel.labelTwo">
+                  </mat-step>
+                  <mat-step  [label]="stepperLabel.labelTwo">
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelThree">
+                  </mat-step>
+                  <mat-step [label]="stepperLabel.labelThree">
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelFour">
+                  </mat-step>
+                  <mat-step [label]="stepperLabel.labelFour">
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelFive">
+                  </mat-step>
+                  <mat-step [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelSix">
+                  </mat-step>
+                  <mat-step [label]="stepperLabel.labelSix">
                     <ng-container *ngTemplateOutlet="labelSixView"></ng-container>
-                  </nb-step>
-                  <nb-step [label]="stepperLabel.labelSeven">
+                  </mat-step>
+                  <mat-step [label]="stepperLabel.labelSeven">
                     <ng-container *ngTemplateOutlet="labelSevenView"></ng-container>
-                  </nb-step>
-                </nb-stepper>
+                  </mat-step>
+                </mat-horizontal-stepper>
               </div>
             </div>
           </div>
@@ -241,7 +241,7 @@
 </ng-template>
 
 <ng-template #labelTwoView>
-  <ng-template #activitiesProjectsProposal let-data let-ref="dialogRef">
+  <ng-template #activitiesProjectsProposal>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -249,7 +249,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT ACTIVITIES, PROJECTS AND PROPOSALS </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(activitiesProjectsProposalForm);">
+                <button type="button" class="close" aria-label="Close" (click)="clearForm(activitiesProjectsProposalForm);" mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -357,7 +357,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="activitiesProjectsProposalForm.reset(); ref.close(); " class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="activitiesProjectsProposalForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>
@@ -441,7 +441,7 @@
 </ng-template>
 
 <ng-template #labelThreeView>
-  <ng-template #documentRegister let-data let-ref="dialogRef">
+  <ng-template #documentRegister>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -449,7 +449,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT DOCUMENT REGISTER </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(documentRegisterForm);">
+                <button type="button" class="close" aria-label="Close" (click)="clearForm(documentRegisterForm);"  mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -568,7 +568,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="documentRegisterForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="documentRegisterForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>
@@ -656,7 +656,7 @@
 </ng-template>
 
 <ng-template #labelFourView>
-  <ng-template #businessContact let-data let-ref="dialogRef">
+  <ng-template #businessContact>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -664,7 +664,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT BUSINESS CONTACTS </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(businessContactsForm);">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm(businessContactsForm);"  mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -786,7 +786,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="businessContactsForm.reset(); ref.close(); " class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="businessContactsForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>
@@ -873,7 +873,7 @@
 </ng-template>
 
 <ng-template #labelFiveView>
-  <ng-template #toolsAndEquipments let-data let-ref="dialogRef">
+  <ng-template #toolsAndEquipments>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -881,7 +881,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT TOOLS AND EQUIPMENTS </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(toolsAndEquipmentsForm);">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm(toolsAndEquipmentsForm);" mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -980,7 +980,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="toolsAndEquipmentsForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="toolsAndEquipmentsForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>
@@ -1063,7 +1063,7 @@
 </ng-template>
 
 <ng-template #labelSixView>
-  <ng-template #booksCdsSoftwares let-data let-ref="dialogRef">
+  <ng-template #booksCdsSoftwares>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -1071,7 +1071,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT BOOKS, CDS, SOFTWARES AND REFERENCE MANUALS </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(booksCdsSoftwaresForm);">
+                <button type="button" class="close" aria-label="Close" (click)="clearForm(booksCdsSoftwaresForm);"  mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -1189,7 +1189,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="booksCdsSoftwaresForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="booksCdsSoftwaresForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>
@@ -1276,7 +1276,7 @@
 </ng-template>
 
 <ng-template #labelSevenView>
-  <ng-template #vehicleMaintenance let-data let-ref="dialogRef">
+  <ng-template #vehicleMaintenance>
     <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -1284,7 +1284,7 @@
             <div class="form-body">
               <div class="modal-header">
                 <h6 class="modal-title"> SUBMIT VEHICLE MAINTENANCE </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(vehicleMaintenanceForm);">
+                <button type="button" class="close" aria-label="Close" (click)="clearForm(vehicleMaintenanceForm);"  mat-dialog-close>
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -1375,7 +1375,7 @@
                       <span class="d-none d-lg-block">Add</span></button>
                 </fieldset>
                 <fieldset class="form-group position-relative has-icon-left mb-0">
-                    <button type="reset" (click)="vehicleMaintenanceForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                    <button type="reset" (click)="vehicleMaintenanceForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">Cancel</span>
                       </button>

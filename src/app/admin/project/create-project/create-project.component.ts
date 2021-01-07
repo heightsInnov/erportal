@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { NbDialogService, NbStepperComponent } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { IBusinessContacts, IHandoverNote, IDocumentRegister, IHandoverActivites, IToolsAndEquipment, IVehicleMaintenace } from 'src/app/core/models/IHandover';
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CreateProjectComponent implements OnInit {
 
-  stepperComponent: NbStepperComponent;
+  stepperComponent: MatHorizontalStepper;
   createHandoverNoteUrl = environment.createHandoverNoteUrl;
   getHandoverNoteUrl = environment.getHandoverNotesUrl;
   getEmployeesUrl = environment.getAllEmployeeUrl;
@@ -67,12 +68,14 @@ export class CreateProjectComponent implements OnInit {
   handoverId: any;
   employees$: Observable<any[]>;
   linearMode = true;
+  modal: MatDialogRef<TemplateRef<any>>;
+
   constructor(
               private fb: FormBuilder,
               private router: Router,
               private crudService: CrudService,
               private toastr: ToastrService,
-              private dialogService: NbDialogService
+              private dialog: MatDialog
               ) { }
 
   ngOnInit(): void {
@@ -270,6 +273,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.next();
         }
@@ -285,6 +289,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.next();
         }
@@ -300,6 +305,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.next();
         }
@@ -315,6 +321,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.next();
         }
@@ -330,6 +337,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.next();
         }
@@ -345,6 +353,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success(`${data.responseMessage}`);
           this.stepperComponent.reset();
           this.gotoHandover();
@@ -522,7 +531,7 @@ export class CreateProjectComponent implements OnInit {
 
 
   openModal(dialog: TemplateRef<any>){
-    this.dialogService.open(dialog);
+    this.modal = this.dialog.open(dialog);
   }
 
   clearForm(form: FormGroup) {
@@ -531,5 +540,9 @@ export class CreateProjectComponent implements OnInit {
 
   gotoHandover() {
     this.router.navigate(['admin/handover']);
+  }
+
+  close() {
+    this.modal.close();
   }
 }

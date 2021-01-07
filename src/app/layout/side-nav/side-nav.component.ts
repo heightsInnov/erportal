@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
+// import { NbMenuService, NbSidebarService } from '@nebular/theme';
 // import { NbMenuItem } from '@nebular/theme';
 @Component({
   selector: 'app-side-nav',
@@ -28,7 +28,7 @@ export class SideNavComponent implements OnInit {
   // ];
 
   constructor(
-    private sidebarService: NbSidebarService,
+    // private sidebarService: NbSidebarService,
     // private menuService: NbMenuService
     ) {
   }
@@ -37,7 +37,7 @@ export class SideNavComponent implements OnInit {
 
 
   toggle() {
-    this.sidebarService.toggle(true);
+    // this.sidebarService.toggle(true);
     return false;
   }
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, TemplateRef} from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
 // import { NbDialogService, NbMenuService, NB_WINDOW } from '@nebular/theme';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +18,9 @@ declare const $: any;
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit{
-  activityStatusModal: TemplateRef<any>;
+  @ViewChild('activityStatusModal') activityStatusModal: TemplateRef<any>;
+  @ViewChild('activityModal') activityModal: TemplateRef<any>;
+
   form: FormGroup;
   payload: ICreateActivity;
   updatePayload: IUpdateActivity;
@@ -35,15 +37,17 @@ export class DashboardComponent implements OnInit{
   units: any[] = [];
   activityId: string;
   activityIdForStatus = '';
-  userDetails = JSON.parse(localStorage.getItem('user'));
+  userDetails = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
   activityActions = [
-                      {title: 'in progress', icon: 'arrow_forward', method: ''},
-                      {title: 'completed', icon: 'double_arrow', method:''},
-                      // {title: 'update', icon: 'update', method: this.activityIdForStatus}
-                    ];
+    {title: 'in progress', icon: 'arrow_forward', method: 'in_progress'},
+    {title: 'completed', icon: 'double_arrow', method: 'completed'},
+    {title: 'update', icon: 'update', method: 'update'}
+  ];
+  todoActions = this.activityActions.filter(action => action.method !== 'completed');
+  ongoingActions = this.activityActions.filter(action => action.method !== 'in_progress');
   closeModal = false;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
-  dialogRef: any;
+  dialogRef: MatDialogRef<TemplateRef<any>>;
   activities: any[];
   todoStatus: string;
   inProgressStatus: string;
@@ -51,14 +55,11 @@ export class DashboardComponent implements OnInit{
   modal = {name: '', action: ''};
 
   constructor(
-    // private dialogService: NbDialogService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private crudService: CrudService,
     private router: Router,
     private toastr: ToastrService,
-    // private nbMenuService: NbMenuService,
-    // @Inject(NB_WINDOW) private window
   ) { }
 
   ngOnInit(): void {
@@ -67,25 +68,6 @@ export class DashboardComponent implements OnInit{
     this.getActivities(this.getActivityUrl);
     this.getActivityStatus(this.getActivityStatusUrl);
     // this.checkAvailabilty();
-    // this.nbMenuService.onItemClick()
-    //   .pipe(
-    //     filter(({ tag }) => tag === 'activity-actions'),
-    //     map(({ item: { title, data }}) => {
-    //       return {action: title, id: data};
-    //     }),
-    //   )
-    //   .subscribe(menu => {
-    //     this.open(this.activityStatusModal,
-    //                 {
-    //                   action: menu.action,
-    //                   question: `do you want to move this activity to ${menu.action}?`,
-    //                   statusCode: menu.action === 'completed' ? 'C' : 'O',
-    //                   // id: menu.id
-    //                   id: this.activityIdForStatus
-    //                 },
-    //               );
-    //     }
-    //   );
   }
   // build form controls
   initForm(): void {
@@ -102,8 +84,7 @@ export class DashboardComponent implements OnInit{
     return this.form.controls;
   }
 
-  onSubmit(formPayload, modalRef, action) {
-    this.dialogRef = modalRef;
+  onSubmit(formPayload, action) {
     if (action === 'create') {
       this.payload = {
                       unit: formPayload.unit.value,
@@ -136,7 +117,7 @@ export class DashboardComponent implements OnInit{
           this.toastr.success('Activity Created', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
-          // this.close();
+          this.close();
         }
       },
       error => {
@@ -153,7 +134,7 @@ export class DashboardComponent implements OnInit{
           this.toastr.success('Activity Updated', 'Successful');
           this.getActivities(this.getActivityUrl);
           this.clearForm();
-          // this.close();
+          this.close();
         }
       },
       error => {
@@ -162,17 +143,7 @@ export class DashboardComponent implements OnInit{
     );
   }
 
-  getOptionMethod(modal: TemplateRef<any>, action, activityId){
-    this.openModal(modal,
-      {
-        action: action.title,
-        question: `do you want to move this activity to ${action.title}?`,
-        statusCode: action.title === 'completed' ? 'C' : 'O',
-        id: activityId
-      }
-    );
 
-  }
   // checkAvailabilty() {
   //   if (this.activities === []) {
   //     return 'no activity created';
@@ -253,7 +224,34 @@ export class DashboardComponent implements OnInit{
     );
   }
 
-  open(modalName, action, updateObj?) {
+  getOptionMethod(action, activity){
+    if (action.method === 'in_progress' || action.method === 'completed') {
+      // if (action === 'in_progress' || action === 'completed') {
+      const modal: TemplateRef<any> = this.activityStatusModal;
+      this.openModal(modal,
+        {
+          action: action.title,
+          question: `do you want to move this activity to ${action.title}?`,
+          statusCode: action.title === 'completed' ? 'C' : 'O',
+          id: activity.activityId
+        }
+        // {
+        //   action,
+        //   question: `do you want to move this activity to ${action}?`,
+        //   statusCode: action === 'completed' ? 'C' : 'O',
+        //   id: activity
+        // }
+      );
+    } else if ( action.method === 'update' ) {
+    // } else if ( action === 'update' ) {
+      const modal: TemplateRef<any> = this.activityModal;
+      this.openModal(modal, action.title, activity);
+      // this.openModal(modal, action);
+    }
+
+  }
+
+  openModal(dialog: TemplateRef<any>, options, updateObj?) {
     if (updateObj) {
       this.activityId = updateObj.activityId;
       this.form.patchValue({
@@ -264,32 +262,16 @@ export class DashboardComponent implements OnInit{
         // status: updateObj.status
       });
     }
-    this.modal.name = modalName;
-    this.modal.action = action;
-    // this.dialogService.open(
-    //   dialog,
-    //   {
-    //     context: {
-    //                 title: options
-    //              }
-    //   }
-    // );
-  }
-
-  openModal(dialog: TemplateRef<any>, options) {
-    this.dialog.open(
+    this.dialogRef = this.dialog.open(
       dialog,
       {
-        data: {
-                title: options
-              }
+        data: options
       }
     );
   }
 
 
-  changeActivityStatus(activityId, status, modalRef = '') {
-    this.dialogRef = modalRef;
+  changeActivityStatus(activityId, status) {
     const payload = {activityId, status};
     console.log(payload);
     this.crudService.updateData(this.updateActivityStatusURL, payload).subscribe(
@@ -302,20 +284,13 @@ export class DashboardComponent implements OnInit{
           } else if (status === 'C') {
             this.toastr.info('Moved to \'Completed\'', 'Successful');
           }
-          // this.close();
+          this.close();
         }
       },
       error => {
         console.log(error);
       }
     );
-  }
-
-  getActivityId(activity: string, template: TemplateRef<any>) {
-    console.log(`this is the activityId: ${activity}`);
-    console.log(`this is the template: ${template}`);
-    this.activityIdForStatus = activity;
-    this.activityStatusModal = template;
   }
 
   clearForm() {

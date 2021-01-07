@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { NbStepComponent, NbStepperComponent } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
 import { IEducationDataPayload, IEmployeePayload, IFamilyPayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
 import { CrudService } from 'src/app/core/services/crud.service';
@@ -14,8 +14,7 @@ const countryandstate = require('countrycitystatejson');
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-  stepComponent: NbStepComponent;
-  stepperComponent: NbStepperComponent;
+  stepperComponent: MatHorizontalStepper;
   createEmployeeForm: FormGroup;
   addEmployeeExperienceForm: FormGroup;
   addEmployeeEducationDetailsForm: FormGroup;

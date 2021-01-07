@@ -8,6 +8,7 @@ import { HandoverReportComponent } from './handover-report/handover-report.compo
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MaterialModule } from 'src/app/core/shared/material.module';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    MaterialModule
   ]
 })
 export class ReportModule { }

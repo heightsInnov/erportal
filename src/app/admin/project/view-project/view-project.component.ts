@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+// import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 
@@ -27,11 +27,11 @@ export class ViewProjectComponent implements OnInit {
   }
 
   getStaffId() {
-    this.route.queryParams.subscribe(
-      (params: Params) => {
-        if (params.handoverId !== undefined) {
+    this.route.queryParamMap.subscribe(
+      (params: ParamMap) => {
+        if (params.get('handoverId') !== undefined) {
           this.handoverId = {
-            id: params.handoverId
+            id: params.get('handoverId')
           };
           this.getHandoverDetails();
         }

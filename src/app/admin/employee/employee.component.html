@@ -19,7 +19,7 @@
                         <div class="card-content">
                           <div class="table-responsive">
                             <table class="table table-bordered mb-0">
-                              <thead>
+                              <thead class="thead-dark">
                                 <tr>
                                   <th>Oracle ID</th>
                                   <th>Username</th>
@@ -35,7 +35,7 @@
                               </thead>
                               <tbody class="table-hover table-striped" *ngFor="let details of allEmployees, let i = index;">
                                   <tr>
-                                    <th>{{details.emp_id + '000' + i}}</th>
+                                    <th>{{details.emp_id}}</th>
                                     <td>{{details.emp_username}}</td>
                                     <td>{{details.emp_firstname + ' ' + details.emp_lastname}}</td>
                                     <td>{{details.emp_email}}</td>
@@ -47,7 +47,7 @@
                                     <td>{{details.emp_employment_date | date}}</td>
                                     <td>
                                       <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
-                                        [routerLink]="['/admin/employee/view-employee', details.emp_username]">View</button>
+                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
                                     </td>
                                   </tr>
                               </tbody>

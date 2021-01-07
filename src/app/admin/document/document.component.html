@@ -14,7 +14,7 @@
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered mb-0">
-                      <thead>
+                      <thead class="thead-dark">
                           <tr>
                             <th>Leave Type</th>
                             <th>No of Leave Days</th>
@@ -44,7 +44,7 @@
 </section>
 </div>
 
-<ng-template #leaveModal let-data let-ref="dialogRef">
+<ng-template #leaveModal>
   <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -52,7 +52,7 @@
           <div class="form-body">
             <div class="modal-header">
               <h6 class="modal-title"> CREATE LEAVE </h6>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="ref.close(); clearForm(leaveForm);">
+              <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm(leaveForm); close();">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -123,12 +123,12 @@
             <div class="modal-footer">
               <fieldset class="form-group position-relative has-icon-left mb-0">
                 <button [disabled]="!leaveForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                  data-dismiss="modal">
+                  >
                   <i class="feather icon-check d-block d-lg-none"></i>
                     <span class="d-none d-lg-block">Submit</span></button>
               </fieldset>
               <fieldset class="form-group position-relative has-icon-left mb-0">
-                  <button type="reset" (click)="leaveForm.reset(); ref.close();" class="btn btn-outline-light waves-effect waves-light">
+                  <button type="reset" (click)="leaveForm.reset()" class="btn btn-outline-light waves-effect waves-light">
                     <i class="feather icon-x d-block d-lg-none"></i>
                       <span class="d-none d-lg-block">Cancel</span>
                     </button>

@@ -63,6 +63,30 @@
                                    nbContextMenuTrigger="hover"></nb-user>
                         </div>
                     </li> -->
+                    <li class="dropdown dropdown-user nav-item">
+                      <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name text-bold-600">{{userDetails.emp_firstname + ' ' + userDetails.emp_lastname}}</span>
+                        <span class="user-status">{{isLoggedIn()}}</span>
+                      </div>
+                      <span>
+                        <button mat-fab color="primary" class="btn waves-effect waves-light" [matMenuTriggerFor]="menu" aria-label="Avatar menu">
+                          <mat-icon>account_circle</mat-icon>
+                        </button>
+                      </span>
+                      <mat-menu #menu="matMenu">
+                        <ng-container *ngFor="let action of items">
+                          <button mat-menu-item class="btn waves-effect waves-light" [routerLink]="[action.link]" [queryParams]="{username: action.link.param?.emp_username, id: action.link.param?.emp_id}">
+                            <mat-icon>{{ action.icon}}</mat-icon>
+                            <span>{{ action.title | titlecase}}</span>
+                          </button>
+                        </ng-container>
+                        <div class="dropdown-divider"></div>
+                        <button mat-menu-item class="btn waves-effect waves-light" (click)="logout()">
+                          <mat-icon>logout</mat-icon>
+                          <span>Logout</span>
+                        </button>
+                      </mat-menu>
+                    </li>
                 </ul>
             </div>
         </div>

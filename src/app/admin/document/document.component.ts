@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
 import { ToastrService } from 'ngx-toastr';
 import { ILeave } from 'src/app/core/models/ILeave';
 import { CrudService } from 'src/app/core/services/crud.service';
@@ -24,17 +24,19 @@ export class DocumentComponent implements OnInit {
     {name: 'MATERNAL LEAVE', value: 'maternal'},
     {name: 'SICK LEAVE', value: 'sick'}
   ];
+  dialogRef: MatDialogRef<TemplateRef<any>>;
+
   constructor(
+    private dialog: MatDialog,
     private route: Router,
     private crudService: CrudService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
-    private dialogService: NbDialogService
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.initForm();
-    this.getLeaves();
+    // this.getLeaves();
   }
 
   initForm(){
@@ -50,12 +52,8 @@ export class DocumentComponent implements OnInit {
     return this.leaveForm.controls;
   }
 
-  clearForm(form: FormGroup) {
-    form.reset();
-  }
-
-  openModal(dialog: TemplateRef<any>){
-    this.dialogService.open(dialog);
+  openModal(dialog: TemplateRef<any>) {
+    this.dialogRef = this.dialog.open(dialog);
   }
 
   getLeaves() {
@@ -92,6 +90,7 @@ export class DocumentComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.success('Leave Application Created', 'SUCCESSFUL');
         }
       },
@@ -99,5 +98,13 @@ export class DocumentComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  clearForm(form: FormGroup) {
+    form.reset();
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

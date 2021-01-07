@@ -21,7 +21,6 @@
     "@angular/platform-browser": "~10.2.2",
     "@angular/platform-browser-dynamic": "~10.2.2",
     "@angular/router": "~10.2.2",
-    "@nebular/theme": "^6.2.1",
     "@ng-select/ng-select": "^5.0.9",
     "angular-crumbs": "^3.0.1",
     "bs-custom-file-input": "^1.3.4",

@@ -1,346 +1,367 @@
 <div class="section">
-  <div class="row">
-    <div class="col-12">
-      <div class="d-flex">
-        <div class="ml-auto">
-          <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light" data-toggle="modal" data-target="#activityModal" (click)="open('activityModal', 'create')">
-            <i class="feather icon-plus-circle"></i> Create Activity
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4 col-6">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-body">
-            <h4 class="card-title">TODO</h4>
+  <div class="card">
+    <div class="card-content">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="ml-auto">
+                <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light" (click)="openModal(activityModal, 'create')">
+                  <i class="feather icon-plus-circle"></i> Create Activity
+                </button>
+              </div>
+            </div>
           </div>
-          <ul class="list-group list-group-flush">
-            <!-- <li class="list-group-item">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-times-o text-bold-700 text-red"></i>
-                        <span class="text-bold-600 ml-50">No Activity</span>
-                        <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-6">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body bg-primary">
+                  <h4 class="card-title text-white">TODO</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <!-- <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex align-items-center">
+                              <i class="fa fa-times-o text-bold-700 text-red"></i>
+                              <span class="text-bold-600 ml-50">No Activity</span>
+                              <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                          </div>
+                        </div>
+                        <div class="d-flex pt-1 mb-0">
+                          <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="float-left d-flex justify-content-center align-items-center">
+                          <i class="fa fa-circle-o text-bold-600"></i>
+                          <span class="text-bold-600 ml-50">No Activity</span>
+                          <div class="badge badge-pill badge-glow badge-primary ml-1">444</div>
+                        </div>
+                        <div class="float-right d-flex">dfff</div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="d-flex pt-1 mb-0">
+                          <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li> -->
+                  <!-- <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                          <mat-icon>check_circle</mat-icon>
+                          <span class="text-bold-600 mx-50">POPE PRECIOUS POPEE</span>
+                          <div class="badge badge-pill badge-glow badge-primary mx-50">tech</div>
+                        </div>
+                        <div class="float-right d-flex">
+                          <button mat-icon-button [matMenuTriggerFor]="menu" class="btn btn-round btn-sm waves-effect waves-light" aria-label="Activity options menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <ng-container>
+                              <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('completed', 'activity.activityId')">
+                                <mat-icon>send</mat-icon>
+                                <span>Completed</span>
+                              </button>
+                            </ng-container>
+                            <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('update', 'activity')">
+                              <mat-icon>update</mat-icon>
+                              <span>Update</span>
+                            </button>
+                          </mat-menu>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="d-flex mb-0">
+                          <span class="small">fix this thing please</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li> -->
+                  <li class="list-group-item" *ngFor="let activity of todos;">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                          <mat-icon>not_started</mat-icon>
+                          <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                          <div class="badge badge-pill badge-glow badge-primary mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                        </div>
+                        <div class="float-right d-flex">
+                          <button mat-icon-button class="btn waves-effect waves-light" [matMenuTriggerFor]="menu" aria-label="Activity options menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <ng-container *ngFor="let action of todoActions">
+                              <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod(action, activity)">
+                                <mat-icon>{{ action.icon}}</mat-icon>
+                                <span>{{ action.title | titlecase}}</span>
+                              </button>
+                            </ng-container>
+                          </mat-menu>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="d-flex mb-0">
+                          <span class="small">{{ activity.objectives }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
+              </div>
+            </div>
+            <!-- <nb-card status="info" size="large">
+              <nb-card-header>TODO</nb-card-header>
+              <nb-list>
+               `<nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-times-o text-bold-700 text-red"></i>
+                            <span class="text-bold-600 ml-50">No Activity</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="d-flex pt-1 mb-0">
-                    <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                </nb-list-item>
+                <nb-list-item *ngIf="todoStatus === 'no pending activities for today'" class="list-item">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-times-o text-bold-700 text-red"></i>
+                            <span class="text-bold-600 ml-50">No Activity</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="float-left d-flex justify-content-center align-items-center">
-                    <i class="fa fa-circle-o text-bold-600"></i>
-                    <span class="text-bold-600 ml-50">No Activity</span>
-                    <div class="badge badge-pill badge-glow badge-primary ml-1">444</div>
+                </nb-list-item>
+                <nb-list-item class="list-item" *ngFor="let activity of todos;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="row justify-content-between">
+                        <div class="mr-auto d-flex align-items-center">
+                            <i class="fa fa-circle-o text-bold-700 text-blue"></i>
+                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
+                        </div>
+                        <div class="ml-auto d-flex">
+                          <nb-actions size="tiny">
+                            <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                        nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                              <i class="feather icon-activity"></i>
+                            </nb-action>
+                            <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
+                            <nb-action><i class="feather icon-trash"></i></nb-action>
+                          </nb-actions>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">{{ activity.objectives }}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="float-right d-flex">dfff</div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="d-flex pt-1 mb-0">
-                    <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
-                  </div>
-                </div>
-              </div>
-            </li> -->
-            <li class="list-group-item" *ngFor="let activity of todos;">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="float-left d-flex justify-content-center align-items-center">
-                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
-                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
-                  </div>
-                  <div class="float-right">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Activity options menu">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                      <ng-container *ngFor="let action of activityActions">
-                        <button mat-menu-item (click)="getOptionMethod(activityStatusModal, action, activity.activityId)">
-                          <mat-icon>{{ action.icon}}</mat-icon>
-                          <span>{{ action.title | uppercase}}</span>
-                        </button>
-                      </ng-container>
-                      <button mat-menu-item (click)="open('activityModal', 'update', activity)">
-                        <mat-icon>update</mat-icon>
-                        <span>Update</span>
-                      </button>
-                    </mat-menu>
-
-                    <!-- <nb-actions size="tiny">
-                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                          <i class="feather icon-activity"></i>
-                        </nb-action>
-                        <nb-action (click)="open('activityModal', 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                        <nb-action><i class="feather icon-trash"></i></nb-action>
-                      </nb-actions> -->
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="d-flex pt-1 mb-0">
-                    <span class="small">{{ activity.objectives }}</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-        </ul>
-        </div>
-      </div>
-      <!-- <nb-card status="info" size="large">
-        <nb-card-header>TODO</nb-card-header>
-        <nb-list>
-         `<nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-times-o text-bold-700 text-red"></i>
-                      <span class="text-bold-600 ml-50">No Activity</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-          <nb-list-item *ngIf="todoStatus === 'no pending activities for today'" class="list-item">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-times-o text-bold-700 text-red"></i>
-                      <span class="text-bold-600 ml-50">No Activity</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-          <nb-list-item class="list-item" *ngFor="let activity of todos;">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="row justify-content-between">
-                  <div class="mr-auto d-flex align-items-center">
-                      <i class="fa fa-circle-o text-bold-700 text-blue"></i>
-                      <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
-                  </div>
-                  <div class="ml-auto d-flex">
-                    <nb-actions size="tiny">
-                      <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                  nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                        <i class="feather icon-activity"></i>
-                      </nb-action>
-                      <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                      <nb-action><i class="feather icon-trash"></i></nb-action>
-                    </nb-actions>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">{{ activity.objectives }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-        </nb-list>
-      </nb-card> -->
-    </div>
-
-    <div class="col-md-4 col-6">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-body">
-          <h4 class="card-title">IN PROGRESS</h4>
+                </nb-list-item>
+              </nb-list>
+            </nb-card> -->
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let activity of inProgress;">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="float-left d-flex justify-content-center align-items-center">
-                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
-                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
-                  </div>
-                  <div class="float-right d-flex">
-                    <!-- <nb-actions size="tiny">
-                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                          <i class="feather icon-activity"></i>
-                        </nb-action>
-                        <nb-action (click)="open('activityModal', 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                        <nb-action><i class="feather icon-trash"></i></nb-action>
-                    </nb-actions> -->
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="d-flex pt-1 mb-0">
-                    <span class="small">{{ activity.objectives }}</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-        </ul>
-        </div>
-      </div>
-      <!-- <nb-card status="warning" size="large">
-        <nb-card-header>IN PROGRESS</nb-card-header>
-        <nb-list>
-          <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-times-o text-bold-700 text-red"></i>
-                      <span class="text-bold-600 ml-50">No Activity</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-          <nb-list-item *ngIf="inProgressStatus === 'no pending activities for today'" class="list-item">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-times-o text-bold-700 text-red"></i>
-                      <span class="text-bold-600 ml-50">No Ongoing Activity</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">You have moved all ongoing activities for {{ getTodaysDate() }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-          <nb-list-item class="list-item" *ngFor="let activity of inProgress;">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-circle-o text-bold-700 text-warning"></i>
-                      <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
-                  </div>
-                  <div class="ml-auto d-flex">
-                    <nb-actions size="tiny">
-                      <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                  nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                        <i class="feather icon-activity"></i>
-                        </nb-action>
-                      <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                      <nb-action><i class="feather icon-trash"></i></nb-action>
-                    </nb-actions>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">{{ activity.objectives }}</span>
-                </div>
-              </div>
-            </div>
-          </nb-list-item>
-        </nb-list>
-      </nb-card> -->
-    </div>
 
-    <div class="col-md-4 col-6">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-body">
-           <h4 class="card-title">COMPLETED</h4>
+          <div class="col-md-4 col-6">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body bg-warning">
+                  <h4 class="card-title">IN PROGRESS</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let activity of inProgress;">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                          <mat-icon>schedule</mat-icon>
+                          <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                          <div class="badge badge-pill badge-glow badge-warning mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                        </div>
+                        <div class="float-right d-flex">
+                          <button mat-icon-button class="btn waves-effect waves-light" [matMenuTriggerFor]="menu" aria-label="Activity options menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <ng-container *ngFor="let action of ongoingActions">
+                              <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod(action, activity)">
+                                <mat-icon>{{ action.icon}}</mat-icon>
+                                <span>{{ action.title | titlecase}}</span>
+                              </button>
+                            </ng-container>
+                          </mat-menu>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="d-flex mb-0">
+                          <span class="small">{{ activity.objectives }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
+              </div>
+            </div>
+            <!-- <nb-card status="warning" size="large">
+              <nb-card-header>IN PROGRESS</nb-card-header>
+              <nb-list>
+                <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-times-o text-bold-700 text-red"></i>
+                            <span class="text-bold-600 ml-50">No Activity</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item *ngIf="inProgressStatus === 'no pending activities for today'" class="list-item">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-times-o text-bold-700 text-red"></i>
+                            <span class="text-bold-600 ml-50">No Ongoing Activity</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">You have moved all ongoing activities for {{ getTodaysDate() }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item" *ngFor="let activity of inProgress;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-circle-o text-bold-700 text-warning"></i>
+                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
+                        </div>
+                        <div class="ml-auto d-flex">
+                          <nb-actions size="tiny">
+                            <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
+                                        nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
+                              <i class="feather icon-activity"></i>
+                              </nb-action>
+                            <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
+                            <nb-action><i class="feather icon-trash"></i></nb-action>
+                          </nb-actions>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">{{ activity.objectives }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </nb-list-item>
+              </nb-list>
+            </nb-card> -->
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let activity of completed;">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="float-left d-flex justify-content-center align-items-center">
-                    <i class="fa fa-circle-o text-bold-600 text-blue"></i>
-                    <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                    <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
-                  </div>
-                  <div class="float-right d-flex">
-                    <!-- <nb-actions size="tiny">
-                        <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                    nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                          <i class="feather icon-activity"></i>
-                        </nb-action>
-                        <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                        <nb-action><i class="feather icon-trash"></i></nb-action>
-                      </nb-actions> -->
-                  </div>
+
+          <div class="col-md-4 col-6">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body bg-success">
+                 <h4 class="card-title">COMPLETED</h4>
                 </div>
-                <div class="col-sm-12">
-                  <div class="d-flex pt-1 mb-0">
-                    <span class="small">{{ activity.objectives }}</span>
-                  </div>
-                </div>
-              </div>
-            </li>
-        </ul>
-        </div>
-      </div>
-      <!-- <nb-card status="success" size="large">
-        <nb-card-header>COMPLETED</nb-card-header>
-        <nb-list>
-          <nb-list-item class="list-item"  *ngFor="let activity of completed;">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <i class="fa fa-circle-o text-bold-700 text-success"></i>
-                      <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                      <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
-                  </div>
-                  <div class="ml-auto d-flex">
-                    <nb-actions size="tiny">
-                      <nb-action><i class="feather icon-info"></i></nb-action>
-                      <nb-action><i class="feather icon-star"></i></nb-action>
-                      <nb-action><i class="feather icon-trash"></i></nb-action>
-                    </nb-actions>
-                  </div>
-                </div>
-                <div class="d-flex pt-1 mb-0">
-                  <span class="small">{{ activity.objectives }}</span>
-                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let activity of completed;">
+                    <div class="row">
+                      <div class="col-sm-12 d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                          <mat-icon>check_circle</mat-icon>
+                          <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                          <div class="badge badge-pill badge-glow badge-success mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                        </div>
+                        <div class="float-right d-flex">
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                        <div class="d-flex pt-1 mb-0">
+                          <span class="small">{{ activity.objectives }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
               </div>
             </div>
+            <!-- <nb-card status="success" size="large">
+              <nb-card-header>COMPLETED</nb-card-header>
+              <nb-list>
+                <nb-list-item class="list-item"  *ngFor="let activity of completed;">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa fa-circle-o text-bold-700 text-success"></i>
+                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
+                        </div>
+                        <div class="ml-auto d-flex">
+                          <nb-actions size="tiny">
+                            <nb-action><i class="feather icon-info"></i></nb-action>
+                            <nb-action><i class="feather icon-star"></i></nb-action>
+                            <nb-action><i class="feather icon-trash"></i></nb-action>
+                          </nb-actions>
+                        </div>
+                      </div>
+                      <div class="d-flex pt-1 mb-0">
+                        <span class="small">{{ activity.objectives }}</span>
+                      </div>
+                    </div>
+                  </div>
 
-          </nb-list-item>
-        </nb-list>
-      </nb-card> -->
+                </nb-list-item>
+              </nb-list>
+            </nb-card> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 
-<!-- <ng-template #activityModal let-data let-ref="dialogRef"> -->
-  <div class="modal fade show" id="activityModal" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true">
+<ng-template #activityModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
       <div class="modal-content">
           <section class="todo-form">
-              <form [formGroup]="form" (ngSubmit)="onSubmit(formData, modal.name, modal.action)" class="todo-input">
+              <form [formGroup]="form" (ngSubmit)="onSubmit(formData, data)" class="todo-input">
                 <div class="modal-header">
-                  <h5 class="modal-title"> {{ modal.action | titlecase}} Activity</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
+                  <h5 class="modal-title"> {{ data | titlecase}} Activity</h5>
+                  <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm();">
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
@@ -404,12 +425,12 @@
                 <div class="modal-footer">
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button [disabled]="!form.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                        data-dismiss="modal">
+                      >
                         <i class="feather icon-check d-block d-lg-none"></i>
-                          <span class="d-none d-lg-block">{{ modal.action | titlecase}}</span></button>
+                          <span class="d-none d-lg-block">{{ data | titlecase}}</span></button>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
-                      <button type="button" (click)="clearForm();" data-dismiss="modal" class="btn btn-outline-light waves-effect waves-light actions">
+                      <button type="button" (click)="clearForm();" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
                         <i class="feather icon-x d-block d-lg-none"></i>
                           <span class="d-none d-lg-block">Cancel</span>
                         </button>
@@ -420,34 +441,34 @@
       </div>
     </div>
   </div>
-<!-- </ng-template> -->
+</ng-template>
 
 <ng-template #activityStatusModal let-data>
-  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
       <div class="modal-content">
           <section class="todo-form">
               <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
                 <div class="modal-header">
                   <h5 class="modal-title"> Change Activity Status</h5>
-                  <button type="button" class="close" aria-label="Close" [mat-dialog-close]="true">
+                  <button type="button" class="close" aria-label="Close" mat-dialog-close>
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p> {{ data.title.question | titlecase}} </p>
+                  <p> {{ data.question | titlecase}} </p>
                 </div>
                 <div class="modal-footer">
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
-                       [mat-dialog-close]="true">
+                      mat-dialog-close>
                       <i class="feather icon-times d-block d-lg-none"></i>
                         <span class="d-none d-lg-block">NO</span>
                     </button>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                        (click)="changeActivityStatus(data.title.id, data.title.statusCode)">
+                        (click)="changeActivityStatus(data.id, data.statusCode)">
                         <i class="feather icon-check d-block d-lg-none"></i>
                           <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
                           <span class="d-none d-lg-block">YES</span>

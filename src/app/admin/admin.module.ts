@@ -4,17 +4,10 @@ import { LayoutModule } from '../layout/layout.module';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import {
-//          NbActionsModule, NbCardModule, NbContextMenuModule,
-//          NbDialogModule, NbInputModule, NbLayoutModule,
-//          NbListModule, NbSidebarModule, NbThemeModule
-//         } from '@nebular/theme';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../core/guards/auth.guard';
-// import { MaterialModule } from '../core/shared/material.module';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MaterialModule } from '../core/shared/material.module';
+
 
 const routes: Routes = [
   {
@@ -27,18 +20,18 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Employee' },
       },
-      // {
-      //   path: 'employee',
-      //   loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),
-      //   canActivate: [AuthGuard],
-      //   data: { breadcrumb: 'Employee' },
-      // },
-      // {
-      //   path: 'handover',
-      //   loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
-      //   canActivate: [AuthGuard],
-      //   data: { breadcrumb: 'Handover' },
-      // },
+      {
+        path: 'employee',
+        loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Employee' },
+      },
+      {
+        path: 'handover',
+        loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Handover' },
+      },
       {
         path: 'leave',
         loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
@@ -61,18 +54,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     LayoutModule,
-    MatMenuModule,
-    MatIconModule,
-    MatDialogModule
-    // MaterialModule,
-    // NbLayoutModule,
-    // NbSidebarModule,
-    // NbCardModule,
-    // NbInputModule,
-    // NbListModule,
-    // NbActionsModule,
-    // NbDialogModule.forChild(),
-    // NbContextMenuModule
+    MaterialModule
   ]
 })
 export class AdminModule { }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://104aa301819d.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://104aa301819d.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -44,7 +44,7 @@ export const environment = {
   getAllEmployeeUrl: 'secured/report/get-all-employee',
   getUploadTypesUrl: 'secured/get-upload-types',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',
-  getEmployeeUploadsUrl: 'secured/user/',
+  getEmployeeUploadsUrl: 'secured/user/get-user-document',
   getDegreesUrl: 'secured/get-degrees',
   getLeaveUrl: 'secured/leave/get-leaves',
   createLeaveUrl: 'secured/leave/create-leave'

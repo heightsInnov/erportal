@@ -5,8 +5,8 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EmployeeComponent } from './employee.component';
 import { Routes, RouterModule } from '@angular/router';
-// import { NbCardModule, NbTabsetModule, NbStepperModule, NbAccordionModule } from '@nebular/theme';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { MaterialModule } from 'src/app/core/shared/material.module';
 
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'view-employee/:username',
+    path: 'view-employee',
     component: ViewEmployeeComponent,
     data: { breadcrumb: 'View Employee' },
     canActivate: [AuthGuard]
@@ -34,11 +34,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    // NbStepperModule,
-    // NbCardModule,
-    // NbAccordionModule,
-    // NbTabsetModule,
-    // NbDialogModule.forChild()
+    MaterialModule
   ]
 })
 export class EmployeeModule { }

@@ -4,12 +4,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { RouterModule } from '@angular/router';
-// import { NbUserModule, NbContextMenuModule } from '@nebular/theme';
 import { BreadcrumbModule as BM} from 'xng-breadcrumb';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import {BreadcrumbModule} from 'angular-crumbs';
 import { RemoveHyphenPipe } from '../core/pipes/remove-hyphen.pipe';
-// import { NbMenuModule } from '@nebular/theme';
+import { MaterialModule } from '../core/shared/material.module';
 
 
 
@@ -18,11 +17,9 @@ import { RemoveHyphenPipe } from '../core/pipes/remove-hyphen.pipe';
   imports: [
     CommonModule,
     RouterModule,
-    // NbUserModule,
-    // NbContextMenuModule,
+    MaterialModule,
     BreadcrumbModule,
     BM
-    // NbMenuModule
   ],
   exports: [HeaderComponent, FooterComponent, SideNavComponent, BreadcrumbComponent, RemoveHyphenPipe],
 })

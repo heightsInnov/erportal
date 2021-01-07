@@ -5,23 +5,23 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <nb-stepper #createEmployeeStepper [linear]="linearMode" orientation="horizontal" disableStepNavigation>
-                  <nb-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
+                <mat-horizontal-stepper labelPosition="bottom" [linear]="linearMode" #createEmployeeStepper>
+                  <mat-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
-                  </nb-step>
-                  <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
-                  </nb-step>
-                  <nb-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelThree">
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeEducationDetailsForm" [label]="stepperLabel.labelThree">
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
-                  </nb-step>
-                  <nb-step [stepControl]="addEmployeeFamilyDetailsForm" [label]="stepperLabel.labelFour">
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeFamilyDetailsForm" [label]="stepperLabel.labelFour">
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
-                  </nb-step>
-                  <nb-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
-                  </nb-step>
-                </nb-stepper>
+                  </mat-step>
+                </mat-horizontal-stepper>
               </div>
             </div>
           </div>
@@ -36,13 +36,13 @@
     <div class="form-body">
       <div class="row">
         <div class="col-12">
-          <nb-accordion>
-            <nb-accordion-item>
-             <nb-accordion-item-header>
+          <mat-accordion>
+            <mat-expansion-panel>
+             <mat-expansion-panel-header>
                 <h5 class="card-title">Personal Data</h5>
-             </nb-accordion-item-header>
+             </mat-expansion-panel-header>
 
-             <nb-accordion-item-body>
+             <!-- <mat-expansion-panel-body> -->
               <div class="row">
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-label-group">
@@ -351,15 +351,15 @@
                   </div>
                 </div>
               </div>
-             </nb-accordion-item-body>
-            </nb-accordion-item>
+             <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
 
-            <nb-accordion-item>
-             <nb-accordion-item-header>
+            <mat-expansion-panel>
+             <mat-expansion-panel-header>
                 <h5 class="card-title">Employment Record</h5>
-             </nb-accordion-item-header>
+             </mat-expansion-panel-header>
 
-             <nb-accordion-item-body>
+             <!-- <mat-expansion-panel-body> -->
               <div class="row">
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-group">
@@ -513,15 +513,15 @@
                   </div>
                 </div>
               </div>
-             </nb-accordion-item-body>
-            </nb-accordion-item>
+             <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
 
-            <nb-accordion-item>
-              <nb-accordion-item-header>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
                  <h5 class="card-title">Personal Identification</h5>
-              </nb-accordion-item-header>
+              </mat-expansion-panel-header>
 
-              <nb-accordion-item-body>
+              <!-- <mat-expansion-panel-body> -->
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="form-group">
@@ -557,21 +557,20 @@
                     </div>
                   </div>
                 </div>
-              </nb-accordion-item-body>
-             </nb-accordion-item>
-          </nb-accordion>
+              <!-- </mat-expansion-panel-body> -->
+             </mat-expansion-panel>
+          </mat-accordion>
         </div>
 
         <div class="col-12 mt-2">
           <div class="form-group">
             <button [disabled]="!createEmployeeForm.valid" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Create</button>
-            <button (click)="createEmployeeForm.reset()" type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Cancel</button>
+            <button (click)="createEmployeeForm.reset()" type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear</button>
           </div>
         </div>
       </div>
     </div>
   </form>
-
 </ng-template>
 
 <ng-template #labelTwoView>
@@ -580,9 +579,9 @@
       <div class="row">
         <ng-container formArrayName="experience">
           <div class="col-6 mb-2" *ngFor="let experience of addEmployeeExperienceFormData.controls; let i = index;" [formGroupName]="i">
-            <nb-accordion>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
                   <h5 class="card-title" *ngIf="experience.get('exp_designation').dirty && experience.get('exp_designation').value !== ''">
                     <span>
                       {{ experience.get('exp_designation').value }}
@@ -601,9 +600,9 @@
                   <h5 class="card-title" *ngIf="!experience.get('exp_designation').dirty && experience.get('exp_designation').value !== ''">
                     (Experience Not Specified)
                   </h5>
-                </nb-accordion-item-header>
+                </mat-expansion-panel-header>
 
-                <nb-accordion-item-body>
+                <!-- <mat-expansion-panel-body> -->
                   <div class="row">
                     <div class="col-md-6 col-12">
                       <div class="form-group">
@@ -674,9 +673,9 @@
                       <button type="button" (click)="deleteEntry(i, 'addEmployeeExperienceForm')" class="btn btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
                     </div>
                   </div>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
+                <!-- </mat-expansion-panel-body> -->
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </ng-container>
         <div class="col-12 mr-auto">
@@ -700,9 +699,9 @@
       <div class="row">
         <ng-container formArrayName="education">
           <div class="col-6 mb-2" *ngFor="let educationDetails of addEmployeeEducationDetailsFormData.controls; let i = index;" [formGroupName]="i">
-            <nb-accordion>
-              <nb-accordion-item>
-                <nb-accordion-item-header>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
                   <h5 class="card-title" *ngIf="educationDetails.get('edu_degree').dirty && educationDetails.get('edu_degree').value !== ''">
                     <span>
                       {{ educationDetails.get('edu_degree').value }}
@@ -721,9 +720,9 @@
                   <h5 class="card-title" *ngIf="!educationDetails.get('edu_degree').dirty && educationDetails.get('edu_degree').value !== ''">
                     (Education Details Not Specified)
                   </h5>
-                </nb-accordion-item-header>
+                </mat-expansion-panel-header>
 
-                <nb-accordion-item-body>
+                <!-- <mat-expansion-panel-body> -->
                   <div class="row">
                     <div class="col-md-6 col-12">
                       <div class="form-group">
@@ -830,9 +829,9 @@
                       <button type="button" (click)="deleteEntry(i, 'addEmployeeEducationDetailsForm')" class="btn btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
                     </div>
                   </div>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
+                <!-- </mat-expansion-panel-body> -->
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </ng-container>
         <div class="col-12 mr-auto">
@@ -938,15 +937,15 @@
     <div class="form-body">
       <div class="row">
         <div class="col-12 mb-2">
-          <nb-accordion>
-            <nb-accordion-item>
-              <nb-accordion-item-header>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
                 <h5 class="card-title">
                   Next of Kin Details
                 </h5>
-              </nb-accordion-item-header>
+              </mat-expansion-panel-header>
 
-              <nb-accordion-item-body>
+              <!-- <mat-expansion-panel-body> -->
                 <div class="row">
                   <div class="col-md-6 col-12">
                     <div class="form-group">
@@ -1001,9 +1000,9 @@
                     </div>
                   </div>
                 </div>
-              </nb-accordion-item-body>
-            </nb-accordion-item>
-          </nb-accordion>
+              <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
         <div class="col-12 mr-auto">
           <div class="form-group">
@@ -1019,4 +1018,3 @@
     </div>
   </form>
 </ng-template>
-33

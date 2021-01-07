@@ -1,12 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 html, body { height: 100%; }
 body {
   margin: 0;
   /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
 }
-/* html body .content {
-  margin-left: 0px !important;
-} */
 
 .bg-authentication {
   /* border-radius: 51px !important; */
@@ -22,88 +20,6 @@ body {
   background: linear-gradient(145deg, #ccbebe, #f3e2e2);
   box-shadow:  6px 6px 38px #665f5f,
               -6px -6px 38px #ffffff;
-} */
-
-/* .nb-theme-default nb-sidebar .scrollable {
-  padding: 0px !important;
-}
-.layout-container .content nb-layout-footer nav {
-    display: block;
-} */
-/* .nb-theme-default nb-layout .layout .layout-container nb-sidebar.fixed, .nb-theme-default nb-layout .layout .layout-container nb-sidebar .main-container-fixed {
-  top: 0.7rem !important;
-} */
-/*
-.nb-theme-default nb-layout-header nav {
-  padding: 0 !important;
-}
-
-nb-layout-header nav {
-  display: block !important;
-}
-
-.nb-theme-default nb-actions.size-tiny nb-action {
-  font-size: .9375rem !important;
-  height: 1rem;
-  padding: 0 0.3rem !important;
-}
-
-nb-list-item.list-item:hover {
-  animation-delay: .1s;
-  transition: all .2s;
-  transform: translateY(-4px);
-  box-shadow: 0 3px 10px 0 #ccc;
-  animation: fadeIn .5s linear;
-  border-top: 1px solid #dae1e7;
-  animation-fill-mode: both;
-}
-
-.nb-theme-default nb-card.status-info nb-card-header {
-  background-color: #0039A6;
-  border-bottom-width: 0;
-  border-bottom-color: #0039A6;
-  color: #fff;
-}
-
-.nb-theme-default nb-card.status-warning nb-card-header {
-  background-color: #FFCB00;
-  border-bottom-width: 0;
-  border-bottom-color: #FFCB00;
-  color: #fff;
-}
-
-.nb-theme-default nb-card.status-success nb-card-header {
-  background-color: #007836;
-  border-bottom-width: 0;
-  border-bottom-color: #007836;
-  color: #fff;
-} */
-
-/* .nb-theme-default nb-card.size-large {
-  min-height: 0rem !important;
-  max-height: 100rem !important;
-} */
-
-/* .nb-theme-default nb-card { */
-  /* background-color: #fff;
-  border: .0625rem solid #e4e9f2;
-  border-radius: .25rem; */
-  /* box-shadow:  7px -7px 33px #59595c,
-             -7px 7px 33px #ffffff; */
-  /* color: #222b45;
-  font-family: Open Sans, sans-serif;
-  font-size: .9375rem;
-  font-weight: 400;
-  line-height: 1.25rem;
-  margin-bottom: 1.875rem;
-  scrollbar-face-color: #e4e9f2;
-  scrollbar-track-color: #f7f9fc; */
-/* } */
-/* a {
-  text-decoration: none !important;
-} */
-/* .nb-theme-default nb-layout .layout {
-  background-color: #e3d3d3 !important;
 } */
 
 

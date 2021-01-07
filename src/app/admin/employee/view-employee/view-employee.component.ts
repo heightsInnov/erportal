@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
-// import bsCustomFileInput from 'bs-custom-file-input';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-employee',
@@ -13,7 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./view-employee.component.css']
 })
 export class ViewEmployeeComponent implements OnInit {
-  employeeUsername;
+  employeeDetails: {username: any, id: any};
   employeeProfile;
   uploadForm: FormGroup;
   uploadTypes: any[];
@@ -28,12 +27,13 @@ export class ViewEmployeeComponent implements OnInit {
   filesForUpload: any[];
   getUploadedDocumentsUrl = environment.getEmployeeUploadsUrl;
   uploadedDocuments: any[];
+  modal: MatDialogRef<TemplateRef<any>>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private dialogService: NbDialogService,
+    private dialog: MatDialog,
     private crudService: CrudService,
     private cd: ChangeDetectorRef,
     private toastr: ToastrService
@@ -47,22 +47,23 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeUsername() {
-    this.route.paramMap.subscribe(
+    this.route.queryParamMap.subscribe(
       (params: ParamMap) => {
-        if (params.get('username') !== undefined) {
-          this.employeeUsername = {
-            username: params.get('username')
+        if (params.get('username') !== undefined && params.get('id') !== undefined) {
+          this.employeeDetails = {
+            username: params.get('username'),
+            id: params.get('id')
           };
           this.getEmployeeProfile();
-          // this.getUploadedDocuments();
+          this.getUploadedDocuments();
         }
-        console.log('employeeUser: ', this.employeeUsername);
+        console.log('employeeUser: ', this.employeeDetails);
       }
     );
   }
 
   getEmployeeProfile() {
-    const url = `${this.getEmployeeProfileUrl}/${this.employeeUsername.username}`;
+    const url = `${this.getEmployeeProfileUrl}/${this.employeeDetails.username}`;
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
@@ -112,7 +113,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   onSubmit(formPayload) {
     console.log(formPayload);
-    const url = `${this.uploadUserDocumentsUrl}/${this.employeeUsername.username}`;
+    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails.username}`;
     const filesForUpload = formPayload.file.value.map(obj => {
                                                               return {
                                                                         upload_type: formPayload.upload_type.value,
@@ -128,6 +129,7 @@ export class ViewEmployeeComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
+          this.close();
           this.toastr.info('File Upload Successful');
         }
         this.getUploadedDocuments();
@@ -146,7 +148,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getUploadedDocuments() {
-    const url = `${this.getUploadedDocumentsUrl}/${this.getEmployeeUsername}`;
+    const url = `${this.getUploadedDocumentsUrl}/${this.employeeDetails.id}`;
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
@@ -175,20 +177,21 @@ export class ViewEmployeeComponent implements OnInit {
     );
   }
 
-  open(dialog: TemplateRef<any>, options) {
-    // bsCustomFileInput.init();
-    this.dialogService.open(
+  openModal(dialog: TemplateRef<any>, options) {
+    this.modal = this.dialog.open(
       dialog,
       {
-        context: {
-                    title: options
-                 }
+        data: options
       }
     );
   }
 
   clearForm() {
     this.uploadForm.reset();
+  }
+
+  close() {
+    this.modal.close();
   }
 
 }
