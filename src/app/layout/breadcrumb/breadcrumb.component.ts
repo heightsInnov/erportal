@@ -12,7 +12,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class BreadcrumbComponent implements OnInit {
-  currentRoute;
+  currentRoute: string;
 
   constructor(
     // private breadcrumbService: BreadcrumbService,
@@ -38,6 +38,8 @@ export class BreadcrumbComponent implements OnInit {
              if (event instanceof NavigationEnd) {
               const i = event.url.lastIndexOf('/');
               this.currentRoute = event.url.substring(i).slice(1);
+              this.currentRoute = this.currentRoute.includes('?')
+                                    ? this.currentRoute.slice(0, this.currentRoute.indexOf('?')) : this.currentRoute;
              }
            });
   }
