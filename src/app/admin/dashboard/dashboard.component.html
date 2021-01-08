@@ -1,4 +1,64 @@
 <div class="section">
+  <div class="row">
+    <div class="col-lg-4 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{userDetails.emp_leave_days}}</h2>
+                  <p class="mb-0">Leave Days Entitled</p>
+              </div>
+              <div class="avatar bg-rgba-primary p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-monitor text-primary font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-5"></div>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{userDetails.emp_leave_days - userDetails.emp_leave_days_left}}</h2>
+                  <p class="mb-0">Leave Days Used</p>
+              </div>
+              <div class="avatar bg-rgba-success p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-user-check text-success font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-6"></div>
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{userDetails.emp_leave_days_left}}</h2>
+                  <p class="mb-0">Leave Days Left</p>
+              </div>
+              <div class="avatar bg-rgba-warning p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-7"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
   <div class="card">
     <div class="card-content">
       <div class="card-body">
@@ -21,72 +81,6 @@
                   <h4 class="card-title text-white">TODO</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <!-- <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="d-flex justify-content-between">
-                          <div class="d-flex align-items-center">
-                              <i class="fa fa-times-o text-bold-700 text-red"></i>
-                              <span class="text-bold-600 ml-50">No Activity</span>
-                              <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                          </div>
-                        </div>
-                        <div class="d-flex pt-1 mb-0">
-                          <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="float-left d-flex justify-content-center align-items-center">
-                          <i class="fa fa-circle-o text-bold-600"></i>
-                          <span class="text-bold-600 ml-50">No Activity</span>
-                          <div class="badge badge-pill badge-glow badge-primary ml-1">444</div>
-                        </div>
-                        <div class="float-right d-flex">dfff</div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="d-flex pt-1 mb-0">
-                          <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li> -->
-                  <!-- <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-12 d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                          <mat-icon>check_circle</mat-icon>
-                          <span class="text-bold-600 mx-50">POPE PRECIOUS POPEE</span>
-                          <div class="badge badge-pill badge-glow badge-primary mx-50">tech</div>
-                        </div>
-                        <div class="float-right d-flex">
-                          <button mat-icon-button [matMenuTriggerFor]="menu" class="btn btn-round btn-sm waves-effect waves-light" aria-label="Activity options menu">
-                            <mat-icon>more_vert</mat-icon>
-                          </button>
-                          <mat-menu #menu="matMenu">
-                            <ng-container>
-                              <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('completed', 'activity.activityId')">
-                                <mat-icon>send</mat-icon>
-                                <span>Completed</span>
-                              </button>
-                            </ng-container>
-                            <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('update', 'activity')">
-                              <mat-icon>update</mat-icon>
-                              <span>Update</span>
-                            </button>
-                          </mat-menu>
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                        <div class="d-flex mb-0">
-                          <span class="small">fix this thing please</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li> -->
                   <li class="list-group-item" *ngFor="let activity of todos;">
                     <div class="row">
                       <div class="col-sm-12 d-flex justify-content-between">
@@ -119,69 +113,6 @@
               </ul>
               </div>
             </div>
-            <!-- <nb-card status="info" size="large">
-              <nb-card-header>TODO</nb-card-header>
-              <nb-list>
-               `<nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-times-o text-bold-700 text-red"></i>
-                            <span class="text-bold-600 ml-50">No Activity</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-                <nb-list-item *ngIf="todoStatus === 'no pending activities for today'" class="list-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-times-o text-bold-700 text-red"></i>
-                            <span class="text-bold-600 ml-50">No Activity</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-                <nb-list-item class="list-item" *ngFor="let activity of todos;">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="row justify-content-between">
-                        <div class="mr-auto d-flex align-items-center">
-                            <i class="fa fa-circle-o text-bold-700 text-blue"></i>
-                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase}}</div>
-                        </div>
-                        <div class="ml-auto d-flex">
-                          <nb-actions size="tiny">
-                            <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                        nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                              <i class="feather icon-activity"></i>
-                            </nb-action>
-                            <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                            <nb-action><i class="feather icon-trash"></i></nb-action>
-                          </nb-actions>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">{{ activity.objectives }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-              </nb-list>
-            </nb-card> -->
           </div>
 
           <div class="col-md-4 col-6">
@@ -223,76 +154,13 @@
               </ul>
               </div>
             </div>
-            <!-- <nb-card status="warning" size="large">
-              <nb-card-header>IN PROGRESS</nb-card-header>
-              <nb-list>
-                <nb-list-item *ngIf="checkAvailabilty() === 'no activity created'" class="list-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-times-o text-bold-700 text-red"></i>
-                            <span class="text-bold-600 ml-50">No Activity</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-                <nb-list-item *ngIf="inProgressStatus === 'no pending activities for today'" class="list-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-times-o text-bold-700 text-red"></i>
-                            <span class="text-bold-600 ml-50">No Ongoing Activity</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">You have moved all ongoing activities for {{ getTodaysDate() }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-                <nb-list-item class="list-item" *ngFor="let activity of inProgress;">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-circle-o text-bold-700 text-warning"></i>
-                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
-                        </div>
-                        <div class="ml-auto d-flex">
-                          <nb-actions size="tiny">
-                            <nb-action [nbContextMenu]="activityActions" (click)="getActivityId(activity.activityId, activityStatusModal)"
-                                        nbContextMenuTag="activity-actions" nbContextMenuTrigger="click">
-                              <i class="feather icon-activity"></i>
-                              </nb-action>
-                            <nb-action (click)="open(activityModal, 'update', activity)"><i class="feather icon-edit"></i></nb-action>
-                            <nb-action><i class="feather icon-trash"></i></nb-action>
-                          </nb-actions>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">{{ activity.objectives }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </nb-list-item>
-              </nb-list>
-            </nb-card> -->
           </div>
 
           <div class="col-md-4 col-6">
             <div class="card">
               <div class="card-content">
                 <div class="card-body bg-success">
-                 <h4 class="card-title">COMPLETED</h4>
+                  <h4 class="card-title">COMPLETED</h4>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" *ngFor="let activity of completed;">
@@ -316,42 +184,12 @@
               </ul>
               </div>
             </div>
-            <!-- <nb-card status="success" size="large">
-              <nb-card-header>COMPLETED</nb-card-header>
-              <nb-list>
-                <nb-list-item class="list-item"  *ngFor="let activity of completed;">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fa fa-circle-o text-bold-700 text-success"></i>
-                            <span class="text-bold-600 ml-50">{{ activity.activity | titlecase }}</span>
-                            <div class="badge badge-pill badge-glow badge-primary ml-1">{{ activity.unit.unit_name | titlecase }}</div>
-                        </div>
-                        <div class="ml-auto d-flex">
-                          <nb-actions size="tiny">
-                            <nb-action><i class="feather icon-info"></i></nb-action>
-                            <nb-action><i class="feather icon-star"></i></nb-action>
-                            <nb-action><i class="feather icon-trash"></i></nb-action>
-                          </nb-actions>
-                        </div>
-                      </div>
-                      <div class="d-flex pt-1 mb-0">
-                        <span class="small">{{ activity.objectives }}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                </nb-list-item>
-              </nb-list>
-            </nb-card> -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <ng-template #activityModal let-data>
   <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">

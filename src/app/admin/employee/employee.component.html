@@ -7,7 +7,7 @@
           <div class="card">
               <div class="card-header ml-auto">
                 <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                  [routerLink]="['/admin/employee/create-employee']">
+                  [routerLink]="['/dashboard/employee/create-employee']">
                   <i class="feather icon-plus-circle"></i> Create Employee
                 </button>
               </div>
@@ -31,6 +31,7 @@
                                   <th>Unit</th>
                                   <th>Department</th>
                                   <th>Employment Date</th>
+                                  <th></th>
                                 </tr>
                               </thead>
                               <tbody class="table-hover table-striped" *ngFor="let details of allEmployees, let i = index;">
@@ -47,7 +48,7 @@
                                     <td>{{details.emp_employment_date | date}}</td>
                                     <td>
                                       <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
-                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
+                                        [routerLink]="['/dashboard/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
                                     </td>
                                   </tr>
                               </tbody>

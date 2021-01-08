@@ -24,7 +24,7 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="nav-item">
-              <a [routerLink]="['/admin']"><i class="feather icon-home"></i>
+              <a [routerLink]="['/dashboard']"><i class="feather icon-home"></i>
                 <span class="menu-title" data-i18n="Dashboard">Dashboard</span>
                 <!-- <span class="badge badge badge-warning badge-pill float-right mr-2">2</span> -->
               </a>
@@ -37,13 +37,13 @@
             </li>
             <!-- <li class=" navigation-header"><span>Modules</span>
             </li> -->
-            <li class=" nav-item"><a [routerLink]="['/admin/employee']" ><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Email">Employee</span></a>
+            <li class=" nav-item"><a [routerLink]="['/dashboard/employee']" ><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Email">Employee</span></a>
             </li>
-            <li class=" nav-item"><a [routerLink]="['/admin']"><i class="feather icon-file"></i><span class="menu-title" data-i18n="Email">Activity</span></a>
+            <li class=" nav-item"><a [routerLink]="['/dashboard/activity']"><i class="feather icon-file"></i><span class="menu-title" data-i18n="Email">Activity</span></a>
             </li>
-            <li class=" nav-item"><a [routerLink]="['/admin/handover']" ><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">Handover</span></a>
+            <li class=" nav-item"><a [routerLink]="['/dashboard/handover']" ><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">Handover</span></a>
             </li>
-            <li class=" nav-item"><a [routerLink]="['/admin/leave']"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">Leave</span></a>
+            <li class=" nav-item"><a [routerLink]="['/dashboard/leave']"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">Leave</span></a>
             </li>
             <!-- <li class=" nav-item"><a [routerLink]="['/admin/documents']"><i class="feather icon-file"></i><span class="menu-title" data-i18n="document">Documents</span></a>
             </li> -->
@@ -51,13 +51,13 @@
             </li> -->
             <li class="nav-item has-sub"><a><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Reports">Reports</span></a>
                 <ul class="menu-content">
-                    <li class=" nav-item"><a [routerLink]="['/admin/report/employee-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Employee Report">Employee Report</span></a>
+                    <li class=" nav-item"><a [routerLink]="['/dashboard/report/employee-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Employee Report">Employee Report</span></a>
                     </li>
-                    <li class=" nav-item"><a [routerLink]="['/admin/report/handover-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Handover Report">Handover Report</span></a>
+                    <li class=" nav-item"><a [routerLink]="['/dashboard/report/handover-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Handover Report">Handover Report</span></a>
                     </li>
-                    <li class=" nav-item"><a [routerLink]="['/admin/report/activity-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Activity Report">Activity Report</span></a>
+                    <li class=" nav-item"><a [routerLink]="['/dashboard/report/activity-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Activity Report">Activity Report</span></a>
                     </li>
-                    <li class=" nav-item"><a [routerLink]="['/admin/report/leave-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Leave Report">Leave Report</span></a>
+                    <li class=" nav-item"><a [routerLink]="['/dashboard/report/leave-report']"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Leave Report">Leave Report</span></a>
                     </li>
                 </ul>
             </li>

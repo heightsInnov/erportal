@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateDocumentComponent } from './create-document/create-document.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { MaterialModule } from 'src/app/core/shared/material.module';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class DocumentModule { }

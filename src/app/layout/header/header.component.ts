@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     {
       title: 'Profile',
       icon: 'portrait',
-      link: {route: '/admin/employee/view-employee', param: this.userDetails}
+      link: {route: '/dashboard/employee/view-employee', param: this.userDetails}
     }
   ];
 

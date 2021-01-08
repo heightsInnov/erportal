@@ -1,5 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,13 +8,12 @@ import { environment } from 'src/environments/environment';
 import { filter, map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-activity',
+  templateUrl: './activity.component.html',
+  styleUrls: ['./activity.component.css']
 })
-export class DashboardComponent implements OnInit{
+export class ActivityComponent implements OnInit {
   @ViewChild('activityStatusModal') activityStatusModal: TemplateRef<any>;
   @ViewChild('activityModal') activityModal: TemplateRef<any>;
 
@@ -64,11 +62,9 @@ export class DashboardComponent implements OnInit{
     this.initForm(); // initialize reactive form on component init
     this.getUnits(this.getUnitsUrl); // get units/depts for activity
     this.getActivities(this.getActivityUrl);
-    // this.getActivityStatus(this.getActivityStatusUrl);
+    this.getActivityStatus(this.getActivityStatusUrl);
     // this.checkAvailabilty();
   }
-
-
   // build form controls
   initForm(): void {
     this.form = this.fb.group({
@@ -196,6 +192,16 @@ export class DashboardComponent implements OnInit{
     );
   }
 
+  getStatus(status: string): string{
+    if (status === 'P') {
+      return 'Todo';
+    } else if (status === 'O') {
+      return 'In Progress';
+    } else if (status === 'C') {
+      return 'Completed';
+    }
+  }
+
   getActivityStatus(url: string) {
     this.crudService.getData(url).subscribe(
       data => {
@@ -305,5 +311,6 @@ export class DashboardComponent implements OnInit{
     const date = new Date().toDateString();
     return date;
   }
+
 
 }

@@ -1,0 +1,370 @@
+<div class="section">
+  <div class="card">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex">
+                <div class="ml-auto">
+                  <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light" (click)="openModal(activityModal, 'create')">
+                    <i class="feather icon-plus-circle"></i> Create Activity
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-6">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body bg-primary">
+                    <h4 class="card-title text-white">TODO</h4>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <!-- <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-times-o text-bold-700 text-red"></i>
+                                <span class="text-bold-600 ml-50">No Activity</span>
+                                <div class="badge badge-pill badge-glow badge-primary ml-1"></div>
+                            </div>
+                          </div>
+                          <div class="d-flex pt-1 mb-0">
+                            <span class="small">You have created no activity today {{ getTodaysDate() }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="float-left d-flex justify-content-center align-items-center">
+                            <i class="fa fa-circle-o text-bold-600"></i>
+                            <span class="text-bold-600 ml-50">No Activity</span>
+                            <div class="badge badge-pill badge-glow badge-primary ml-1">444</div>
+                          </div>
+                          <div class="float-right d-flex">dfff</div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="d-flex pt-1 mb-0">
+                            <span class="small">You have moved all created activities for {{ getTodaysDate() }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li> -->
+                    <!-- <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <mat-icon>check_circle</mat-icon>
+                            <span class="text-bold-600 mx-50">POPE PRECIOUS POPEE</span>
+                            <div class="badge badge-pill badge-glow badge-primary mx-50">tech</div>
+                          </div>
+                          <div class="float-right d-flex">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="btn btn-round btn-sm waves-effect waves-light" aria-label="Activity options menu">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                              <ng-container>
+                                <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('completed', 'activity.activityId')">
+                                  <mat-icon>send</mat-icon>
+                                  <span>Completed</span>
+                                </button>
+                              </ng-container>
+                              <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod('update', 'activity')">
+                                <mat-icon>update</mat-icon>
+                                <span>Update</span>
+                              </button>
+                            </mat-menu>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="d-flex mb-0">
+                            <span class="small">fix this thing please</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li> -->
+                    <li class="list-group-item" *ngFor="let activity of todos;">
+                      <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <mat-icon>not_started</mat-icon>
+                            <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-primary mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                          </div>
+                          <div class="float-right d-flex">
+                            <button mat-icon-button class="btn waves-effect waves-light" [matMenuTriggerFor]="menu" aria-label="Activity options menu">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                              <ng-container *ngFor="let action of todoActions">
+                                <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod(action, activity)">
+                                  <mat-icon>{{ action.icon}}</mat-icon>
+                                  <span>{{ action.title | titlecase}}</span>
+                                </button>
+                              </ng-container>
+                            </mat-menu>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="d-flex mb-0">
+                            <span class="small">{{ activity.objectives }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body bg-warning">
+                    <h4 class="card-title">IN PROGRESS</h4>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let activity of inProgress;">
+                      <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <mat-icon>schedule</mat-icon>
+                            <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-warning mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                          </div>
+                          <div class="float-right d-flex">
+                            <button mat-icon-button class="btn waves-effect waves-light" [matMenuTriggerFor]="menu" aria-label="Activity options menu">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                              <ng-container *ngFor="let action of ongoingActions">
+                                <button mat-menu-item class="btn waves-effect waves-light" (click)="getOptionMethod(action, activity)">
+                                  <mat-icon>{{ action.icon}}</mat-icon>
+                                  <span>{{ action.title | titlecase}}</span>
+                                </button>
+                              </ng-container>
+                            </mat-menu>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="d-flex mb-0">
+                            <span class="small">{{ activity.objectives }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body bg-success">
+                   <h4 class="card-title">COMPLETED</h4>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" *ngFor="let activity of completed;">
+                      <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <mat-icon>check_circle</mat-icon>
+                            <span class="text-bold-600 mx-50">{{ activity.activity | titlecase }}</span>
+                            <div class="badge badge-pill badge-glow badge-success mx-50">{{ activity.unit.unit_name | titlecase}}</div>
+                          </div>
+                          <div class="float-right d-flex">
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="d-flex pt-1 mb-0">
+                            <span class="small">{{ activity.objectives }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="row">
+        <div class="col-12">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Date</th>
+                          <th>Activity</th>
+                          <th>Description</th>
+                          <th>Unit</th>
+                          <th>Status</th>
+                          <th>Remarks</th>
+                          <!-- <th></th> -->
+                        </tr>
+                      </thead>
+                      <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
+                          <tr>
+                            <th>{{details.activity_date | date}}</th>
+                            <td>{{details.activity}}</td>
+                            <td>{{details.objectives}}</td>
+                            <td>{{details.unit.unit_name}}</td>
+                            <td>{{getStatus(details.status)}}</td>
+                            <th>{{details.remarks}}</th>
+                            <!-- <td>
+                              action
+                            </td> -->
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<ng-template #activityModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <form [formGroup]="form" (ngSubmit)="onSubmit(formData, data)" class="todo-input">
+                <div class="modal-header">
+                  <h5 class="modal-title"> {{ data | titlecase}} Activity</h5>
+                  <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm();">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <fieldset class="form-group">
+                    <label for="unit">Unit</label>
+                    <select [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (formData.unit.dirty || formData.unit.touched) && formData.unit.invalid,
+                                        'is-valid' : (formData.unit.dirty || formData.unit.touched) && formData.unit.valid
+                                      }" id="unit" formControlName="unit">
+                        <option value="">Select Unit</option>
+                        <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                    </select>
+
+                    <ng-container *ngIf="(formData.unit.dirty || formData.unit.touched) && formData.unit.invalid">
+                      <div *ngIf="formData.unit.errors.required" class="invalid-feedback">Please specify Unit</div>
+                    </ng-container>
+                  </fieldset>
+                  <fieldset class="form-label-group form-group position-relative">
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (formData.activity.dirty || formData.activity.touched) && formData.activity.invalid,
+                                                    'is-valid' : (formData.activity.dirty || formData.activity.touched) && formData.activity.valid
+                                                  }" id="activity" formControlName="activity" placeholder="Activity" required>
+                    <label for="activity">Activity</label>
+
+                    <ng-container *ngIf="(formData.activity.dirty || formData.activity.touched) && formData.activity.invalid">
+                      <div *ngIf="formData.activity.errors.required" class="invalid-feedback">Activity Name is required</div>
+                    </ng-container>
+                  </fieldset>
+                  <fieldset class="form-label-group form-group position-relative">
+                      <textarea [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (formData.objective.dirty || formData.objective.touched) && formData.objective.invalid,
+                                            'is-valid' : (formData.objective.dirty || formData.objective.touched) && formData.objective.valid
+                                          }" rows="2" id="objective" formControlName="objective" placeholder="Objective"></textarea>
+                      <label for="objective">Objective</label>
+
+                      <ng-container *ngIf="(formData.objective.dirty || formData.objective.touched) && formData.objective.invalid">
+                        <div *ngIf="formData.objective.errors.required" class="invalid-feedback">Please state objective of activity</div>
+                      </ng-container>
+                  </fieldset>
+                  <fieldset class="form-label-group form-group position-relative">
+                    <textarea [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (formData.remark.dirty || formData.remark.touched) && formData.remark.invalid,
+                                          'is-valid' : (formData.remark.dirty || formData.remark.touched) && formData.remark.valid
+                                        }" rows="1" id="remark" formControlName="remark" placeholder="Remark"></textarea>
+                    <label for="remark">Remark</label>
+
+                    <ng-container *ngIf="(formData.remark.dirty || formData.remark.touched) && formData.remark.invalid">
+                      <div *ngIf="formData.remark.errors.required" class="invalid-feedback">Please add remark</div>
+                    </ng-container>
+                  </fieldset>
+
+                  <!-- <fieldset class="form-group" *ngIf="data.title === 'update'">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" formControlName="status">
+                        <option value="">Select Status</option>
+                        <option *ngFor="let status of activityStatuses" [value]="status.code">{{ status.name }}</option>
+                    </select>
+                  </fieldset> -->
+                </div>
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button [disabled]="!form.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                      >
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">{{ data | titlecase}}</span></button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="button" (click)="clearForm();" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
+                        <i class="feather icon-x d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">Cancel</span>
+                        </button>
+                  </fieldset>
+                </div>
+              </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #activityStatusModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
+                <div class="modal-header">
+                  <h5 class="modal-title"> Change Activity Status</h5>
+                  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p> {{ data.question | titlecase}} </p>
+                </div>
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                    <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
+                      mat-dialog-close>
+                      <i class="feather icon-times d-block d-lg-none"></i>
+                        <span class="d-none d-lg-block">NO</span>
+                    </button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                        (click)="changeActivityStatus(data.id, data.statusCode)">
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
+                          <span class="d-none d-lg-block">YES</span>
+                      </button>
+                  </fieldset>
+                </div>
+              <!-- </form> -->
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>

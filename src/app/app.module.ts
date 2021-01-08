@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NbThemeModule, NbSidebarModule, NbMenuModule, NbDialogModule } from '@nebular/theme';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from './core/guards/auth.guard';
@@ -28,11 +27,7 @@ import { InternetInterceptor } from './core/interceptors/internet.interceptor';
     ReactiveFormsModule,
     AppRoutingModule,
     // MaterialModule,
-    // NbThemeModule.forRoot(),
-    // NbSidebarModule.forRoot(),
-    // NbMenuModule.forRoot(),
     ToastrModule.forRoot(),
-    // NbDialogModule.forRoot(),
     NgxSpinnerModule,
     BreadcrumbModule
   ],

@@ -96,180 +96,185 @@
 
               <div class="row mb-1">
                 <div class="col-12">
-                  <h5 class="card-title">Document Register</h5>
-                </div>
-                <div class="col-12">
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <h5 class="card-title">Client Communications</h5>
+                        <h5 class="card-title">Document Register</h5>
                       </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Document Ref No</th>
-                                      <th>Document Title</th>
-                                      <th>Date Created</th>
-                                      <th>Electronic File Directory</th>
-                                      <th>location of Hardcopy</th>
-                                      <th>Document Owner</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.client_communications; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.sub_category}}</td>
-                                      <td>{{data.reference_number}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.date_created}}</td>
-                                      <td>{{data.file_directory_name}}</td>
-                                      <td>{{data.file_hard_copy_loc}}</td>
-                                      <th>{{data.document_owner}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                      <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Client Communications</h5>
+                          </mat-expansion-panel-header>
+
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Document Ref No</th>
+                                          <th>Document Title</th>
+                                          <th>Date Created</th>
+                                          <th>Electronic File Directory</th>
+                                          <th>location of Hardcopy</th>
+                                          <th>Document Owner</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.client_communications; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.sub_category}}</td>
+                                          <td>{{data.reference_number}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.date_created}}</td>
+                                          <td>{{data.file_directory_name}}</td>
+                                          <td>{{data.file_hard_copy_loc}}</td>
+                                          <th>{{data.document_owner}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Staff Records</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Staff Records</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Document Ref No</th>
-                                      <th>Document Title</th>
-                                      <th>Date Created</th>
-                                      <th>Electronic File Directory</th>
-                                      <th>location of Hardcopy</th>
-                                      <th>Document Owner</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.staff_records; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.sub_category}}</td>
-                                      <td>{{data.reference_number}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.date_created}}</td>
-                                      <td>{{data.file_directory_name}}</td>
-                                      <td>{{data.file_hard_copy_loc}}</td>
-                                      <th>{{data.document_owner}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Document Ref No</th>
+                                          <th>Document Title</th>
+                                          <th>Date Created</th>
+                                          <th>Electronic File Directory</th>
+                                          <th>location of Hardcopy</th>
+                                          <th>Document Owner</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.staff_records; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.sub_category}}</td>
+                                          <td>{{data.reference_number}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.date_created}}</td>
+                                          <td>{{data.file_directory_name}}</td>
+                                          <td>{{data.file_hard_copy_loc}}</td>
+                                          <th>{{data.document_owner}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Site Records And Register</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Site Records And Register</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Document Ref No</th>
-                                      <th>Document Title</th>
-                                      <th>Date Created</th>
-                                      <th>Electronic File Directory</th>
-                                      <th>location of Hardcopy</th>
-                                      <th>Document Owner</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.site_record_and_register; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.sub_category}}</td>
-                                      <td>{{data.reference_number}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.date_created}}</td>
-                                      <td>{{data.file_directory_name}}</td>
-                                      <td>{{data.file_hard_copy_loc}}</td>
-                                      <th>{{data.document_owner}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Document Ref No</th>
+                                          <th>Document Title</th>
+                                          <th>Date Created</th>
+                                          <th>Electronic File Directory</th>
+                                          <th>location of Hardcopy</th>
+                                          <th>Document Owner</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.site_record_and_register; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.sub_category}}</td>
+                                          <td>{{data.reference_number}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.date_created}}</td>
+                                          <td>{{data.file_directory_name}}</td>
+                                          <td>{{data.file_hard_copy_loc}}</td>
+                                          <th>{{data.document_owner}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Training Materials</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Training Materials</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Document Ref No</th>
-                                      <th>Document Title</th>
-                                      <th>Date Created</th>
-                                      <th>Electronic File Directory</th>
-                                      <th>location of Hardcopy</th>
-                                      <th>Document Owner</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.training_materials; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.sub_category}}</td>
-                                      <td>{{data.reference_number}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.date_created}}</td>
-                                      <td>{{data.file_directory_name}}</td>
-                                      <td>{{data.file_hard_copy_loc}}</td>
-                                      <th>{{data.document_owner}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Document Ref No</th>
+                                          <th>Document Title</th>
+                                          <th>Date Created</th>
+                                          <th>Electronic File Directory</th>
+                                          <th>location of Hardcopy</th>
+                                          <th>Document Owner</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.training_materials; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.sub_category}}</td>
+                                          <td>{{data.reference_number}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.date_created}}</td>
+                                          <td>{{data.file_directory_name}}</td>
+                                          <td>{{data.file_hard_copy_loc}}</td>
+                                          <th>{{data.document_owner}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </div>
@@ -277,188 +282,192 @@
 
               <div class="row mb-1">
                 <div class="col-12">
-                  <h5 class="card-title">Business Contacts</h5>
-                </div>
-                <div class="col-12">
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <h5 class="card-title">Sub-Contractors</h5>
+                        <h5 class="card-title">Business Contacts</h5>
                       </mat-expansion-panel-header>
+                      <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Sub-Contractors</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Relationship</th>
-                                      <th>Name</th>
-                                      <th>Company/Department</th>
-                                      <th>Designation</th>
-                                      <th>Office Address</th>
-                                      <th>Phone No</th>
-                                      <th>Email</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.sub_contractors; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.relationship}}</td>
-                                      <td>{{data.name}}</td>
-                                      <td>{{data.company_or_department}}</td>
-                                      <td>{{data.designation}}</td>
-                                      <td>{{data.office_address}}</td>
-                                      <td>{{data.contact_phone}}</td>
-                                      <th>{{data.contact_email}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Relationship</th>
+                                          <th>Name</th>
+                                          <th>Company/Department</th>
+                                          <th>Designation</th>
+                                          <th>Office Address</th>
+                                          <th>Phone No</th>
+                                          <th>Email</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.sub_contractors; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.relationship}}</td>
+                                          <td>{{data.name}}</td>
+                                          <td>{{data.company_or_department}}</td>
+                                          <td>{{data.designation}}</td>
+                                          <td>{{data.office_address}}</td>
+                                          <td>{{data.contact_phone}}</td>
+                                          <th>{{data.contact_email}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Suppliers</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Suppliers</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Relationship</th>
-                                      <th>Name</th>
-                                      <th>Company/Department</th>
-                                      <th>Designation</th>
-                                      <th>Office Address</th>
-                                      <th>Phone No</th>
-                                      <th>Email</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.suppliers; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.relationship}}</td>
-                                      <td>{{data.name}}</td>
-                                      <td>{{data.company_or_department}}</td>
-                                      <td>{{data.designation}}</td>
-                                      <td>{{data.office_address}}</td>
-                                      <td>{{data.contact_phone}}</td>
-                                      <th>{{data.contact_email}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Relationship</th>
+                                          <th>Name</th>
+                                          <th>Company/Department</th>
+                                          <th>Designation</th>
+                                          <th>Office Address</th>
+                                          <th>Phone No</th>
+                                          <th>Email</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.suppliers; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.relationship}}</td>
+                                          <td>{{data.name}}</td>
+                                          <td>{{data.company_or_department}}</td>
+                                          <td>{{data.designation}}</td>
+                                          <td>{{data.office_address}}</td>
+                                          <td>{{data.contact_phone}}</td>
+                                          <th>{{data.contact_email}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Clients</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Clients</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Relationship</th>
-                                      <th>Name</th>
-                                      <th>Company/Department</th>
-                                      <th>Designation</th>
-                                      <th>Office Address</th>
-                                      <th>Phone No</th>
-                                      <th>Email</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.clients; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.relationship}}</td>
-                                      <td>{{data.name}}</td>
-                                      <td>{{data.company_or_department}}</td>
-                                      <td>{{data.designation}}</td>
-                                      <td>{{data.office_address}}</td>
-                                      <td>{{data.contact_phone}}</td>
-                                      <th>{{data.contact_email}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Relationship</th>
+                                          <th>Name</th>
+                                          <th>Company/Department</th>
+                                          <th>Designation</th>
+                                          <th>Office Address</th>
+                                          <th>Phone No</th>
+                                          <th>Email</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.clients; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.relationship}}</td>
+                                          <td>{{data.name}}</td>
+                                          <td>{{data.company_or_department}}</td>
+                                          <td>{{data.designation}}</td>
+                                          <td>{{data.office_address}}</td>
+                                          <td>{{data.contact_phone}}</td>
+                                          <th>{{data.contact_email}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">Other Contacts</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Other Contacts</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Relationship</th>
-                                      <th>Name</th>
-                                      <th>Company/Department</th>
-                                      <th>Designation</th>
-                                      <th>Office Address</th>
-                                      <th>Phone No</th>
-                                      <th>Email</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.others; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.relationship}}</td>
-                                      <td>{{data.name}}</td>
-                                      <td>{{data.company_or_department}}</td>
-                                      <td>{{data.designation}}</td>
-                                      <td>{{data.office_address}}</td>
-                                      <td>{{data.contact_phone}}</td>
-                                      <th>{{data.contact_email}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Relationship</th>
+                                          <th>Name</th>
+                                          <th>Company/Department</th>
+                                          <th>Designation</th>
+                                          <th>Office Address</th>
+                                          <th>Phone No</th>
+                                          <th>Email</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.others; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.relationship}}</td>
+                                          <td>{{data.name}}</td>
+                                          <td>{{data.company_or_department}}</td>
+                                          <td>{{data.designation}}</td>
+                                          <td>{{data.office_address}}</td>
+                                          <td>{{data.contact_phone}}</td>
+                                          <th>{{data.contact_email}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </div>
@@ -512,180 +521,185 @@
 
               <div class="row mb-1">
                 <div class="col-12">
-                  <h5 class="card-title">BOOKS, CDS, SOFTWARES AND REFERENCE MANUALS</h5>
-                </div>
-                <div class="col-12">
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <h5 class="card-title">BOOKS</h5>
+                        <h5 class="card-title">Books, Cds, Softwares and Reference Manuals</h5>
                       </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Title</th>
-                                      <th>Softcopy Folder/File Name</th>
-                                      <th>Location of Hardcopy/CD</th>
-                                      <th>Weblink / Website</th>
-                                      <th>user ID</th>
-                                      <th>Password</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.books; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.file_path}}</td>
-                                      <td>{{data.hard_copy_loc}}</td>
-                                      <td>{{data.website_weblink}}</td>
-                                      <td>{{data.user_id}}</td>
-                                      <th>{{data.password}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                      <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Books</h5>
+                          </mat-expansion-panel-header>
+
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Title</th>
+                                          <th>Softcopy Folder/File Name</th>
+                                          <th>Location of Hardcopy/CD</th>
+                                          <th>Weblink / Website</th>
+                                          <th>user ID</th>
+                                          <th>Password</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.books; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.file_path}}</td>
+                                          <td>{{data.hard_copy_loc}}</td>
+                                          <td>{{data.website_weblink}}</td>
+                                          <td>{{data.user_id}}</td>
+                                          <th>{{data.password}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">CDS</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Cds</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Title</th>
-                                      <th>Softcopy Folder/File Name</th>
-                                      <th>Location of Hardcopy/CD</th>
-                                      <th>Weblink / Website</th>
-                                      <th>user ID</th>
-                                      <th>Password</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.cds; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.file_path}}</td>
-                                      <td>{{data.hard_copy_loc}}</td>
-                                      <td>{{data.website_weblink}}</td>
-                                      <td>{{data.user_id}}</td>
-                                      <th>{{data.password}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Title</th>
+                                          <th>Softcopy Folder/File Name</th>
+                                          <th>Location of Hardcopy/CD</th>
+                                          <th>Weblink / Website</th>
+                                          <th>user ID</th>
+                                          <th>Password</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.cds; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.file_path}}</td>
+                                          <td>{{data.hard_copy_loc}}</td>
+                                          <td>{{data.website_weblink}}</td>
+                                          <td>{{data.user_id}}</td>
+                                          <th>{{data.password}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">SOFTWARES</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Softwares</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Title</th>
-                                      <th>Softcopy Folder/File Name</th>
-                                      <th>Location of Hardcopy/CD</th>
-                                      <th>Weblink / Website</th>
-                                      <th>user ID</th>
-                                      <th>Password</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.softwares; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.file_path}}</td>
-                                      <td>{{data.hard_copy_loc}}</td>
-                                      <td>{{data.website_weblink}}</td>
-                                      <td>{{data.user_id}}</td>
-                                      <th>{{data.password}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Title</th>
+                                          <th>Softcopy Folder/File Name</th>
+                                          <th>Location of Hardcopy/CD</th>
+                                          <th>Weblink / Website</th>
+                                          <th>user ID</th>
+                                          <th>Password</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.softwares; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.file_path}}</td>
+                                          <td>{{data.hard_copy_loc}}</td>
+                                          <td>{{data.website_weblink}}</td>
+                                          <td>{{data.user_id}}</td>
+                                          <th>{{data.password}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
 
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <h5 class="card-title">REFERENCE MANUALS</h5>
-                      </mat-expansion-panel-header>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <h5 class="card-title">Reference Manuals</h5>
+                          </mat-expansion-panel-header>
 
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
-                            <div class="card-content">
-                              <div class="table-responsive">
-                                <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
-                                    <tr>
-                                      <th>S/N</th>
-                                      <th>Category</th>
-                                      <th>Title</th>
-                                      <th>Softcopy Folder/File Name</th>
-                                      <th>Location of Hardcopy/CD</th>
-                                      <th>Weblink / Website</th>
-                                      <th>user ID</th>
-                                      <th>Password</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.reference_manuals; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subcat}}</td>
-                                      <td>{{data.title}}</td>
-                                      <td>{{data.file_path}}</td>
-                                      <td>{{data.hard_copy_loc}}</td>
-                                      <td>{{data.website_weblink}}</td>
-                                      <td>{{data.user_id}}</td>
-                                      <th>{{data.password}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-content">
+                                  <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th>S/N</th>
+                                          <th>Category</th>
+                                          <th>Title</th>
+                                          <th>Softcopy Folder/File Name</th>
+                                          <th>Location of Hardcopy/CD</th>
+                                          <th>Weblink / Website</th>
+                                          <th>user ID</th>
+                                          <th>Password</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="table-hover table-striped" *ngFor="let data of handoverDetails?.reference_manuals; let i = index">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{data.subcat}}</td>
+                                          <td>{{data.title}}</td>
+                                          <td>{{data.file_path}}</td>
+                                          <td>{{data.hard_copy_loc}}</td>
+                                          <td>{{data.website_weblink}}</td>
+                                          <td>{{data.user_id}}</td>
+                                          <th>{{data.password}}</th>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </div>

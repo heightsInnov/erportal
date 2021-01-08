@@ -59,7 +59,21 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Leave Type</mat-label>
+                    <mat-select formControlName="leave_type">
+                      <mat-option [value]="null">Select Leave type</mat-option>
+                      <ng-container *ngFor="let type of leaveType">
+                        <mat-option [value]="type.value">{{ type.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <ng-container *ngIf="(leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid">
+                      <mat-error *ngIf="leaveFormData.leave_type.errors.required" class="invalid-feedback">Please Select Leave Type</mat-error>
+                    </ng-container>
+                  </mat-form-field>
+
+
+                  <!-- <div class="form-group">
                     <label for="leave_type">Leave Type</label>
                     <fieldset class="form-group">
                       <select [ngClass]="{'form-control' : true,
@@ -76,24 +90,32 @@
                         <div *ngIf="leaveFormData.leave_type.errors.required" class="invalid-feedback">Please Select Vehicle Type</div>
                       </ng-container>
                     </fieldset>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="col-md-6 col-12">
-                  <div class="form-group">
-                    <label for="leave_no">No of Leave Days</label>
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>No of Leave Days</mat-label>
+                    <input type="number" matInput formControlName="leave_no" placeholder="" (change)="getLeaveDays(leaveFormData.leave_no.value)">
+                    <ng-container *ngIf="(leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid">
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.required">Please Enter No of Leave Days</mat-error>
+                      <!-- <mat-error *ngIf="leaveFormData.leave_no.errors.pattern">Only Digits allowed</mat-error> -->
+                    </ng-container>
+                  </mat-form-field>
+                  <!-- <div class="form-group">
+                    <label for="leave_no"></label>
                     <input type="text" [ngClass]="{'form-control' : true,
                                           'is-invalid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid,
                                           'is-valid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.valid
-                                        }" id="leave_no" formControlName="leave_no" placeholder="Enter No of Leave Days">
+                                        }" id="leave_no" formControlName="leave_no" placeholder="Enter No of Leave Days" (change)="getLeaveDays(leaveFormData.leave_no.value)">
                     <ng-container *ngIf="(leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid">
-                      <div *ngIf="leaveFormData.leave_no.errors.required" class="invalid-feedback">Please Enter No of Leave Days</div>
-                      <div *ngIf="leaveFormData.leave_no.errors.pattern" class="invalid-feedback">Only Digits allowed</div>
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.required">Please Enter No of Leave Days</mat-error>
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.pattern">Only Digits allowed</mat-error>
                     </ng-container>
-                    </div>
+                  </div> -->
                 </div>
 
-                <div class="col-md-6 col-12">
+                <!-- <div class="col-md-6 col-12">
                   <div class="form-group">
                     <label for="start_date">Leave Start Date</label>
                     <input type="date" [ngClass]="{'form-control' : true,
@@ -117,7 +139,26 @@
                       <div *ngIf="leaveFormData.end_date.errors.required" class="invalid-feedback">Please Enter Leave End Date</div>
                     </ng-container>
                     </div>
+                </div> -->
+
+                <div class="col-md-6 col-12">
+                  <!-- <div class="form-group"> -->
+                    <mat-form-field class="full-width" appearance="fill">
+                      <mat-label>Select Start - End Date</mat-label>
+                      <mat-date-range-input formGroupName="leave_date" [rangePicker]="picker">
+                        <input matStartDate formControlName="start_date" placeholder="Start date">
+                        <input matEndDate formControlName="end_date" placeholder="End date">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+
+                      <ng-container *ngIf="(leaveFormData.leave_date.dirty || leaveFormData.leave_date.touched) && leaveFormData.leave_date.invalid">
+                        <mat-error *ngIf="leaveFormData.leave_date.invalid">Select Date Range</mat-error>
+                      </ng-container>
+                    </mat-form-field>
+                  <!-- </div> -->
                 </div>
+
               </div>
             </div>
             <div class="modal-footer">

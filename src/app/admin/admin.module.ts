@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { MaterialModule } from '../core/shared/material.module';
+import { ActivityComponent } from './activity/activity.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,13 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         canActivate: [AuthGuard],
-        data: { breadcrumb: 'Employee' },
+        data: { breadcrumb: 'Dashboard' },
+      },
+      {
+        path: 'activity',
+        component: ActivityComponent,
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Activity' },
       },
       {
         path: 'employee',
@@ -35,12 +42,14 @@ const routes: Routes = [
       {
         path: 'leave',
         loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Leave' },
       },
       {
         path: 'report',
         loadChildren: () => import('./report/report.module').then(m => m.ReportModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Report' },
       }
     ]
   },
@@ -48,7 +57,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent],
+  declarations: [AdminComponent, DashboardComponent, ActivityComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
