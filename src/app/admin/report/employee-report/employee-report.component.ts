@@ -15,7 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class EmployeeReportComponent implements OnInit {
 
   filterForm: FormGroup;
-  employeeDetails = JSON.parse(localStorage.getItem('user'));
+  // employeeDetails = JSON.parse(localStorage.getItem('user'));
   getEmployeeReportUrl = environment.reportsUrl.employeeReport;
   employeeUrl = environment.getAllEmployeeUrl;
   employeeReports: any[] = [];
@@ -72,7 +72,7 @@ export class EmployeeReportComponent implements OnInit {
 
   getEmployeeReport(filterBy?) {
     this.spinner.show();
-    const employeeReportUrl = `${this.getEmployeeReportUrl}/${this.employeeDetails.emp_id}`;
+    const employeeReportUrl = `${this.getEmployeeReportUrl}`;
     const payload = filterBy || '';
     this.crudService.createData(employeeReportUrl, payload).subscribe(
       data => {
