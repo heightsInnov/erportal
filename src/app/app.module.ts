@@ -15,6 +15,19 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
 import { InternetInterceptor } from './core/interceptors/internet.interceptor';
 // import { MaterialModule } from './core/shared/material.module';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+// import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  // listPlugin,
+  interactionPlugin
+]);
+
 @NgModule({
   declarations: [
     AppComponent, NotFoundComponent
@@ -27,6 +40,7 @@ import { InternetInterceptor } from './core/interceptors/internet.interceptor';
     ReactiveFormsModule,
     AppRoutingModule,
     // MaterialModule,
+    FullCalendarModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
     BreadcrumbModule

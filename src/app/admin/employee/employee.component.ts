@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Routes, RouterModule } from '@angular/router';
-import { CreateEmployeeComponent } from './create-employee/create-employee.component';
-import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,6 +19,8 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private router: Router,
     private crudService: CrudService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
    }
 
@@ -36,6 +38,8 @@ export class EmployeeComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.error(error.error.responseMessage);
       }
     );
   }

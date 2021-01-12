@@ -17,15 +17,6 @@ export class CrudService {
     private spinner: NgxSpinnerService
     ) { }
 
-  private handleError(error: HttpErrorResponse) {
-    this.spinner.hide();
-    if (error.error instanceof ErrorEvent) {
-      return throwError (error.error);
-    } else {
-      return throwError (error);
-    }
-  }
-
   createData(endpoint, data): Observable<any> {
     const url = this.baseUrl + endpoint;
     this.spinner.show();
@@ -86,6 +77,15 @@ export class CrudService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    this.spinner.hide();
+    if (error.error instanceof ErrorEvent) {
+      return throwError (error.error);
+    } else {
+      return throwError (error);
+    }
   }
 
   // private getEventMessage(event: HttpEvent<any>, file: File) {
