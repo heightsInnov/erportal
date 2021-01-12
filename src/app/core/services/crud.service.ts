@@ -80,7 +80,7 @@ export class CrudService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    this.spinner.hide();
+    // this.spinner.hide();
     if (error.error instanceof ErrorEvent) {
       return throwError (error.error);
     } else {

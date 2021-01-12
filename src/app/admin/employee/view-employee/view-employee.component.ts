@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-employee',
@@ -36,7 +37,8 @@ export class ViewEmployeeComponent implements OnInit {
     private dialog: MatDialog,
     private crudService: CrudService,
     private cd: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +75,9 @@ export class ViewEmployeeComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.error('Unable to Fetch Employee Profile', 'An Error Occured')
+
       }
     );
   }
@@ -136,6 +141,8 @@ export class ViewEmployeeComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.warning('File Upload Unsuccessful', 'An Error Occured')
       }
     );
     // if (this.imageBaseData==null){
@@ -158,6 +165,8 @@ export class ViewEmployeeComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.warning('Unable to Fetch Uploaded Documents', 'An Error Occured')
       }
     );
   }

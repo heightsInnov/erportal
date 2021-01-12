@@ -89,6 +89,8 @@ export class DocumentComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.warning('Unable to Fetch Leave Documents', 'An Error Occured')
       }
     );
   }
@@ -117,6 +119,8 @@ export class DocumentComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.spinner.hide();
+        this.toastr.error('Unable to Create Leave Document', 'An Error Occured')
       }
     );
   }
