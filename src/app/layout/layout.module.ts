@@ -11,15 +11,15 @@ import { RemoveHyphenPipe } from '../core/pipes/remove-hyphen.pipe';
 import { MaterialModule } from '../core/shared/material.module';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
-// import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 // import timeGridPlugin from '@fullcalendar/timegrid';
 // import interactionPlugin from '@fullcalendar/interaction';
 
-// FullCalendarModule.registerPlugins([
-//   dayGridPlugin,
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
 //   timeGridPlugin,
 //   interactionPlugin
-// ]);
+]);
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, SideNavComponent, BreadcrumbComponent, RemoveHyphenPipe],
