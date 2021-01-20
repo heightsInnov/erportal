@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+html, body { height: 100%; }
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
+}
+
+.bg-authentication {
+  /* border-radius: 51px !important; */
+  border-radius: 0px;
+  background: linear-gradient(145deg, #dfdfe6, #ffffff) !important;
+  box-shadow:  5px 5px 31px #818185,
+              -5px -5px 31px #ffffff !important;
+}
+
+/* .bg-authentication {
+  border-radius: 58px;
+  border-radius: 0px;
+  background: linear-gradient(145deg, #ccbebe, #f3e2e2);
+  box-shadow:  6px 6px 38px #665f5f,
+              -6px -6px 38px #ffffff;
+} */
+
+

@@ -1,0 +1,183 @@
+<div class="content-body">
+  <section>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title ml-auto">
+                  <button type="button" class="btn btn-outline-primary waves-effect waves-light" (click)="openModal(leaveModal)">
+                    <i class="feather icon-plus-circle"></i> Create Leave
+                  </button>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                      <thead class="thead-dark">
+                          <tr>
+                            <th>Leave Type</th>
+                            <th>No of Leave Days</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Remaining Leave Quota</th>
+                          </tr>
+                      </thead>
+                      <tbody class="table-hover table-striped">
+                          <ng-container *ngFor="let details of leaves, let i = index;">
+                            <tr>
+                              <td scope="row">{{details.leave_type}}</td>
+                              <td>{{details.leave_no}}</td>
+                              <td>{{details.start_date}}</td>
+                              <td>{{details.end_date}}</td>
+                              <td>{{details.leave_left}}</td>
+                            </tr>
+                          </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<ng-template #leaveModal>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <form [formGroup]="leaveForm" (ngSubmit)="onSubmit(leaveFormData)" class="form form-vertical">
+          <div class="form-body">
+            <div class="modal-header">
+              <h6 class="modal-title"> CREATE LEAVE </h6>
+              <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm(leaveForm); close();">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Leave Type</mat-label>
+                    <mat-select formControlName="leave_type">
+                      <mat-option [value]="null">Select Leave type</mat-option>
+                      <ng-container *ngFor="let type of leaveType">
+                        <mat-option [value]="type.value">{{ type.name }}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <ng-container *ngIf="(leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid">
+                      <mat-error *ngIf="leaveFormData.leave_type.errors.required" class="invalid-feedback">Please Select Leave Type</mat-error>
+                    </ng-container>
+                  </mat-form-field>
+
+
+                  <!-- <div class="form-group">
+                    <label for="leave_type">Leave Type</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid,
+                                            'is-valid' : (leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.valid
+                                          }" id="leave_type" formControlName="leave_type">
+                        <option [value]="null">Select Leave type</option>
+                        <ng-container *ngFor="let type of leaveType">
+                          <option [value]="type.value">{{ type.name }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(leaveFormData.leave_type.dirty || leaveFormData.leave_type.touched) && leaveFormData.leave_type.invalid">
+                        <div *ngIf="leaveFormData.leave_type.errors.required" class="invalid-feedback">Please Select Vehicle Type</div>
+                      </ng-container>
+                    </fieldset>
+                  </div> -->
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>No of Leave Days</mat-label>
+                    <input type="number" matInput formControlName="leave_no" placeholder="" (change)="getLeaveDays(leaveFormData.leave_no.value)">
+                    <ng-container *ngIf="(leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid">
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.required">Please Enter No of Leave Days</mat-error>
+                      <!-- <mat-error *ngIf="leaveFormData.leave_no.errors.pattern">Only Digits allowed</mat-error> -->
+                    </ng-container>
+                  </mat-form-field>
+                  <!-- <div class="form-group">
+                    <label for="leave_no"></label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid,
+                                          'is-valid' : (leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.valid
+                                        }" id="leave_no" formControlName="leave_no" placeholder="Enter No of Leave Days" (change)="getLeaveDays(leaveFormData.leave_no.value)">
+                    <ng-container *ngIf="(leaveFormData.leave_no.dirty || leaveFormData.leave_no.touched) && leaveFormData.leave_no.invalid">
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.required">Please Enter No of Leave Days</mat-error>
+                      <mat-error *ngIf="leaveFormData.leave_no.errors.pattern">Only Digits allowed</mat-error>
+                    </ng-container>
+                  </div> -->
+                </div>
+
+                <!-- <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="start_date">Leave Start Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.invalid,
+                                            'is-valid' : (leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.valid
+                                          }" id="start_date" formControlName="start_date">
+                    <ng-container *ngIf="(leaveFormData.start_date.dirty || leaveFormData.start_date.touched) && leaveFormData.start_date.invalid">
+                      <div *ngIf="leaveFormData.start_date.errors.required" class="invalid-feedback">Please Enter Leave Start Date</div>
+                    </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="end_date">Leave End Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.invalid,
+                                            'is-valid' : (leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.valid
+                                          }" id="end_date" formControlName="end_date">
+                    <ng-container *ngIf="(leaveFormData.end_date.dirty || leaveFormData.end_date.touched) && leaveFormData.end_date.invalid">
+                      <div *ngIf="leaveFormData.end_date.errors.required" class="invalid-feedback">Please Enter Leave End Date</div>
+                    </ng-container>
+                    </div>
+                </div> -->
+
+                <div class="col-md-6 col-12">
+                  <!-- <div class="form-group"> -->
+                    <mat-form-field class="full-width" appearance="fill">
+                      <mat-label>Select Start - End Date</mat-label>
+                      <mat-date-range-input formGroupName="leave_date" [rangePicker]="picker">
+                        <input matStartDate formControlName="start_date" placeholder="Start date">
+                        <input matEndDate formControlName="end_date" placeholder="End date">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+
+                      <ng-container *ngIf="(leaveFormData.leave_date.dirty || leaveFormData.leave_date.touched) && leaveFormData.leave_date.invalid">
+                        <mat-error *ngIf="leaveFormData.leave_date.invalid">Select Date Range</mat-error>
+                      </ng-container>
+                    </mat-form-field>
+                  <!-- </div> -->
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <fieldset class="form-group position-relative has-icon-left mb-0">
+                <button [disabled]="!leaveForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                  >
+                  <i class="feather icon-check d-block d-lg-none"></i>
+                    <span class="d-none d-lg-block">Submit</span></button>
+              </fieldset>
+              <fieldset class="form-group position-relative has-icon-left mb-0">
+                  <button type="reset" (click)="leaveForm.reset()" class="btn btn-outline-light waves-effect waves-light">
+                    <i class="feather icon-x d-block d-lg-none"></i>
+                      <span class="d-none d-lg-block">Cancel</span>
+                    </button>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

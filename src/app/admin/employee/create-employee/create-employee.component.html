@@ -1,0 +1,1020 @@
+<div class="content-body">
+  <section id="basic-vertical-layouts">
+    <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <mat-horizontal-stepper labelPosition="bottom" [linear]="linearMode" #createEmployeeStepper>
+                  <mat-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
+                    <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
+                    <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeEducationDetailsForm" [label]="stepperLabel.labelThree">
+                    <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeFamilyDetailsForm" [label]="stepperLabel.labelFour">
+                    <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
+                  </mat-step>
+                  <mat-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
+                    <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
+                  </mat-step>
+                </mat-horizontal-stepper>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+</div>
+
+
+<ng-template #labelOneView>
+  <form  [formGroup]="createEmployeeForm" (ngSubmit)="onSubmit(createEmployeeFormData, 'createEmployeeForm', createEmployeeStepper) "class="form">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12">
+          <mat-accordion>
+            <mat-expansion-panel>
+             <mat-expansion-panel-header>
+                <h5 class="card-title">Personal Data</h5>
+             </mat-expansion-panel-header>
+
+             <!-- <mat-expansion-panel-body> -->
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-label-group">
+                    <input type="text" id="firstname" [ngClass]="{'form-control' : true,
+                                                                  'is-invalid' : (createEmployeeFormData.emp_firstname.dirty || createEmployeeFormData.emp_firstname.touched) && createEmployeeFormData.emp_firstname.invalid,
+                                                                  'is-valid' : (createEmployeeFormData.emp_firstname.dirty || createEmployeeFormData.emp_firstname.touched) && createEmployeeFormData.emp_firstname.valid
+                                                                  }" placeholder="First Name" formControlName="emp_firstname">
+                    <label for="firstname">First Name</label>
+
+                    <ng-container *ngIf="(createEmployeeFormData.emp_firstname.dirty || createEmployeeFormData.emp_firstname.touched) && createEmployeeFormData.emp_firstname.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_firstname.errors.required" class="invalid-feedback">Firstname is required</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-label-group">
+                    <input type="text" id="middlename" [ngClass]="{'form-control' : true,
+                                                                  'is-invalid' : (createEmployeeFormData.emp_middlename.dirty || createEmployeeFormData.emp_middlename.touched) && createEmployeeFormData.emp_middlename.invalid,
+                                                                  'is-valid' : (createEmployeeFormData.emp_middlename.dirty || createEmployeeFormData.emp_middlename.touched) && createEmployeeFormData.emp_middlename.valid
+                                                                  }" placeholder="Middle Name" formControlName="emp_middlename">
+                    <label for="middlename">Middle Name</label>
+
+                    <ng-container *ngIf="(createEmployeeFormData.emp_middlename.dirty || createEmployeeFormData.emp_middlename.touched) && createEmployeeFormData.emp_middlename.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_middlename.errors.required" class="invalid-feedback">Middlename is required</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-label-group">
+                    <input type="text" id="lastname" [ngClass]="{'form-control' : true,
+                                                                  'is-invalid' : (createEmployeeFormData.emp_lastname.dirty || createEmployeeFormData.emp_lastname.touched) && createEmployeeFormData.emp_lastname.invalid,
+                                                                  'is-valid' : (createEmployeeFormData.emp_lastname.dirty || createEmployeeFormData.emp_lastname.touched) && createEmployeeFormData.emp_lastname.valid
+                                                                  }" placeholder="Last Name" formControlName="emp_lastname">
+                    <label for="lastname">Last Name</label>
+
+                    <ng-container *ngIf="(createEmployeeFormData.emp_lastname.dirty || createEmployeeFormData.emp_lastname.touched) && createEmployeeFormData.emp_lastname.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_lastname.errors.required" class="invalid-feedback">Lastname is required</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="marital_status">Marital Status</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (createEmployeeFormData.emp_marital_status.dirty || createEmployeeFormData.emp_marital_status.touched) && createEmployeeFormData.emp_marital_status.invalid,
+                                          'is-valid' : (createEmployeeFormData.emp_marital_status.dirty || createEmployeeFormData.emp_marital_status.touched) && createEmployeeFormData.emp_marital_status.valid
+                                          }" id="marital_status" formControlName="emp_marital_status">
+                        <option [value]="null">Select Marital Status</option>
+                        <ng-container *ngFor="let status of maritalStatuses">
+                          <option [value]="status.value">{{ status.name }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(createEmployeeFormData.emp_marital_status.dirty || createEmployeeFormData.emp_marital_status.touched) && createEmployeeFormData.emp_marital_status.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_marital_status.errors.required" class="invalid-feedback">Please specify marital status</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <fieldset>
+                      <label>Gender</label>
+                      <br><br>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" formControlName="emp_gender" id="male" value="M" checked>
+                            <label class="custom-control-label" for="male">Male</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="custom-control custom-radio">
+                              <input type="radio" class="custom-control-input" formControlName="emp_gender" id="female" value="F">
+                              <label class="custom-control-label" for="female">Female</label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_dob.dirty || createEmployeeFormData.emp_dob.touched) && createEmployeeFormData.emp_dob.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_dob.dirty || createEmployeeFormData.emp_dob.touched) && createEmployeeFormData.emp_dob.valid
+                                                  }" id="dob" formControlName="emp_dob">
+
+                    <ng-container *ngIf="(createEmployeeFormData.emp_dob.dirty || createEmployeeFormData.emp_dob.touched) && createEmployeeFormData.emp_dob.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_dob.errors.required" class="invalid-feedback">Please Enter Date of Birth</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="nationality">Nationality</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_nationality.dirty || createEmployeeFormData.emp_nationality.touched) && createEmployeeFormData.emp_nationality.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_nationality.dirty || createEmployeeFormData.emp_nationality.touched) && createEmployeeFormData.emp_nationality.valid
+                                          }" id="nationality" formControlName="emp_nationality" (change)="getState()">
+                        <option [value]="null">Select Country</option>
+                        <ng-container *ngFor="let country of listCountries">
+                          <option [ngValue]="country">{{ country.name }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(createEmployeeFormData.emp_nationality.dirty || createEmployeeFormData.emp_nationality.touched) && createEmployeeFormData.emp_nationality.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_nationality.errors.required" class="invalid-feedback">Please Select Country</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (createEmployeeFormData.emp_state.dirty || createEmployeeFormData.emp_state.touched) && createEmployeeFormData.emp_state.invalid,
+                                          'is-valid' : (createEmployeeFormData.emp_state.dirty || createEmployeeFormData.emp_state.touched) && createEmployeeFormData.emp_state.valid
+                                          }" id="state" formControlName="emp_state" (change)="getLGA()">
+                        <option [value]="null">Select state</option>
+                        <ng-container *ngFor="let state of listStates">
+                          <option [value]="state">{{ state }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(createEmployeeFormData.emp_state.dirty || createEmployeeFormData.emp_state.touched) && createEmployeeFormData.emp_state.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_state.errors.required" class="invalid-feedback">Please Select State</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="lga">L.G.A</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (createEmployeeFormData.emp_local_govt_ward.dirty || createEmployeeFormData.emp_local_govt_ward.touched) && createEmployeeFormData.emp_local_govt_ward.invalid,
+                                          'is-valid' : (createEmployeeFormData.emp_local_govt_ward.dirty || createEmployeeFormData.emp_local_govt_ward.touched) && createEmployeeFormData.emp_local_govt_ward.valid
+                                          }" id="lga" formControlName="emp_local_govt_ward">
+                        <option [value]="null">Select LGA</option>
+                        <ng-container *ngFor="let lga of listLGA">
+                          <option [value]="lga">{{ lga }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(createEmployeeFormData.emp_local_govt_ward.dirty || createEmployeeFormData.emp_local_govt_ward.touched) && createEmployeeFormData.emp_local_govt_ward.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_local_govt_ward.errors.required" class="invalid-feedback">Please Select L.G.A</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="place_of_birth">Place of Birth</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_place_of_birth.dirty || createEmployeeFormData.emp_place_of_birth.touched) && createEmployeeFormData.emp_place_of_birth.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_place_of_birth.dirty || createEmployeeFormData.emp_place_of_birth.touched) && createEmployeeFormData.emp_place_of_birth.valid
+                                                  }" id="place_of_birth" formControlName="emp_place_of_birth" placeholder="Enter Place of Birth">
+                      <ng-container *ngIf="(createEmployeeFormData.emp_place_of_birth.dirty || createEmployeeFormData.emp_place_of_birth.touched) && createEmployeeFormData.emp_place_of_birth.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_place_of_birth.errors.required" class="invalid-feedback">Please Enter Place of Birth</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea  [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_address.dirty || createEmployeeFormData.emp_address.touched) && createEmployeeFormData.emp_address.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_address.dirty || createEmployeeFormData.emp_address.touched) && createEmployeeFormData.emp_address.valid
+                                          }" id="address" rows="1" formControlName="emp_address" placeholder="Enter Address"></textarea>
+                      <ng-container *ngIf="(createEmployeeFormData.emp_address.dirty || createEmployeeFormData.emp_address.touched) && createEmployeeFormData.emp_address.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_address.errors.required" class="invalid-feedback">Please Enter Address</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="religion">Religion</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_religion.dirty || createEmployeeFormData.emp_religion.touched) && createEmployeeFormData.emp_religion.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_religion.dirty || createEmployeeFormData.emp_religion.touched) && createEmployeeFormData.emp_religion.valid
+                                                    }" id="religion" formControlName="emp_religion" placeholder="Enter Religion">
+                      <ng-container *ngIf="(createEmployeeFormData.emp_religion.dirty || createEmployeeFormData.emp_religion.touched) && createEmployeeFormData.emp_religion.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_religion.errors.required" class="invalid-feedback">Please Enter religion</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" [ngClass]="{'form-control' : true,
+                                                                'is-invalid' : (createEmployeeFormData.emp_email.dirty || createEmployeeFormData.emp_email.touched) && createEmployeeFormData.emp_email.invalid,
+                                                                'is-valid' : (createEmployeeFormData.emp_email.dirty || createEmployeeFormData.emp_email.touched) && createEmployeeFormData.emp_email.valid
+                                                                }" formControlName="emp_email" placeholder="email@email.com">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_email.dirty || createEmployeeFormData.emp_email.touched) && createEmployeeFormData.emp_email.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_email.errors.required" class="invalid-feedback">Please Enter Email</div>
+                      <div *ngIf="createEmployeeFormData.emp_email.errors.pattern" class="invalid-feedback">Email is invalid</div>
+                      <div *ngIf="createEmployeeFormData.emp_email.errors.email" class="invalid-feedback">Please Enter valid Email</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="phone">Home Contact</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_phone.dirty || createEmployeeFormData.emp_phone.touched) && createEmployeeFormData.emp_phone.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_phone.dirty || createEmployeeFormData.emp_phone.touched) && createEmployeeFormData.emp_phone.valid
+                                                  }" id="phone" formControlName="emp_phone" placeholder="Enter Primary Phonenumber">
+                      <ng-container *ngIf="(createEmployeeFormData.emp_phone.dirty || createEmployeeFormData.emp_phone.touched) && createEmployeeFormData.emp_phone.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_phone.errors.required" class="invalid-feedback">Please Enter Primary Phone Number</div>
+                        <div *ngIf="createEmployeeFormData.emp_phone.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                        <div *ngIf="createEmployeeFormData.emp_phone.errors.minLength" class="invalid-feedback">Phonenumber cannot be less than 10 digits</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="gsm_no">Mobile Contact</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_gsm_no.dirty || createEmployeeFormData.emp_gsm_no.touched) && createEmployeeFormData.emp_gsm_no.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_gsm_no.dirty || createEmployeeFormData.emp_gsm_no.touched) && createEmployeeFormData.emp_gsm_no.valid
+                                                  }" id="gsm_no" formControlName="emp_gsm_no" placeholder="Enter Secondary Phonenumber">
+                      <ng-container *ngIf="(createEmployeeFormData.emp_gsm_no.dirty || createEmployeeFormData.emp_gsm_no.touched) && createEmployeeFormData.emp_gsm_no.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_gsm_no.errors.required" class="invalid-feedback">Please Enter Secondary Phone Number</div>
+                        <div *ngIf="createEmployeeFormData.emp_gsm_no.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                        <div *ngIf="createEmployeeFormData.emp_gsm_no.errors.minLength" class="invalid-feedback">Phonenumber cannot be less than 10 digits</div>
+                      </ng-container>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_username.dirty || createEmployeeFormData.emp_username.touched) && createEmployeeFormData.emp_username.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_username.dirty || createEmployeeFormData.emp_username.touched) && createEmployeeFormData.emp_username.valid
+                                                  }" id="username" formControlName="emp_username" placeholder="Enter Username">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_username.dirty || createEmployeeFormData.emp_username.touched) && createEmployeeFormData.emp_username.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_username.errors.required" class="invalid-feedback">Please Enter Username</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="role">Role</label>
+                    <fieldset class="form-group">
+                      <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_role.dirty || createEmployeeFormData.emp_role.touched) && createEmployeeFormData.emp_role.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_role.dirty || createEmployeeFormData.emp_role.touched) && createEmployeeFormData.emp_role.valid
+                                          }" id="role" formControlName="emp_role">
+                        <option [value]="null">Select Role</option>
+                        <ng-container *ngFor="let role of roles">
+                          <option [value]="role">{{ role }}</option>
+                        </ng-container>
+                      </select>
+
+                      <ng-container *ngIf="(createEmployeeFormData.emp_role.dirty || createEmployeeFormData.emp_role.touched) && createEmployeeFormData.emp_role.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_role.errors.required" class="invalid-feedback">Please Specify Role</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="hobbies">Hobbies</label>
+                    <textarea [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_hobbies.dirty || createEmployeeFormData.emp_hobbies.touched) && createEmployeeFormData.emp_hobbies.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_hobbies.dirty || createEmployeeFormData.emp_hobbies.touched) && createEmployeeFormData.emp_hobbies.valid
+                                          }" rows="1" id="hobbies" formControlName="emp_hobbies" placeholder="Enter Hobbies"></textarea>
+                    <ng-container *ngIf="(createEmployeeFormData.emp_hobbies.dirty || createEmployeeFormData.emp_hobbies.touched) && createEmployeeFormData.emp_hobbies.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_hobbies.errors.required" class="invalid-feedback">Please Enter Hobbies</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="leaveDays">No. of Leave Days</label>
+                    <input type="number" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.valid
+                                                  }" id="leaveDays" formControlName="emp_leave_days" placeholder="Enter No of Leave Days">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_leave_days.dirty || createEmployeeFormData.emp_leave_days.touched) && createEmployeeFormData.emp_leave_days.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_leave_days.errors.required" class="invalid-feedback">Please Enter No of Leave Days</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+             <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+             <mat-expansion-panel-header>
+                <h5 class="card-title">Employment Record</h5>
+             </mat-expansion-panel-header>
+
+             <!-- <mat-expansion-panel-body> -->
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="employment_date">Employment Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_employment_date.dirty || createEmployeeFormData.emp_employment_date.touched) && createEmployeeFormData.emp_employment_date.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_employment_date.dirty || createEmployeeFormData.emp_employment_date.touched) && createEmployeeFormData.emp_employment_date.valid
+                                                  }" id="employment_date" formControlName="emp_employment_date">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_employment_date.dirty || createEmployeeFormData.emp_employment_date.touched) && createEmployeeFormData.emp_employment_date.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_employment_date.errors.required" class="invalid-feedback">Please Select Employment Date</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="confirmation_date">Confirmation Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_confirmation_date.dirty || createEmployeeFormData.emp_confirmation_date.touched) && createEmployeeFormData.emp_confirmation_date.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_confirmation_date.dirty || createEmployeeFormData.emp_confirmation_date.touched) && createEmployeeFormData.emp_confirmation_date.valid
+                                                    }" id="confirmation_date" formControlName="emp_confirmation_date">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_confirmation_date.dirty || createEmployeeFormData.emp_confirmation_date.touched) && createEmployeeFormData.emp_confirmation_date.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_confirmation_date.errors.required" class="invalid-feedback">Please Select Confirmation Date</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="first_employment">Date of First Employment</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_date_of_first_employment.dirty || createEmployeeFormData.emp_date_of_first_employment.touched) && createEmployeeFormData.emp_date_of_first_employment.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_date_of_first_employment.dirty || createEmployeeFormData.emp_date_of_first_employment.touched) && createEmployeeFormData.emp_date_of_first_employment.valid
+                                                    }" id="first_employment" formControlName="emp_date_of_first_employment">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_date_of_first_employment.dirty || createEmployeeFormData.emp_date_of_first_employment.touched) && createEmployeeFormData.emp_date_of_first_employment.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_date_of_first_employment.errors.required" class="invalid-feedback">Please Select Date of First Employment</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                      <label for="current_dept">Current Department</label>
+                      <fieldset class="form-group">
+                        <select [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (createEmployeeFormData.emp_current_department.dirty || createEmployeeFormData.emp_current_department.touched) && createEmployeeFormData.emp_current_department.invalid,
+                                              'is-valid' : (createEmployeeFormData.emp_current_department.dirty || createEmployeeFormData.emp_current_department.touched) && createEmployeeFormData.emp_current_department.valid
+                                              }" id="current_dept" formControlName="emp_current_department" (change)="getDesignationBasedOnDepartment()">
+                          <option [value]="null">Select Department</option>
+                          <ng-container *ngFor="let dept of departments">
+                            <option [ngValue]="dept">{{ dept.name }}</option>
+                          </ng-container>
+                        </select>
+
+                        <ng-container *ngIf="(createEmployeeFormData.emp_current_department.dirty || createEmployeeFormData.emp_current_department.touched) && createEmployeeFormData.emp_current_department.invalid">
+                          <div *ngIf="createEmployeeFormData.emp_current_department.errors.required" class="invalid-feedback">Please Select Current Department</div>
+                        </ng-container>
+                      </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="commission_file_no">Commission File No</label>
+                    <input type="text"  [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_commission_file_no.dirty || createEmployeeFormData.emp_commission_file_no.touched) && createEmployeeFormData.emp_commission_file_no.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_commission_file_no.dirty || createEmployeeFormData.emp_commission_file_no.touched) && createEmployeeFormData.emp_commission_file_no.valid
+                                                    }" id="commission_file_no" formControlName="emp_commission_file_no" placeholder="0098643">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_commission_file_no.dirty || createEmployeeFormData.emp_commission_file_no.touched) && createEmployeeFormData.emp_commission_file_no.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_commission_file_no.errors.required" class="invalid-feedback">Please Enter Commission file Number</div>
+                      <div *ngIf="createEmployeeFormData.emp_commission_file_no.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                      <div *ngIf="createEmployeeFormData.emp_commission_file_no.errors.minLength" class="invalid-feedback">Filenumber cannot be less than 8 digits</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="establishment_file_no">Establishment File No</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_establisment_file_no.dirty || createEmployeeFormData.emp_establisment_file_no.touched) && createEmployeeFormData.emp_establisment_file_no.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_establisment_file_no.dirty || createEmployeeFormData.emp_establisment_file_no.touched) && createEmployeeFormData.emp_establisment_file_no.valid
+                                                    }" id="establishment_file_no" formControlName="emp_establisment_file_no" placeholder="9956728">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_establisment_file_no.dirty || createEmployeeFormData.emp_establisment_file_no.touched) && createEmployeeFormData.emp_establisment_file_no.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_establisment_file_no.errors.required" class="invalid-feedback">Please Enter Establishment file Number</div>
+                      <div *ngIf="createEmployeeFormData.emp_establisment_file_no.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                      <div *ngIf="createEmployeeFormData.emp_establisment_file_no.errors.minLength" class="invalid-feedback">Filenumber cannot be less than 8 digits</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="pso_file_no">PSO File No</label>
+                    <input type="text" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_pso_file_no.dirty || createEmployeeFormData.emp_pso_file_no.touched) && createEmployeeFormData.emp_pso_file_no.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_pso_file_no.dirty || createEmployeeFormData.emp_pso_file_no.touched) && createEmployeeFormData.emp_pso_file_no.valid
+                                                    }" id="pso_file_no" formControlName="emp_pso_file_no" placeholder="4589632">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_pso_file_no.dirty || createEmployeeFormData.emp_pso_file_no.touched) && createEmployeeFormData.emp_pso_file_no.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_pso_file_no.errors.required" class="invalid-feedback">Please Enter PSO file Number</div>
+                      <div *ngIf="createEmployeeFormData.emp_pso_file_no.errors.pattern" class="invalid-feedback">Only Digits are allowed</div>
+                      <div *ngIf="createEmployeeFormData.emp_pso_file_no.errors.minLength" class="invalid-feedback">Filenumber cannot be less than 8 digits</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                      <label for="ppdeployment">Present Posting/Deployment</label>
+                      <fieldset class="form-group">
+                        <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.valid
+                                            }" id="ppdeployment" formControlName="emp_present_posting_deployment">
+                          <option [value]="null">Select Present Posting/Deployment</option>
+                          <ng-container *ngFor="let designation of designations">
+                            <option [value]="designation.desig_name">{{ designation.desig_name }}</option>
+                          </ng-container>
+                        </select>
+
+                        <ng-container *ngIf="(createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.invalid">
+                          <div *ngIf="createEmployeeFormData.emp_present_posting_deployment.errors.required" class="invalid-feedback">Please Select Present Posting Deployment</div>
+                        </ng-container>
+                      </fieldset>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="ppdate">Present posting Date</label>
+                    <input type="date" [ngClass]="{'form-control' : true,
+                                                    'is-invalid' : (createEmployeeFormData.emp_present_posting_date.dirty || createEmployeeFormData.emp_present_posting_date.touched) && createEmployeeFormData.emp_present_posting_date.invalid,
+                                                    'is-valid' : (createEmployeeFormData.emp_present_posting_date.dirty || createEmployeeFormData.emp_present_posting_date.touched) && createEmployeeFormData.emp_present_posting_date.valid
+                                                    }" id="ppdate" formControlName="emp_present_posting_date">
+                    <ng-container *ngIf="(createEmployeeFormData.emp_present_posting_date.dirty || createEmployeeFormData.emp_present_posting_date.touched) && createEmployeeFormData.emp_present_posting_deployment.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_present_posting_date.errors.required" class="invalid-feedback">Please Select Present Posting Date</div>
+                    </ng-container>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="form-group">
+                    <label for="professional_aff">Professional Affiliations</label>
+                    <textarea [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (createEmployeeFormData.emp_professional_affiliaions.dirty || createEmployeeFormData.emp_professional_affiliaions.touched) && createEmployeeFormData.emp_professional_affiliaions.invalid,
+                                          'is-valid' : (createEmployeeFormData.emp_professional_affiliaions.dirty || createEmployeeFormData.emp_professional_affiliaions.touched) && createEmployeeFormData.emp_professional_affiliaions.valid
+                                          }" rows="1" id="professional_aff" formControlName="emp_professional_affiliaions" placeholder="Enter Proffessional Affiliations"></textarea>
+                    <ng-container *ngIf="(createEmployeeFormData.emp_professional_affiliaions.dirty || createEmployeeFormData.emp_professional_affiliaions.touched) && createEmployeeFormData.emp_professional_affiliaions.invalid">
+                      <div *ngIf="createEmployeeFormData.emp_professional_affiliaions.errors.required" class="invalid-feedback">Please List Professional Affiliations</div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+             <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                 <h5 class="card-title">Personal Identification</h5>
+              </mat-expansion-panel-header>
+
+              <!-- <mat-expansion-panel-body> -->
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="id_type">ID Type</label>
+                      <fieldset class="form-group">
+                        <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (createEmployeeFormData.emp_id_type.dirty || createEmployeeFormData.emp_id_type.touched) && createEmployeeFormData.emp_id_type.invalid,
+                                            'is-valid' : (createEmployeeFormData.emp_id_type.dirty || createEmployeeFormData.emp_id_type.touched) && createEmployeeFormData.emp_id_type.valid
+                                            }" id="id_type" formControlName="emp_id_type" >
+                          <option [value]="null">Select ID Type</option>
+                          <ng-container *ngFor="let id of idTypes">
+                            <option [value]="id.id">{{ id.id }}</option>
+                          </ng-container>
+                        </select>
+
+                        <ng-container *ngIf="(createEmployeeFormData.emp_id_type.dirty || createEmployeeFormData.emp_id_type.touched) && createEmployeeFormData.emp_id_type.invalid">
+                          <div *ngIf="createEmployeeFormData.emp_id_type.errors.required" class="invalid-feedback">Please Select ID Type</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="id_no">ID Number</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                                    'is-invalid' : (createEmployeeFormData.emp_id_no.dirty || createEmployeeFormData.emp_id_no.touched) && createEmployeeFormData.emp_id_no.invalid,
+                                                                    'is-valid' : (createEmployeeFormData.emp_id_no.dirty || createEmployeeFormData.emp_id_no.touched) && createEmployeeFormData.emp_id_no.valid
+                                                                    }" id="id_no" formControlName="emp_id_no" placeholder="A06839023">
+                      <ng-container *ngIf="(createEmployeeFormData.emp_id_no.dirty || createEmployeeFormData.emp_id_no.touched) && createEmployeeFormData.emp_id_no.invalid">
+                        <div *ngIf="createEmployeeFormData.emp_id_no.errors.required" class="invalid-feedback">Please Enter ID No</div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              <!-- </mat-expansion-panel-body> -->
+             </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+        <div class="col-12 mt-2">
+          <div class="form-group">
+            <button [disabled]="!createEmployeeForm.valid" type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Create</button>
+            <button (click)="createEmployeeForm.reset()" type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #labelTwoView>
+  <form  [formGroup]="addEmployeeExperienceForm" (ngSubmit)="onSubmit(addEmployeeExperienceFormData, 'addEmployeeExperienceForm', createEmployeeStepper)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <ng-container formArrayName="experience">
+          <div class="col-6 mb-2" *ngFor="let experience of addEmployeeExperienceFormData.controls; let i = index;" [formGroupName]="i">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <h5 class="card-title" *ngIf="experience.get('exp_designation').dirty && experience.get('exp_designation').value !== ''">
+                    <span>
+                      {{ experience.get('exp_designation').value }}
+                    </span>
+                    <span *ngIf="experience.get('exp_organization').dirty &&  experience.get('exp_organization').value !== ''">
+                      {{' at ' + experience.get('exp_organization').value}}
+                    </span>
+                    <br>
+                    <span class="small" *ngIf="experience.get('exp_start_date').dirty && experience.get('exp_start_date').value !== ''">
+                      {{experience.get('exp_start_date').value | date:'MMM, yyyy'}}
+                      <span *ngIf="experience.get('exp_end_date').dirty && experience.get('exp_end_date').value !== ''">
+                        {{' to ' + (experience.get('exp_end_date').value | date:'MMM, yyyy') }}
+                      </span>
+                    </span>
+                  </h5>
+                  <h5 class="card-title" *ngIf="!experience.get('exp_designation').dirty && experience.get('exp_designation').value !== ''">
+                    (Experience Not Specified)
+                  </h5>
+                </mat-expansion-panel-header>
+
+                <!-- <mat-expansion-panel-body> -->
+                  <div class="row">
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="designation">Job Title</label>
+                        <input  [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (experience.get('exp_designation').dirty || experience.get('exp_designation').touched) && experience.get('exp_designation').invalid,
+                                              'is-valid' : (experience.get('exp_designation').dirty || experience.get('exp_designation').touched) && experience.get('exp_designation').valid
+                                            }" id="designation" formControlName="exp_designation" placeholder="Enter Address">
+                        <ng-container *ngIf="(experience.get('exp_designation').dirty || experience.get('exp_designation').touched) && experience.get('exp_designation').invalid">
+                          <div *ngIf="experience.get('exp_designation').errors.required" class="invalid-feedback">Please Enter Designation</div>
+                        </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="organization">Employer</label>
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (experience.get('exp_organization').dirty || experience.get('exp_organization').touched) && experience.get('exp_organization').invalid,
+                                                        'is-valid' : (experience.get('exp_organization').dirty || experience.get('exp_organization').touched) && experience.get('exp_organization').valid
+                                                      }" id="organization" formControlName="exp_organization" placeholder="Enter Organization">
+                        <ng-container *ngIf="(experience.get('exp_organization').dirty || experience.get('exp_organization').touched) && experience.get('exp_organization').invalid">
+                          <div *ngIf="experience.get('exp_organization').errors.required" class="invalid-feedback">Please Enter Organization</div>
+                        </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (experience.get('exp_start_date').dirty || experience.get('exp_start_date').touched) && experience.get('exp_start_date').invalid,
+                                                        'is-valid' : (experience.get('exp_start_date').dirty || experience.get('exp_start_date').touched) && experience.get('exp_start_date').valid
+                                                      }" id="startDate" formControlName="exp_start_date">
+                        <ng-container *ngIf="(experience.get('exp_start_date').dirty || experience.get('exp_start_date').touched) && experience.get('exp_start_date').invalid">
+                          <div *ngIf="experience.get('exp_start_date').errors.required" class="invalid-feedback">Please Enter Employment Start Date</div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (experience.get('exp_end_date').dirty || experience.get('exp_end_date').touched) && experience.get('exp_end_date').invalid,
+                                                        'is-valid' : (experience.get('exp_end_date').dirty || experience.get('exp_end_date').touched) && experience.get('exp_end_date').valid
+                                                      }" id="endDate" formControlName="exp_end_date">
+                        <ng-container *ngIf="(experience.get('exp_end_date').dirty || experience.get('exp_end_date').touched) && experience.get('exp_end_date').invalid">
+                          <div *ngIf="experience.get('exp_end_date').errors.required" class="invalid-feedback">Please Enter Employment End Date</div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="responsibility">Job Description</label>
+                        <textarea  [ngClass]="{'form-control' : true,
+                                                'is-invalid' : (experience.get('exp_responsibility').dirty || experience.get('exp_responsibility').touched) && experience.get('exp_responsibility').invalid,
+                                                'is-valid' : (experience.get('exp_responsibility').dirty || experience.get('exp_responsibility').touched) && experience.get('exp_responsibility').valid
+                                              }" id="responsibility" rows="3" formControlName="exp_responsibility" placeholder="Enter Address"></textarea>
+                        <ng-container *ngIf="(experience.get('exp_responsibility').dirty || experience.get('exp_responsibility').touched) && experience.get('exp_responsibility').invalid">
+                          <div *ngIf="experience.get('exp_responsibility').errors.required" class="invalid-feedback">Please Enter Designation</div>
+                        </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mr-auto">
+                      <button type="button" (click)="deleteEntry(i, 'addEmployeeExperienceForm')" class="btn btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
+                    </div>
+                  </div>
+                <!-- </mat-expansion-panel-body> -->
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </ng-container>
+        <div class="col-12 mr-auto">
+          <div class="form-group">
+            <button type="button" (click)="populateFormArrayData('addEmployeeExperienceForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add More Experience</button>
+            <button type="reset" (click)="addEmployeeExperienceForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+          </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" [disabled]="!addEmployeeExperienceForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+            <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #labelThreeView>
+  <form  [formGroup]="addEmployeeEducationDetailsForm" (ngSubmit)="onSubmit(addEmployeeEducationDetailsFormData, 'addEmployeeEducationDetailsForm', createEmployeeStepper)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <ng-container formArrayName="education">
+          <div class="col-6 mb-2" *ngFor="let educationDetails of addEmployeeEducationDetailsFormData.controls; let i = index;" [formGroupName]="i">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <h5 class="card-title" *ngIf="educationDetails.get('edu_degree').dirty && educationDetails.get('edu_degree').value !== ''">
+                    <span>
+                      {{ educationDetails.get('edu_degree').value }}
+                    </span>
+                    <span *ngIf="educationDetails.get('edu_institution').dirty &&  educationDetails.get('edu_institution').value !== ''">
+                      {{' at ' + educationDetails.get('edu_institution').value}}
+                    </span>
+                    <br>
+                    <span class="small" *ngIf="educationDetails.get('edu_start_date').dirty && educationDetails.get('edu_start_date').value !== ''">
+                      {{educationDetails.get('edu_start_date').value | date:'MMM, yyyy'}}
+                      <span *ngIf="educationDetails.get('edu_end_date').dirty && educationDetails.get('edu_end_date').value !== ''">
+                        {{' to ' + (educationDetails.get('edu_end_date').value | date:'MMM, yyyy') }}
+                      </span>
+                    </span>
+                  </h5>
+                  <h5 class="card-title" *ngIf="!educationDetails.get('edu_degree').dirty && educationDetails.get('edu_degree').value !== ''">
+                    (Education Details Not Specified)
+                  </h5>
+                </mat-expansion-panel-header>
+
+                <!-- <mat-expansion-panel-body> -->
+                  <div class="row">
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="institution">School</label>
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (educationDetails.get('edu_institution').dirty || educationDetails.get('edu_institution').touched) && educationDetails.get('edu_institution').invalid,
+                                              'is-valid' : (educationDetails.get('edu_institution').dirty || educationDetails.get('edu_institution').touched) && educationDetails.get('edu_institution').valid
+                                            }" id="institution" formControlName="edu_institution" placeholder="Enter School Name">
+                        <ng-container *ngIf="(educationDetails.get('edu_institution').dirty || educationDetails.get('edu_institution').touched) && educationDetails.get('edu_institution').invalid">
+                          <div *ngIf="educationDetails.get('edu_institution').errors.required" class="invalid-feedback">Please Enter Institution Name</div>
+                        </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="degree">Degree</label>
+                        <fieldset class="form-group">
+                          <select [ngClass]="{'form-control' : true,
+                                                'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
+                                                'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
+                                              }" id="degree" formControlName="edu_degree">
+                            <option [value]="null">Select Degree</option>
+                            <ng-container *ngFor="let degree of educationDegrees">
+                              <option [value]="degree.degree">{{ degree.degree }}</option>
+                            </ng-container>
+                          </select>
+
+                          <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
+                            <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
+                          </ng-container>
+                        </fieldset>
+                        <!-- <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
+                                                        'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
+                                                      }" id="degree" formControlName="edu_degree" placeholder="Enter Degree">
+                        <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
+                          <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
+                        </ng-container> -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="category">Education Category</label>
+                        <fieldset class="form-group">
+                          <select [ngClass]="{'form-control' : true,
+                                                'is-invalid' : (educationDetails.get('edu_category').dirty || educationDetails.get('edu_category').touched) && educationDetails.get('edu_category').invalid,
+                                                'is-valid' : (educationDetails.get('edu_category').dirty || educationDetails.get('edu_category').touched) && educationDetails.get('edu_category').valid
+                                              }" id="category" formControlName="edu_category">
+                            <option [value]="null">Select Category</option>
+                            <ng-container *ngFor="let category of educationCategory">
+                              <option [value]="category">{{ category }}</option>
+                            </ng-container>
+                          </select>
+
+                          <ng-container *ngIf="(educationDetails.get('edu_category').dirty || educationDetails.get('edu_category').touched) && educationDetails.get('edu_category').invalid">
+                            <div *ngIf="educationDetails.get('edu_category').errors.required" class="invalid-feedback">Please Select School Category</div>
+                          </ng-container>
+                        </fieldset>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="cgpa">CGPA</label>
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (educationDetails.get('edu_cgpa').dirty || educationDetails.get('edu_cgpa').touched) && educationDetails.get('edu_cgpa').invalid,
+                                                        'is-valid' : (educationDetails.get('edu_cgpa').dirty || educationDetails.get('edu_cgpa').touched) && educationDetails.get('edu_cgpa').valid
+                                                      }" id="cgpa" formControlName="edu_cgpa" placeholder="Enter Cumulative Grade Point Average">
+                        <ng-container *ngIf="(educationDetails.get('edu_cgpa').dirty || educationDetails.get('edu_cgpa').touched) && educationDetails.get('edu_cgpa').invalid">
+                          <div *ngIf="educationDetails.get('edu_cgpa').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="edu_startDate">Start Date</label>
+                        <input type="date" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (educationDetails.get('edu_start_date').dirty || educationDetails.get('edu_start_date').touched) && educationDetails.get('edu_start_date').invalid,
+                                                        'is-valid' : (educationDetails.get('edu_start_date').dirty || educationDetails.get('edu_start_date').touched) && educationDetails.get('edu_start_date').valid
+                                                      }" id="edu_startDate" formControlName="edu_start_date">
+                        <ng-container *ngIf="(educationDetails.get('edu_start_date').dirty || educationDetails.get('edu_start_date').touched) && educationDetails.get('edu_start_date').invalid">
+                          <div *ngIf="educationDetails.get('edu_start_date').errors.required" class="invalid-feedback">Please Enter School Start Date</div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <div class="form-group">
+                        <label for="edu_endDate">End Date</label>
+                        <input type="date" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (educationDetails.get('edu_end_date').dirty || educationDetails.get('edu_end_date').touched) && educationDetails.get('edu_end_date').invalid,
+                                                        'is-valid' : (educationDetails.get('edu_end_date').dirty || educationDetails.get('edu_end_date').touched) && educationDetails.get('edu_end_date').valid
+                                                      }" id="edu_endDate" formControlName="edu_end_date">
+                        <ng-container *ngIf="(educationDetails.get('edu_end_date').dirty || educationDetails.get('edu_end_date').touched) && educationDetails.get('edu_end_date').invalid">
+                          <div *ngIf="educationDetails.get('edu_end_date').errors.required" class="invalid-feedback">Please Enter School End Date</div>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="col-12 mr-auto">
+                      <button type="button" (click)="deleteEntry(i, 'addEmployeeEducationDetailsForm')" class="btn btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
+                    </div>
+                  </div>
+                <!-- </mat-expansion-panel-body> -->
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </ng-container>
+        <div class="col-12 mr-auto">
+          <div class="form-group">
+            <button type="button" (click)="populateFormArrayData('addEmployeeEducationDetailsForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add More Details</button>
+            <button type="reset" (click)="addEmployeeEducationDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+          <button type="submit" [disabled]="!addEmployeeEducationDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #labelFourView>
+  <form  [formGroup]="addEmployeeFamilyDetailsForm" (ngSubmit)="onSubmit(addEmployeeFamilyDetailsFormData, 'addEmployeeFamilyDetailsForm', createEmployeeStepper)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Add Family Details</h5>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="spouse_name">Spouse Name</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.invalid,
+                                            'is-valid' : (addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.valid
+                                          }" id="spouse_name" formControlName="spouse_name" placeholder="Enter Spouse Name">
+                      <ng-container *ngIf="(addEmployeeFamilyDetailsFormData.spouse_name.dirty || addEmployeeFamilyDetailsFormData.spouse_name.touched) && addEmployeeFamilyDetailsFormData.spouse_name.invalid">
+                        <div *ngIf="addEmployeeFamilyDetailsFormData.spouse_name.errors.required" class="invalid-feedback">Please Enter Spouse Name</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <ng-container formArrayName="children">
+                    <div class="col-md-6 col-12 mb-2" *ngFor="let child of addEmployeeFamilyDetailsFormData.children.controls; let i = index;" [formGroupName]="i">
+                      <div class="row">
+                        <div class="col-md-5 col-12">
+                          <div class="form-group">
+                            <label for="child_name">Child Name</label>
+                            <input type="text" [ngClass]="{'form-control' : true,
+                                                  'is-invalid' : (child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').invalid,
+                                                  'is-valid' : (child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').valid
+                                                }" id="child_name" formControlName="child_name" placeholder="Enter Child Name">
+                            <ng-container *ngIf="(child.get('child_name').dirty || child.get('child_name').touched) && child.get('child_name').invalid">
+                              <div *ngIf="child.get('child_name').errors.required" class="invalid-feedback">Please Enter Child Name</div>
+                            </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-12">
+                          <div class="form-group">
+                            <label for="child_dob">Child Date of Birth</label>
+                            <input type="date" [ngClass]="{'form-control' : true,
+                                                            'is-invalid' : (child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').invalid,
+                                                            'is-valid' : (child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').valid
+                                                          }" id="child_dob" formControlName="child_dob">
+                            <ng-container *ngIf="(child.get('child_dob').dirty || child.get('child_dob').touched) && child.get('child_dob').invalid">
+                              <div *ngIf="child.get('child_dob').errors.required" class="invalid-feedback">Please Enter Child Date of Birth</div>
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="col-md-2 mr-auto">
+                          <button type="button" (click)="deleteEntry(i, 'addEmployeeFamilyDetailsForm')" class="btn btn-sm btn-outline-danger mr-1 mb-1 waves-effect waves-light">Delete Entry</button>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <div class="col-12 mr-auto">
+                    <div class="form-group">
+                      <button type="button" (click)="populateFormArrayData('addEmployeeFamilyDetailsForm')" class="btn btn-flat-primary mr-1 mb-1 waves-effect waves-light">Add Child</button>
+                      <button type="reset" (click)="addEmployeeFamilyDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button type="reset" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+                    <button type="submit" [disabled]="!addEmployeeFamilyDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+                    <button type="reset" (click)="createEmployeeStepper.next()" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #labelFiveView>
+  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm', createEmployeeStepper)" class="form form-vertical">
+    <div class="form-body">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <h5 class="card-title">
+                  Next of Kin Details
+                </h5>
+              </mat-expansion-panel-header>
+
+              <!-- <mat-expansion-panel-body> -->
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="nextOfKinName">Next of Kin Name</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.invalid,
+                                            'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.valid
+                                          }" id="nextOfKinName" formControlName="nok_name" placeholder="Enter Next of Kin Name">
+                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_name.dirty || addEmployeeNextOfKinDetailsFormData.nok_name.touched) && addEmployeeNextOfKinDetailsFormData.nok_name.invalid">
+                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_name.errors.required" class="invalid-feedback">Please Enter Next of Kin Name</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="nextOfKinRelationship">Next of Kin Relationship</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.invalid,
+                                                      'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.valid
+                                                    }" id="nextOfKinRelationship" formControlName="nok_relationship" placeholder="Enter Relationship">
+                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_relationship.dirty || addEmployeeNextOfKinDetailsFormData.nok_relationship.touched) && addEmployeeNextOfKinDetailsFormData.nok_relationship.invalid">
+                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_relationship.errors.required" class="invalid-feedback">Please Enter Relationship with Next of Kin</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="nextOfKinPhone">Next of Kin Phone</label>
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.invalid,
+                                                      'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.valid
+                                                    }" id="nextOfKinPhone" formControlName="nok_phone" placeholder="Enter Phone Number">
+                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_phone.dirty || addEmployeeNextOfKinDetailsFormData.nok_phone.touched) && addEmployeeNextOfKinDetailsFormData.nok_phone.invalid">
+                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_phone.errors.required" class="invalid-feedback">Please Enter Next of kin Phone Number</div>
+                      </ng-container>
+                      </div>
+                  </div>
+
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="nextOfKinAddress">Next of Kin Address</label>
+                      <textarea  [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.invalid,
+                                              'is-valid' : (addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.valid
+                                            }" id="nextOfKinAddress" rows="3" formControlName="nok_address" placeholder="Enter Next of Kin Address"></textarea>
+                      <ng-container *ngIf="(addEmployeeNextOfKinDetailsFormData.nok_address.dirty || addEmployeeNextOfKinDetailsFormData.nok_address.touched) && addEmployeeNextOfKinDetailsFormData.nok_address.invalid">
+                        <div *ngIf="addEmployeeNextOfKinDetailsFormData.nok_address.errors.required" class="invalid-feedback">Please Enter Next of kin Address</div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              <!-- </mat-expansion-panel-body> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="col-12 mr-auto">
+          <div class="form-group">
+            <button type="reset" (click)="addEmployeeNextOfKinDetailsForm.reset()" class="btn btn-flat-dark mr-1 mb-1 waves-effect waves-light">Clear all</button>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="button" (click)="createEmployeeStepper.previous()" class="btn btn-outline-light mr-1 mb-1 waves-effect waves-light">Prev</button>
+          <button type="submit" [disabled]="!addEmployeeNextOfKinDetailsForm.valid" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save</button>
+          <button type="reset" (click)="createEmployeeStepper.reset(); goToEmployee();" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Skip & Done</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template>

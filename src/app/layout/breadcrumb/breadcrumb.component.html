@@ -1,0 +1,60 @@
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h2 class="content-header-title float-left pr-1">{{ currentRoute | removeHyphen | titlecase }}</h2>
+          <div class="breadcrumb-wrapper col-12">
+          <breadcrumb #parent>
+            <ol class="breadcrumb">
+                <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                  <li *ngIf="!route.terminal" class="breadcrumb-item">
+                    <a [routerLink]="[route.url]">{{ route.displayName }}</a>
+                  </li>
+                  <li *ngIf="route.terminal" class="breadcrumb-item active" aria-current="page">{{ route.displayName }}</li>
+                </ng-template>
+            </ol>
+          </breadcrumb>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+    <div class="breadcrum-right">
+      <button type="button" class="btn btn-outline-danger bg-gradient-danger btn-round mb-1 waves-effect waves-light" (click)="goBack()">
+        <i class="fa fa-arrow-circle-o-left"></i> Back
+      </button>
+      <button type="button" class="btn btn-outline-primary bg-gradient-primary btn-round mb-1 waves-effect waves-light" (click)="goForward()">
+        Forward <i class="fa fa-arrow-circle-o-right"></i>
+      </button>
+    </div>
+</div>
+</div>
+
+
+
+<!-- </breadcrumb> -->
+
+<!-- <div class="ml-auto">
+
+</div> -->
+
+<!-- <ng-template #iconTemplate>
+  <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+</ng-template>
+
+<div class="content-header row">
+  <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+          <div class="col-12">
+              <h2 class="content-header-title float-left mb-0 pr-1">{{ currentRoute | titlecase }}</h2>
+              <div class="breadcrumb-wrapper col-12">
+                <xng-breadcrumb class="breadcrumb" [separator]="iconTemplate">
+                  <span *xngBreadcrumbItem="let breadcrumb">
+                    {{ breadcrumb | titlecase }}
+                  </span>
+                </xng-breadcrumb>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->
