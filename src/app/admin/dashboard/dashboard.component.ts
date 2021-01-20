@@ -75,14 +75,14 @@ export class DashboardComponent implements OnInit{
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode == '00') {
+        if (data.responseCode === '00') {
           this.dashboardData = data.responseObject;
         }
       },
       error => {
         console.log(error);
       }
-    )
+    );
   }
 
   // build form controls

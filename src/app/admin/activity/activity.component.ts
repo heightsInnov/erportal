@@ -140,7 +140,7 @@ export class ActivityComponent implements OnInit {
       error => {
         console.log(error);
         this.spinner.hide();
-        this.toastr.error('Unable to Update Activity', 'An Error Occured')
+        this.toastr.error('Unable to Update Activity', 'An Error Occured');
 
       }
     );

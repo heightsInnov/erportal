@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { MaterialModule } from '../core/shared/material.module';
 import { ActivityComponent } from './activity/activity.component';
-import { EDocumentComponent } from './e-document/e-document.component';
 
 
 const routes: Routes = [
