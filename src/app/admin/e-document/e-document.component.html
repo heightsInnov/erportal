@@ -50,20 +50,15 @@
 
                     <div class="col-lg-3 col-md-4 col-6" *ngIf="filterOption === 'custom' || filterOption === 'data'">
                       <div class="form-group">
-                        <label for="data">Data Type</label>
-                        <fieldset class="form-group">
-                          <select [ngClass]="{'form-control' : true,
-                                              'is-invalid' : (filterFormData.data.dirty || filterFormData.data.touched) && filterFormData.data.invalid,
-                                              'is-valid' : (filterFormData.data.dirty || filterFormData.data.touched) && filterFormData.data.valid
-                                              }" id="data" formControlName="data">
-                            <option [value]="null">Select Data Type</option>
-                            <ng-container *ngFor="let data of edocDataType">
-                              <option [value]="data.value">{{ data.name }}</option>
-                            </ng-container>
-                          </select>
+                        <label for="data">Data</label>
+                        <fieldset class="form-label-group form-group position-relative">
+                          <input type="text" [ngClass]="{'form-control' : true,
+                                                          'is-invalid' : (filterFormData.data.dirty || filterFormData.data.touched) && filterFormData.data.invalid,
+                                                          'is-valid' : (filterFormData.data.dirty || filterFormData.data.touched) && filterFormData.data.valid
+                                                          }" id="data" formControlName="data" placeholder="Document Name, Ref No or staff" required>
 
                           <ng-container *ngIf="(filterFormData.data.dirty || filterFormData.data.touched) && filterFormData.data.invalid">
-                            <div *ngIf="filterFormData.data.errors.required" class="invalid-feedback">Please select data type</div>
+                            <div *ngIf="filterFormData.data.errors.required" class="invalid-feedback">Please enter search data</div>
                           </ng-container>
                         </fieldset>
                       </div>
@@ -89,7 +84,7 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-4 col-6" *ngIf="filterOption === 'custom' || filterOption === 'operation'">
+                    <!-- <div class="col-lg-3 col-md-4 col-6" *ngIf="filterOption === 'custom' || filterOption === 'operation'">
                       <div class="form-group">
                         <label for="operation">Operation type</label>
                         <fieldset class="form-group">
@@ -107,7 +102,7 @@
                           </ng-container>
                         </fieldset>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-lg-3 col-md-4 col-6">
                       <div class="form-group">
@@ -152,8 +147,11 @@
                       <th>Document Description</th>
                       <th>Recieved By</th>
                       <th>Receiving Unit</th>
+                      <th>Receiving Department</th>
+                      <th>Document Status</th>
                       <th>Date Received</th>
                       <th>Upload Link</th>
+                      <th>Date Created</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -164,8 +162,11 @@
                       <td>{{details.edoc_doc_desc}}</td>
                       <td>{{details.edoc_received_by}}</td>
                       <td>{{details.edoc_receiving_unit}}</td>
+                      <td>{{details.edoc_receiving_dept}}</td>
+                      <td>{{details.edoc_status}}</td>
                       <td>{{details.edoc_date_received}}</td>
                       <td>{{details.edoc_upload_link}}</td>
+                      <td>{{details.edoc_date_created | date}}</td>
                       <td>
                         <mat-button-toggle-group #group="matButtonToggleGroup">
                           <mat-button-toggle value="left" aria-label="Assign document" (click)="entryAction(entryActionModal, 'assign', details)">

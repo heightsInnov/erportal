@@ -23,7 +23,6 @@ export class EDocumentComponent implements OnInit {
   units: any[] = [];
   filterBy = [
     {value: 'search', name: 'Search Entries'},
-    {value: 'operation', name: 'Operation Type'},
     {value: 'data', name: 'Data'},
     {value: 'status', name: 'Status'},
     {value: 'custom', name: 'Custom'}
@@ -58,7 +57,6 @@ export class EDocumentComponent implements OnInit {
       search: [null],
       status: [null],
       data: [null],
-      operation: [null],
     });
     this.entryForm = this.fb.group({
       edoc_doc_name: [null, Validators.required],
@@ -172,9 +170,9 @@ export class EDocumentComponent implements OnInit {
     this.spinner.show();
     let edocumentUrl = '';
     if (query && query !== '' && query !== null) {
-      edocumentUrl = `${this.edocumentsUrl}/${query}`;
+      edocumentUrl = `${this.edocumentsUrl.getEntry}?operation=ED&${query}`;
     } else {
-      edocumentUrl = `${this.edocumentsUrl}`;
+      edocumentUrl = `${this.edocumentsUrl.getEntry}?operation=ED`;
     }
     console.log(edocumentUrl);
     this.crudService.getData(edocumentUrl).subscribe(
@@ -185,7 +183,7 @@ export class EDocumentComponent implements OnInit {
           this.spinner.hide();
           this.entries = data.responseObject;
           response = data.responseObject.map(doc => {
-            return {name: `${doc.edoc_doc_name}`, id: doc.edoc_doc_ref};
+            return {name: `${doc.edoc_doc_name}`, id: doc.edoc_id};
           });
           this.entryItems$ = of(response);
           console.log(this.entryItems$);

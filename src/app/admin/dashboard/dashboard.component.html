@@ -1,11 +1,11 @@
 <div class="section">
   <div class="row">
-    <div class="col-lg-4 col-sm-6 col-12">
+    <div class="col-lg-3 col-sm-6 col-12">
       <div class="card">
           <div class="card-header d-flex align-items-start pb-0">
               <div>
-                  <h2 class="text-bold-700">{{userDetails.emp_leave_days}}</h2>
-                  <p class="mb-0">Leave Days Entitled</p>
+                  <h2 class="text-bold-700">{{dashboardData?.total_staff}}</h2>
+                  <p class="mb-0">Total Staff</p>
               </div>
               <div class="avatar bg-rgba-primary p-50">
                   <div class="avatar-content">
@@ -18,13 +18,30 @@
           </div>
       </div>
     </div>
-
-    <div class="col-lg-4 col-sm-6 col-12">
+    <div class="col-lg-3 col-sm-6 col-12">
       <div class="card">
           <div class="card-header d-flex align-items-start pb-0">
               <div>
-                  <h2 class="text-bold-700">{{userDetails.emp_leave_days - userDetails.emp_leave_days_left}}</h2>
-                  <p class="mb-0">Leave Days Used</p>
+                  <h2 class="text-bold-700">{{dashboardData?.confirmation}}</h2>
+                  <p class="mb-0">Confirmed Staffs</p>
+              </div>
+              <div class="avatar bg-rgba-warning p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-7"></div>
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{dashboardData?.active_leave}}</h2>
+                  <p class="mb-0">Staff on Leave</p>
               </div>
               <div class="avatar bg-rgba-success p-50">
                   <div class="avatar-content">
@@ -37,12 +54,66 @@
           </div>
       </div>
     </div>
-    <div class="col-lg-4 col-sm-6 col-12">
+    <div class="col-lg-3 col-sm-6 col-12">
       <div class="card">
           <div class="card-header d-flex align-items-start pb-0">
               <div>
-                  <h2 class="text-bold-700">{{userDetails.emp_leave_days_left}}</h2>
-                  <p class="mb-0">Leave Days Left</p>
+                  <h2 class="text-bold-700">{{dashboardData?.monthly_retirement}}</h2>
+                  <p class="mb-0">Retired Staffs</p>
+              </div>
+              <div class="avatar bg-rgba-warning p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-7"></div>
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{dashboardData.active_document}}</h2>
+                  <p class="mb-0">Active Documents</p>
+              </div>
+              <div class="avatar bg-rgba-warning p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-7"></div>
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{dashboardData?.closed_document}}</h2>
+                  <p class="mb-0">Closed Documents</p>
+              </div>
+              <div class="avatar bg-rgba-warning p-50">
+                  <div class="avatar-content">
+                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="card-content">
+              <div id="line-area-chart-7"></div>
+          </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+          <div class="card-header d-flex align-items-start pb-0">
+              <div>
+                  <h2 class="text-bold-700">{{dashboardData?.closed_document}}</h2>
+                  <p class="mb-0">Closed Documents</p>
               </div>
               <div class="avatar bg-rgba-warning p-50">
                   <div class="avatar-content">

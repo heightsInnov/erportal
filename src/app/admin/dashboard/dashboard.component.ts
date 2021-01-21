@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit{
       data => {
         console.log(data);
         if (data.responseCode === '00') {
-          this.dashboardData = data.responseObject;
+          this.dashboardData = data.responseObject[0];
         }
       },
       error => {
