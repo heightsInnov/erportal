@@ -7,22 +7,31 @@ import { MaterialModule } from 'src/app/core/shared/material.module';
 import { ViewEdocumentComponent } from './view-edocument/view-edocument.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HrDocumentComponent } from './hr-document/hr-document.component';
 
 const route: Routes = [
   {
-    path: '',
+    path: 'e-documents',
     component: EDocumentComponent,
     canActivate: [AuthGuard],
+    data: { breadcrumb: 'E-Documents' },
   },
   {
     path: 'view-edocument',
     component: ViewEdocumentComponent,
     canActivate: [AuthGuard],
+    data: { breadcrumb: 'View Documents' },
+  },
+  {
+    path: 'hr-documents',
+    component: HrDocumentComponent,
+    canActivate: [AuthGuard],
+    data: { breadcrumb: 'HR-Documents' },
   },
 ];
 
 @NgModule({
-  declarations: [EDocumentComponent, ViewEdocumentComponent],
+  declarations: [EDocumentComponent, ViewEdocumentComponent, HrDocumentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(route),

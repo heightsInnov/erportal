@@ -52,10 +52,10 @@ const routes: Routes = [
         data: { breadcrumb: 'Report' },
       },
       {
-        path: 'e-documents',
+        path: 'documents',
         loadChildren: () => import('./e-document/e-document.module').then(m => m.EDocumentModule),
         canActivate: [AuthGuard],
-        data: { breadcrumb: 'E-Document' },
+        data: { breadcrumb: 'Documents' },
       }
     ]
   },

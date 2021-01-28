@@ -147,7 +147,7 @@
                       <th>Document Description</th>
                       <th>Recieved By</th>
                       <th>Receiving Unit</th>
-                      <th>Receiving Department</th>
+                      <!-- <th>Receiving Department</th> -->
                       <th>Document Status</th>
                       <th>Date Received</th>
                       <th>Upload Link</th>
@@ -162,20 +162,21 @@
                       <td>{{details.edoc_doc_desc}}</td>
                       <td>{{details.edoc_received_by}}</td>
                       <td>{{details.edoc_receiving_unit}}</td>
-                      <td>{{details.edoc_receiving_dept}}</td>
+                      <!-- <td>{{details.edoc_receiving_dept}}</td> -->
                       <td>{{details.edoc_status}}</td>
                       <td>{{details.edoc_date_received}}</td>
                       <td>{{details.edoc_upload_link}}</td>
                       <td>{{details.edoc_date_created | date}}</td>
                       <td>
                         <mat-button-toggle-group #group="matButtonToggleGroup">
-                          <mat-button-toggle value="left" aria-label="Assign document" (click)="entryAction(entryActionModal, 'assign', details)">
-                            <mat-icon>assignment_ind</mat-icon>
+                          <mat-button-toggle color="primary" value="left" aria-label="Assign document"
+                            [routerLink]="['../view-edocument']" [queryParams]="{id: details.edoc_doc_ref}">
+                            <mat-icon>preview</mat-icon>
                           </mat-button-toggle>
-                          <mat-button-toggle value="center" aria-label="Edit Document" (click)="openModal(entryModal, 'edit', details)">
+                          <mat-button-toggle color="primary" value="center" aria-label="Edit Document" (click)="openModal(entryModal, 'edit', details)">
                             <mat-icon>edit</mat-icon>
                           </mat-button-toggle>
-                          <mat-button-toggle value="right" aria-label="Delete Document" (click)="entryAction(entryActionModal, 'delete', details)">
+                          <mat-button-toggle color="primary" value="right" aria-label="Delete Document" (click)="entryAction(entryActionModal, 'delete', details)">
                             <mat-icon>delete</mat-icon>
                           </mat-button-toggle>
                         </mat-button-toggle-group>
@@ -196,7 +197,7 @@
 
 <ng-template #entryModal let-data>
   <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
           <section class="todo-form">
               <form [formGroup]="entryForm" (ngSubmit)="onSubmit('entryFormData', entryFormData, data)" class="todo-input">
@@ -207,67 +208,123 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <fieldset class="form-label-group form-group position-relative">
-                    <input type="text" [ngClass]="{'form-control' : true,
-                                                    'is-invalid' : (entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.invalid,
-                                                    'is-valid' : (entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.valid
-                                                  }" id="edoc_doc_name" formControlName="edoc_doc_name" placeholder="Document Name" required>
-                    <label for="edoc_doc_name">Document Name</label>
+                  <div class="row">
+                    <div class="col-md-6 col-12">
+                      <fieldset class="form-label-group form-group position-relative">
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.invalid,
+                                                        'is-valid' : (entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.valid
+                                                      }" id="edoc_doc_name" formControlName="edoc_doc_name" placeholder="Document Name" required>
+                        <label for="edoc_doc_name">Document Name</label>
 
-                    <ng-container *ngIf="(entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.invalid">
-                      <div *ngIf="entryFormData.edoc_doc_name.errors.required" class="invalid-feedback">Document Name is required</div>
+                        <ng-container *ngIf="(entryFormData.edoc_doc_name.dirty || entryFormData.edoc_doc_name.touched) && entryFormData.edoc_doc_name.invalid">
+                          <div *ngIf="entryFormData.edoc_doc_name.errors.required" class="invalid-feedback">Document Name is required</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <fieldset class="form-label-group form-group position-relative">
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (entryFormData.edoc_doc_title.dirty || entryFormData.edoc_doc_title.touched) && entryFormData.edoc_doc_title.invalid,
+                                                        'is-valid' : (entryFormData.edoc_doc_title.dirty || entryFormData.edoc_doc_title.touched) && entryFormData.edoc_doc_title.valid
+                                                      }" id="edoc_doc_title" formControlName="edoc_doc_title" placeholder="Document Title" required>
+                        <label for="edoc_doc_title">Document Title</label>
+
+                        <ng-container *ngIf="(entryFormData.edoc_doc_title.dirty || entryFormData.edoc_doc_title.touched) && entryFormData.edoc_doc_title.invalid">
+                          <div *ngIf="entryFormData.edoc_doc_title.errors.required" class="invalid-feedback">Enter Document Title</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <fieldset class="form-label-group form-group position-relative">
+                        <textarea [ngClass]="{'form-control' : true,
+                                              'is-invalid' : (entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.invalid,
+                                              'is-valid' : (entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.valid
+                                            }" rows="2" id="edoc_doc_desc" formControlName="edoc_doc_desc" placeholder="Document Description"></textarea>
+                        <label for="edoc_doc_desc">Document Description</label>
+
+                        <ng-container *ngIf="(entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.invalid">
+                          <div *ngIf="entryFormData.edoc_doc_desc.errors.required" class="invalid-feedback">Please enter Document Description</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <fieldset class="form-label-group form-group position-relative">
+                        <input type="text" [ngClass]="{'form-control' : true,
+                                                        'is-invalid' : (entryFormData.edoc_doc_ref.dirty || entryFormData.edoc_doc_ref.touched) && entryFormData.edoc_doc_ref.invalid,
+                                                        'is-valid' : (entryFormData.edoc_doc_ref.dirty || entryFormData.edoc_doc_ref.touched) && entryFormData.edoc_doc_ref.valid
+                                                      }" id="edoc_doc_ref" formControlName="edoc_doc_ref" placeholder="Document Reference" required>
+                        <label for="edoc_doc_ref">Document Reference</label>
+
+                        <ng-container *ngIf="(entryFormData.edoc_doc_ref.dirty || entryFormData.edoc_doc_ref.touched) && entryFormData.edoc_doc_ref.invalid">
+                          <div *ngIf="entryFormData.edoc_doc_ref.errors.required" class="invalid-feedback">Enter Document Reference</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <label for="edoc_received_by">Received By</label>
+                      <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Received By" labelForId="receivedBy"
+                        dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edoc_received_by">
+                      </ng-select>
+                      <ng-container *ngIf="(entryFormData.edoc_received_by.dirty || entryFormData.edoc_received_by.touched) && entryFormData.edoc_received_by.invalid">
+                        <div *ngIf="entryFormData.edoc_received_by.errors.required" class="invalid-feedback">Please Enter Name of Receiver</div>
+                      </ng-container>
+                    </fieldset>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                      <fieldset class="form-group">
+                        <label for="edoc_receiving_unit">Receiving Unit</label>
+                        <select [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.invalid,
+                                            'is-valid' : (entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.valid
+                                          }" id="edoc_receiving_unit" formControlName="edoc_receiving_unit">
+                            <option [value]="null">Select Receiving Unit</option>
+                            <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                        </select>
+
+                        <ng-container *ngIf="(entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.invalid">
+                          <div *ngIf="entryFormData.edoc_receiving_unit.errors.required" class="invalid-feedback">Please Select Recieving Unit</div>
+                        </ng-container>
+                      </fieldset>
+                    </div>
+
+                    <ng-container *ngIf="data === 'register' ">
+                      <div class="col-md-6 col-12">
+                        <fieldset class="form-label-group form-group position-relative">
+                          <input type="date" [ngClass]="{'form-control' : true,
+                                                          'is-invalid' : (entryFormData.edoc_date_received.dirty || entryFormData.edoc_date_received.touched) && entryFormData.edoc_date_received.invalid,
+                                                          'is-valid' : (entryFormData.edoc_date_received.dirty || entryFormData.edoc_date_received.touched) && entryFormData.edoc_date_received.valid
+                                                        }" id="edoc_date_received" formControlName="edoc_date_received" placeholder="Date Recieved" required>
+                          <label for="edoc_date_received">Date Recieved</label>
+
+                          <ng-container *ngIf="(entryFormData.edoc_date_received.dirty || entryFormData.edoc_date_received.touched) && entryFormData.edoc_date_received.invalid">
+                            <div *ngIf="entryFormData.edoc_date_received.errors.required" class="invalid-feedback">Select Date Recieved</div>
+                          </ng-container>
+                        </fieldset>
+                      </div>
+
+
+                      <div class="col-md-6 col-12">
+                        <fieldset class="form-label-group form-group position-relative">
+                          <input type="file" [ngClass]="{'form-control' : true,
+                                                          'is-invalid' : (entryFormData.edoc_file.dirty || entryFormData.edoc_file.touched) && entryFormData.edoc_file.invalid,
+                                                          'is-valid' : (entryFormData.edoc_file.dirty || entryFormData.edoc_file.touched) && entryFormData.edoc_file.valid
+                                                        }" id="edoc_file" formControlName="edoc_file" placeholder="Upload File" (change)="handleFileInput($event.target.files)">
+                          <label for="edoc_file">Document Upload</label>
+
+                          <ng-container *ngIf="(entryFormData.edoc_file.dirty || entryFormData.edoc_file.touched) && entryFormData.edoc_file.invalid">
+                            <div *ngIf="entryFormData.edoc_file.errors.required" class="invalid-feedback">Upload Document</div>
+                          </ng-container>
+                        </fieldset>
+                      </div>
                     </ng-container>
-                  </fieldset>
-
-                  <fieldset class="form-label-group form-group position-relative">
-                    <textarea [ngClass]="{'form-control' : true,
-                                          'is-invalid' : (entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.invalid,
-                                          'is-valid' : (entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.valid
-                                        }" rows="2" id="edoc_doc_desc" formControlName="edoc_doc_desc" placeholder="Document Description"></textarea>
-                    <label for="edoc_doc_desc">Document Description</label>
-
-                    <ng-container *ngIf="(entryFormData.edoc_doc_desc.dirty || entryFormData.edoc_doc_desc.touched) && entryFormData.edoc_doc_desc.invalid">
-                      <div *ngIf="entryFormData.edoc_doc_desc.errors.required" class="invalid-feedback">Please enter Document Description</div>
-                    </ng-container>
-                  </fieldset>
-
-                  <fieldset class="form-label-group form-group position-relative">
-                    <label for="edoc_received_by">Received By</label>
-                    <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Received By" labelForId="receivedBy"
-                      dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edoc_received_by">
-                    </ng-select>
-                    <ng-container *ngIf="(entryFormData.edoc_received_by.dirty || entryFormData.edoc_received_by.touched) && entryFormData.edoc_received_by.invalid">
-                      <div *ngIf="entryFormData.edoc_received_by.errors.required" class="invalid-feedback">Please Enter Name of Receiver</div>
-                    </ng-container>
-                  </fieldset>
-
-                  <fieldset class="form-group">
-                    <label for="unit">Unit</label>
-                    <select [ngClass]="{'form-control' : true,
-                                        'is-invalid' : (entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.invalid,
-                                        'is-valid' : (entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.valid
-                                      }" id="unit" formControlName="unit">
-                        <option value="">Select Unit</option>
-                        <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
-                    </select>
-
-                    <ng-container *ngIf="(entryFormData.edoc_receiving_unit.dirty || entryFormData.edoc_receiving_unit.touched) && entryFormData.edoc_receiving_unit.invalid">
-                      <div *ngIf="entryFormData.edoc_receiving_unit.errors.required" class="invalid-feedback">Please specify Unit</div>
-                    </ng-container>
-                  </fieldset>
-
-                  <fieldset class="form-label-group form-group position-relative">
-                    <input type="text" [ngClass]="{'form-control' : true,
-                                                    'is-invalid' : (entryFormData.edoc_upload_link.dirty || entryFormData.edoc_upload_link.touched) && entryFormData.edoc_upload_link.invalid,
-                                                    'is-valid' : (entryFormData.edoc_upload_link.dirty || entryFormData.edoc_upload_link.touched) && entryFormData.edoc_upload_link.valid
-                                                  }" id="edoc_upload_link" formControlName="edoc_upload_link" placeholder="Document Link" required>
-                    <label for="edoc_upload_link">Document Link</label>
-
-                    <ng-container *ngIf="(entryFormData.edoc_upload_link.dirty || entryFormData.edoc_upload_link.touched) && entryFormData.edoc_upload_link.invalid">
-                      <div *ngIf="entryFormData.edoc_upload_link.errors.required" class="invalid-feedback">Link to Document is required</div>
-                    </ng-container>
-                  </fieldset>
-
+                  </div>
                 </div>
 
                 <div class="modal-footer">
@@ -298,7 +355,7 @@
           <section class="todo-form">
               <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
                 <div class="modal-header">
-                  <h5 class="modal-title">{{ data.act }} Entry</h5>
+                  <h5 class="modal-title">{{ data.action }} Entry</h5>
                   <button type="button" class="close" aria-label="Close" mat-dialog-close>
                     <span aria-hidden="true">×</span>
                   </button>
@@ -316,7 +373,7 @@
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                        (click)="submitEntryAction(data.act, data.id)">
+                        (click)="submitEntryAction(data.action, data.id)">
                         <i class="feather icon-check d-block d-lg-none"></i>
                           <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
                           <span class="d-none d-lg-block">YES</span>

@@ -1,1 +1,434 @@
-<p>view-edocument works!</p>
+<div class="content-body">
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <mat-card>
+                <mat-card-title>
+                  <h5 class="card-title">Entry: {{ edocEntry?.edas_edoc_ref }}</h5>
+                </mat-card-title>
+                <mat-card-content>
+                  <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-3">
+                            <h6 class="bold">Document Name</h6>
+                            <p>{{ edocEntry?.edas_edoc_ref !== null ? edocEntry?.edas_edoc_ref : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Title</h6>
+                            <p>{{ edocEntry?.edoc_doc_title !== null ? edocEntry?.edoc_doc_title : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Description</h6>
+                            <p>{{ edocEntry?.edoc_doc_desc !== null ? edocEntry?.edoc_doc_desc : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Reference</h6>
+                            <p>{{ edocEntry?.edoc_doc_ref !== null ? edocEntry?.edoc_doc_ref : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Recieved By</h6>
+                            <p>{{ edocEntry?.edoc_received_by !== null ? edocEntry?.edoc_received_by : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Receiving Unit</h6>
+                            <p>{{ edocEntry?.edoc_receiving_unit !== null ? edocEntry?.edoc_receiving_unit : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Receiving Department</h6>
+                            <p>{{ edocEntry?.edoc_receiving_dept !== null ? edocEntry?.edoc_receiving_dept : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Document Status</h6>
+                            <p>{{ edocEntry?.edoc_status !== null ? edocEntry?.edoc_status : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Date Received</h6>
+                            <p>{{ edocEntry?.edoc_date_received !== null ? edocEntry?.edoc_date_received : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Upload Link</h6>
+                            <p>{{ edocEntry?.edoc_upload_link !== null ? edocEntry?.edoc_upload_link : '-'}}</p>
+                          </div>
+
+                          <div class="col-3">
+                            <h6 class="bold">Date Created</h6>
+                            <p>{{ edocEntry?.edoc_date_created !== null ? edocEntry?.edoc_date_created : '-'}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <mat-card>
+                <mat-card-title>
+                  <h5 class="card-title">{{ edocEntry?.edas_edoc_ref }} Assignments</h5>
+                </mat-card-title>
+                <mat-card-content>
+                  <mat-vertical-stepper labelPosition="bottom">
+                    <ng-container *ngFor="let assignment of edocEntryAssignments">
+                      <mat-step [label]="'Assignment ' + assignment.edas_id">
+                        <div class="row">
+                          <div class="col-lg-9 col-12">
+                            <div class="card">
+                              <div class="card-title ml-auto" style="background: transparent;" *ngIf="assignment.edas_status === 'OPEN'">
+                                <button mat-mini-fab mx-1 color="primary" aria-label="New Assign"
+                                  (click)="takeAction(newAssignmentModal, 'assign', assignment)">
+                                  <mat-icon>preview</mat-icon>
+                                </button>
+                                <button mat-mini-fab mx-1 color="primary" aria-label="Edit Assignment"
+                                (click)="takeAction(editAssignmentModal, 'edit', assignment)">
+                                  <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-mini-fab mx-1 color="warn" aria-label="Delete Assignment"
+                                  (click)="takeAction(deleteAssignmentModal, 'delete', assignment)">
+                                  <mat-icon>delete</mat-icon>
+                                </button>
+                              </div>
+                              <div class="card-content">
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Assignment Reference</h6>
+                                      <p>{{ assignment.edas_edoc_ref !== null ? assignment.edas_edoc_ref : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Present Unit</h6>
+                                      <p>{{ assignment.edas_present_unit !== null ? assignment.edoc_doc_title : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Comment on Assignment</h6>
+                                      <p>{{ assignment.edoc_doc_desc !== null ? assignment.edoc_doc_desc : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Assigned To</h6>
+                                      <p>{{ assignment.edas_assigned_to !== null ? assignment.edas_assigned_to : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Assigned By</h6>
+                                      <p>{{ assignment.edas_assigned_by !== null ? assignment.edas_assigned_by : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Assignment Status</h6>
+                                      <button mat-stroked-button [color]="assignment.edas_status === 'OPEN' ? 'primary' : '' ">{{ assignment.edas_status }}</button>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Upload Link to Document</h6>
+                                      <p>{{ assignment.edas_support_upload_link !== null ? assignment.edas_support_upload_link : '-'}}</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-12">
+                                      <h6 class="bold">Date Assigned</h6>
+                                      <p>{{ assignment.edas_created_date !== null ? assignment.edas_created_date : '-'}}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-step>
+                    </ng-container>
+                  </mat-vertical-stepper>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #newAssignmentModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <form [formGroup]="newAssignmentForm" (ngSubmit)="onSubmit('newAssignmentForm', newAssignmentFormData)" class="todo-input">
+                <div class="modal-header">
+                  <h5 class="modal-title"> {{ data | titlecase}} Entry</h5>
+                  <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm(newAssignmentForm);">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.invalid,
+                                                      'is-valid' : (newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.valid
+                                                    }" id="edas_edoc_ref" formControlName="edas_edoc_ref" readonly>
+                      <label for="edas_edoc_ref">Document Reference</label>
+
+                      <ng-container *ngIf="(newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.invalid">
+                        <div *ngIf="newAssignmentFormData.edas_edoc_ref.errors.required" class="invalid-feedback">Document Name is required</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-group">
+                      <label for="unit">Present Unit</label>
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (newAssignmentFormData.edas_present_unit.dirty || newAssignmentFormData.edas_present_unit.touched) && newAssignmentFormData.edas_present_unit.invalid,
+                                          'is-valid' : (newAssignmentFormData.edas_present_unit.dirty || newAssignmentFormData.edas_present_unit.touched) && newAssignmentFormData.edas_present_unit.valid
+                                        }" id="unit" formControlName="edas_present_unit" readonly>
+                          <option [value]="null">Select Unit</option>
+                          <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                      </select>
+
+                      <ng-container *ngIf="(newAssignmentFormData.edas_present_unit.dirty || newAssignmentFormData.edas_present_unit.touched) && newAssignmentFormData.edas_present_unit.invalid">
+                        <div *ngIf="newAssignmentFormData.edas_present_unit.errors.required" class="invalid-feedback">Please specify Unit</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12"></div>
+                  <fieldset class="form-group">
+                    <label for="edas_assign_to_unit">Unit to Assign</label>
+                    <select [ngClass]="{'form-control' : true,
+                                        'is-invalid' : (newAssignmentFormData.edas_assign_to_unit.dirty || newAssignmentFormData.edas_assign_to_unit.touched) && newAssignmentFormData.edas_assign_to_unit.invalid,
+                                        'is-valid' : (newAssignmentFormData.edas_assign_to_unit.dirty || newAssignmentFormData.edas_assign_to_unit.touched) && newAssignmentFormData.edas_assign_to_unit.valid
+                                      }" id="edas_assign_to_unit" formControlName="edas_assign_to_unit">
+                        <option value="">Select Unit</option>
+                        <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                    </select>
+
+                    <ng-container *ngIf="(newAssignmentFormData.edas_assign_to_unit.dirty || newAssignmentFormData.edas_assign_to_unit.touched) && newAssignmentFormData.edas_assign_to_unit.invalid">
+                      <div *ngIf="newAssignmentFormData.edas_assign_to_unit.errors.required" class="invalid-feedback">Please specify Unit</div>
+                    </ng-container>
+                  </fieldset>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <label for="edoc_received_by">Assigned To</label>
+                      <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Staff Assigned To" labelForId="assignedTo"
+                        dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edas_assigned_to">
+                      </ng-select>
+                      <ng-container *ngIf="(newAssignmentFormData.edas_assigned_to.dirty || newAssignmentFormData.edas_assigned_to.touched) && newAssignmentFormData.edas_assigned_to.invalid">
+                        <div *ngIf="newAssignmentFormData.edas_assigned_to.errors.required" class="invalid-feedback">Please Enter Name of Assigned Staff</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <label for="edoc_received_by">Assigned By</label>
+                      <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Assigned By" labelForId="assignedBy"
+                        dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edas_assigned_by" readonly>
+                      </ng-select>
+                      <ng-container *ngIf="(newAssignmentFormData.edas_assigned_by.dirty || newAssignmentFormData.edas_assigned_by.touched) && newAssignmentFormData.edas_assigned_by.invalid">
+                        <div *ngIf="newAssignmentFormData.edas_assigned_by.errors.required" class="invalid-feedback">Please Enter Name of Assignee</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <textarea [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (newAssignmentFormData.edas_comment.dirty || newAssignmentFormData.edas_comment.touched) && newAssignmentFormData.edas_comment.invalid,
+                                            'is-valid' : (newAssignmentFormData.edas_comment.dirty || newAssignmentFormData.edas_comment.touched) && newAssignmentFormData.edas_comment.valid
+                                          }" rows="2" id="edoc_doc_desc" formControlName="edas_comment" placeholder="Assigner's Comment"></textarea>
+                      <label for="edas_comment">Comment</label>
+
+                      <ng-container *ngIf="(newAssignmentFormData.edas_comment.dirty || newAssignmentFormData.edas_comment.touched) && newAssignmentFormData.edas_comment.invalid">
+                        <div *ngIf="newAssignmentFormData.edas_comment.errors.required" class="invalid-feedback">Please enter comment</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                </div>
+
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button [disabled]="!newAssignmentForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                      >
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">{{ data | titlecase}}</span></button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="button" (click)="clearForm(newAssignmentForm);" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
+                        <i class="feather icon-x d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">Cancel</span>
+                        </button>
+                  </fieldset>
+                </div>
+              </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editAssignmentModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <form [formGroup]="editAssignmentForm" (ngSubmit)="onSubmit('editAssignmentForm', editAssignmentFormData)" class="todo-input">
+                <div class="modal-header">
+                  <h5 class="modal-title"> {{ data | titlecase}} Entry</h5>
+                  <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm(editAssignmentForm);">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.invalid,
+                                                      'is-valid' : (editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.valid
+                                                    }" id="edas_edoc_ref" formControlName="edas_edoc_ref" readonly>
+                      <label for="edas_edoc_ref">Document Reference</label>
+
+                      <ng-container *ngIf="(editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.invalid">
+                        <div *ngIf="editAssignmentFormData.edas_edoc_ref.errors.required" class="invalid-feedback">Document Name is required</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-group">
+                      <label for="unit">Present Unit</label>
+                      <select [ngClass]="{'form-control' : true,
+                                          'is-invalid' : (editAssignmentFormData.edas_present_unit.dirty || editAssignmentFormData.edas_present_unit.touched) && editAssignmentFormData.edas_present_unit.invalid,
+                                          'is-valid' : (editAssignmentFormData.edas_present_unit.dirty || editAssignmentFormData.edas_present_unit.touched) && editAssignmentFormData.edas_present_unit.valid
+                                        }" id="unit" formControlName="edas_present_unit">
+                          <option [value]="null">Select Unit</option>
+                          <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                      </select>
+
+                      <ng-container *ngIf="(editAssignmentFormData.edas_present_unit.dirty || editAssignmentFormData.edas_present_unit.touched) && editAssignmentFormData.edas_present_unit.invalid">
+                        <div *ngIf="editAssignmentFormData.edas_present_unit.errors.required" class="invalid-feedback">Please specify Unit</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <label for="edoc_received_by">Assigned To</label>
+                      <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Staff Assigned To" labelForId="assignedTo"
+                        dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edas_assigned_to">
+                      </ng-select>
+                      <ng-container *ngIf="(editAssignmentFormData.edas_assigned_to.dirty || editAssignmentFormData.edas_assigned_to.touched) && editAssignmentFormData.edas_assigned_to.invalid">
+                        <div *ngIf="editAssignmentFormData.edas_assigned_to.errors.required" class="invalid-feedback">Please Enter Name of Assigned Staff</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <input type="text" class="form-control" id="edas_assigned_by" formControlName="edas_assigned_by" readonly>
+                      <label for="edas_assigned_by">Assigned By</label>
+                    </fieldset>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <textarea [ngClass]="{'form-control' : true,
+                                            'is-invalid' : (editAssignmentFormData.edas_comment.dirty || editAssignmentFormData.edas_comment.touched) && editAssignmentFormData.edas_comment.invalid,
+                                            'is-valid' : (editAssignmentFormData.edas_comment.dirty || editAssignmentFormData.edas_comment.touched) && editAssignmentFormData.edas_comment.valid
+                                          }" rows="2" id="edoc_doc_desc" formControlName="edas_comment" placeholder="Assigner's Comment"></textarea>
+                      <label for="edas_comment">Comment</label>
+
+                      <ng-container *ngIf="(editAssignmentFormData.edas_comment.dirty || editAssignmentFormData.edas_comment.touched) && editAssignmentFormData.edas_comment.invalid">
+                        <div *ngIf="editAssignmentFormData.edas_comment.errors.required" class="invalid-feedback">Please enter comment</div>
+                      </ng-container>
+                    </fieldset>
+                  </div>
+
+                </div>
+
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button [disabled]="!editAssignmentForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                      >
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">{{ data | titlecase}}</span></button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="button" (click)="clearForm(editAssignmentForm);" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
+                        <i class="feather icon-x d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">Cancel</span>
+                        </button>
+                  </fieldset>
+                </div>
+              </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteAssignmentModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
+                <div class="modal-header">
+                  <h5 class="modal-title">{{ data.action }} Assignment</h5>
+                  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p> {{ data.question | titlecase}} </p>
+                </div>
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                    <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
+                      mat-dialog-close>
+                      <i class="feather icon-times d-block d-lg-none"></i>
+                        <span class="d-none d-lg-block">NO</span>
+                    </button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                        (click)="deleteAssignment(data.id)">
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
+                          <span class="d-none d-lg-block">YES</span>
+                      </button>
+                  </fieldset>
+                </div>
+              <!-- </form> -->
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -109,8 +109,7 @@ export class AuthService {
 
   getTokenHeader(request: HttpRequest<any>): HttpHeaders {
     const token = localStorage.getItem('jwt') !== null ? localStorage.getItem('jwt') : '';
-    console.log(localStorage.getItem('jwt'));
-    console.log(token);
+
     if (token !== '') {
       return new HttpHeaders({Authorization: token});
     } else {

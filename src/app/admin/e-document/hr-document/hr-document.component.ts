@@ -1,39 +1,32 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-view-employee',
-  templateUrl: './view-employee.component.html',
-  styleUrls: ['./view-employee.component.css']
+  selector: 'app-hr-document',
+  templateUrl: './hr-document.component.html',
+  styleUrls: ['./hr-document.component.css']
 })
-export class ViewEmployeeComponent implements OnInit {
-  employeeDetails: {username: any, id: any};
-  employeeProfile;
+export class HrDocumentComponent implements OnInit {
+
+  employeeDetails = JSON.parse(localStorage.getItem('user'));
   uploadForm: FormGroup;
   uploadTypes: any[];
-  getEmployeeProfileUrl = environment.employeeProfileUrl;
   getUploadTypesUrl = environment.getUploadTypesUrl;
   uploadUserDocumentsUrl = environment.uploadEmployeeDocumentUrl;
-  imageBaseData: string | ArrayBuffer = null;
-  tabTitle = {
-    title_one: 'overview',
-    title_two: 'documents'
-  };
+  getHrDocUrl = environment.edocumentsUrl.hrDocuments;
   filesForUpload: any[];
   getUploadedDocumentsUrl = environment.getEmployeeUploadsUrl;
   uploadedDocuments: any[];
   modal: MatDialogRef<TemplateRef<any>>;
 
+
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
     private dialog: MatDialog,
     private crudService: CrudService,
     private cd: ChangeDetectorRef,
@@ -42,45 +35,21 @@ export class ViewEmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getEmployeeUsername();
     this.initForm();
     this.getUploadTypes();
+    this.getHrDocs();
   }
 
-  getEmployeeUsername() {
-    this.route.queryParamMap.subscribe(
-      (params: ParamMap) => {
-        if (params.get('username') !== undefined && params.get('id') !== undefined) {
-          this.employeeDetails = {
-            username: params.get('username'),
-            id: params.get('id')
-          };
-          this.getEmployeeProfile();
-          this.getUploadedDocuments();
-        }
-        console.log('employeeUser: ', this.employeeDetails);
-      }
-    );
-  }
-
-  getEmployeeProfile() {
-    const url = `${this.getEmployeeProfileUrl}/${this.employeeDetails.username}`;
-    this.crudService.getData(url).subscribe(
+  getHrDocs() {
+    this.crudService.getData(this.getHrDocUrl).subscribe(
       data => {
         console.log(data);
-        if (data.responseCode === '00'){
-          this.employeeProfile = data.responseObject;
-        }
       },
       error => {
         console.log(error);
-        this.spinner.hide();
-        this.toastr.error('Unable to Fetch Employee Profile', 'An Error Occured')
-
       }
     );
   }
-
   initForm() {
     this.uploadForm = this.fb.group({
       upload_type: [null, Validators.required],
@@ -117,7 +86,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   onSubmit(formPayload) {
     console.log(formPayload);
-    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails.username}`;
+    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails?.emp_username}`;
     const filesForUpload = formPayload.file.value.map(obj => {
                                                               return {
                                                                         upload_type: formPayload.upload_type.value,
@@ -134,38 +103,13 @@ export class ViewEmployeeComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00') {
           this.close();
-          this.toastr.info('File Upload Successful');
-        }
-        this.getUploadedDocuments();
-      },
-      error => {
-        console.log(error);
-        this.spinner.hide();
-        this.toastr.warning('File Upload Unsuccessful', 'An Error Occured')
-      }
-    );
-    // if (this.imageBaseData==null){
-    //   alert("Please select file");
-    // } else{
-    //   const fileUplodVM: FileUplodVM = {
-    //     imageBaseData: this.imageBaseData.toString()
-    //   };
-    // }
-  }
-
-  getUploadedDocuments() {
-    const url = `${this.getUploadedDocumentsUrl}/${this.employeeDetails.id}`;
-    this.crudService.getData(url).subscribe(
-      data => {
-        console.log(data);
-        if (data.responseCode === '00') {
-          this.uploadedDocuments = data.responseObject;
+          this.toastr.info('HR Document Upload Successful');
         }
       },
       error => {
         console.log(error);
         this.spinner.hide();
-        this.toastr.warning('Unable to Fetch Uploaded Documents', 'An Error Occured')
+        this.toastr.warning('HR Document Upload Unsuccessful', 'An Error Occured')
       }
     );
   }

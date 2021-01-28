@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { IEditEntryPayload, IRegisterEntryPayload } from 'src/app/core/models/IEdocument';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-e-document',
@@ -35,13 +37,17 @@ export class EDocumentComponent implements OnInit {
   filterOption: string;
   dialogRef: MatDialogRef<TemplateRef<any>>;
   employees$: Observable<any[]>;
+  emps: any[] = [];
   entryItems$: Observable<any[]>;
+  edocId: number;
 
   constructor(
     private dialog: MatDialog,
+    private router: Router,
     private fb: FormBuilder,
     private crudService: CrudService,
     private toastr: ToastrService,
+    private cd: ChangeDetectorRef,
     private spinner: NgxSpinnerService,
   ) { }
 
@@ -49,6 +55,7 @@ export class EDocumentComponent implements OnInit {
     this.initForm(); // initialize reactive form on component init
     this.getEntries();
     this.getUnits(this.getUnitsUrl);
+    this.getEmployees();
   }
 
   initForm() {
@@ -63,8 +70,12 @@ export class EDocumentComponent implements OnInit {
       edoc_doc_desc: [null, Validators.required],
       edoc_received_by: [null, Validators.required],
       edoc_receiving_unit: [null, Validators.required],
-      // doc_receiving_dept: [null, Validators.required],
-      edoc_upload_link: [null, Validators.required],
+      // edoc_receiving_dept: [null, Validators.required],
+      edoc_doc_title: [null, Validators.required],
+      edoc_date_received: [null, Validators.required],
+      edoc_file: [null, Validators.required],
+      edoc_image_byte: [null],
+      edoc_doc_ref: [null, Validators.required]
     });
   }
 
@@ -89,33 +100,47 @@ export class EDocumentComponent implements OnInit {
       this.getEntries(reqParam);
     } else if (formname === 'entryFormData') {
       if (extra === 'register') {
-        const payload = {
+        const payload: IRegisterEntryPayload = {
+          edoc_doc_ref: this.entryFormData.edoc_doc_ref.value,
           edoc_doc_name: this.entryFormData.edoc_doc_name.value,
+          edoc_received_by: +this.entryFormData.edoc_received_by.value,
+          file_name: this.entryFormData.edoc_file.value,
+          image_byte: this.entryFormData.edoc_image_byte.value,
+          edoc_date_received: this.entryFormData.edoc_date_received.value,
           edoc_doc_desc: this.entryFormData.edoc_doc_desc.value,
-          edoc_received_by: this.entryFormData.edoc_received_by.value,
+          edoc_doc_title: this.entryFormData.edoc_doc_title.value,
+          edoc_receiving_dept: '',
           edoc_receiving_unit: this.entryFormData.edoc_receiving_unit.value,
-          edoc_upload_link: this.entryFormData.edoc_upload_link.value,
         };
-        this.registerEntry(payload)
+        this.registerEntry(payload);
       } else if (extra === 'edit') {
-        const payload = {
+        const payload: IEditEntryPayload = {
+          edoc_id: +this.edocId,
+          edoc_doc_ref: this.entryFormData.edoc_doc_ref.value,
           edoc_doc_name: this.entryFormData.edoc_doc_name.value,
+          edoc_received_by: +this.entryFormData.edoc_received_by.value,
+          edoc_date_received: this.entryFormData.edoc_date_received.value,
           edoc_doc_desc: this.entryFormData.edoc_doc_desc.value,
-          edoc_received_by: this.entryFormData.edoc_received_by.value,
+          edoc_doc_title: this.entryFormData.edoc_doc_title.value,
+          edoc_receiving_dept: '',
           edoc_receiving_unit: this.entryFormData.edoc_receiving_unit.value,
-          edoc_upload_link: this.entryFormData.edoc_upload_link.value,
         };
-        this.editEntry(payload)
+        this.editEntry(payload);
       }
     }
   }
 
-  registerEntry(payload) {
+  registerEntry(payload: IRegisterEntryPayload) {
     this.spinner.show();
     this.crudService.createData(this.edocumentsUrl.createEntry, payload).subscribe(
       data => {
         console.log(data);
-        this.spinner.hide();
+        if (data.responseCode === '00') {
+          this.spinner.hide();
+          this.toastr.success('Entry Registered!', 'SUCCESSFUL');
+          this.getEntries();
+          this.dialogRef.close();
+        }
       },
       error => {
         console.log(error);
@@ -124,26 +149,17 @@ export class EDocumentComponent implements OnInit {
     );
   }
 
-  editEntry(payload) {
+  editEntry(payload: IEditEntryPayload) {
     this.spinner.show();
-    this.crudService.updateData('', {}).subscribe(
+    this.crudService.updateData(this.edocumentsUrl.editEntry, payload).subscribe(
       data => {
         console.log(data);
-        this.spinner.hide();
-      },
-      error => {
-        console.log(error);
-        this.spinner.hide();
-      }
-    );
-  }
-
-  assignEntry(id) {
-    this.spinner.show();
-    this.crudService.updateData('', {}).subscribe(
-      data => {
-        console.log(data);
-        this.spinner.hide();
+        if (data.responseCode === '00') {
+          this.spinner.hide();
+          this.toastr.success('Entry Details Updated!', 'SUCCESSFUL');
+          this.getEntries();
+          this.dialogRef.close();
+        }
       },
       error => {
         console.log(error);
@@ -154,10 +170,15 @@ export class EDocumentComponent implements OnInit {
 
   deleteEntry(id) {
     this.spinner.show();
-    this.crudService.deleteData('', {}).subscribe(
+    this.crudService.deleteData(`${this.edocumentsUrl.deleteEntry}/ED/${id}`, '').subscribe(
       data => {
         console.log(data);
-        this.spinner.hide();
+        if (data.responseCode === '00') {
+          this.spinner.hide();
+          this.toastr.success('Entry Deleted', 'SUCCESSFUL');
+          this.getEntries();
+          this.dialogRef.close();
+        }
       },
       error => {
         console.log(error);
@@ -202,13 +223,19 @@ export class EDocumentComponent implements OnInit {
   }
 
   openModal(dialog: TemplateRef<any>, options, updateObj?) {
-    if (updateObj) {
+    if (updateObj && options === 'edit') {
+      this.edocId = updateObj.edoc_id;
+      const receivingUnit = this.units.filter(unit => unit.name === updateObj.edoc_receiving_unit);
+      const receivedBy =
+      this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === updateObj.edas_assigned_to.toLowercase());
+
       this.entryForm.patchValue({
         edoc_doc_name: updateObj.edoc_doc_name,
         edoc_doc_desc: updateObj.edoc_doc_desc,
-        edoc_received_by: updateObj.edoc_received_by,
-        edoc_receiving_unit: updateObj.edoc_receiving_unit,
-        edoc_upload_link: updateObj.edoc_upload_link
+        edoc_received_by: receivedBy[0].emp_id,
+        edoc_receiving_unit: receivingUnit[0].code,
+        edoc_doc_title: updateObj.edoc_doc_title,
+        edoc_doc_ref: updateObj.edoc_doc_desc
       });
     }
     this.dialogRef = this.dialog.open(
@@ -222,8 +249,6 @@ export class EDocumentComponent implements OnInit {
   submitEntryAction(actionname, id) {
     if (actionname === 'delete') {
       this.deleteEntry(id);
-    } else if (actionname === 'assign') {
-      this.assignEntry(id);
     }
   }
 
@@ -232,16 +257,9 @@ export class EDocumentComponent implements OnInit {
       const modalData = {
         action: act,
         question: `Do you want to ${act} this entry?`,
-        id: actionObj.edoc_doc_ref
+        id: actionObj.edoc_id
       };
-      this.openModal(dialog, {data: modalData });
-    } else if (act === 'assign') {
-      const modalData = {
-        action: act,
-        question: `Do you want to ${act} this entry?`,
-        id: actionObj.edoc_doc_ref
-      };
-      this.openModal(dialog, {data: modalData });
+      this.openModal(dialog, modalData);
     }
   }
 
@@ -251,6 +269,7 @@ export class EDocumentComponent implements OnInit {
         console.log(data);
         let response = [];
         if (data.responseCode === '00') {
+          this.emps = data.responseObject;
           response = data.responseObject.map(emp => {
             return {name: `${emp.emp_firstname} ${emp.emp_lastname}`, id: emp.emp_id};
           });
@@ -278,6 +297,29 @@ export class EDocumentComponent implements OnInit {
     );
   }
 
+  handleFileInput(uploadedFile: FileList) {
+    console.log(uploadedFile);
+    const file = uploadedFile[0];
+    const reader = new FileReader();
+    // for (let i = 0; i < files.length; i++) {
+    let fileData;
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result);
+      fileData = {
+        file_name: file.name,
+        image_byte: reader.result
+      };
+    };
+    // }
+    this.entryForm.patchValue({
+      edoc_file: fileData.file_name,
+      edoc_image_byte: fileData.image_byte
+    });
+
+    this.cd.markForCheck();
+  }
+
   clearForm() {
     this.entryForm.reset();
   }
@@ -286,9 +328,3 @@ export class EDocumentComponent implements OnInit {
     this.dialogRef.close();
   }
 }
-
-// TODO
-// filter: search box, register entry
-// list of edocuments
-// on the table of edocments - action buttons (edit, delete, assign)
-// make row clickable(to go to view)

@@ -1,128 +1,107 @@
 <div class="section">
   <div class="row">
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
-              <div>
-                  <h2 class="text-bold-700">{{dashboardData?.total_staff}}</h2>
-                  <p class="mb-0">Total Staff</p>
-              </div>
-              <div class="avatar bg-rgba-primary p-50">
-                  <div class="avatar-content">
-                      <i class="feather icon-monitor text-primary font-medium-5"></i>
-                  </div>
-              </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-5"></div>
+      <div class="card border-info">
+          <div class="card-header d-flex align-items-center">
+            <div>
+              <h2 class="text-bold-700">{{dashboardData?.total_staff}}</h2>
+              <p>No of Staffs</p>
+            </div>
+            <div class="avatar my-auto bg-rgba-primary p-50">
+                <div class="avatar-content">
+                    <i class="feather icon-monitor text-primary font-medium-5"></i>
+                </div>
+            </div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
-              <div>
-                  <h2 class="text-bold-700">{{dashboardData?.confirmation}}</h2>
-                  <p class="mb-0">Confirmed Staffs</p>
+      <div class="card border-warning">
+          <div class="card-header d-flex align-items-center">
+            <div>
+              <h2 class="text-bold-700">{{dashboardData?.confirmation}}</h2>
+              <p>Monthly Confirmation</p>
+            </div>
+            <div class="avatar my-auto bg-rgba-warning p-50">
+              <div class="avatar-content">
+                  <i class="feather icon-mail text-warning font-medium-5"></i>
               </div>
-              <div class="avatar bg-rgba-warning p-50">
-                  <div class="avatar-content">
-                      <i class="feather icon-mail text-warning font-medium-5"></i>
-                  </div>
-              </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-7"></div>
+            </div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
+      <div class="card border-default">
+          <div class="card-header d-flex align-items-center">
               <div>
                   <h2 class="text-bold-700">{{dashboardData?.active_leave}}</h2>
-                  <p class="mb-0">Staff on Leave</p>
+                  <p>Monthly Leave</p>
               </div>
-              <div class="avatar bg-rgba-success p-50">
+              <div class="avatar my-auto bg-rgba-default p-50">
                   <div class="avatar-content">
-                      <i class="feather icon-user-check text-success font-medium-5"></i>
+                      <i class="feather icon-user-check text-default font-medium-5"></i>
                   </div>
               </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-6"></div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
+      <div class="card border-success">
+          <div class="card-header d-flex align-items-center">
               <div>
                   <h2 class="text-bold-700">{{dashboardData?.monthly_retirement}}</h2>
-                  <p class="mb-0">Retired Staffs</p>
+                  <p>Monthly Retirement</p>
               </div>
-              <div class="avatar bg-rgba-warning p-50">
+              <div class="avatar my-auto bg-rgba-success p-50">
                   <div class="avatar-content">
-                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                      <i class="feather icon-mail text-success font-medium-5"></i>
                   </div>
               </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-7"></div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
+      <div class="card border-info">
+          <div class="card-header d-flex align-items-center">
               <div>
-                  <h2 class="text-bold-700">{{dashboardData.active_document}}</h2>
-                  <p class="mb-0">Active Documents</p>
+                  <h2 class="text-bold-700">{{dashboardData?.active_document}}</h2>
+                  <p>Active Documents</p>
               </div>
-              <div class="avatar bg-rgba-warning p-50">
+              <div class="avatar my-auto bg-rgba-info p-50">
                   <div class="avatar-content">
-                      <i class="feather icon-mail text-warning font-medium-5"></i>
+                      <i class="feather icon-mail text-info font-medium-5"></i>
                   </div>
               </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-7"></div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
+      <div class="card boder-warning">
+          <div class="card-header d-flex align-items-center">
               <div>
                   <h2 class="text-bold-700">{{dashboardData?.closed_document}}</h2>
-                  <p class="mb-0">Closed Documents</p>
+                  <p>Closed Documents</p>
               </div>
-              <div class="avatar bg-rgba-warning p-50">
+              <div class="avatar my-auto bg-rgba-warning p-50">
                   <div class="avatar-content">
                       <i class="feather icon-mail text-warning font-medium-5"></i>
                   </div>
               </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-7"></div>
           </div>
       </div>
     </div>
     <div class="col-lg-3 col-sm-6 col-12">
-      <div class="card">
-          <div class="card-header d-flex align-items-start pb-0">
+      <div class="card border-success">
+          <div class="card-header d-flex align-items-center">
               <div>
-                  <h2 class="text-bold-700">{{dashboardData?.closed_document}}</h2>
-                  <p class="mb-0">Closed Documents</p>
+                  <h2 class="text-bold-700">{{dashboardData?.monthly_birthday}}</h2>
+                  <p>Monthly Birthdays</p>
               </div>
-              <div class="avatar bg-rgba-warning p-50">
+              <div class="avatar my-auto bg-rgba-success p-50">
                   <div class="avatar-content">
                       <i class="feather icon-mail text-warning font-medium-5"></i>
                   </div>
               </div>
-          </div>
-          <div class="card-content">
-              <div id="line-area-chart-7"></div>
           </div>
       </div>
     </div>

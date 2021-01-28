@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://1d18bc8f6289.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'http://55f3e4f1d7c4.ngrok.io/erportal-0.0.1/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -37,7 +37,9 @@ export const environment = {
                   createEntry: 'secured/edocument/register-entry',
                   assignEntry: 'secured/edocument/assign-entry',
                   deleteEntry: 'secured/edocument/delete-entry',
-                  editEntry: 'secured/edocument/edit-entry,'
+                  editEntry: 'secured/edocument/edit-entry',
+                  hrDocuments: 'secured/edocument/get-hr-entry,',
+                  editAssignment: 'secured/edocument/edit-assignment'
                 },
   dashboardUrl: 'secured/get-dashboard',
   getHandoverNotesUrl: 'secured/handover/get-all-handover',

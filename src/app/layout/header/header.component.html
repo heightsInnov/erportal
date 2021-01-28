@@ -75,7 +75,7 @@
                     <li class="dropdown dropdown-user nav-item">
                       <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                       <div class="user-nav d-sm-flex d-none">
-                        <span class="user-name text-bold-600">{{userDetails.emp_firstname + ' ' + userDetails.emp_lastname}}</span>
+                        <span class="user-name text-bold-600">{{userDetails?.emp_firstname + ' ' + userDetails?.emp_lastname}}</span>
                         <span class="user-status">{{isLoggedIn()}}</span></div><span>
                           <img class="round" [matMenuTriggerFor]="menu" src="../../../assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="40" width="40"></span>
                       </a>
@@ -114,7 +114,7 @@
 <!-- END: Header-->
 <ng-template #calendarModal let-data>
   <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Birthday Notifications</h5>
