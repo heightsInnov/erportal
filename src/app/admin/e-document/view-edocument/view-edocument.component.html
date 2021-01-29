@@ -99,15 +99,15 @@
                           <div class="col-lg-9 col-12">
                             <div class="card">
                               <div class="card-title ml-auto" style="background: transparent;" *ngIf="assignment.edas_status === 'OPEN'">
-                                <button mat-mini-fab mx-1 color="primary" aria-label="New Assign"
+                                <button mat-mini-fab class="mx-1" color="primary" aria-label="New Assign"
                                   (click)="takeAction(newAssignmentModal, 'assign', assignment)">
                                   <mat-icon>preview</mat-icon>
                                 </button>
-                                <button mat-mini-fab mx-1 color="primary" aria-label="Edit Assignment"
+                                <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
                                 (click)="takeAction(editAssignmentModal, 'edit', assignment)">
                                   <mat-icon>edit</mat-icon>
                                 </button>
-                                <button mat-mini-fab mx-1 color="warn" aria-label="Delete Assignment"
+                                <button mat-mini-fab class="mx-1" color="warn" aria-label="Delete Assignment"
                                   (click)="takeAction(deleteAssignmentModal, 'delete', assignment)">
                                   <mat-icon>delete</mat-icon>
                                 </button>

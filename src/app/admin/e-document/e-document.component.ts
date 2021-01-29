@@ -90,10 +90,10 @@ export class EDocumentComponent implements OnInit {
   onSubmit(formname, formPayload, extra?) {
     if (formname === 'filterFormData') {
       console.log(formPayload);
-      let reqParam = '?';
+      let reqParam = '';
       for (const item in formPayload) {
         if (item !== 'filter_by' && formPayload[item].value !== null) {
-          reqParam += reqParam.endsWith('?') ? `${item}=${formPayload[item].value}` : `&${item}=${formPayload[item].value}`;
+          reqParam += `&${item}=${formPayload[item].value}`;
         }
       }
       console.log(reqParam);
