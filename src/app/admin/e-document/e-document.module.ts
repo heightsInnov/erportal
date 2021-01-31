@@ -20,7 +20,7 @@ const route: Routes = [
     path: 'view-edocument',
     component: ViewEdocumentComponent,
     canActivate: [AuthGuard],
-    data: { breadcrumb: 'View Documents' },
+    data: { breadcrumb: 'Document-Assignment' },
   },
   {
     path: 'hr-documents',

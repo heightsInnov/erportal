@@ -21,6 +21,7 @@ export class ViewEdocumentComponent implements OnInit {
   edocRefNo: string;
   edocumentsUrl = environment.edocumentsUrl;
   employeeUrl = environment.getAllEmployeeUrl;
+  getUnitsUrl = environment.getUnitsUrl;
   edocEntry: any;
   edocEntryAssignments: any[] = [];
   dialogRef: MatDialogRef<TemplateRef<any>>;
@@ -42,6 +43,8 @@ export class ViewEdocumentComponent implements OnInit {
   ngOnInit(): void {
     this.getDocumentId();
     this.initForm(); // initialize reactive form on component init
+    this.getUnits(this.getUnitsUrl);
+    this.getEmployees();
   }
 
   getDocumentId() {
@@ -114,7 +117,7 @@ export class ViewEdocumentComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
-          this.edocEntry = data.responseObject;
+          this.edocEntry = data.responseObject[0];
         }
       },
       error => {
@@ -192,13 +195,15 @@ export class ViewEdocumentComponent implements OnInit {
   takeAction(dialog: TemplateRef<any>, act, actionObj) {
     if (act === 'assign' || act === 'edit') {
       const presentUnit = this.units.filter(unit => unit.name === actionObj.edas_present_unit);
+      console.log('presentUnit: ', presentUnit);
+      console.log('emps: ', this.emps);
       const assignedTo =
-      this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === actionObj.edas_assigned_to.toLowercase());
-
+      this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === `${actionObj.edas_assigned_to}`.toLowerCase());
+      console.log('assignedTo: ', assignedTo);
       if (act === 'assign') {
         this.newAssignmentForm.patchValue({
           edas_edoc_ref: actionObj.edas_edoc_ref,
-          edas_present_unit: presentUnit[0].code,
+          edas_present_unit: presentUnit[0].code || null,
           edas_assigned_by: this.userData.emp_id,
         });
         this.openModal(dialog, act);
@@ -206,9 +211,9 @@ export class ViewEdocumentComponent implements OnInit {
         this.editAssignmentForm.patchValue({
           edas_id: actionObj.edas_id,
           edas_edoc_ref: actionObj.edas_edoc_ref,
-          edas_present_unit: presentUnit[0].code,
+          edas_present_unit: presentUnit[0].code || null,
           edas_assigned_by: actionObj.edas_assigned_by,
-          edas_assigned_to: assignedTo[0].emp_id,
+          edas_assigned_to: assignedTo[0].emp_id || null,
           edas_comment: actionObj.edas_comment
         });
         this.openModal(dialog, act);

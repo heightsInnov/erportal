@@ -226,9 +226,11 @@ export class EDocumentComponent implements OnInit {
     if (updateObj && options === 'edit') {
       this.edocId = updateObj.edoc_id;
       const receivingUnit = this.units.filter(unit => unit.name === updateObj.edoc_receiving_unit);
+      console.log('receivingUnit: ', receivingUnit);
+      console.log('emps: ', this.emps);
       const receivedBy =
-      this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === updateObj.edas_assigned_to.toLowercase());
-
+      this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === `${updateObj.edoc_received_by}`.toLowerCase());
+      console.log('receivedBy: ', receivedBy);
       this.entryForm.patchValue({
         edoc_doc_name: updateObj.edoc_doc_name,
         edoc_doc_desc: updateObj.edoc_doc_desc,
