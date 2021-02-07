@@ -74,7 +74,7 @@ export class EDocumentComponent implements OnInit {
       edoc_doc_title: [null, Validators.required],
       edoc_date_received: [null, Validators.required],
       edoc_file: [null, Validators.required],
-      edoc_image_byte: [null],
+      edoc_image_byte: [null, Validators.required],
       edoc_doc_ref: [null, Validators.required]
     });
   }
@@ -101,30 +101,32 @@ export class EDocumentComponent implements OnInit {
     } else if (formname === 'entryFormData') {
       if (extra === 'register') {
         const payload: IRegisterEntryPayload = {
-          edoc_doc_ref: this.entryFormData.edoc_doc_ref.value,
-          edoc_doc_name: this.entryFormData.edoc_doc_name.value,
-          edoc_received_by: +this.entryFormData.edoc_received_by.value,
-          file_name: this.entryFormData.edoc_file.value,
-          image_byte: this.entryFormData.edoc_image_byte.value,
-          edoc_date_received: this.entryFormData.edoc_date_received.value,
-          edoc_doc_desc: this.entryFormData.edoc_doc_desc.value,
-          edoc_doc_title: this.entryFormData.edoc_doc_title.value,
+          edoc_doc_ref: formPayload.edoc_doc_ref.value,
+          edoc_doc_name: formPayload.edoc_doc_name.value,
+          edoc_received_by: +formPayload.edoc_received_by.value,
+          file_name: formPayload.edoc_image_byte.value.file_name,
+          image_byte: formPayload.edoc_image_byte.value.image_byte,
+          edoc_date_received: formPayload.edoc_date_received.value,
+          edoc_doc_desc: formPayload.edoc_doc_desc.value,
+          edoc_doc_title: formPayload.edoc_doc_title.value,
           edoc_receiving_dept: '',
-          edoc_receiving_unit: this.entryFormData.edoc_receiving_unit.value,
+          edoc_receiving_unit: formPayload.edoc_receiving_unit.value,
         };
+        console.log(payload);
         this.registerEntry(payload);
       } else if (extra === 'edit') {
         const payload: IEditEntryPayload = {
           edoc_id: +this.edocId,
-          edoc_doc_ref: this.entryFormData.edoc_doc_ref.value,
-          edoc_doc_name: this.entryFormData.edoc_doc_name.value,
-          edoc_received_by: +this.entryFormData.edoc_received_by.value,
-          edoc_date_received: this.entryFormData.edoc_date_received.value,
-          edoc_doc_desc: this.entryFormData.edoc_doc_desc.value,
-          edoc_doc_title: this.entryFormData.edoc_doc_title.value,
+          edoc_doc_ref: formPayload.edoc_doc_ref.value,
+          edoc_doc_name: formPayload.edoc_doc_name.value,
+          edoc_received_by: +formPayload.edoc_received_by.value,
+          edoc_date_received: new Date(formPayload.edoc_date_received.value).toLocaleDateString(),
+          edoc_doc_desc: formPayload.edoc_doc_desc.value,
+          edoc_doc_title: formPayload.edoc_doc_title.value,
           edoc_receiving_dept: '',
-          edoc_receiving_unit: this.entryFormData.edoc_receiving_unit.value,
+          edoc_receiving_unit: formPayload.edoc_receiving_unit.value,
         };
+        console.log(payload);
         this.editEntry(payload);
       }
     }
@@ -144,6 +146,7 @@ export class EDocumentComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.toastr.error(`${error.error?.responseMessage}`, 'UNSUCCESSFUL');
         this.spinner.hide();
       }
     );
@@ -163,6 +166,7 @@ export class EDocumentComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.toastr.error(`${error.error?.responseMessage}`, 'UNSUCCESSFUL');
         this.spinner.hide();
       }
     );
@@ -182,6 +186,7 @@ export class EDocumentComponent implements OnInit {
       },
       error => {
         console.log(error);
+        this.toastr.error(`${error.error?.responseMessage}`, 'UNSUCCESSFUL');
         this.spinner.hide();
       }
     );
@@ -212,6 +217,7 @@ export class EDocumentComponent implements OnInit {
       },
       error => {
         this.spinner.hide();
+        this.toastr.error(`${error.error?.responseMessage}`, 'UNSUCCESSFUL');
         console.log(error);
       }
     );
@@ -231,13 +237,19 @@ export class EDocumentComponent implements OnInit {
       const receivedBy =
       this.emps.filter(emp => `${emp.emp_firstname} ${emp.emp_lastname}`.toLowerCase() === `${updateObj.edoc_received_by}`.toLowerCase());
       console.log('receivedBy: ', receivedBy);
+      const edocDateRecieved = new Date(updateObj.edoc_date_received);
+      const edocDate =
+        `${edocDateRecieved.getFullYear().toString()}-${(edocDateRecieved.getMonth() + 1).toString().padStart(2, '0')}-${edocDateRecieved.getDate().toString().padStart(2, '0')}`;
+      this.entryForm.removeControl('edoc_file');
+      this.entryForm.removeControl('edoc_image_byte');
       this.entryForm.patchValue({
         edoc_doc_name: updateObj.edoc_doc_name,
         edoc_doc_desc: updateObj.edoc_doc_desc,
         edoc_received_by: receivedBy[0].emp_id,
         edoc_receiving_unit: receivingUnit[0].code,
         edoc_doc_title: updateObj.edoc_doc_title,
-        edoc_doc_ref: updateObj.edoc_doc_desc
+        edoc_doc_ref: updateObj.edoc_doc_ref,
+        edoc_date_received: edocDate
       });
     }
     this.dialogRef = this.dialog.open(
@@ -303,7 +315,7 @@ export class EDocumentComponent implements OnInit {
     console.log(uploadedFile);
     const file = uploadedFile[0];
     const reader = new FileReader();
-    // for (let i = 0; i < files.length; i++) {
+
     let fileData;
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -312,12 +324,10 @@ export class EDocumentComponent implements OnInit {
         file_name: file.name,
         image_byte: reader.result
       };
+      this.entryForm.patchValue({
+        edoc_image_byte: fileData
+      });
     };
-    // }
-    this.entryForm.patchValue({
-      edoc_file: fileData.file_name,
-      edoc_image_byte: fileData.image_byte
-    });
 
     this.cd.markForCheck();
   }

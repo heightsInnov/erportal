@@ -17,7 +17,7 @@ export interface IEditEntryPayload {
   edoc_doc_title: string;
   edoc_doc_name: string;
   edoc_received_by: number;
-  edoc_date_received: Date;
+  edoc_date_received: any;
   edoc_doc_desc: string;
   edoc_receiving_dept: string;
   edoc_receiving_unit: string;

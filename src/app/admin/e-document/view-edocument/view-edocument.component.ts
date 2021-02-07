@@ -61,11 +61,14 @@ export class ViewEdocumentComponent implements OnInit {
     );
   }
 
+  log(id) {
+    console.log(id);
+  }
 
   initForm() {
     this.newAssignmentForm = this.fb.group({
-      edas_edoc_ref: [null, Validators.required],
-      edas_present_unit: [null, Validators.required],
+      edas_edoc_ref: [{value: null, readonly: true}, Validators.required],
+      edas_present_unit: [{value: null, disabled: true}, Validators.required],
       edas_assign_to_unit: [null, Validators.required],
       edas_comment: [null, Validators.required],
       edas_assigned_to: [null, Validators.required],
@@ -75,11 +78,11 @@ export class ViewEdocumentComponent implements OnInit {
     });
     this.editAssignmentForm = this.fb.group({
       edas_id: [null],
-      edas_edoc_ref: [null, Validators.required],
+      edas_edoc_ref: [{value: null, readonly: true}, Validators.required],
       edas_comment: [null, Validators.required],
       edas_present_unit: [null, Validators.required],
       edas_assigned_to: [null, Validators.required],
-      edas_assigned_by: [null, Validators.required],
+      edas_assigned_by: [{value: null, readonly: true}, Validators.required],
     });
   }
 
@@ -104,10 +107,11 @@ export class ViewEdocumentComponent implements OnInit {
     } else if (formname === 'editAssignmentForm') {
       const payload: IEditAssignmentPayload = {
         edas_id: formPayload.edas_id.value,
-        edas_present_unit: formPayload.edas_assign_to_unit.value,
+        edas_present_unit: formPayload.edas_present_unit.value,
         edas_comment: formPayload.edas_comment.value,
         edas_assigned_to: formPayload.edas_assigned_to.value
       };
+      console.log(payload);
       this.editAssignment(payload);
     }
   }

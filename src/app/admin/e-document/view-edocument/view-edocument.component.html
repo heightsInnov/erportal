@@ -5,75 +5,62 @@
         <div class="card">
           <div class="card-content">
             <div class="card-body">
-              <mat-card>
-                <!-- <mat-card-title>
-                  <h5 class="card-title">Entry: {{ edocEntry?.edas_edoc_ref }}</h5>
-                </mat-card-title> -->
-                <mat-card-content>
-                  <div class="card">
-                    <div class="card-content">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Name</h6>
-                            <p>{{ edocEntry?.edoc_doc_name !== null ? edocEntry?.edoc_doc_name : '-'}}</p>
-                          </div>
+              <div class="row">
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Name</h6>
+                  <p>{{ edocEntry?.edoc_doc_name !== null ? edocEntry?.edoc_doc_name : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Title</h6>
-                            <p>{{ edocEntry?.edoc_doc_title !== null ? edocEntry?.edoc_doc_title : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Title</h6>
+                  <p>{{ edocEntry?.edoc_doc_title !== null ? edocEntry?.edoc_doc_title : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Description</h6>
-                            <p>{{ edocEntry?.edoc_doc_desc !== null ? edocEntry?.edoc_doc_desc : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Description</h6>
+                  <p>{{ edocEntry?.edoc_doc_desc !== null ? edocEntry?.edoc_doc_desc : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Reference</h6>
-                            <p>{{ edocEntry?.edoc_doc_ref !== null ? edocEntry?.edoc_doc_ref : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Reference</h6>
+                  <p>{{ edocEntry?.edoc_doc_ref !== null ? edocEntry?.edoc_doc_ref : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Recieved By</h6>
-                            <p>{{ edocEntry?.edoc_received_by !== null ? edocEntry?.edoc_received_by : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Recieved By</h6>
+                  <p>{{ edocEntry?.edoc_received_by !== null ? edocEntry?.edoc_received_by : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Receiving Unit</h6>
-                            <p>{{ edocEntry?.edoc_receiving_unit !== null ? edocEntry?.edoc_receiving_unit : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Receiving Unit</h6>
+                  <p>{{ edocEntry?.edoc_receiving_unit !== null ? edocEntry?.edoc_receiving_unit : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Receiving Department</h6>
-                            <p>{{ edocEntry?.edoc_receiving_dept !== null ? edocEntry?.edoc_receiving_dept : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Receiving Department</h6>
+                  <p>{{ edocEntry?.edoc_receiving_dept !== null ? edocEntry?.edoc_receiving_dept : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Document Status</h6>
-                            <p>{{ edocEntry?.edoc_status !== null ? edocEntry?.edoc_status : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Document Status</h6>
+                  <p>{{ edocEntry?.edoc_status !== null ? edocEntry?.edoc_status : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Date Received</h6>
-                            <p>{{ edocEntry?.edoc_date_received !== null ? (edocEntry?.edoc_date_received | date) : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Date Received</h6>
+                  <p>{{ edocEntry?.edoc_date_received !== null ? (edocEntry?.edoc_date_received | date) : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Upload Link</h6>
-                            <p>{{ edocEntry?.edoc_upload_link !== null ? edocEntry?.edoc_upload_link : '-'}}</p>
-                          </div>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Upload Link</h6>
+                  <p>{{ edocEntry?.edoc_upload_link !== null ? edocEntry?.edoc_upload_link : '-'}}</p>
+                </div>
 
-                          <div class="col-3">
-                            <h6 class="bold" style="font-weight: 700;">Date Created</h6>
-                            <p>{{ edocEntry?.edoc_date_created !== null ? (edocEntry?.edoc_date_created | date) : '-'}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </mat-card-content>
-              </mat-card>
+                <div class="col-3">
+                  <h6 class="bold" style="font-weight: 700;">Date Created</h6>
+                  <p>{{ edocEntry?.edoc_date_created !== null ? (edocEntry?.edoc_date_created | date) : '-'}}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -85,91 +72,100 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Document {{ edocEntry?.edoc_doc_ref | uppercase }} Assignment Trail</h5>
+          </div>
           <div class="card-content">
             <div class="card-body">
-              <mat-card>
-                <mat-card-title>
-                  <h5 class="card-title">{{ edocEntry?.edas_edoc_ref }} Assignments</h5>
-                </mat-card-title>
-                <mat-card-content>
-                  <mat-vertical-stepper labelPosition="bottom">
-                    <ng-container *ngFor="let assignment of edocEntryAssignments">
-                      <mat-step [label]="'Assignment ' + assignment.edas_id">
-                        <div class="row">
-                          <div class="col-lg-9 col-12">
-                            <div class="card">
-                              <div class="card-title ml-auto" style="background: transparent;" *ngIf="assignment.edas_status === 'OPEN'">
-                                <button mat-mini-fab class="mx-1" color="primary" aria-label="New Assign"
-                                  (click)="takeAction(newAssignmentModal, 'assign', assignment)">
-                                  <mat-icon>preview</mat-icon>
-                                </button>
-                                <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
-                                (click)="takeAction(editAssignmentModal, 'edit', assignment)">
-                                  <mat-icon>edit</mat-icon>
-                                </button>
-                                <button mat-mini-fab class="mx-1" color="warn" aria-label="Delete Assignment"
-                                  (click)="takeAction(deleteAssignmentModal, 'delete', assignment)">
-                                  <mat-icon>delete</mat-icon>
-                                </button>
-                              </div>
-                              <div class="card-content">
-                                <div class="card-body">
-                                  <div class="row">
-                                    <!-- <div class="col-12">
-                                      <h6 class="bold" style="font-weight: 700;">Assignment Reference</h6>
-                                      <p>{{ assignment.edas_edoc_ref !== null ? assignment.edas_edoc_ref : '-'}}</p>
-                                    </div> -->
-
-                                    <div class="col-12">
-                                      <h6 class="bold">Present Unit:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_present_unit !== null ? assignment.edas_present_unit : '-'}}</span></h6>
+              <div class="row">
+                <div class="col-lg-9 col-12">
+                  <div class="card">
+                      <div class="card-content">
+                          <div class="card-body">
+                              <ul class="activity-timeline timeline-left list-unstyled">
+                                <ng-container *ngFor="let assignment of edocEntryAssignments">
+                                  <li>
+                                    <div [ngClass]="{'timeline-icon': true,
+                                                     'bg-success': assignment.edas_status === 'CLOSED',
+                                                     'bg-warning': assignment.edas_status === 'OPEN'}">
+                                      <i [ngClass]="{'feather':true,
+                                                      'icon-alert-circle':assignment.edas_status === 'OPEN',
+                                                      'icon-check': assignment.edas_status === 'CLOSED',
+                                                      'font-medium-2':true,'align-middle':true}"></i>
                                     </div>
+                                    <div class="timeline-info">
+                                      <div class="row">
+                                        <div class="col-4 order-2 d-flex align-items-center"
+                                           style="background: transparent;" *ngIf="assignment.edas_status === 'OPEN'">
+                                          <button mat-mini-fab class="mx-1" color="primary" aria-label="New Assign"
+                                            (click)="takeAction(newAssignmentModal, 'assign', assignment)"
+                                            matTooltip="Reassign Assignment">
+                                            <mat-icon>preview</mat-icon>
+                                          </button>
+                                          <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
+                                          (click)="takeAction(editAssignmentModal, 'edit', assignment)"
+                                          matTooltip="Edit Assignment">
+                                            <mat-icon>edit</mat-icon>
+                                          </button>
+                                          <button mat-mini-fab class="mx-1" color="warn" aria-label="Delete Assignment"
+                                            (click)="takeAction(deleteAssignmentModal, 'delete', assignment)"
+                                            matTooltip="Delete Assignment">
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                        </div>
 
-                                    <div class="col-12">
-                                      <h6 class="bold">Comment on Assignment:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_comment !== null ? assignment.edas_comment : '-'}}</span></h6>
+                                        <div class="col-8 order-1">
+                                          <div [ngClass]="{'card':true, 'border-success': assignment.edas_status === 'CLOSED', 'border-warning': assignment.edas_status === 'OPEN'}">
+                                              <div class="card-content">
+                                                  <div class="card-body">
+                                                      <h4 class="card-title">ID: {{ assignment.edas_id }}</h4>
+                                                  </div>
+                                                  <ul class="list-group list-group-flush">
+                                                      <li class="list-group-item mb-0">
+                                                        {{ assignment.edas_status === 'OPEN' ? 'Present Unit' : 'Unit' }}
+                                                        <span class="font-weight-bold mx-1">{{ assignment.edas_present_unit !== null ? assignment.edas_present_unit : '-'}}</span>
+
+                                                      </li>
+                                                      <li class="list-group-item mb-0">
+                                                        Comment: <span class="font-weight-bold mx-1">{{ assignment.edas_comment !== null ? assignment.edas_comment : '-'}}</span>
+
+                                                      </li>
+                                                      <li class="list-group-item mb-0">
+                                                        Assigned To: <span class="font-weight-bold mx-1">{{ assignment.edas_assigned_to !== null ? assignment.edas_assigned_to : '-'}}</span>
+
+                                                      </li>
+                                                      <li class="list-group-item mb-0">
+                                                        Assigned By: <span class="font-weight-bold mx-1">{{ assignment.edas_assigned_by !== null ? assignment.edas_assigned_by : '-'}}</span>
+
+                                                      </li>
+                                                      <li class="list-group-item mb-0">
+                                                        Status: <span class="font-weight-bold mx-1">{{ assignment.edas_status !== null ? assignment.edas_status : '-'}}</span>
+
+                                                      </li>
+                                                      <li class="list-group-item mb-0" *ngIf="assignment.edas_support_upload_link !== null">
+                                                         Download:
+                                                          <a class="mx-1" href="{{assignment.edas_support_upload_link}}" download="{{assignment.edas_edoc_ref}}">
+                                                            <mat-icon>download</mat-icon>
+                                                          </a>
+                                                      </li>
+                                                      <li class="list-group-item mb-0">
+                                                        Date Assigned: <span class="font-weight-bold mx-1">{{ assignment.edas_created_date !== null ? (assignment.edas_created_date | date) : '-'}}</span>
+
+                                                      </li>
+                                                  </ul>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
-
-                                    <div class="col-12">
-                                      <h6 class="bold">Assigned To:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_assigned_to !== null ? assignment.edas_assigned_to : '-'}}</span></h6>
-                                    </div>
-
-                                    <div class="col-12">
-                                      <h6 class="bold">Assigned By:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_assigned_by !== null ? assignment.edas_assigned_by : '-'}}</span></h6>
-                                    </div>
-
-                                    <div class="col-12">
-                                      <h6 class="bold">Assignment Status:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_status !== null ? assignment.edas_status : '-'}}</span></h6>
-                                    </div>
-
-                                    <div class="col-12" *ngIf="assignment.edas_support_upload_link !== null">
-                                      <h6 class="bold">Download:
-                                        <a class="mx-1" href="{{assignment.edas_support_upload_link}}" download="{{assignment.edas_edoc_ref}}">
-                                          <mat-icon>download</mat-icon>
-                                        </a>
-                                      </h6>
-                                      <!-- <p>{{ assignment.edas_support_upload_link !== null ? assignment.edas_support_upload_link : '-'}}</p> -->
-
-                                    </div>
-
-                                    <div class="col-12">
-                                      <h6 class="bold">Date Assigned:
-                                        <span class="mx-1" style="font-weight: 700;">{{ assignment.edas_created_date !== null ? (assignment.edas_created_date | date) : '-'}}</span></h6>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                                  </li>
+                                </ng-container>
+                              </ul>
                           </div>
-                        </div>
-                      </mat-step>
-                    </ng-container>
-                  </mat-vertical-stepper>
-                </mat-card-content>
-              </mat-card>
+                      </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -198,7 +194,7 @@
                         <input type="text" [ngClass]="{'form-control' : true,
                                                         'is-invalid' : (newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.invalid,
                                                         'is-valid' : (newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.valid
-                                                      }" id="edas_edoc_ref" formControlName="edas_edoc_ref" readonly>
+                                                      }" id="edas_edoc_ref" formControlName="edas_edoc_ref">
 
 
                         <ng-container *ngIf="(newAssignmentFormData.edas_edoc_ref.dirty || newAssignmentFormData.edas_edoc_ref.touched) && newAssignmentFormData.edas_edoc_ref.invalid">
@@ -213,7 +209,7 @@
                         <select [ngClass]="{'form-control' : true,
                                             'is-invalid' : (newAssignmentFormData.edas_present_unit.dirty || newAssignmentFormData.edas_present_unit.touched) && newAssignmentFormData.edas_present_unit.invalid,
                                             'is-valid' : (newAssignmentFormData.edas_present_unit.dirty || newAssignmentFormData.edas_present_unit.touched) && newAssignmentFormData.edas_present_unit.valid
-                                          }" id="unit" formControlName="edas_present_unit" readonly disabled>
+                                          }" id="unit" formControlName="edas_present_unit">
                             <option [value]="null">Select Unit</option>
                             <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
                         </select>
@@ -230,7 +226,7 @@
                         <select [ngClass]="{'form-control' : true,
                                             'is-invalid' : (newAssignmentFormData.edas_assign_to_unit.dirty || newAssignmentFormData.edas_assign_to_unit.touched) && newAssignmentFormData.edas_assign_to_unit.invalid,
                                             'is-valid' : (newAssignmentFormData.edas_assign_to_unit.dirty || newAssignmentFormData.edas_assign_to_unit.touched) && newAssignmentFormData.edas_assign_to_unit.valid
-                                          }" id="edas_assign_to_unit" formControlName="edas_assign_to_unit">
+                                          }" id="edas_assign_to_unit" formControlName="edas_assign_to_unit" (change)="log(newAssignmentFormData.edas_assign_to_unit.value)">
                             <option [value]="null">Select Unit</option>
                             <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
                         </select>
@@ -323,7 +319,7 @@
                         <input type="text" [ngClass]="{'form-control' : true,
                                                         'is-invalid' : (editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.invalid,
                                                         'is-valid' : (editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.valid
-                                                      }" id="edas_edoc_ref" formControlName="edas_edoc_ref" readonly>
+                                                      }" id="edas_edoc_ref" formControlName="edas_edoc_ref">
                         <label for="edas_edoc_ref">Document Reference</label>
 
                         <ng-container *ngIf="(editAssignmentFormData.edas_edoc_ref.dirty || editAssignmentFormData.edas_edoc_ref.touched) && editAssignmentFormData.edas_edoc_ref.invalid">
@@ -334,7 +330,7 @@
 
                     <div class="col-md-6 col-12">
                       <fieldset class="form-label-group form-group position-relative">
-                        <input type="text" class="form-control" id="edas_assigned_by" formControlName="edas_assigned_by" readonly>
+                        <input type="text" class="form-control" id="edas_assigned_by" formControlName="edas_assigned_by">
                         <label for="edas_assigned_by">Assigned By</label>
                       </fieldset>
                     </div>
@@ -347,7 +343,9 @@
                                             'is-valid' : (editAssignmentFormData.edas_present_unit.dirty || editAssignmentFormData.edas_present_unit.touched) && editAssignmentFormData.edas_present_unit.valid
                                           }" id="unit" formControlName="edas_present_unit">
                             <option [value]="null">Select Unit</option>
-                            <option *ngFor="let unit of units" [value]="unit.code">{{ unit.name }}</option>
+                            <ng-container *ngFor="let unit of units">
+                              <option [value]="unit.code">{{ unit.name }}</option>
+                            </ng-container>
                         </select>
 
                         <ng-container *ngIf="(editAssignmentFormData.edas_present_unit.dirty || editAssignmentFormData.edas_present_unit.touched) && editAssignmentFormData.edas_present_unit.invalid">
