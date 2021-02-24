@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +24,8 @@ export class HrDocumentComponent implements OnInit {
   getUploadedDocumentsUrl = environment.getEmployeeUploadsUrl;
   uploadedDocuments: any[];
   modal: MatDialogRef<TemplateRef<any>>;
-
+  hrDocuments: { POLICY_DOCUMENT: any[], FORMS: any[] };
+  documents: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -44,12 +46,32 @@ export class HrDocumentComponent implements OnInit {
     this.crudService.getData(this.getHrDocUrl).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode === '00') {
+          this.hrDocuments = {
+            FORMS: data.responseObject.filter(obj => obj['FORMS'] ? obj['FORMS'] : [] ),
+            POLICY_DOCUMENT: data.responseObject.filter(obj => obj['POLICY_DOCUMENT'] ? obj['POLICY_DOCUMENT'] : []  )
+          };
+          this.changeTableDisplay('POLICY_DOCUMENT');
+        }
+
       },
       error => {
         console.log(error);
+        this.toastr.warning('Cannot fetch Documents', 'UNSUCCESSFUL');
       }
     );
   }
+
+  changeTableDisplay(tableData) {
+    if (tableData === 'FORMS') {
+      this.documents = this.hrDocuments.FORMS[0]['FORMS'];
+      console.log(this.documents);
+    } else if (tableData === 'POLICY_DOCUMENT') {
+      this.documents = this.hrDocuments.POLICY_DOCUMENT[0]['POLICY_DOCUMENT'];
+      console.log(this.documents);
+    }
+  }
+
   initForm() {
     this.uploadForm = this.fb.group({
       upload_type: [null, Validators.required],
@@ -63,30 +85,30 @@ export class HrDocumentComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     console.log(files);
-    // const file = files[0];
+    const file = files[0];
     const reader = new FileReader();
-    for (let i = 0; i < files.length; i++) {
-      let fileData;
-      reader.readAsDataURL(files[i]);
-      reader.onload = () => {
-        console.log(reader.result);
-        fileData = {
-          upload_title: files[i].name,
-          image_byte: reader.result
-        };
+    // for (let i = 0; i < files.length; i++) {
+    let fileData;
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result);
+      fileData = {
+        upload_title: file.name,
+        image_byte: reader.result
       };
-      this.filesForUpload.push(fileData);
-    }
+      this.uploadForm.patchValue({
+        file: [{upload_title: file.name, image_byte: reader.result}]
+      });
+    };
     this.uploadForm.patchValue({
       file: this.filesForUpload
     });
-
     this.cd.markForCheck();
   }
 
   onSubmit(formPayload) {
     console.log(formPayload);
-    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails?.emp_username}`;
+    const url = `${this.uploadUserDocumentsUrl}`;
     const filesForUpload = formPayload.file.value.map(obj => {
                                                               return {
                                                                         upload_type: formPayload.upload_type.value,
@@ -96,7 +118,8 @@ export class HrDocumentComponent implements OnInit {
                                                             });
     console.log(filesForUpload);
     const payload = {
-      uploadRequest: filesForUpload
+      uploadRequest: filesForUpload[0],
+      emp_id: `${this.employeeDetails?.emp_id}`
     };
     this.crudService.uploadData(url, payload).subscribe(
       data => {
@@ -109,7 +132,7 @@ export class HrDocumentComponent implements OnInit {
       error => {
         console.log(error);
         this.spinner.hide();
-        this.toastr.warning('HR Document Upload Unsuccessful', 'An Error Occured')
+        this.toastr.warning('HR Document Upload Unsuccessful', 'An Error Occured');
       }
     );
   }
@@ -120,11 +143,12 @@ export class HrDocumentComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
-          this.uploadTypes = data.responseObject;
+          this.uploadTypes = data.responseObject.hr_types;
         }
       },
       error => {
         console.log(error);
+        this.toastr.warning('Upload Types Unavailable');
       }
     );
   }

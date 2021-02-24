@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: DocumentComponent,
+    data: { breadcrumb: 'Leave' },
     canActivate: [AuthGuard]
   },
   {

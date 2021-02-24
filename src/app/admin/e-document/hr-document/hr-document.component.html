@@ -4,6 +4,22 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
+            <div class="mr-auto">
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-12">
+                    <fieldset class="form-group">
+                      <label class="bold" for="doc_type">Document Type:</label>
+                      <select [ngClass]="{'form-control' : true}" id="doc_type" (change)="changeTableDisplay($event.target.value)">
+                        <!-- <option [value]="null">Select Document Type</option> -->
+                          <option value="POLICY_DOCUMENT"> Policy Documents</option>
+                          <option value="FORMS"> Forms </option>
+                      </select>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="card-title ml-auto">
               <button type="button" class="btn btn-outline-primary waves-effect waves-light" (click)="openModal(uploadDocumentModal, 'upload document')">
                 <i class="feather icon-plus-circle"></i> Upload Document
@@ -28,44 +44,31 @@
                   <thead class="thead-dark">
                     <tr>
                       <th>Document Name</th>
-                      <th>Document Reference</th>
-                      <th>Document Description</th>
-                      <th>Recieved By</th>
-                      <th>Receiving Unit</th>
-                      <th>Document Status</th>
-                      <th>Date Received</th>
                       <th>Upload Link</th>
-                      <th>Date Created</th>
-                      <th></th>
+                      <th>Upload Type</th>
+                      <th>Uploaded By</th>
+                      <th>Date Uploaded</th>
+                      <!-- <th></th> -->
                     </tr>
                   </thead>
-                  <!-- <tbody class="table-hover table-striped" *ngFor="let details of entries, let i = index;">
-                    <tr>
-                      <td>{{details.edoc_doc_name}}</td>
-                      <td>{{details.edoc_doc_ref}}</td>
-                      <td>{{details.edoc_doc_desc}}</td>
-                      <td>{{details.edoc_received_by}}</td>
-                      <td>{{details.edoc_receiving_unit}}</td>
-                      <td>{{details.edoc_status}}</td>
-                      <td>{{details.edoc_date_received}}</td>
-                      <td>{{details.edoc_upload_link}}</td>
-                      <td>{{details.edoc_date_created | date}}</td>
+                  <tbody class="table-hover table-striped">
+                    <ng-container *ngIf="documents.length > 0">
+                    <tr *ngFor="let details of documents, let i = index;">
+                      <td>{{details.filename}}</td>
                       <td>
-                        <mat-button-toggle-group #group="matButtonToggleGroup">
-                          <mat-button-toggle color="primary" value="left" aria-label="Assign document"
-                            [routerLink]="['../view-edocument']" [queryParams]="{id: details.edoc_doc_ref}">
-                            <mat-icon>preview</mat-icon>
-                          </mat-button-toggle>
-                          <mat-button-toggle color="primary" value="center" aria-label="Edit Document" (click)="openModal(entryModal, 'edit', details)">
-                            <mat-icon>edit</mat-icon>
-                          </mat-button-toggle>
-                          <mat-button-toggle color="primary" value="right" aria-label="Delete Document" (click)="entryAction(entryActionModal, 'delete', details)">
-                            <mat-icon>delete</mat-icon>
-                          </mat-button-toggle>
-                        </mat-button-toggle-group>
+                        <a mat-icon-button href="{{ details.documentUrl }}" download="{{ details.filename}}">
+                          <mat-icon>download</mat-icon>
+                        </a>
                       </td>
+                      <td>{{details.uploadType}}</td>
+                      <td>{{details.uploadBy}}</td>
+                      <td>{{details.dateUploaded | date}}</td>
                     </tr>
-                  </tbody> -->
+                    </ng-container>
+                    <tr *ngIf="documents.length === 0">
+                      <td colspan="5">No Document Available.</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -94,16 +97,18 @@
                 <label for="document_type">Document Type</label>
                 <select id="document_type" class="form-control" formControlName="upload_type">
                     <option [value]="null">Select Type</option>
-                    <option *ngFor="let type of uploadTypes" [value]="type.name">{{ type.code }}</option>
+                    <ng-container *ngFor="let type of uploadTypes">
+                      <option [value]="type.code">{{ type.name }}</option>
+                    </ng-container>
                 </select>
 
-                <!-- <ng-container *ngIf="(formData.unit.dirty || formData.unit.touched) && formData.unit.invalid">
-                  <div *ngIf="formData.unit.errors.required" class="invalid-feedback">Please specify Unit</div>
-                </ng-container> -->
+                <ng-container *ngIf="(uploadFormData.upload_type.dirty || uploadFormData.upload_type.touched) && uploadFormData.upload_type.invalid">
+                  <div *ngIf="uploadFormData.upload_type.errors.required" class="invalid-feedback">Please Select Upload Type</div>
+                </ng-container>
               </fieldset>
 
               <fieldset class="form-label-group form-group position-relative">
-                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="file">
+                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)">
               </fieldset>
             </div>
 

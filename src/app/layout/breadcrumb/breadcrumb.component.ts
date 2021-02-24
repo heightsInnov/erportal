@@ -35,9 +35,12 @@ export class BreadcrumbComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe(
       event => {
+             console.log('event: ', event);
              if (event instanceof NavigationEnd) {
               const i = event.url.lastIndexOf('/');
+              console.log('i: ', i);
               this.currentRoute = event.url.substring(i).slice(1);
+              console.log('1st currentRoute: ', this.currentRoute);
               this.currentRoute = this.currentRoute.includes('?')
                                     ? this.currentRoute.slice(0, this.currentRoute.indexOf('?')) : this.currentRoute;
              }
