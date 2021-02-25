@@ -127,21 +127,24 @@ export class ViewEmployeeComponent implements OnInit {
                                                             });
     console.log(filesForUpload);
     const payload = {
-      uploadRequest: filesForUpload
+      uploadRequest: filesForUpload[0],
+      emp_id: `${this.employeeDetails?.id}`
     };
     this.crudService.uploadData(url, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00') {
           this.close();
-          this.toastr.info('File Upload Successful');
+          this.toastr.success('File Upload Successful');
+          this.getUploadedDocuments();
+        } else if (data.responseCode === '99') {
+          this.toastr.error('File Upload Unsuccessful');
         }
-        this.getUploadedDocuments();
       },
       error => {
         console.log(error);
         this.spinner.hide();
-        this.toastr.warning('File Upload Unsuccessful', 'An Error Occured')
+        this.toastr.warning('File Upload Unsuccessful', 'An Error Occured');
       }
     );
     // if (this.imageBaseData==null){
@@ -165,7 +168,7 @@ export class ViewEmployeeComponent implements OnInit {
       error => {
         console.log(error);
         this.spinner.hide();
-        this.toastr.warning('Unable to Fetch Uploaded Documents', 'An Error Occured')
+        this.toastr.warning('Unable to Fetch Uploaded Documents', 'An Error Occured');
       }
     );
   }
@@ -176,11 +179,12 @@ export class ViewEmployeeComponent implements OnInit {
       data => {
         console.log(data);
         if (data.responseCode === '00') {
-          this.uploadTypes = data.responseObject;
+          this.uploadTypes = data.responseObject.user_types;
         }
       },
       error => {
         console.log(error);
+        this.toastr.warning('Upload Types Unavailable');
       }
     );
   }

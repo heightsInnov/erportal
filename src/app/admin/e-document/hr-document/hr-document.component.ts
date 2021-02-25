@@ -65,10 +65,8 @@ export class HrDocumentComponent implements OnInit {
   changeTableDisplay(tableData) {
     if (tableData === 'FORMS') {
       this.documents = this.hrDocuments.FORMS[0]['FORMS'];
-      console.log(this.documents);
     } else if (tableData === 'POLICY_DOCUMENT') {
       this.documents = this.hrDocuments.POLICY_DOCUMENT[0]['POLICY_DOCUMENT'];
-      console.log(this.documents);
     }
   }
 
@@ -121,12 +119,15 @@ export class HrDocumentComponent implements OnInit {
       uploadRequest: filesForUpload[0],
       emp_id: `${this.employeeDetails?.emp_id}`
     };
+    console.log(payload);
     this.crudService.uploadData(url, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00') {
           this.close();
-          this.toastr.info('HR Document Upload Successful');
+          this.toastr.success('HR Document Upload Successful');
+        } else if ( data.responseCode === '99' ) {
+          this.toastr.error('HR Document Upload Unsuccessful');
         }
       },
       error => {

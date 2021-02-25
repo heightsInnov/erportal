@@ -5,20 +5,13 @@
         <div class="card">
           <div class="card-header">
             <div class="mr-auto">
-              <div class="form-body">
-                <div class="row">
-                  <div class="col-lg-3 col-md-6 col-12">
-                    <fieldset class="form-group">
-                      <label class="bold" for="doc_type">Document Type:</label>
-                      <select [ngClass]="{'form-control' : true}" id="doc_type" (change)="changeTableDisplay($event.target.value)">
-                        <!-- <option [value]="null">Select Document Type</option> -->
-                          <option value="POLICY_DOCUMENT"> Policy Documents</option>
-                          <option value="FORMS"> Forms </option>
-                      </select>
-                    </fieldset>
-                  </div>
-                </div>
-              </div>
+              <fieldset class="form-group">
+                <label class="h6" for="doc_type">Filter Document by Type:</label>
+                <select class="form-control" id="doc_type" (change)="changeTableDisplay($event.target.value)">
+                  <option value="POLICY_DOCUMENT"> Policy Documents </option>
+                  <option value="FORMS"> Forms </option>
+                </select>
+              </fieldset>
             </div>
             <div class="card-title ml-auto">
               <button type="button" class="btn btn-outline-primary waves-effect waves-light" (click)="openModal(uploadDocumentModal, 'upload document')">
@@ -52,20 +45,20 @@
                     </tr>
                   </thead>
                   <tbody class="table-hover table-striped">
-                    <ng-container *ngIf="documents.length > 0">
-                    <tr *ngFor="let details of documents, let i = index;">
-                      <td>{{details.filename}}</td>
-                      <td>
-                        <a mat-icon-button href="{{ details.documentUrl }}" download="{{ details.filename}}">
-                          <mat-icon>download</mat-icon>
-                        </a>
-                      </td>
-                      <td>{{details.uploadType}}</td>
-                      <td>{{details.uploadBy}}</td>
-                      <td>{{details.dateUploaded | date}}</td>
-                    </tr>
+                    <ng-container *ngIf="documents !== undefined && documents.length > 0">
+                      <tr *ngFor="let details of documents, let i = index;">
+                        <td>{{details.filename}}</td>
+                        <td>
+                          <a mat-icon-button [href]="details.documentUrl" [download]="details.filename">
+                            <mat-icon>download</mat-icon>
+                          </a>
+                        </td>
+                        <td>{{details.uploadType}}</td>
+                        <td>{{details.uploadBy}}</td>
+                        <td>{{details.dateUploaded | date}}</td>
+                      </tr>
                     </ng-container>
-                    <tr *ngIf="documents.length === 0">
+                    <tr *ngIf="documents === undefined || documents.length <= 0">
                       <td colspan="5">No Document Available.</td>
                     </tr>
                   </tbody>
@@ -115,7 +108,7 @@
             <div class="modal-footer">
               <fieldset class="form-group position-relative has-icon-left mb-0">
                 <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                  >
+                  [disabled]="!uploadForm.invalid">
                   <i class="feather icon-upload d-block d-lg-none"></i>
                     <span class="d-none d-lg-block">Upload</span></button>
               </fieldset>

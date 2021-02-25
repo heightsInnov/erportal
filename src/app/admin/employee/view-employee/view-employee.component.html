@@ -33,102 +33,102 @@
             <div class="col-4">
               <h6 class="bold">Name</h6>
               <p>
-                {{ (employeeProfile.employeeDetails?.emp_firstname && employeeProfile.employeeDetails?.emp_middlename && employeeProfile.employeeDetails?.emp_lastname) ?
-                   employeeProfile.employeeDetails.emp_lastname + ', ' + employeeProfile.employeeDetails.emp_firstname + ' ' + employeeProfile.employeeDetails.emp_middlename : '-'}}
+                {{ (employeeProfile?.employeeDetails?.emp_firstname && employeeProfile?.employeeDetails?.emp_middlename && employeeProfile?.employeeDetails?.emp_lastname) ?
+                   employeeProfile?.employeeDetails.emp_lastname + ', ' + employeeProfile?.employeeDetails.emp_firstname + ' ' + employeeProfile?.employeeDetails.emp_middlename : '-'}}
               </p>
             </div>
             <div class="col-4">
               <h6 class="bold">Marital Status</h6>
-              <p>{{ employeeProfile.employeeDetails?.emp_marital_status !== null ? employeeProfile.employeeDetails.emp_marital_status : '-'}}</p>
+              <p>{{ employeeProfile?.employeeDetails?.emp_marital_status !== null ? employeeProfile?.employeeDetails.emp_marital_status : '-'}}</p>
             </div>
             <div class="col-4">
               <h6 class="bold">Gender</h6>
-              <p *ngIf="employeeProfile.employeeDetails?.emp_gender !== null">
-                {{ employeeProfile.employeeDetails.emp_gender === 'M' ? 'Male' : 'Female'}}
+              <p *ngIf="employeeProfile?.employeeDetails?.emp_gender !== null">
+                {{ employeeProfile?.employeeDetails.emp_gender === 'M' ? 'Male' : 'Female'}}
               </p>
             </div>
             <div class="col-4">
               <h6 class="bold">Date of Birth</h6>
-              <p>{{ employeeProfile.employeeDetails?.emp_dob !== null ? (employeeProfile.employeeDetails.emp_dob | date) : '-'}}</p>
+              <p>{{ employeeProfile?.employeeDetails?.emp_dob !== null ? (employeeProfile?.employeeDetails.emp_dob | date) : '-'}}</p>
             </div>
             <div class="col-4">
               <h6 class="bold">Age</h6>
-              <p>{{ employeeProfile.employeeDetails?.emp_age !== null ? employeeProfile.employeeDetails.emp_age : '-'}}</p>
+              <p>{{ employeeProfile?.employeeDetails?.emp_age !== null ? employeeProfile?.employeeDetails.emp_age : '-'}}</p>
             </div>
             <div class="col-4">
               <h6 class="bold">Place of Birth</h6>
-              <p>{{ employeeProfile.employeeDetails?.emp_place_of_birth !== null ? employeeProfile.employeeDetails.emp_place_of_birth : '-'}}</p>
+              <p>{{ employeeProfile?.employeeDetails?.emp_place_of_birth !== null ? employeeProfile?.employeeDetails.emp_place_of_birth : '-'}}</p>
             </div>
           </div>
         </div>
         <div class="col-3">
-          <div class="card border-primary text-center bg-transparent">
+          <!-- <div class="card w-75 border-primary text-center bg-transparent">
               <div class="card-content">
-                <div class="card-body">
-                  <ng-container *ngIf="employeeProfile.employeeDetails?.passport !== null">
-                    <img [src]="employeeProfile.employeeDetails.passport" alt="Profile Picture" width="100" class="mb-1" lazyload="true">
+                <div class="card-body"> -->
+                  <ng-container *ngIf="employeeProfile?.employeeDetails?.passport !== null">
+                    <img [src]="employeeProfile?.employeeDetails.passport" alt="Profile Picture" width="150" class="border-primary mb-1" lazyload="true">
                   </ng-container>
-                  <ng-container *ngIf="employeeProfile.employeeDetails?.passport === null">
-                    <h4>No Passport Uploaded</h4>
+                  <ng-container *ngIf="employeeProfile?.employeeDetails?.passport === null">
+                    <img src="../../../../assets/images/profile-avatar.png" alt="Profile Avatar" width="150" class="border-primary mb-1" lazyload="true">
                   </ng-container>
-                </div>
+                <!-- </div>
               </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div class="row mb-1">
         <div class="col-3">
           <h6 class="bold">Nationality</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_nationality !== null ? employeeProfile.employeeDetails.emp_nationality : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_nationality !== null ? employeeProfile?.employeeDetails.emp_nationality : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">State</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_state !== null ? employeeProfile.employeeDetails.emp_state : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_state !== null ? employeeProfile?.employeeDetails.emp_state : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">L.G.A</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_local_govt_ward !== null ? employeeProfile.employeeDetails.emp_local_govt_ward : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_local_govt_ward !== null ? employeeProfile?.employeeDetails.emp_local_govt_ward : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Address</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_address !== null ? employeeProfile.employeeDetails.emp_address : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_address !== null ? employeeProfile?.employeeDetails.emp_address : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Email</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_email !== null ? employeeProfile.employeeDetails.emp_email : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_email !== null ? employeeProfile?.employeeDetails.emp_email : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Religion</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_religion !== null ? employeeProfile.employeeDetails.emp_religion : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_religion !== null ? employeeProfile?.employeeDetails.emp_religion : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Primary Number</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_phone !== null ? employeeProfile.employeeDetails.emp_phone : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_phone !== null ? employeeProfile?.employeeDetails.emp_phone : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Mobile Number</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_gsm_no !== null ? employeeProfile.employeeDetails.emp_gsm_no : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_gsm_no !== null ? employeeProfile?.employeeDetails.emp_gsm_no : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Username</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_username !== null ? employeeProfile.employeeDetails.emp_username : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_username !== null ? employeeProfile?.employeeDetails.emp_username : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Role</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_role !== null ? employeeProfile.employeeDetails.emp_role : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_role !== null ? employeeProfile?.employeeDetails.emp_role : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Hobbies</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_hobbies !== null ? employeeProfile.employeeDetails.emp_hobbies : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_hobbies !== null ? employeeProfile?.employeeDetails.emp_hobbies : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Date Created</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_creation_date !== null ? employeeProfile.employeeDetails.emp_creation_date : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_creation_date !== null ? employeeProfile?.employeeDetails.emp_creation_date : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">No of Leave Days</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_leave_days !== null ? employeeProfile.employeeDetails.emp_leave_days : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_leave_days !== null ? employeeProfile?.employeeDetails.emp_leave_days : '-'}}</p>
         </div>
       </div>
 
@@ -138,47 +138,47 @@
         </div>
         <div class="col-3">
           <h6 class="bold">Employment Date</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_employment_date !== null ? (employeeProfile.employeeDetails.emp_employment_date | date) : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_employment_date !== null ? (employeeProfile?.employeeDetails.emp_employment_date | date) : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Confirmation Date</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_confirmation_date !== null ? (employeeProfile.employeeDetails.emp_confirmation_date | date) : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_confirmation_date !== null ? (employeeProfile?.employeeDetails.emp_confirmation_date | date) : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Date of First Employment</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_date_of_first_employment !== null ? (employeeProfile.employeeDetails.emp_date_of_first_employment | date) : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_date_of_first_employment !== null ? (employeeProfile?.employeeDetails.emp_date_of_first_employment | date) : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Current Department</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_current_department !== null ? employeeProfile.employeeDetails.emp_current_department : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_current_department !== null ? employeeProfile?.employeeDetails.emp_current_department : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Commission File No.</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_commission_file_no !== null ? employeeProfile.employeeDetails.emp_commission_file_no : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_commission_file_no !== null ? employeeProfile?.employeeDetails.emp_commission_file_no : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Establishment File No.</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_establishment_file_no !== null ? employeeProfile.employeeDetails.emp_establishment_file_no : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_establishment_file_no !== null ? employeeProfile?.employeeDetails.emp_establishment_file_no : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">PSO File No.</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_pso_file_no !== null ? employeeProfile.employeeDetails.emp_pso_file_no : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_pso_file_no !== null ? employeeProfile?.employeeDetails.emp_pso_file_no : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Present Posting Deployment</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_present_posting_deployment !== null ? employeeProfile.employeeDetails.emp_present_posting_deployment : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_present_posting_deployment !== null ? employeeProfile?.employeeDetails.emp_present_posting_deployment : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Present Posting Date</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_present_posting_date !== null ? (employeeProfile.employeeDetails.emp_present_posting_date | date) : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_present_posting_date !== null ? (employeeProfile?.employeeDetails.emp_present_posting_date | date) : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Retirement Date</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_retirement_date !== null ? (employeeProfile.employeeDetails.emp_retirement_date | date) : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_retirement_date !== null ? (employeeProfile?.employeeDetails.emp_retirement_date | date) : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">Professional Affiliations</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_professional_affiliations !== null ? employeeProfile.employeeDetails.emp_professional_affiliations : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_professional_affiliations !== null ? employeeProfile?.employeeDetails.emp_professional_affiliations : '-'}}</p>
         </div>
       </div>
 
@@ -188,15 +188,15 @@
         </div>
         <div class="col-3">
           <h6 class="bold">Employee ID</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_id !== null ? employeeProfile.employeeDetails.emp_id : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_id !== null ? employeeProfile?.employeeDetails.emp_id : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">ID Type</h6>
-          <p>{{ employeeProfile.employeeDetails?.emp_id_type !== null ? employeeProfile.employeeDetails.emp_id_type : '-'}}</p>
+          <p>{{ employeeProfile?.employeeDetails?.emp_id_type !== null ? employeeProfile?.employeeDetails.emp_id_type : '-'}}</p>
         </div>
         <div class="col-3">
           <h6 class="bold">ID Number</h6>
-          <p>{{ employeeProfile.emp_id_no !== null ? employeeProfile.employeeDetails.emp_id_no : '-'}}</p>
+          <p>{{ employeeProfile?.emp_id_no !== null ? employeeProfile?.employeeDetails.emp_id_no : '-'}}</p>
         </div>
       </div>
 
@@ -211,19 +211,19 @@
               <div class="row">
                 <div class="col-6">
                   <h6 class="bold">Name</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_name !== null ? employeeProfile.nextOfKin.nok_name : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_name !== null ? employeeProfile?.nextOfKin.nok_name : '-'}}</p>
                 </div>
                 <div class="col-6">
                   <h6 class="bold">Relationship</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_relationship !== null ? employeeProfile.nextOfKin.nok_relationship : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_relationship !== null ? employeeProfile?.nextOfKin.nok_relationship : '-'}}</p>
                 </div>
                 <div class="col-6">
                   <h6 class="bold">Phone</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_phone !== null ? employeeProfile.nextOfKin.nok_phone : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_phone !== null ? employeeProfile?.nextOfKin.nok_phone : '-'}}</p>
                 </div>
                 <div class="col-6">
                   <h6 class="bold">Address</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_address !== null ? employeeProfile.nextOfKin.nok_address : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_address !== null ? employeeProfile?.nextOfKin.nok_address : '-'}}</p>
                 </div>
               </div>
             </mat-expansion-panel>
@@ -240,44 +240,44 @@
               <div class="row">
                 <div class="col-12">
                   <h6 class="bold">Spouse Name</h6>
-                  <p>{{ employeeProfile.family?.spouse_name !== null ? employeeProfile.family.spouse_name : '-'}}</p>
+                  <p>{{ employeeProfile?.family?.spouse_name !== null ? employeeProfile?.family.spouse_name : '-'}}</p>
                 </div>
                 <div class="col-6">
                   <h6 class="bold">Children</h6>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child1_name !== null">
-                      {{ employeeProfile.family?.child1_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child1_name !== null">
+                      {{ employeeProfile?.family?.child1_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child2_name !== null">
-                      {{ employeeProfile.family?.child2_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child2_name !== null">
+                      {{ employeeProfile?.family?.child2_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child3_name !== null">
-                      {{ employeeProfile.family?.child3_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child3_name !== null">
+                      {{ employeeProfile?.family?.child3_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child4_name !== null">
-                      {{ employeeProfile.family?.child4_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child4_name !== null">
+                      {{ employeeProfile?.family?.child4_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child5_name !== null">
-                      {{ employeeProfile.family?.child5_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child5_name !== null">
+                      {{ employeeProfile?.family?.child5_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child6_name !== null">
-                      {{ employeeProfile.family?.child6_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child6_name !== null">
+                      {{ employeeProfile?.family?.child6_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child7_name !== null">
-                      {{ employeeProfile.family?.child7_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child7_name !== null">
+                      {{ employeeProfile?.family?.child7_name }}
                     </li>
-                    <li class="list-group-item" *ngIf="employeeProfile.family?.child8_name !== null">
-                      {{ employeeProfile.family?.child8_name }}
+                    <li class="list-group-item" *ngIf="employeeProfile?.family?.child8_name !== null">
+                      {{ employeeProfile?.family?.child8_name }}
                     </li>
                   </ul>
                 </div>
                 <!-- <div class="col-6">
                   <h6 class="bold">Phone</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_phone !== null ? employeeProfile.nextOfKin.nok_phone : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_phone !== null ? employeeProfile?.nextOfKin.nok_phone : '-'}}</p>
                 </div>
                 <div class="col-6">
                   <h6 class="bold">Address</h6>
-                  <p>{{ employeeProfile.nextOfKin?.nok_address !== null ? employeeProfile.nextOfKin.nok_address : '-'}}</p>
+                  <p>{{ employeeProfile?.nextOfKin?.nok_address !== null ? employeeProfile?.nextOfKin.nok_address : '-'}}</p>
                 </div> -->
               </div>
             </mat-expansion-panel>
@@ -315,8 +315,8 @@
                               <td>{{ experience.exp_organization }}</td>
                               <td>{{ experience.designation }}</td>
                               <td>{{ experience.exp_responsibility }}</td>
-                              <td>{{ experience.exp_start_date }}</td>
-                              <th>{{ experience.exp_end_date }}</th>
+                              <td>{{ experience.exp_start_date | date}}</td>
+                              <th>{{ experience.exp_end_date | date }}</th>
                             </tr>
                           </tbody>
                         </table>
@@ -361,8 +361,8 @@
                               <td>{{education.edu_degree}}</td>
                               <td>{{education.edu_category !== null ? education.edu_category : '-'}}</td>
                               <td>{{education.edu_cgpa !== null ? education.edu_cgpa : '-'}}</td>
-                              <td>{{education.edu_start_date}}</td>
-                              <th>{{education.edu_end_date}}</th>
+                              <td>{{education.edu_start_date | date}}</td>
+                              <th>{{education.edu_end_date | date}}</th>
                             </tr>
                           </tbody>
                         </table>
@@ -445,13 +445,15 @@
               <fieldset class="form-group">
                 <label for="document_type">Document Type</label>
                 <select id="document_type" class="form-control" formControlName="upload_type">
-                    <option [value]="null">Select Type</option>
-                    <option *ngFor="let type of uploadTypes" [value]="type.name">{{ type.code }}</option>
+                  <option [value]="null">Select Type</option>
+                  <ng-container *ngFor="let type of uploadTypes">
+                    <option [value]="type.code">{{ type.name }}</option>
+                  </ng-container>
                 </select>
 
-                <!-- <ng-container *ngIf="(formData.unit.dirty || formData.unit.touched) && formData.unit.invalid">
-                  <div *ngIf="formData.unit.errors.required" class="invalid-feedback">Please specify Unit</div>
-                </ng-container> -->
+                <ng-container *ngIf="(uploadFormData.upload_type.dirty || uploadFormData.upload_type.touched) && uploadFormData.upload_type.invalid">
+                  <div *ngIf="uploadFormData.upload_type.errors.required" class="invalid-feedback">Please specify Unit</div>
+                </ng-container>
               </fieldset>
 
               <fieldset class="form-label-group form-group position-relative">
@@ -466,7 +468,7 @@
             <div class="modal-footer">
               <fieldset class="form-group position-relative has-icon-left mb-0">
                 <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                  >
+                  [disabled]="!uploadForm.invalid">
                   <i class="feather icon-upload d-block d-lg-none"></i>
                     <span class="d-none d-lg-block">Upload</span></button>
               </fieldset>
