@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CalendarOptions, EventApi} from '@fullcalendar/angular';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
+import { formatDate } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-header',
@@ -24,32 +25,7 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  currentEvents: any[] = [
-    {
-    title: 'Ajinadu\'s Birthday',
-    start: new Date(),
-    end: new Date(),
-    date: new Date().toISOString().replace(/T.*$/, ''),
-    allDay: new Date().toISOString().replace(/T.*$/, ''),
-    id: 1
-    },
-    {
-    title: 'Precious\'s Birthday',
-    date: new Date(2020, 1, 14).toISOString().replace(/T.*$/, ''),
-    start: new Date(2020, 1, 14).toISOString().replace(/T.*$/, ''),
-    end: new Date(2020, 1, 14).toISOString().replace(/T.*$/, ''),
-    allDay: new Date(2020, 1, 14).toISOString().replace(/T.*$/, ''),
-    id: 2
-    },
-    {
-    title: 'Debby\'s Birthday',
-    date: new Date(2020, 1, 15).toISOString().replace(/T.*$/, ''),
-    start: new Date(2020, 1, 15).toISOString().replace(/T.*$/, ''),
-    end: new Date(2020, 1, 15).toISOString().replace(/T.*$/, ''),
-    allDay: new Date(2020, 1, 15).toISOString().replace(/T.*$/, ''),
-    id: 3
-    }
-  ];
+  currentEvents: any[] = [];
 
   calendarVisible = false;
   calendarOptions: CalendarOptions = {
@@ -99,12 +75,12 @@ export class HeaderComponent implements OnInit {
         if (data.responseCode === '00'){
           this.allEmployees = data.responseObject;
           this.currentEvents = this.allEmployees.map((emp, i) => {
-            const date = emp.emp_dob.slice(0, emp.emp_dob.indexOf(' ')).split('-');
+            // const date = emp.emp_dob.slice(0, emp.emp_dob.indexOf(' ')).split('-');
             return {
                     title: `${emp.emp_firstname} ${emp.emp_lastname}'s Birthday`,
-                    start: new Date(2020, date[1], date[2]).toISOString().replace(/T.*$/, ''),
-                    end: new Date(2020, date[1], date[2]).toISOString().replace(/T.*$/, ''),
-                    allDay: new Date(2020, date[1], date[2]).toISOString().replace(/T.*$/, ''),
+                    start: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
+                    end: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
+                    allDay: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
                     id: i++
                    };
           });
@@ -187,7 +163,6 @@ export class HeaderComponent implements OnInit {
     //     }
     //   });
   // }
-
 
   toggle() {
     // this.sidebarService.toggle(true);

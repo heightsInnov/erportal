@@ -12,13 +12,13 @@ import { MaterialModule } from '../core/shared/material.module';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
-// import timeGridPlugin from '@fullcalendar/timegrid';
-// import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
-//   timeGridPlugin,
-//   interactionPlugin
+  timeGridPlugin,
+  interactionPlugin
 ]);
 
 @NgModule({
