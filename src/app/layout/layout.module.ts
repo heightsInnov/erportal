@@ -4,7 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { RouterModule } from '@angular/router';
-import { BreadcrumbModule as BM} from 'xng-breadcrumb';
+// import { BreadcrumbModule as BM} from 'xng-breadcrumb';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import {BreadcrumbModule} from 'angular-crumbs';
 import { RemoveHyphenPipe } from '../core/pipes/remove-hyphen.pipe';
@@ -28,8 +28,7 @@ FullCalendarModule.registerPlugins([
     RouterModule,
     MaterialModule,
     FullCalendarModule,
-    BreadcrumbModule,
-    BM
+    BreadcrumbModule
   ],
   exports: [HeaderComponent, FooterComponent, SideNavComponent, BreadcrumbComponent, RemoveHyphenPipe],
 })

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbService } from 'xng-breadcrumb';
-import { Router, NavigationEnd, ActivatedRoute  } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
@@ -15,10 +12,8 @@ export class BreadcrumbComponent implements OnInit {
   currentRoute: string;
 
   constructor(
-    // private breadcrumbService: BreadcrumbService,
     private router: Router,
     private location: Location
-    // private route: ActivatedRoute
   ) {
     // console.log(this.router.url);
     // const url: Observable<string> = this.route.url.pipe(map(segments => {console.log(segments); return segments.join(' ')}));
