@@ -31,10 +31,10 @@ export class CrudService {
 
   getData(endpoint): Observable<any> {
     const url = this.baseUrl + endpoint;
-    // this.spinner.show();
+    this.spinner.show();
     return this.http.get<any>(url).pipe(
       map(response => {
-        // this.spinner.hide();
+        this.spinner.hide();
         return response;
       }),
       catchError(this.handleError)

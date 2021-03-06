@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { SessionGuard } from './core/guards/session.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       {
         path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        canActivate: [SessionGuard]
       },
       {
         path: 'dashboard',

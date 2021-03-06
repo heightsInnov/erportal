@@ -4,15 +4,18 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SessionGuard } from '../core/guards/session.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [SessionGuard]
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
+    canActivate: [SessionGuard]
   },
   {
     path: '',
