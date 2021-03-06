@@ -18,14 +18,14 @@
       </div>
     </div>
   </div>
-  <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+  <div class="content-header-right ml-auto">
     <div class="breadcrum-right">
-      <button type="button" class="btn btn-outline-danger bg-gradient-danger btn-round mb-1 waves-effect waves-light" (click)="goBack()">
-        <i class="fa fa-arrow-circle-o-left"></i> Back
+      <button mat-mini-fab color="accent" class="btn mr-1" aria-label="Go Back" (click)="goBack()">
+        <mat-icon>navigate_before</mat-icon>
       </button>
-      <button type="button" class="btn btn-outline-primary bg-gradient-primary btn-round mb-1 waves-effect waves-light" (click)="goForward()">
-        Forward <i class="fa fa-arrow-circle-o-right"></i>
-      </button>
+      <button mat-mini-fab color="primary" class="btn mr-1" aria-label="Go Forward" (click)="goForward()">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
     </div>
   </div>
 </div>
