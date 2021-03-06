@@ -309,7 +309,7 @@
                               <th>End Date</th>
                             </tr>
                           </thead>
-                          <tbody class="table-hover table-striped" *ngFor="let experience of employeeProfile?.workExperience;">
+                          <tbody class="table-hover table-striped table-hover-animation" *ngFor="let experience of employeeProfile?.workExperience;">
                             <tr>
                               <th>{{ experience.exp_id }}</th>
                               <td>{{ experience.exp_organization }}</td>
@@ -354,7 +354,7 @@
                               <th>End Date</th>
                             </tr>
                           </thead>
-                          <tbody class="table-hover table-striped" *ngFor="let education of employeeProfile?.education;">
+                          <tbody class="table-hover table-striped table-hover-animation" *ngFor="let education of employeeProfile?.education;">
                             <tr>
                               <th>{{education.edu_id}}</th>
                               <td>{{education.edu_institution}}</td>
@@ -408,7 +408,7 @@
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody class="table-hover table-striped" *ngFor="let document of uploadedDocuments; let i = index;">
+                  <tbody class="table-hover table-striped table-hover-animation" *ngFor="let document of uploadedDocuments; let i = index;">
                     <tr>
                       <th>{{ i + 1}}</th>
                       <td>{{document.uploadType}}</td>
