@@ -273,7 +273,7 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                    <fieldset class="form-label-group form-group position-relative">
+                    <fieldset class="form-group position-relative">
                       <label for="edoc_received_by">Received By</label>
                       <ng-select [items]="employees$ | async" [virtualScroll]="true" placeholder="Received By" labelForId="receivedBy"
                         dropdownPosition="auto" bindLabel="name" bindValue="id" formControlName="edoc_received_by">

@@ -47,8 +47,10 @@
                                     <td>{{details.emp_present_current_Department}}</td>
                                     <td>{{details.emp_employment_date | date}}</td>
                                     <td>
-                                      <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
-                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
+                                      <button mat-icon-button aria-label="View Employee" color="primary" class="btn" matTooltip="View Employee"
+                                        matTooltipPosition="below" [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">
+                                        <mat-icon>pageview</mat-icon>
+                                      </button>
                                     </td>
                                   </tr>
                               </tbody>
