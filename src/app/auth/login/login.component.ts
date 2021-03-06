@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   getAuthorizationToken() {
-    console.log('im in geth auth');
     this.auth.checkLogin.subscribe(
       login => {
         this.loggedIn = login;
@@ -57,7 +56,6 @@ export class LoginComponent implements OnInit {
           }
         } else if (this.loggedIn === 'false') {
           localStorage.clear();
-          console.log('not logged in.. gettin token');
           this.auth.getAuthorizationToken().subscribe(
             data => {
               console.log(data);

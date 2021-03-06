@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { breadcrumbServiceFactory } from 'angular-crumbs/breadcrumb.module';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -37,6 +38,11 @@ export class BreadcrumbComponent implements OnInit {
                                     ? this.currentRoute.slice(0, this.currentRoute.indexOf('?')) : this.currentRoute;
              }
            });
+  }
+
+  currentRouteString(crumbs): string {
+    const currentRouteObj = crumbs.breadcrumbs[crumbs.breadcrumbs.length - 1];
+    return currentRouteObj.displayName;
   }
 
   goBack(): void {
