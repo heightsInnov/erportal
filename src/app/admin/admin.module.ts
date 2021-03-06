@@ -16,7 +16,7 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: '',
+        path: 'dashboard',
         component: DashboardComponent,
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Dashboard' },
@@ -56,6 +56,11 @@ const routes: Routes = [
         loadChildren: () => import('./e-document/e-document.module').then(m => m.EDocumentModule),
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Documents' },
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       }
     ]
   },

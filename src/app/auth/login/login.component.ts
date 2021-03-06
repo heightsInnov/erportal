@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           const token = localStorage.getItem('jwt');
           const userDetails: IUserProfile = JSON.parse(localStorage.getItem('user'));
           if (token !== null && this.instanceOfUserDetails(userDetails)) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/admin']);
           } else {
             this.auth.changeLoginState('false');
             localStorage.clear();
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(data.responseObject));
           this.auth.changeLoginState('true');
           this.toastr.success(`Welcome ${data.responseObject.emp_firstname} ${data.responseObject.emp_lastname}`, data.responseMessage);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/admin']);
         } else if (data.responseCode === '99') {
           this.loginError = {
                               status: true,

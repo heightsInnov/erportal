@@ -20,7 +20,7 @@ export class SessionGuard implements CanActivate {
     const token = localStorage.getItem('jwt');
     const userProfile: IUserProfile = JSON.parse(localStorage.getItem('user'));
     if (token !== null && this.instanceOfUserProfile(userProfile)) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/admin']);
       return false;
     }
     return true;
