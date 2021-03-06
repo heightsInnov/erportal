@@ -7,7 +7,7 @@
           <div class="card">
               <div class="card-header ml-auto">
                 <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                  [routerLink]="['/dashboard/employee/create-employee']">
+                  [routerLink]="['/admin/employee/create-employee']">
                   <i class="feather icon-plus-circle"></i> Create Employee
                 </button>
               </div>
@@ -48,7 +48,7 @@
                                     <td>{{details.emp_employment_date | date}}</td>
                                     <td>
                                       <button type="button" class="btn btn-outline-primary round mr-1 mb-1 waves-effect waves-light"
-                                        [routerLink]="['/dashboard/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
+                                        [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">View</button>
                                     </td>
                                   </tr>
                               </tbody>

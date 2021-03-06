@@ -53,6 +53,9 @@ export class DashboardComponent implements OnInit{
   completedStatus: string;
   modal = {name: '', action: ''};
   dashboardData;
+  activityCreated = false;
+  activityUpdated: boolean;
+  activityStatusChanged: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -125,6 +128,7 @@ export class DashboardComponent implements OnInit{
   }
 
   createActivity(url: string, payload: ICreateActivity) {
+    this.activityCreated = true;
     const path = `${url}/${this.userDetails.emp_username}`;
     this.crudService.createData(path, payload).subscribe(
       data => {
@@ -132,29 +136,42 @@ export class DashboardComponent implements OnInit{
         if (data.responseCode === '00'){
           this.toastr.success('Activity Created', 'Successful');
           this.getActivities(this.getActivityUrl);
+          this.activityCreated = false;
           this.clearForm();
           this.close();
+        } else if (data.responseCode === '00') {
+          this.activityCreated = false;
+          this.toastr.error('Activity not Created', 'Unsuccessful');
         }
       },
       error => {
         console.log(error);
+        this.activityCreated = false;
+        this.toastr.error('Activity not Created', 'Unsuccessful');
       }
     );
   }
 
   updateActivity(url: string, payload: IUpdateActivity) {
+    this.activityUpdated = true;
     this.crudService.updateData(url, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00'){
           this.toastr.success('Activity Updated', 'Successful');
           this.getActivities(this.getActivityUrl);
+          this.activityUpdated = false;
           this.clearForm();
           this.close();
+        } else if (data.responseCode === '99') {
+          this.activityUpdated = false;
+          this.toastr.error(`Activity Update failed`, 'Unsuccessful');
         }
       },
       error => {
         console.log(error);
+        this.activityUpdated = false;
+        this.toastr.error(`Activity Update failed`, 'Unsuccessful');
       }
     );
   }
@@ -241,15 +258,17 @@ export class DashboardComponent implements OnInit{
   }
 
   getOptionMethod(action, activity){
+    console.log(activity);
     if (action.method === 'in_progress' || action.method === 'completed') {
       // if (action === 'in_progress' || action === 'completed') {
+      this.activityStatusChanged = false;
       const modal: TemplateRef<any> = this.activityStatusModal;
       this.openModal(modal,
         {
           action: action.title,
           question: `do you want to move this activity to ${action.title}?`,
           statusCode: action.title === 'completed' ? 'C' : 'O',
-          id: activity.activityId
+          id: activity.activity_id
         }
         // {
         //   action,
@@ -268,8 +287,14 @@ export class DashboardComponent implements OnInit{
   }
 
   openModal(dialog: TemplateRef<any>, options, updateObj?) {
+    if (options === 'create') {
+      this.activityCreated = false;
+    } else if (options === 'update') {
+      this.activityUpdated = false;
+    }
+
     if (updateObj) {
-      this.activityId = updateObj.activityId;
+      this.activityId = updateObj.activity_id;
       this.form.patchValue({
         unit: updateObj.unit.unit_code,
         activity: updateObj.activity,
@@ -288,12 +313,14 @@ export class DashboardComponent implements OnInit{
 
 
   changeActivityStatus(activityId, status) {
+    this.activityStatusChanged = true;
     const payload = {activityId, status};
     console.log(payload);
     this.crudService.updateData(this.updateActivityStatusURL, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00'){
+          this.activityStatusChanged = false;
           this.getActivities(this.getActivityUrl);
           if (status === 'O') {
             this.toastr.info('Moved to \'In Progress\'', '');
@@ -301,10 +328,16 @@ export class DashboardComponent implements OnInit{
             this.toastr.info('Moved to \'Completed\'', 'Successful');
           }
           this.close();
+        } else if (data.responseCode === '99') {
+          console.log(data);
+          this.activityStatusChanged = false;
+          this.toastr.error(`Activity status not changed to ${payload.status}`, 'Unsuccessful');
         }
       },
       error => {
         console.log(error);
+        this.activityStatusChanged = false;
+        this.toastr.error(`Activity status not changed to ${payload.status}`, 'Unsuccessful');
       }
     );
   }

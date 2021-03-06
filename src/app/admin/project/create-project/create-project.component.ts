@@ -539,7 +539,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   gotoHandover() {
-    this.router.navigate(['dashboard/handover']);
+    this.router.navigate(['/admin/handover']);
   }
 
   close() {

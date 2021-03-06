@@ -340,10 +340,12 @@
                 </div>
                 <div class="modal-footer">
                   <fieldset class="form-group position-relative has-icon-left mb-0">
-                      <button [disabled]="!form.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                      >
+                      <button [disabled]="!form.valid" *ngIf="!activityCreated || !activityUpdated" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light">
                         <i class="feather icon-check d-block d-lg-none"></i>
-                          <span class="d-none d-lg-block">{{ data | titlecase}}</span></button>
+                          <span class="d-none d-lg-block" >{{ data | titlecase}}</span>
+                      </button>
+                      <mat-progress-spinner color="#ffffff" mode="indeterminate"
+                      *ngIf="activityCreated || activityUpdated"></mat-progress-spinner>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="button" (click)="clearForm();" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
@@ -383,12 +385,13 @@
                     </button>
                   </fieldset>
                   <fieldset class="form-group position-relative has-icon-left mb-0">
-                      <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                      <button type="submit" *ngIf="!activityStatusChanged" class="btn btn-primary add-todo-item waves-effect waves-light"
                         (click)="changeActivityStatus(data.id, data.statusCode)">
                         <i class="feather icon-check d-block d-lg-none"></i>
                           <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
                           <span class="d-none d-lg-block">YES</span>
                       </button>
+                      <mat-progress-spinner color="#ffffff" mode="indeterminate" *ngIf="activityStatusChanged"></mat-progress-spinner>
                   </fieldset>
                 </div>
               <!-- </form> -->

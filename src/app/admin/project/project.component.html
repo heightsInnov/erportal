@@ -7,7 +7,7 @@
               <div class="card">
                   <div class="card-header ml-auto">
                     <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
-                      [routerLink]="['/dashboard/handover/create-handover']">
+                      [routerLink]="['/admin/handover/create-handover']">
                       <i class="feather icon-plus-circle"></i> Create Handover
                     </button>
                   </div>
@@ -44,14 +44,10 @@
                                         <th>{{note.handover_witness}}</th>
                                         <td>{{note.handover_effective_date | date}}</td>
                                         <td>
-                                          <div class="btn-group">
-                                            <div class="dropdown">
-                                                <button class="btn bg-outline-primary round mr-1 mb-1 waves-effect waves-light" type="button"
-                                                  [routerLink]="['/dashboard/handover/view-handover']" [queryParams]="{handoverId: note.handover_id}">
-                                                    View
-                                                </button>
-                                            </div>
-                                          </div>
+                                          <button mat-icon-button aria-label="View Handovers" color="primary" class="btn" matTooltip="View Handover Note"
+                                            matTooltipPosition="below" [routerLink]="['/admin/handover/view-handover']" [queryParams]="{handoverId: note.handover_id}">
+                                            <mat-icon>pageview</mat-icon>
+                                          </button>
                                         </td>
                                       </tr>
                                     </ng-container>

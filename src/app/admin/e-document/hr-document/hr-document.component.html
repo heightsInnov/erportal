@@ -49,7 +49,8 @@
                       <tr *ngFor="let details of documents, let i = index;">
                         <td>{{details.filename}}</td>
                         <td>
-                          <a mat-icon-button [href]="details.documentUrl" [download]="details.filename">
+                          <a mat-icon-button aria-label="Download Document" matTooltip="Download Document" color="primary"
+                            matTooltipPosition="below" [href]="details.documentUrl" [download]="details.filename">
                             <mat-icon>download</mat-icon>
                           </a>
                         </td>

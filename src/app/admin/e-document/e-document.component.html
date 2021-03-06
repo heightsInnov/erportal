@@ -165,7 +165,12 @@
                       <!-- <td>{{details.edoc_receiving_dept}}</td> -->
                       <td>{{details.edoc_status}}</td>
                       <td>{{details.edoc_date_received | date}}</td>
-                      <td>{{details.edoc_upload_link}}</td>
+                      <td>
+                          <a mat-icon-button aria-label="Download Document" matTooltip="Download Document" color="primary"
+                            matTooltipPosition="below" [href]="details.edoc_upload_link" [download]="details.edoc_doc_name">
+                            <mat-icon>download</mat-icon>
+                          </a>
+                      </td>
                       <td>{{details.edoc_date_created | date}}</td>
                       <td>
                         <mat-button-toggle-group #group="matButtonToggleGroup">
