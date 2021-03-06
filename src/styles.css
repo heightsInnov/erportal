@@ -6,6 +6,10 @@ body {
   /* font-family: Roboto, "Helvetica Neue", sans-serif;  */
 }
 
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
 .bg-authentication {
   /* border-radius: 51px !important; */
   border-radius: 0px;
