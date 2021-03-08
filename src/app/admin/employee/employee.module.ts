@@ -6,6 +6,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { EmployeeComponent } from './employee.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { MaterialModule } from 'src/app/core/shared/material.module';
 
 
@@ -34,7 +35,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    NgSelectModule
   ]
 })
 export class EmployeeModule { }

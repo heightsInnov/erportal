@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
 import { IEducationDataPayload, IEmployeePayload, IFamilyPayload, INextOfKinPayload, IWorkExperiencePayload } from 'src/app/core/models/IEmployee';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
@@ -56,7 +57,8 @@ export class CreateEmployeeComponent implements OnInit {
   listStates: any[];
   listLGA: any[];
   departmentPositions: any;
-  educationDegrees: any[];
+  educationDegrees$: Observable<any[]>;
+
   constructor(
                 private fb: FormBuilder,
                 private router: Router,
@@ -67,6 +69,7 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(); // initialize reactive form on component init
     this.getUnits(this.getUnitsUrl);
+    this.getDegrees();
   }
 
   // build form controls
@@ -93,7 +96,7 @@ export class CreateEmployeeComponent implements OnInit {
       emp_id_type: [null, Validators.required],
       emp_confirmation_date: [null, Validators.required],
       emp_phone: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
-      emp_present_posting_deployment: [null, Validators.required],
+      emp_present_posting_deployment: [null],
       emp_address: [null, Validators.required],
       emp_pso_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
       emp_dob: [null, Validators.required],
@@ -214,7 +217,7 @@ export class CreateEmployeeComponent implements OnInit {
         emp_id_type: formPayload.emp_id_type.value,
         emp_confirmation_date: formPayload.emp_confirmation_date.value,
         emp_phone: formPayload.emp_phone.value,
-        emp_present_posting_deployment: formPayload.emp_present_posting_deployment.value,
+        emp_present_posting_deployment: formPayload.emp_present_posting_deployment.value || null,
         emp_address: formPayload.emp_address.value,
         emp_pso_file_no: formPayload.emp_pso_file_no.value,
         emp_dob: formPayload.emp_dob.value,
@@ -381,12 +384,16 @@ export class CreateEmployeeComponent implements OnInit {
   getDegrees() {
     this.crudService.getData(this.getDegreesUrl).subscribe(
       data => {
+        console.log(data);
         if (data.responseCode === '00') {
-          this.educationDegrees = data.responseObject;
+          this.educationDegrees$ = of(data.responseObject);
+        } else if (data.responseCode === '99') {
+          this.toastr.warning('Cannot load education degrees', 'Error');
         }
       },
       error => {
         console.log(error);
+        this.toastr.warning('Cannot load education degrees', 'Error');
       }
     );
   }

@@ -6,21 +6,37 @@
             <div class="card-content">
               <div class="card-body">
                 <mat-horizontal-stepper labelPosition="bottom" [linear]="linearMode" #createEmployeeStepper>
-                  <mat-step [stepControl]="createEmployeeForm" [label]="stepperLabel.labelOne">
+                  <mat-step [stepControl]="createEmployeeForm" [state]="stepperLabel.labelOne" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeExperienceForm" [label]="stepperLabel.labelTwo">
+                  <mat-step [stepControl]="addEmployeeExperienceForm" [state]="stepperLabel.labelTwo" [label]="stepperLabel.labelTwo">
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeEducationDetailsForm" [label]="stepperLabel.labelThree">
+                  <mat-step [stepControl]="addEmployeeEducationDetailsForm" [state]="stepperLabel.labelThree" [label]="stepperLabel.labelThree">
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeFamilyDetailsForm" [label]="stepperLabel.labelFour">
+                  <mat-step [stepControl]="addEmployeeFamilyDetailsForm" [state]="stepperLabel.labelFour" [label]="stepperLabel.labelFour">
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeNextOfKinDetailsForm" [label]="stepperLabel.labelFive">
+                  <mat-step [stepControl]="addEmployeeNextOfKinDetailsForm" [state]="stepperLabel.labelFive" [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </mat-step>
+
+                  <ng-template [matStepperIcon]="stepperLabel.labelOne">
+                    <mat-icon>person_add</mat-icon>
+                  </ng-template>
+                  <ng-template [matStepperIcon]="stepperLabel.labelTwo">
+                    <mat-icon>badge</mat-icon>
+                  </ng-template>
+                  <ng-template [matStepperIcon]="stepperLabel.labelThree">
+                    <mat-icon>school</mat-icon>
+                  </ng-template>
+                  <ng-template [matStepperIcon]="stepperLabel.labelFour">
+                    <mat-icon>family_restroom</mat-icon>
+                  </ng-template>
+                  <ng-template [matStepperIcon]="stepperLabel.labelFour">
+                    <mat-icon>people</mat-icon>
+                  </ng-template>
                 </mat-horizontal-stepper>
               </div>
             </div>
@@ -468,13 +484,13 @@
 
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="form-group">
-                      <label for="ppdeployment">Present Posting/Deployment</label>
+                      <label for="ppdeployment">Designation</label>
                       <fieldset class="form-group">
                         <select [ngClass]="{'form-control' : true,
                                             'is-invalid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.invalid,
                                             'is-valid' : (createEmployeeFormData.emp_present_posting_deployment.dirty || createEmployeeFormData.emp_present_posting_deployment.touched) && createEmployeeFormData.emp_present_posting_deployment.valid
                                             }" id="ppdeployment" formControlName="emp_present_posting_deployment">
-                          <option [value]="null">Select Present Posting/Deployment</option>
+                          <option [value]="null">Select Designation</option>
                           <ng-container *ngFor="let designation of designations">
                             <option [value]="designation.desig_name">{{ designation.desig_name }}</option>
                           </ng-container>
@@ -741,28 +757,18 @@
                       <div class="form-group">
                         <label for="degree">Degree</label>
                         <fieldset class="form-group">
-                          <select [ngClass]="{'form-control' : true,
+                          <ng-select [ngClass]="{
                                                 'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
                                                 'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
-                                              }" id="degree" formControlName="edu_degree">
-                            <option [value]="null">Select Degree</option>
-                            <ng-container *ngFor="let degree of educationDegrees">
-                              <option [value]="degree.degree">{{ degree.degree }}</option>
-                            </ng-container>
-                          </select>
+                                              }"  [items]="educationDegrees$ | async" [virtualScroll]="true" placeholder="Select Degree" labelForId="degree"
+                            dropdownPosition="auto" bindLabel="degree" bindValue="degree" formControlName="edu_degree">
+                          </ng-select>
 
                           <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
                             <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
                           </ng-container>
                         </fieldset>
-                        <!-- <input type="text" [ngClass]="{'form-control' : true,
-                                                        'is-invalid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid,
-                                                        'is-valid' : (educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').valid
-                                                      }" id="degree" formControlName="edu_degree" placeholder="Enter Degree">
-                        <ng-container *ngIf="(educationDetails.get('edu_degree').dirty || educationDetails.get('edu_degree').touched) && educationDetails.get('edu_degree').invalid">
-                          <div *ngIf="educationDetails.get('edu_degree').errors.required" class="invalid-feedback">Please Enter Degree Obtained</div>
-                        </ng-container> -->
-                        </div>
+                      </div>
                     </div>
 
                     <div class="col-md-6 col-12">
