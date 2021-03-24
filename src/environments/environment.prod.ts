@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://1f2a0369c519.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://16b609501893.ngrok.io/erportal/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {

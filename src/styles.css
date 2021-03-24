@@ -26,4 +26,30 @@ body {
               -6px -6px 38px #ffffff;
 } */
 
+.main-menu.menu-light {
+  background: #0039A6;
 
+}
+.main-menu.menu-light .navigation {
+  background: #0039A6;
+
+}
+
+.main-menu .navbar-header .navbar-brand .brand-text {
+  color: #fff;
+}
+
+.main-menu.menu-light .navigation li a {
+  color: #fff;
+}
+
+.main-menu.menu-light .navigation > li > ul {
+  background: transparent;
+}
+
+.main-menu.menu-light .navigation > li ul .open > a, .main-menu.menu-light .navigation > li ul:hover .sidebar-group-active > a:hover :active {
+    color: #fff;
+}
+table > thead.thead-dark .thead-dark {
+  background-color: #0039A6 !important;
+}

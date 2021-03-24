@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://1f2a0369c519.ngrok.io/erportal-0.0.1/',
+  apiBaseUrl: 'https://16b609501893.ngrok.io/erportal/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -41,6 +41,23 @@ export const environment = {
                   hrDocuments: 'secured/edocument/get-hr-entry',
                   editAssignment: 'secured/edocument/edit-assignment'
                 },
+
+  setupUrl: {
+              units: 'secured/setup/configure-units',
+              designations: 'secured/setup/configure-designation',
+              upload_type: 'secured/setup/configure-upload-type',
+              notification_messages: {
+                                        get: 'secured/get-notification-messages',
+                                        update: 'secured/setup/update-notification-messages'
+                                      },
+              email_receiver: {
+                                  get: 'secured/get-notification-emails',
+                                  configure: 'secured/setup/configure-email-receiver',
+                                  update: 'secured/setup/update-notification-emails'
+                                }
+
+            },
+
   dashboardUrl: 'secured/get-dashboard',
   getHandoverNotesUrl: 'secured/handover/get-all-handover',
   getHandoverDetailsUrl: 'secured/handover/get-handover-details',

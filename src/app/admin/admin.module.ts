@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { MaterialModule } from '../core/shared/material.module';
 import { ActivityComponent } from './activity/activity.component';
+import { SetupComponent } from './setup/setup.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,12 @@ const routes: Routes = [
         component: ActivityComponent,
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Activity' },
+      },
+      {
+        path: 'setup',
+        component: SetupComponent,
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Setup' },
       },
       {
         path: 'employee',
@@ -68,7 +75,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, ActivityComponent],
+  declarations: [AdminComponent, DashboardComponent, ActivityComponent, SetupComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

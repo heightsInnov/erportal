@@ -9,7 +9,7 @@
                 <!-- </div> -->
                 <img src="../../../assets/images/lagos_logo.png" width="50" height="50" alt="" loading="lazy">
 
-                <h2 class="brand-text mb-0">ERP</h2>
+                <h2 class="brand-text mb-0" style="color: #fff !important">ERP</h2>
             </a>
           </li>
           <li class="nav-item nav-toggle" (click)="toggle()">
@@ -69,6 +69,8 @@
             </li>
             <!-- <li class=" navigation-header"><span>UI Elements</span>
             </li> -->
+            <li class="nav-item"><a [routerLink]="['/admin/setup']" ><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Setup">Setup</span></a>
+            </li>
         </ul>
     </div>
 
