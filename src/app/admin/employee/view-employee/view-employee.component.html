@@ -299,7 +299,7 @@
                     <div class="card-content">
                       <div class="table-responsive">
                         <table class="table table-bordered mb-0">
-                          <thead class="thead-dark">
+                          <thead style="background-color: #0039A6; color: #fff;">
                             <tr>
                               <th>S/N</th>
                               <th>Company</th>
@@ -310,13 +310,18 @@
                             </tr>
                           </thead>
                           <tbody class="table-hover table-striped table-hover-animation" *ngFor="let experience of employeeProfile?.workExperience;">
-                            <tr>
-                              <th>{{ experience.exp_id }}</th>
-                              <td>{{ experience.exp_organization }}</td>
-                              <td>{{ experience.designation }}</td>
-                              <td>{{ experience.exp_responsibility }}</td>
-                              <td>{{ experience.exp_start_date | date}}</td>
-                              <th>{{ experience.exp_end_date | date }}</th>
+                            <ng-container *ngIf="employeeProfile.workExperience !== undefined && employeeProfile.workExperience.length > 0">
+                              <tr>
+                                <th>{{ experience.exp_id }}</th>
+                                <td>{{ experience.exp_organization }}</td>
+                                <td>{{ experience.designation }}</td>
+                                <td>{{ experience.exp_responsibility }}</td>
+                                <td>{{ experience.exp_start_date | date}}</td>
+                                <th>{{ experience.exp_end_date | date }}</th>
+                              </tr>
+                            </ng-container>
+                            <tr *ngIf="employeeProfile.workExperience === undefined || employeeProfile.workExperience.length <= 0">
+                              <td colspan="5">No Experience Available.</td>
                             </tr>
                           </tbody>
                         </table>
@@ -343,7 +348,7 @@
                     <div class="card-content">
                       <div class="table-responsive">
                         <table class="table table-bordered mb-0">
-                          <thead class="thead-dark">
+                          <thead style="background-color: #0039A6; color: #fff;">
                             <tr>
                               <th>S/N</th>
                               <th>Institution</th>
@@ -355,7 +360,8 @@
                             </tr>
                           </thead>
                           <tbody class="table-hover table-striped table-hover-animation" *ngFor="let education of employeeProfile?.education;">
-                            <tr>
+                            <ng-container *ngIf="employeeProfile?.education !== undefined && employeeProfile?.education.length > 0">
+                              <tr>
                               <th>{{education.edu_id}}</th>
                               <td>{{education.edu_institution}}</td>
                               <td>{{education.edu_degree}}</td>
@@ -364,6 +370,10 @@
                               <td>{{education.edu_start_date | date}}</td>
                               <th>{{education.edu_end_date | date}}</th>
                             </tr>
+                            </ng-container>
+                            <ng-container *ngIf="employeeProfile?.education.length <= 0">
+                              No Education Details
+                            </ng-container>
                           </tbody>
                         </table>
                       </div>
@@ -398,7 +408,7 @@
             <div class="card-content">
               <div class="table-responsive">
                 <table class="table table-bordered mb-0">
-                  <thead class="thead-dark">
+                  <thead style="background-color: #0039A6; color: #fff;">
                     <tr>
                       <th>S/N</th>
                       <th>Document Category</th>
@@ -409,14 +419,19 @@
                     </tr>
                   </thead>
                   <tbody class="table-hover table-striped table-hover-animation" *ngFor="let document of uploadedDocuments; let i = index;">
-                    <tr>
-                      <th>{{ i + 1}}</th>
-                      <td>{{document.uploadType}}</td>
-                      <td>{{document.filename}}</td>
-                      <td>{{document.documentUrl}}</td>
-                      <td>{{document.dateUploaded | date}}</td>
-                      <td></td>
-                    </tr>
+                    <ng-container *ngIf="uploadedDocuments !== undefined && uploadedDocuments.length > 0">
+                      <tr>
+                        <th>{{ i + 1}}</th>
+                        <td>{{document.uploadType}}</td>
+                        <td>{{document.filename}}</td>
+                        <td>{{document.documentUrl}}</td>
+                        <td>{{document.dateUploaded | date}}</td>
+                        <td></td>
+                      </tr>
+                    </ng-container>
+                    <ng-container *ngIf="uploadedDocuments.length <= 0">
+                      No Uploaded Documents
+                    </ng-container>
                   </tbody>
                 </table>
               </div>

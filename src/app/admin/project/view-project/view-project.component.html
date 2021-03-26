@@ -60,7 +60,7 @@
                             <div class="card-content">
                               <div class="table-responsive">
                                 <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
+                                  <thead style="background-color: #0039A6; color: #fff;">
                                     <tr>
                                       <th>S/N</th>
                                       <th>Subject</th>
@@ -73,15 +73,20 @@
                                     </tr>
                                   </thead>
                                   <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.activities; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.subject}}</td>
-                                      <td>{{data.status}}</td>
-                                      <td>{{data.followup_req}}</td>
-                                      <td>{{data.followup_staff_id}}</td>
-                                      <td>{{data.expected_outcome}}</td>
-                                      <th>{{data.expected_comp_date | date}}</th>
-                                    </tr>
+                                    <ng-container *ngIf="handoverDetails?.activities !== undefined && handoverDetails?.activities.length>0">
+                                      <tr>
+                                        <td scope="row"> {{ i + 1 }} </td>
+                                        <td>{{data.subject}}</td>
+                                        <td>{{data.status}}</td>
+                                        <td>{{data.followup_req}}</td>
+                                        <td>{{data.followup_staff_id}}</td>
+                                        <td>{{data.expected_outcome}}</td>
+                                        <th>{{data.expected_comp_date | date}}</th>
+                                      </tr>
+                                    </ng-container>
+                                    <ng-container *ngIf="handoverDetails?.activities === undefined || handoverDetails?.activities.length <= 0">
+                                      <td colspan="8">No Activities or Projects data available</td>
+                                    </ng-container>
                                   </tbody>
                                 </table>
                               </div>
@@ -114,7 +119,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -127,16 +132,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.client_communications; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.sub_category}}</td>
-                                          <td>{{data.reference_number}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.date_created}}</td>
-                                          <td>{{data.file_directory_name}}</td>
-                                          <td>{{data.file_hard_copy_loc}}</td>
-                                          <th>{{data.document_owner}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.client_communications !== undefined && handoverDetails?.client_communications.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.sub_category}}</td>
+                                            <td>{{data.reference_number}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.date_created}}</td>
+                                            <td>{{data.file_directory_name}}</td>
+                                            <td>{{data.file_hard_copy_loc}}</td>
+                                            <th>{{data.document_owner}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.client_communications === undefined || handoverDetails?.client_communications.length <= 0">
+                                          <td colspan="8">No Client Communications data available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -157,7 +167,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -170,16 +180,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.staff_records; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.sub_category}}</td>
-                                          <td>{{data.reference_number}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.date_created}}</td>
-                                          <td>{{data.file_directory_name}}</td>
-                                          <td>{{data.file_hard_copy_loc}}</td>
-                                          <th>{{data.document_owner}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.staff_records !== undefined && handoverDetails?.staff_records.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.sub_category}}</td>
+                                            <td>{{data.reference_number}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.date_created}}</td>
+                                            <td>{{data.file_directory_name}}</td>
+                                            <td>{{data.file_hard_copy_loc}}</td>
+                                            <th>{{data.document_owner}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.staff_records === undefined || handoverDetails?.staff_records.length <= 0">
+                                          <td colspan="8">No Staff Record Available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -200,7 +215,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -213,16 +228,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.site_record_and_register; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.sub_category}}</td>
-                                          <td>{{data.reference_number}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.date_created}}</td>
-                                          <td>{{data.file_directory_name}}</td>
-                                          <td>{{data.file_hard_copy_loc}}</td>
-                                          <th>{{data.document_owner}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.site_record_and_register !== undefined && handoverDetails?.site_record_and_register.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.sub_category}}</td>
+                                            <td>{{data.reference_number}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.date_created}}</td>
+                                            <td>{{data.file_directory_name}}</td>
+                                            <td>{{data.file_hard_copy_loc}}</td>
+                                            <th>{{data.document_owner}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.site_record_and_register === undefined || handoverDetails?.site_record_and_register.length <= 0">
+                                          <td colspan="8"> No Site Records and Register Data</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -243,7 +263,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -256,16 +276,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.training_materials; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.sub_category}}</td>
-                                          <td>{{data.reference_number}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.date_created}}</td>
-                                          <td>{{data.file_directory_name}}</td>
-                                          <td>{{data.file_hard_copy_loc}}</td>
-                                          <th>{{data.document_owner}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.training_materials !== undefined && handoverDetails?.training_materials.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.sub_category}}</td>
+                                            <td>{{data.reference_number}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.date_created}}</td>
+                                            <td>{{data.file_directory_name}}</td>
+                                            <td>{{data.file_hard_copy_loc}}</td>
+                                            <th>{{data.document_owner}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.training_materials === undefined || handoverDetails?.training_materials.length <= 0">
+                                          <td colspan="8">No Training Material Data</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -299,7 +324,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -313,17 +338,22 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.sub_contractors; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.subcat}}</td>
-                                          <td>{{data.relationship}}</td>
-                                          <td>{{data.name}}</td>
-                                          <td>{{data.company_or_department}}</td>
-                                          <td>{{data.designation}}</td>
-                                          <td>{{data.office_address}}</td>
-                                          <td>{{data.contact_phone}}</td>
-                                          <th>{{data.contact_email}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.sub_contractors !== undefined && handoverDetails?.sub_contractors.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.subcat}}</td>
+                                            <td>{{data.relationship}}</td>
+                                            <td>{{data.name}}</td>
+                                            <td>{{data.company_or_department}}</td>
+                                            <td>{{data.designation}}</td>
+                                            <td>{{data.office_address}}</td>
+                                            <td>{{data.contact_phone}}</td>
+                                            <th>{{data.contact_email}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.sub_contractors === undefined || handoverDetails?.sub_contractors.length <= 0">
+                                          <td colspan="9">No Sub-Contractor Data Available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -344,7 +374,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -358,17 +388,22 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.suppliers; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.subcat}}</td>
-                                          <td>{{data.relationship}}</td>
-                                          <td>{{data.name}}</td>
-                                          <td>{{data.company_or_department}}</td>
-                                          <td>{{data.designation}}</td>
-                                          <td>{{data.office_address}}</td>
-                                          <td>{{data.contact_phone}}</td>
-                                          <th>{{data.contact_email}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.suppliers !== undefined && handoverDetails?.suppliers.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.subcat}}</td>
+                                            <td>{{data.relationship}}</td>
+                                            <td>{{data.name}}</td>
+                                            <td>{{data.company_or_department}}</td>
+                                            <td>{{data.designation}}</td>
+                                            <td>{{data.office_address}}</td>
+                                            <td>{{data.contact_phone}}</td>
+                                            <th>{{data.contact_email}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.suppliers === undefined || handoverDetails?.suppliers.length <= 0">
+                                          <td colspan="9">No Supplier Data Available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -389,7 +424,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background-color: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -403,17 +438,22 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.clients; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.subcat}}</td>
-                                          <td>{{data.relationship}}</td>
-                                          <td>{{data.name}}</td>
-                                          <td>{{data.company_or_department}}</td>
-                                          <td>{{data.designation}}</td>
-                                          <td>{{data.office_address}}</td>
-                                          <td>{{data.contact_phone}}</td>
-                                          <th>{{data.contact_email}}</th>
-                                        </tr>
+                                        <ng-container *ngIf=" handoverDetails?.clients !== undefined &&  handoverDetails?.clients.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.subcat}}</td>
+                                            <td>{{data.relationship}}</td>
+                                            <td>{{data.name}}</td>
+                                            <td>{{data.company_or_department}}</td>
+                                            <td>{{data.designation}}</td>
+                                            <td>{{data.office_address}}</td>
+                                            <td>{{data.contact_phone}}</td>
+                                            <th>{{data.contact_email}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf=" handoverDetails?.clients === undefined ||  handoverDetails?.clients.length > 0">
+                                          <td colspan="9">No Client Data Available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -434,7 +474,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -448,6 +488,7 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.others; let i = index">
+                                        <ng-container *ngIf="handoverDetails?.others !== undefined || handoverDetails?.others.length > 0">
                                         <tr>
                                           <td scope="row"> {{ i + 1 }} </td>
                                           <td>{{data.subcat}}</td>
@@ -459,6 +500,10 @@
                                           <td>{{data.contact_phone}}</td>
                                           <th>{{data.contact_email}}</th>
                                         </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.others === undefined || handoverDetails?.others.length > 0">
+                                          <td colspan="9">No data available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -487,7 +532,7 @@
                             <div class="card-content">
                               <div class="table-responsive">
                                 <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
+                                  <thead style="background: #0039A6; color: #fff;">
                                     <tr>
                                       <th>S/N</th>
                                       <th>Item</th>
@@ -499,13 +544,16 @@
                                     </tr>
                                   </thead>
                                   <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.tools; let i = index">
-                                    <tr>
+                                    <tr *ngIf="handoverDetails?.tools !== undefined && handoverDetails?.tools > 0">
                                       <td scope="row"> {{ i + 1 }} </td>
                                       <td>{{data.item}}</td>
                                       <td>{{data.type}}</td>
                                       <td>{{data.no_of_units}}</td>
                                       <td>{{data.condition}}</td>
                                       <td>{{data.location}}</td>
+                                    </tr>
+                                    <tr *ngIf="handoverDetails?.tools === undefined || handoverDetails?.tools.length <= 0">
+                                      <td colspan="7">No data available</td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -539,7 +587,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -552,7 +600,8 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.books; let i = index">
-                                        <tr>
+                                        <ng-container *ngIf="handoverDetails?.books !== undefined && handoverDetails?.books.length > 0">
+                                          <tr>
                                           <td scope="row"> {{ i + 1 }} </td>
                                           <td>{{data.subcat}}</td>
                                           <td>{{data.title}}</td>
@@ -562,6 +611,10 @@
                                           <td>{{data.user_id}}</td>
                                           <th>{{data.password}}</th>
                                         </tr>
+                                      </ng-container>
+                                      <ng-container *ngIf="handoverDetails?.books === undefined || handoverDetails?.books.length <= 0">
+                                        <td colspan="8">no data available</td>
+                                      </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -582,7 +635,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -595,16 +648,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.cds; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.subcat}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.file_path}}</td>
-                                          <td>{{data.hard_copy_loc}}</td>
-                                          <td>{{data.website_weblink}}</td>
-                                          <td>{{data.user_id}}</td>
-                                          <th>{{data.password}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.cds !== undefined && handoverDetails?.cds.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.subcat}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.file_path}}</td>
+                                            <td>{{data.hard_copy_loc}}</td>
+                                            <td>{{data.website_weblink}}</td>
+                                            <td>{{data.user_id}}</td>
+                                            <th>{{data.password}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.cds === undefined || handoverDetails?.cds.length <= 0">
+                                          <td colspan="8">No CD Data available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -625,7 +683,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -638,16 +696,21 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.softwares; let i = index">
-                                        <tr>
-                                          <td scope="row"> {{ i + 1 }} </td>
-                                          <td>{{data.subcat}}</td>
-                                          <td>{{data.title}}</td>
-                                          <td>{{data.file_path}}</td>
-                                          <td>{{data.hard_copy_loc}}</td>
-                                          <td>{{data.website_weblink}}</td>
-                                          <td>{{data.user_id}}</td>
-                                          <th>{{data.password}}</th>
-                                        </tr>
+                                        <ng-container *ngIf="handoverDetails?.softwares !== undefined && handoverDetails?.softwares.length > 0">
+                                          <tr>
+                                            <td scope="row"> {{ i + 1 }} </td>
+                                            <td>{{data.subcat}}</td>
+                                            <td>{{data.title}}</td>
+                                            <td>{{data.file_path}}</td>
+                                            <td>{{data.hard_copy_loc}}</td>
+                                            <td>{{data.website_weblink}}</td>
+                                            <td>{{data.user_id}}</td>
+                                            <th>{{data.password}}</th>
+                                          </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.softwares === undefined || handoverDetails?.softwares.length > 0">
+                                          <td colspan="8">No Software data available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -668,7 +731,7 @@
                                 <div class="card-content">
                                   <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
-                                      <thead class="thead-dark">
+                                      <thead style="background: #0039A6; color: #fff;">
                                         <tr>
                                           <th>S/N</th>
                                           <th>Category</th>
@@ -681,6 +744,7 @@
                                         </tr>
                                       </thead>
                                       <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.reference_manuals; let i = index">
+                                        <ng-container *ngIf="handoverDetails?.reference_manuals !== undefined && handoverDetails?.reference_manuals.length > 0">
                                         <tr>
                                           <td scope="row"> {{ i + 1 }} </td>
                                           <td>{{data.subcat}}</td>
@@ -691,6 +755,10 @@
                                           <td>{{data.user_id}}</td>
                                           <th>{{data.password}}</th>
                                         </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="handoverDetails?.reference_manuals === undefined || handoverDetails?.reference_manuals.length <= 0">
+                                          <td colspan="8">No Reference material data available</td>
+                                        </ng-container>
                                       </tbody>
                                     </table>
                                   </div>
@@ -719,7 +787,7 @@
                             <div class="card-content">
                               <div class="table-responsive">
                                 <table class="table table-bordered mb-0">
-                                  <thead class="thead-dark">
+                                  <thead style="background: #0039A6; color: #fff;">
                                     <tr>
                                       <th>S/N</th>
                                       <th>Driver Name</th>
@@ -730,13 +798,18 @@
                                     </tr>
                                   </thead>
                                   <tbody class="table-hover table-striped table-hover-animation" *ngFor="let data of handoverDetails?.vehicleMaintenanceDetails; let i = index">
-                                    <tr>
-                                      <td scope="row"> {{ i + 1 }} </td>
-                                      <td>{{data.driver_name}}</td>
-                                      <td>{{data.vehicle_type}}</td>
-                                      <td>{{data.vehicle_number}}</td>
-                                      <td>{{data.status}}</td>
-                                    </tr>
+                                    <ng-container *ngIf="handoverDetails?.vehicleMaintenanceDetails !== undefined && handoverDetails?.vehicleMaintenanceDetails.length > 0">
+                                      <tr>
+                                        <td scope="row"> {{ i + 1 }} </td>
+                                        <td>{{data.driver_name}}</td>
+                                        <td>{{data.vehicle_type}}</td>
+                                        <td>{{data.vehicle_number}}</td>
+                                        <td>{{data.status}}</td>
+                                      </tr>
+                                    </ng-container>
+                                    <ng-container *ngIf="handoverDetails?.vehicleMaintenanceDetails === undefined || handoverDetails?.vehicleMaintenanceDetails.length <= 0">
+                                      <td colspan="6"></td>
+                                    </ng-container>
                                   </tbody>
                                 </table>
                               </div>

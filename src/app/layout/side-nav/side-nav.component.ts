@@ -8,6 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
+
+  open: string;
   // items: NbMenuItem[] = [
   //   {
   //     title: 'Profile',
@@ -35,6 +37,10 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  setAsActive(nav: string) {
+    console.log(nav)
+    this.open = nav;
+  }
 
   toggle() {
     // this.sidebarService.toggle(true);

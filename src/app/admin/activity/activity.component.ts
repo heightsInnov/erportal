@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { filter, map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-activity',
@@ -15,6 +16,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./activity.component.css']
 })
 export class ActivityComponent implements OnInit {
+  classList = ['content-left-sidebar', 'todo-application', 'footer-static'];
+
   @ViewChild('activityStatusModal') activityStatusModal: TemplateRef<any>;
   @ViewChild('activityModal') activityModal: TemplateRef<any>;
 
@@ -57,15 +60,26 @@ export class ActivityComponent implements OnInit {
     private crudService: CrudService,
     private router: Router,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
+    this.setBodyStyles();
     this.initForm(); // initialize reactive form on component init
     this.getUnits(this.getUnitsUrl); // get units/depts for activity
     this.getActivities(this.getActivityUrl);
     this.getActivityStatus(this.getActivityStatusUrl);
     // this.checkAvailabilty();
+  }
+
+  setBodyStyles() {
+    this.renderer.removeClass(this.document.body, '2-columns');
+    for (const val of this.classList) {
+      this.renderer.addClass(this.document.body, val);
+    }
+    this.renderer.setAttribute(this.document.body, 'data-col', 'content-left-sidebar');
   }
   // build form controls
   initForm(): void {

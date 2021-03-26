@@ -26,19 +26,27 @@ body {
               -6px -6px 38px #ffffff;
 } */
 
-.main-menu.menu-light {
-  background: #0039A6;
-
-}
-.main-menu.menu-light .navigation {
-  background: #0039A6;
-
-}
 
 .main-menu .navbar-header .navbar-brand .brand-text {
   color: #fff;
 }
 
+.main-menu.menu-light .navigation .menu-content > li.nav-item.is-shown > a {
+  color: #0039A6;
+}
+/* .main-menu.menu-light .navigation .menu-content > li.nav-item.open.hover {
+  background: #0039A6;
+}
+.main-menu.menu-light .navigation .menu-content > li.nav-item.open
+{
+  background: #0039A6;
+}
+.main-menu.menu-light .navigation .menu-content > li.nav-item.is-shown.open {
+  background: #0039A6;
+} */
+.main-menu.menu-light .navigation .menu-content > li.nav-item.is-shown.open > a {
+  color: #0039A6;
+}
 .main-menu.menu-light .navigation li a {
   color: #fff;
 }
@@ -47,9 +55,10 @@ body {
   background: transparent;
 }
 
-.main-menu.menu-light .navigation > li ul .open > a, .main-menu.menu-light .navigation > li ul:hover .sidebar-group-active > a:hover :active {
-    color: #fff;
+.main-menu.menu-light .navigation > li ul .open > a,
+.main-menu.menu-light .navigation > li ul:hover .sidebar-group-active > a:hover :active {
+    color: blue;
 }
-table > thead.thead-dark .thead-dark {
+table > thead.thead-dark {
   background-color: #0039A6 !important;
 }

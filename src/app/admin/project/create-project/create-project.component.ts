@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -75,7 +76,8 @@ export class CreateProjectComponent implements OnInit {
               private router: Router,
               private crudService: CrudService,
               private toastr: ToastrService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private datePipe: DatePipe
               ) { }
 
   ngOnInit(): void {
@@ -214,7 +216,7 @@ export class CreateProjectComponent implements OnInit {
         resignee_name: formPayload.handoverStaff.value,
         resignee_address: formPayload.address.value,
         resignee_phone: formPayload.phonenumber.value,
-        handover_effective_date: formPayload.handoverDate.value,
+        handover_effective_date: this.datePipe.transform(formPayload.handoverDate.value, 'yyyy-MM-dd'),
         handover_reason: formPayload.handoverReason.value,
         handover_witness: formPayload.handoverWitness.value,
         takeover_name: formPayload.takeoverStaff.value,

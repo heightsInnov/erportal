@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { ViewProjectComponent } from './view-project/view-project.component';
@@ -45,6 +45,7 @@ const route: Routes = [
     ReactiveFormsModule,
     MaterialModule,
     NgSelectModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class ProjectModule { }

@@ -113,7 +113,7 @@
                   <input type="date" [ngClass]="{'form-control' : true,
                                                   'is-invalid' : (handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.invalid,
                                                   'is-valid' : (handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.valid
-                                                }" id="handoverDate" formControlName="handoverDate">
+                                                }" id="handoverDate" formControlName="handoverDate" placeholder="yyyy-mm-dd">
 
                   <ng-container *ngIf="(handoverFormData.handoverDate.dirty || handoverFormData.handoverDate.touched) && handoverFormData.handoverDate.invalid">
                     <div *ngIf="handoverFormData.handoverDate.errors.required" class="invalid-feedback">Please Enter Effective Date of Handover</div>
