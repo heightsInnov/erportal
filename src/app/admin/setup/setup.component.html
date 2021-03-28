@@ -1,5 +1,4 @@
-<div class="nav-vertical mt-sm-2">
-  <div class="row">
+<div class="row">
     <div class="col-md-3">
       <div class="card">
         <div class="card-content">
@@ -7,55 +6,15 @@
             <ul
               class="nav nav-tabs nav-left flex-column"
               role="tablist"
+              *ngFor="let setup of setupTabs"
             >
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a
-                  class="nav-link active"
-                  id="unit-tab"
-                  data-toggle="tab"
-                  aria-controls="unitTab-display"
-                  href="#unitTab-display"
-                  role="tab"
-                  aria-selected="false"
-                  >UNIT & DESIGNATIONS</a
+                  class="nav-link bold-700"
+                  [routerLink]="setup.route"
+                  routerLinkActive="active"
+                  >{{ setup.name | uppercase}}</a
                 >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="uploadTypes-tab"
-                  data-toggle="tab"
-                  aria-controls="uploadTypes-display"
-                  href="#uploadTypes-display"
-                  role="tab"
-                  aria-selected="false"
-                  >UPLOAD TYPES</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="notifications-tab"
-                  data-toggle="tab"
-                  aria-controls="notifications-display"
-                  href="#notifications-display"
-                  role="tab"
-                  aria-selected="false"
-                  >NOTIFICATIONS
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="email-tab"
-                  data-toggle="tab"
-                  aria-controls="email-display"
-                  href="#email-display"
-                  role="tab"
-                  aria-selected="true"
-                  >EMAILS
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -66,58 +25,10 @@
         <div class="card-content">
           <div class="card-body">
             <div class="tab-content">
-              <div
-                class="tab-pane"
-                id="unitTab-display"
-                role="tabpanel"
-                aria-labelledby="unit-tab"
-              >
-                <ng-container *ngTemplateOutlet="unitTab"></ng-container>
-              </div>
-              <div
-                class="tab-pane"
-                id="uploadTypes-display"
-                role="tabpanel"
-                aria-labelledby="uploadTypes-tab"
-              >
-                <ng-container *ngTemplateOutlet="uploadTypesTab"></ng-container>
-              </div>
-              <div
-                class="tab-pane"
-                id="notifications-display"
-                role="tabpanel"
-                aria-labelledby="notifications-tab"
-              >
-                <ng-container *ngTemplateOutlet="notificationTab"></ng-container>
-              </div>
-              <div
-                class="tab-pane"
-                id="email-display"
-                role="tabpanel"
-                aria-labelledby="email-tab"
-              >
-                <ng-container *ngTemplateOutlet="emailTab"></ng-container>
-              </div>
+              <router-outlet></router-outlet>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<ng-template #unitTab>
-  unit
-</ng-template>
-
-<ng-template #uploadTypesTab>
-  uploadType
-</ng-template>
-
-<ng-template #notificationTab>
-  notifications
-</ng-template>
-
-<ng-template #emailTab>
-  email
-</ng-template>

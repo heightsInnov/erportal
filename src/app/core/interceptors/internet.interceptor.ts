@@ -8,17 +8,21 @@ import {
 } from '@angular/common/http';
 import { fromEvent, merge, Observable, Observer, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class InternetInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(
+    private toastr: ToastrService
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // check to see if there's internet
     // this.createOnline$().subscribe(isOnline => console.log(isOnline));
     if (!window.navigator.onLine) {
       // if there's no internet, throw an httperror
+      this.toastr.error('Kindly check your connection and retry', 'INTERNET DISCONNECTED')
       return throwError (new HttpErrorResponse({
                                                 error: {error: 'INTERNET DISCONNECTED'},
                                                 status: 999,

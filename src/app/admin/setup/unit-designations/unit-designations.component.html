@@ -1,0 +1,130 @@
+<div class="section">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="ml-auto">
+                <button type="button" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light"
+                  (click)="openModal(createModal, {action: 'unit'})">
+                  <i class="feather icon-plus-circle"></i> Create Unit
+                </button>
+                <button type="button" class="btn btn-outline-primary mb-1 waves-effect waves-light"
+                  (click)="openModal(createModal, {action: 'designation'})">
+                  <i class="feather icon-plus-circle"></i> Add Designation
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0">
+                <thead style="background-color: #0039A6; color: #fff;">
+                  <tr>
+                    <th>Unit</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                    <!-- <th></th> -->
+                  </tr>
+                </thead>
+                <!-- <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
+                    <tr>
+                    </tr>
+                </tbody> -->
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0">
+                <thead style="background-color: #0039A6; color: #fff;">
+                  <tr>
+                    <th>Designation</th>
+                    <th>Date Created</th>
+                    <th>Action</th>
+                    <!-- <th></th> -->
+                  </tr>
+                </thead>
+                <!-- <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
+                    <tr>
+                    </tr>
+                </tbody> -->
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #createModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <form [formGroup]="data.action === 'unit' ? unitForm : designationForm" (ngSubmit)="onSubmit(data.action === 'unit' ? unitFormData : designationFormData, data.action === 'unit' ? 'unitForm' : 'designationForm')" class="todo-input">
+                <div class="modal-header">
+                  <h5 class="modal-title">Create {{ data.action | titlecase}}</h5>
+                  <button type="button" class="close" mat-dialog-close aria-label="Close" (click)="clearForm(data.action === 'unit' ? unitForm : designationForm);">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <ng-container *ngIf="data.action === 'unit'">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (unitFormData.unit_name.dirty || unitFormData.unit_name.touched) && unitFormData.unit_name.invalid,
+                                                      'is-valid' : (unitFormData.unit_name.dirty || unitFormData.unit_name.touched) && unitFormData.unit_name.valid
+                                                    }" id="unit_name" formControlName="unit_name" placeholder="Enter {{data.action | titlecase}} Name">
+                      <label for="unit_name">{{ data.action | titlecase}} Name</label>
+
+                      <ng-container *ngIf="(unitFormData.unit_name.dirty || unitFormData.unit_name.touched) && unitFormData.unit_name.invalid">
+                        <div *ngIf="unitFormData.unit_name.errors.required" class="invalid-feedback">{{data.action | titlecase}} Name is required</div>
+                      </ng-container>
+                    </fieldset>
+                  </ng-container>
+                  <ng-container *ngIf="data.action === 'designation'">
+                    <fieldset class="form-label-group form-group position-relative">
+                      <input type="text" [ngClass]="{'form-control' : true,
+                                                      'is-invalid' : (designationFormData.desig_name.dirty || designationFormData.desig_name.touched) && designationFormData.desig_name.invalid,
+                                                      'is-valid' : (designationFormData.desig_name.dirty || designationFormData.desig_name.touched) && designationFormData.desig_name.valid
+                                                    }" id="desig_name" formControlName="desig_name" placeholder="Enter {{data.action | titlecase}} Name">
+                      <label for="desig_name">{{ data.action | titlecase}} Name</label>
+
+                      <ng-container *ngIf="(designationFormData.desig_name.dirty || designationFormData.desig_name.touched) && designationFormData.desig_name.invalid">
+                        <div *ngIf="designationFormData.desig_name.errors.required" class="invalid-feedback">{{data.action | titlecase}} Name is required</div>
+                      </ng-container>
+                    </fieldset>
+                  </ng-container>
+                </div>
+                <div class="modal-footer">
+                 <ng-container *ngIf="!actionLoading">
+                    <fieldset class="form-group position-relative has-icon-left mb-0">
+                        <button [disabled]="data.action === 'unit' ? !unitForm.valid : !designationForm.valid" type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                        >
+                          <i class="feather icon-check d-block d-lg-none"></i>
+                            <span class="d-none d-lg-block">Create</span></button>
+                    </fieldset>
+                    <fieldset class="form-group position-relative has-icon-left mb-0">
+                        <button type="button" (click)="clearForm(data.action === 'unit' ? unitForm : designationForm);" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
+                          <i class="feather icon-x d-block d-lg-none"></i>
+                            <span class="d-none d-lg-block">Cancel</span>
+                          </button>
+                    </fieldset>
+                 </ng-container>
+
+                  <mat-progress-spinner *ngIf="actionLoading" color="primary" mode="indeterminate" diameter='30' strokeWidth='3'></mat-progress-spinner>
+                </div>
+              </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>

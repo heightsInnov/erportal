@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -22,11 +22,11 @@ export class CrudService {
     this.spinner.show();
     return this.http.post<any>(url, data).pipe(
       map(response => {
-        this.spinner.hide();
         return response;
       }),
-      catchError(this.handleError)
-    );
+      catchError(this.handleError),
+      finalize(() => this.spinner.hide())
+    )
   }
 
   getData(endpoint): Observable<any> {
@@ -34,10 +34,10 @@ export class CrudService {
     this.spinner.show();
     return this.http.get<any>(url).pipe(
       map(response => {
-        this.spinner.hide();
         return response;
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      finalize(() => this.spinner.hide())
     );
   }
 
@@ -49,7 +49,8 @@ export class CrudService {
         this.spinner.hide();
         return response;
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      finalize(() => this.spinner.hide())
     );
   }
 
@@ -61,7 +62,8 @@ export class CrudService {
         this.spinner.hide();
         return response;
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      finalize(() => this.spinner.hide())
     );
   }
 
@@ -75,12 +77,12 @@ export class CrudService {
         // this.getEventMessage(response, fileData);
         return response;
       }),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      finalize(() => this.spinner.hide())
     );
   }
 
   private handleError(error: HttpErrorResponse) {
-    // this.spinner.hide();
     if (error.error instanceof ErrorEvent) {
       return throwError (error.error);
     } else {

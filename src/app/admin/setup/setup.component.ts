@@ -13,6 +13,21 @@ import { environment } from 'src/environments/environment';
 })
 export class SetupComponent implements OnInit {
 
+  setupTabs: ISetupTabs[]  = [
+    {
+      name: 'UNIT & DESIGNATIONS',
+      route: `['./unit-designation']`
+    },
+    {
+      name: 'UPLOAD TYPES',
+      route: `['./uploadtypes']`
+    },
+    {
+      name: 'NOTIFICATIONS',
+      route: `['./notifications']`
+    }
+  ]
+
   setupTypes = [
     {
       type: 'units',
@@ -51,7 +66,7 @@ export class SetupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getSetups();
+    // this.getSetups();
   }
 
   initForm() {
@@ -149,4 +164,9 @@ export class SetupComponent implements OnInit {
       )
     }
   }
+}
+
+export interface ISetupTabs {
+  name: string;
+  route: string;
 }
