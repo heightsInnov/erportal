@@ -17,6 +17,7 @@ export class UnitDesignationsComponent implements OnInit {
   designationForm: FormGroup;
 
   unitUrl = environment.setupUrl.units;
+  getUnitsUrl = environment.getUnitsUrl;
   designationUrl = environment.setupUrl.designations;
 
   dialogRef: MatDialogRef<TemplateRef<any>>;
@@ -34,34 +35,26 @@ export class UnitDesignationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.getUnitAndDesignation();
   }
 
   getUnitAndDesignation() {
-    const setupTypes = [
-      {
-        type: 'units',
-        url: this.unitUrl
-      },
-      {
-        type: 'designations',
-        url: this.designationUrl
-      },
-    ];
-
-    for (const setup of setupTypes) {
-      this.crudService.getData(setup.url).subscribe(
-        data => {
-          console.log(`${setup.type}: `, data);
-          if (data.responseObject === '00') {
-            this[setup.type] = data.responseObject;
-          }
-        },
-        error => {
-          console.log('error: ', error);
+    this.crudService.getData(this.getUnitsUrl).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00') {
+          this.units = data.responseObject.unit;
+          this.designations = data.responseObject.designations;
+        } else if (data.responseObject === '99') {
+          // console.log('error: ', error);
           this.toastr.error('Failed to fetch setup resource', 'ERROR');
         }
-      )
-    }
+      },
+      error => {
+        console.log('error: ', error);
+        this.toastr.error('Failed to fetch setup resource', 'ERROR');
+      }
+    );
   }
 
   initForm() {
@@ -106,7 +99,8 @@ export class UnitDesignationsComponent implements OnInit {
           this.actionLoading = false;
           this.clearForm(this.unitForm);
           this.close();
-          // this.getUnits();
+          this.toastr.success('Unit Created', 'SUCCESSFUL');
+          this.getUnitAndDesignation();
         } else if (data.responseCode === '99') {
           this.actionLoading = false;
           this.toastr.error('Sorry, failed to create unit')
@@ -116,6 +110,31 @@ export class UnitDesignationsComponent implements OnInit {
         console.log('error: ', error);
         this.actionLoading = false;
         this.toastr.error('Sorry, failed to create unit')
+      }
+    )
+  }
+
+
+  deleteUnit(payload) {
+    this.actionLoading = true;
+    const deleteUnitUrl = `${this.unitUrl}?action=D`;
+    this.crudService.deleteData(deleteUnitUrl, payload).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00') {
+          this.actionLoading = false;
+          this.close();
+          this.toastr.success('Unit Deleted')
+          this.getUnitAndDesignation();
+        } else if (data.responseCode === '99') {
+          this.actionLoading = false;
+          this.toastr.error('Sorry, failed to delete unit')
+        }
+      },
+      error => {
+        console.log('error: ', error);
+        this.actionLoading = false;
+        this.toastr.error('Sorry, failed to delete unit')
       }
     )
   }
@@ -130,7 +149,8 @@ export class UnitDesignationsComponent implements OnInit {
           this.actionLoading = false;
           this.clearForm(this.designationForm);
           this.close();
-          // this.getDesignations();
+          this.toastr.success('Designation Created', 'SUCCESSFUL');
+          this.getUnitAndDesignation();
         } else if (data.responseCode === '99') {
           this.actionLoading = false;
           this.toastr.error('Sorry, failed to create designation')
@@ -144,13 +164,37 @@ export class UnitDesignationsComponent implements OnInit {
     )
   }
 
+  deleteDesignation(payload) {
+    this.actionLoading = true;
+    const deleteDesignationtUrl = `${this.designationUrl}?action=D`;
+    this.crudService.deleteData(deleteDesignationtUrl, payload).subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00') {
+          this.actionLoading = false;
+          this.close();
+          this.toastr.success('Designation Deleted')
+          this.getUnitAndDesignation();
+        } else if (data.responseCode === '99') {
+          this.actionLoading = false;
+          this.toastr.error('Sorry, failed to delete Designation')
+        }
+      },
+      error => {
+        console.log('error: ', error);
+        this.actionLoading = false;
+        this.toastr.error('Sorry, failed to delete Designation')
+      }
+    )
+  }
+
   openModal(dialog: TemplateRef<any>, options) {
     console.log(options);
-    if (options.action === 'unit') {
-      options.formDetails = {form: this.unitForm, formData: this.unitFormData};
-    } else if (options.action === 'designation') {
-      options.formDetails = { form: this.designationForm, formData: this.designationFormData };
-    }
+    // if (options.action === 'unit') {
+    //   options.formDetails = {form: this.unitForm, formData: this.unitFormData};
+    // } else if (options.action === 'designation') {
+    //   options.formDetails = { form: this.designationForm, formData: this.designationFormData };
+    // }
     console.log(options);
     this.dialogRef = this.dialog.open(
       dialog,
@@ -158,6 +202,22 @@ export class UnitDesignationsComponent implements OnInit {
         data: options
       }
     );
+  }
+
+  submitModal(modalData) {
+    console.log(modalData);
+    if(modalData.action === 'unit') {
+      const payload = {
+        unit_code: modalData.extraData.code
+      }
+      this.deleteUnit(payload);
+
+    } else if (modalData.action === 'designation') {
+      const payload = {
+        desig_code: modalData.extraData.code
+      }
+      this.deleteDesignation(payload);
+    }
   }
 
   clearForm(form: FormGroup) {

@@ -1,4 +1,5 @@
-import { Component, NgModule } from '@angular/core';
+
+ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UnitDesignationsComponent } from './unit-designations/unit-designations.component';
 import { UploadTypesComponent } from './upload-types/upload-types.component';

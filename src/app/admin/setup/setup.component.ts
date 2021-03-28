@@ -16,15 +16,15 @@ export class SetupComponent implements OnInit {
   setupTabs: ISetupTabs[]  = [
     {
       name: 'UNIT & DESIGNATIONS',
-      route: `['./unit-designation']`
+      route: './unit-designation'
     },
     {
       name: 'UPLOAD TYPES',
-      route: `['./uploadtypes']`
+      route: './uploadtypes'
     },
     {
       name: 'NOTIFICATIONS',
-      route: `['./notifications']`
+      route: './notifications'
     }
   ]
 
@@ -51,9 +51,6 @@ export class SetupComponent implements OnInit {
     }
   ];
 
-  unitForm: FormGroup;
-  designationForm: FormGroup;
-  uploadTypeForm: FormGroup;
   notificationForm: FormGroup;
   emailForm: FormGroup;
 
@@ -70,18 +67,6 @@ export class SetupComponent implements OnInit {
   }
 
   initForm() {
-    this.unitForm = this.fb.group({
-      unit_name: [null, Validators.required]
-    });
-
-    this.designationForm = this.fb.group({
-      desig_name: [null, Validators.required]
-    });
-
-    this.uploadTypeForm = this.fb.group({
-      uploadname: [null, Validators.required],
-      uploadcat: [null, Validators.required]
-    });
 
     this.notificationForm = this.fb.group({
       not_category: [null, Validators.required],
@@ -105,17 +90,6 @@ export class SetupComponent implements OnInit {
     });
   }
 
-  get unitFormData() {
-    return this.unitForm.controls;
-  }
-
-  get designationFormData() {
-    return this.designationForm.controls;
-  }
-
-  get uploadTypeFormData() {
-    return this.uploadTypeForm.controls;
-  }
 
   get notificationFormData() {
     return this.notificationForm.controls;
@@ -126,11 +100,7 @@ export class SetupComponent implements OnInit {
   }
 
   onSubmit(formPayload: { [key: string]: AbstractControl}, formname: string) {
-    if (formname === 'unitForm') {
-      console.log(formPayload);
-    } else if (formname === 'designationForm') {
-      console.log(formPayload);
-    } else if (formname === 'uploadTypeForm') {
+    if (formname === 'uploadTypeForm') {
       console.log(formPayload);
     } else if (formname === 'notificationForm') {
       console.log(formPayload);

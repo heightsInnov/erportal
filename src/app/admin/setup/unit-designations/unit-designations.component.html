@@ -18,45 +18,86 @@
             </div>
           </div>
         </div>
-        <div class="row mb-3">
+
+        <div class="row mb-2">
           <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-bordered mb-0">
-                <thead style="background-color: #0039A6; color: #fff;">
-                  <tr>
-                    <th>Unit</th>
-                    <th>Date Created</th>
-                    <th>Action</th>
-                    <!-- <th></th> -->
-                  </tr>
-                </thead>
-                <!-- <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
-                    <tr>
-                    </tr>
-                </tbody> -->
-              </table>
-            </div>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <h5 class="card-title">UNITS</h5>
+                </mat-expansion-panel-header>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered mb-0">
+                    <thead style="background-color: #0039A6; color: #fff;">
+                      <tr>
+                        <th>Unit</th>
+                        <th>Unit Code</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-hover table-striped">
+                      <ng-container *ngIf="units !== undefined && units.length > 0">
+                        <tr *ngFor="let unit of units, let i = index;">
+                          <td>{{ unit.name | titlecase}}</td>
+                          <td>{{ unit.code | uppercase}}</td>
+                          <td>
+                                <button class="btn" mat-icon-button matTooltip="Delete Unit"
+                                  (click)="openModal(deleteModal, {action: 'unit', extraData: unit})" >
+                                  <mat-icon color="warn">delete</mat-icon>
+                                </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <tr *ngIf="units === undefined || units.length <= 0">
+                        <td colspan="3">No data available</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-bordered mb-0">
-                <thead style="background-color: #0039A6; color: #fff;">
-                  <tr>
-                    <th>Designation</th>
-                    <th>Date Created</th>
-                    <th>Action</th>
-                    <!-- <th></th> -->
-                  </tr>
-                </thead>
-                <!-- <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
-                    <tr>
-                    </tr>
-                </tbody> -->
-              </table>
-            </div>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <h5 class="card-title">DESIGNATIONS</h5>
+                </mat-expansion-panel-header>
+
+                <div class="table-responsive">
+                  <table class="table table-bordered mb-0">
+                    <thead style="background-color: #0039A6; color: #fff;">
+                      <tr>
+                        <th>Designation</th>
+                        <th>Date Created</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-hover table-striped">
+                      <ng-container *ngIf="designations !== undefined && designations.length > 0">
+                        <tr *ngFor="let designation of designations, let i = index;">
+                        <td>{{ designation.name | titlecase}}</td>
+                        <td>{{ designation.code | uppercase}}</td>
+                        <td>
+                              <button class="btn" mat-icon-button matTooltip="Delete Designation"
+                                (click)="openModal(deleteModal, {action: 'designation', extraData: designations})" >
+                                <mat-icon color="warn">delete</mat-icon>
+                              </button>
+                        </td>
+                      </tr>
+                      </ng-container>
+                      <tr *ngIf="designations === undefined || designations.length <= 0">
+                        <td colspan="3">No data available</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
@@ -123,6 +164,49 @@
                   <mat-progress-spinner *ngIf="actionLoading" color="primary" mode="indeterminate" diameter='30' strokeWidth='3'></mat-progress-spinner>
                 </div>
               </form>
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete {{ data.action }}</h5>
+                  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p> Are you sure you want to delete this {{ data.action }}? </p>
+                </div>
+                <div class="modal-footer">
+                  <ng-container *ngIf="!actionLoading">
+                    <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
+                        mat-dialog-close>
+                        <i class="feather icon-times d-block d-lg-none"></i>
+                          <span class="d-none d-lg-block">NO</span>
+                      </button>
+                    </fieldset>
+                    <fieldset class="form-group position-relative has-icon-left mb-0">
+                        <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                          (click)="submitModal(data)">
+                          <i class="feather icon-check d-block d-lg-none"></i>
+                            <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
+                            <span class="d-none d-lg-block">YES</span>
+                        </button>
+                    </fieldset>
+                  </ng-container>
+
+                  <mat-progress-spinner *ngIf="actionLoading" color="primary" mode="indeterminate" diameter='30' strokeWidth='3'></mat-progress-spinner>
+                </div>
+              <!-- </form> -->
           </section>
       </div>
     </div>
