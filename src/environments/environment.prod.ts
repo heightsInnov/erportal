@@ -1,15 +1,15 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://16b609501893.ngrok.io/erportal/',
+  apiBaseUrl: 'https://ce01fdb3a05e.ngrok.io/erportal/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
-                  createStaff: 'secured/user/create-staff',
-                  createFamily: 'secured/user/insert-family',
-                  createNextOfKin: 'secured/user/insert-next-of-kin',
-                  createExperience: 'secured/user/insert-experience-details',
-                  createEducation: 'secured/user/insert-education-details'
-                },
+                createStaff: 'secured/user/create-staff',
+                createFamily: 'secured/user/insert-family',
+                createNextOfKin: 'secured/user/insert-next-of-kin',
+                createExperience: 'secured/user/insert-experience-details',
+                createEducation: 'secured/user/insert-education-details'
+              },
 
   createHandoverNoteUrl: {
                           createHandoverNote: 'secured/handover/create-handover',
@@ -20,7 +20,7 @@ export const environment = {
                           addToolsandEquipment: 'secured/handover/create-tools-equipment',
                           addActivities: 'secured/handover/create-act-proj-prop',
                           getHandoverCategories: 'secured/handover/get-categories'
-                         },
+                        },
   reportsUrl: {
                 activityReport: 'secured/report/get-activity-report',
                 leaveReport: 'secured/report/get-leave-report',
@@ -29,14 +29,31 @@ export const environment = {
               },
 
   edocumentsUrl: {
-                  getEntry: 'secured/edocument/get-entry',
-                  createEntry: 'secured/edocument/register-entry',
-                  assignEntry: 'secured/edocument/assign-entry',
-                  deleteEntry: 'secured/edocument/delete-entry',
-                  editEntry: 'secured/edocument/edit-entry',
-                  hrDocuments: 'secured/edocument/get-hr-entry',
-                  editAssignment: 'secured/edocument/edit-assignment'
-                },
+                    getEntry: 'secured/edocument/get-entry',
+                    createEntry: 'secured/edocument/register-entry',
+                    assignEntry: 'secured/edocument/assign-entry',
+                    deleteEntry: 'secured/edocument/delete-entry',
+                    editEntry: 'secured/edocument/edit-entry',
+                    hrDocuments: 'secured/edocument/get-hr-entry',
+                    editAssignment: 'secured/edocument/edit-assignment'
+                  },
+
+  setupUrl: {
+    units: 'secured/setup/configure-units',
+    designations: 'secured/setup/configure-designation',
+    upload_type: 'secured/setup/configure-upload-type',
+    notification_messages: {
+                              get: 'secured/get-notification-messages',
+                              update: 'secured/setup/update-notification-messages'
+                            },
+    email_receiver: {
+                      get: 'secured/get-notification-emails',
+                      configure: 'secured/setup/configure-email-receiver',
+                      update: 'secured/setup/update-notification-emails'
+                    }
+
+  },
+
   dashboardUrl: 'secured/get-dashboard',
   getHandoverNotesUrl: 'secured/handover/get-all-handover',
   getHandoverDetailsUrl: 'secured/handover/get-handover-details',
@@ -54,4 +71,5 @@ export const environment = {
   getDegreesUrl: 'secured/get-degrees',
   getLeaveUrl: 'secured/leave/get-leaves',
   createLeaveUrl: 'secured/leave/create-leave'
+
 };
