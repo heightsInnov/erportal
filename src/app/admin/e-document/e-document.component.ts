@@ -140,8 +140,9 @@ export class EDocumentComponent implements OnInit {
         if (data.responseCode === '00') {
           this.spinner.hide();
           this.toastr.success('Entry Registered!', 'SUCCESSFUL');
+          this.clearForm();
+          this.close();
           this.getEntries();
-          this.dialogRef.close();
         }
       },
       error => {
@@ -160,8 +161,8 @@ export class EDocumentComponent implements OnInit {
         if (data.responseCode === '00') {
           this.spinner.hide();
           this.toastr.success('Entry Details Updated!', 'SUCCESSFUL');
+          this.close();
           this.getEntries();
-          this.dialogRef.close();
         }
       },
       error => {

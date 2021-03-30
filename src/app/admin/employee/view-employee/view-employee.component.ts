@@ -94,31 +94,26 @@ export class ViewEmployeeComponent implements OnInit {
     return this.uploadForm.controls;
   }
 
+  get getUploadedFile() {
+    return this.filesForUpload;
+  }
+
   handleFileInput(files: FileList) {
     console.log(files);
-    // const file = files[0];
+    const file = files[0];
     const reader = new FileReader();
-    for (let i = 0; i < files.length; i++) {
-      let fileData;
-      reader.readAsDataURL(files[i]);
-      reader.onload = () => {
-        console.log(reader.result);
-        fileData = {
-          upload_title: files[i].name,
-          image_byte: reader.result
-        };
+    let fileData;
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      console.log(reader.result);
+      fileData = {
+        upload_title: file.name,
+        image_byte: reader.result
       };
-      reader.onloadend = () => {
-        this.filesForUpload.push(fileData);
-        console.log(this.filesForUpload);
-      };
-    }
-
-    this.uploadForm.patchValue({
-      file: this.filesForUpload
-    });
-
-
+      this.uploadForm.patchValue({
+        file: fileData
+      });
+    };
 
     this.cd.markForCheck();
   }
@@ -126,16 +121,20 @@ export class ViewEmployeeComponent implements OnInit {
   onSubmit(formPayload) {
     console.log(formPayload);
     const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails.username}`;
-    const filesForUpload = formPayload.file.value.map(obj => {
-                                                              return {
-                                                                        upload_type: formPayload.upload_type.value,
-                                                                        upload_title: obj.upload_title,
-                                                                        image_byte: obj.image_byte
-                                                                      };
-                                                            });
-    console.log(filesForUpload);
+    // const fileForUpload = formPayload.file.value.map(obj => {
+    //                                                           return {
+    //                                                                     upload_type: formPayload.upload_type.value,
+    //                                                                     upload_title: obj.upload_title,
+    //                                                                     image_byte: obj.image_byte
+    //                                                                   };
+    //                                                         });
+    // console.log(fileForUpload);
     const payload = {
-      uploadRequest: filesForUpload[0],
+      upload_type: formPayload.upload_type.value,
+      upload_title: formPayload.file.value.upload_title,
+      file_name: formPayload.file.value.upload_title,
+      image_byte: formPayload.file.value.image_byte,
+      // uploadRequest: formPayload.file.value,
       emp_id: `${this.employeeDetails?.id}`
     };
     this.crudService.uploadData(url, payload).subscribe(
