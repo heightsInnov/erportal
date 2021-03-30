@@ -25,7 +25,7 @@ export class ViewEmployeeComponent implements OnInit {
     title_one: 'overview',
     title_two: 'documents'
   };
-  filesForUpload: any[];
+  filesForUpload = [];
   getUploadedDocumentsUrl = environment.getEmployeeUploadsUrl;
   uploadedDocuments: any[];
   modal: MatDialogRef<TemplateRef<any>>;
@@ -70,6 +70,7 @@ export class ViewEmployeeComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00'){
           this.employeeProfile = data.responseObject;
+          console.log(this.employeeProfile);
         }
       },
       error => {
@@ -84,6 +85,7 @@ export class ViewEmployeeComponent implements OnInit {
   initForm() {
     this.uploadForm = this.fb.group({
       upload_type: [null, Validators.required],
+      fil: [null, Validators.required],
       file: [null, Validators.required]
     });
   }
@@ -106,11 +108,17 @@ export class ViewEmployeeComponent implements OnInit {
           image_byte: reader.result
         };
       };
-      this.filesForUpload.push(fileData);
+      reader.onloadend = () => {
+        this.filesForUpload.push(fileData);
+        console.log(this.filesForUpload);
+      };
     }
+
     this.uploadForm.patchValue({
       file: this.filesForUpload
     });
+
+
 
     this.cd.markForCheck();
   }
@@ -207,3 +215,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
 }
+function fileForUpload() {
+  throw new Error('Function not implemented.');
+}
+

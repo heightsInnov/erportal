@@ -24,7 +24,6 @@ export class CreateEmployeeComponent implements OnInit {
   employeeUrl = environment.employeeUrl;
   getDegreesUrl = environment.getDegreesUrl;
   getUnitsUrl = environment.getUnitsUrl;
-  adminUser = JSON.parse(localStorage.getItem('user'));
   designations: any[];
   linearMode = true;
   stepperLabel = {
@@ -58,6 +57,7 @@ export class CreateEmployeeComponent implements OnInit {
   listLGA: any[];
   departmentPositions: any;
   educationDegrees$: Observable<any[]>;
+  // adminUser: any;
 
   constructor(
                 private fb: FormBuilder,
@@ -72,6 +72,12 @@ export class CreateEmployeeComponent implements OnInit {
     this.getDegrees();
   }
 
+  get adminUser() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    return user;
+  }
+
   // build form controls
   initForm(): void {
     this.createEmployeeForm = this.fb.group({
@@ -79,11 +85,12 @@ export class CreateEmployeeComponent implements OnInit {
       emp_id_no: [null, Validators.compose([Validators.required, Validators.minLength(9)])],
       emp_nationality: [null, Validators.required],
       emp_employment_date: [null, Validators.required],
-      emp_date_of_first_employment: [null, Validators.required],
+      emp_date_of_first_employment: [null],
       emp_username: [null, Validators.required],
-      emp_gsm_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
+      // emp_gsm_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
+      emp_gsm_no: [null],
       emp_gender: [null, Validators.required],
-      emp_religion: [null, Validators.required],
+      emp_religion: [null],
       emp_firstname: [null, Validators.required],
       emp_state: [null, Validators.required],
       emp_email: [null, Validators.compose([
@@ -92,23 +99,23 @@ export class CreateEmployeeComponent implements OnInit {
                                             Validators.email
                                           ])],
       emp_middlename: [null, Validators.required],
-      emp_role: [null, Validators.required],
+      emp_role: [null],
       emp_id_type: [null, Validators.required],
-      emp_confirmation_date: [null, Validators.required],
-      emp_phone: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(10)])],
+      emp_confirmation_date: [null],
+      emp_phone: [null],
       emp_present_posting_deployment: [null],
       emp_address: [null, Validators.required],
-      emp_pso_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
+      emp_pso_file_no: [null],
       emp_dob: [null, Validators.required],
-      emp_commission_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
-      emp_professional_affiliaions: [null, Validators.required],
+      emp_commission_file_no: [null],
+      emp_professional_affiliaions: [null],
       emp_lastname: [null, Validators.required],
-      emp_present_posting_date: [null, Validators.required],
+      emp_present_posting_date: [null],
       emp_current_department: [null, Validators.required],
-      emp_establisment_file_no: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(8)])],
-      emp_place_of_birth: [null, Validators.required],
+      emp_establisment_file_no: [null],
+      emp_place_of_birth: [null],
       emp_marital_status: [null, Validators.required],
-      emp_hobbies: [null, Validators.required],
+      emp_hobbies: [null],
       emp_leave_days: [null, Validators.required]
     });
     this.addEmployeeExperienceForm = this.fb.group({
@@ -143,7 +150,7 @@ export class CreateEmployeeComponent implements OnInit {
       edu_institution: [null, Validators.required],
       edu_start_date: [null, Validators.required],
       edu_degree: [null, Validators.required],
-      edu_cgpa: [null, Validators.required],
+      edu_cgpa: [null],
       edu_end_date: [null, Validators.required]
     });
   }
@@ -296,6 +303,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
+        if (data.responseCode)
         this.toastr.info('Employee Experience Added!', 'Successful');
         this.stepperComponent.next();
       },

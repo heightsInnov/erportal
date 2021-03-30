@@ -66,7 +66,7 @@
               <div class="card-content">
                 <div class="card-body"> -->
                   <ng-container *ngIf="employeeProfile?.employeeDetails?.passport !== null">
-                    <img [src]="employeeProfile?.employeeDetails.passport" alt="Profile Picture" width="150" class="border-primary mb-1" lazyload="true">
+                    <img [src]="'data:image/jpeg;base64,' + employeeProfile?.employeeDetails.passport" alt="Profile Picture" width="150" class="border-primary mb-1" lazyload="true">
                   </ng-container>
                   <ng-container *ngIf="employeeProfile?.employeeDetails?.passport === null">
                     <img src="../../../../assets/images/profile-avatar.png" alt="Profile Avatar" width="150" class="border-primary mb-1" lazyload="true">
@@ -472,7 +472,7 @@
               </fieldset>
 
               <fieldset class="form-label-group form-group position-relative">
-                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="file">
+                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="fil">
                 <!-- <div class="custom-file">
                   <input type="file" class="custom-file-input" id="inputGroupFile01" formControlName="file">
                   <label class="custom-file-label" for="inputGroupFile01">Select Document</label>
