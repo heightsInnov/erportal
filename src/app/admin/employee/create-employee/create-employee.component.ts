@@ -58,6 +58,7 @@ export class CreateEmployeeComponent implements OnInit {
   departmentPositions: any;
   educationDegrees$: Observable<any[]>;
   // adminUser: any;
+  currentEmployeeUsername;
 
   constructor(
                 private fb: FormBuilder,
@@ -206,6 +207,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.stepperComponent = stepperComponent;
     if (formname === 'createEmployeeForm') {
       console.log(formPayload);
+      this.currentEmployeeUsername = formPayload.emp_username.value;
       const payload: IEmployeePayload = {
         emp_local_govt_ward: formPayload.emp_local_govt_ward.value,
         emp_id_no: formPayload.emp_id_no.value,
@@ -247,14 +249,14 @@ export class CreateEmployeeComponent implements OnInit {
         experience: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.adminUser.emp_username}`, payload);
+      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeEducationDetailsForm') {
       console.log(formPayload);
       const payload = {
         education: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.adminUser.emp_username}`, payload);
+      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeNextOfKinDetailsForm') {
       console.log(formPayload);
       const payload: INextOfKinPayload = {
@@ -264,14 +266,14 @@ export class CreateEmployeeComponent implements OnInit {
         nok_relationship: formPayload.nok_relationship.value
       };
       console.log(payload);
-      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.adminUser.emp_username}`, payload);
+      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeFamilyDetailsForm') {
       console.log(formPayload);
       const payload = {
         spouse_name: formPayload.spouse_name.value,
         children: formPayload.children.value
       };
-      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.adminUser.emp_username}`, payload);
+      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.currentEmployeeUsername}`, payload);
     }
   }
 
