@@ -204,7 +204,6 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   onSubmit(formPayload, formname: string, stepperComponent){
-    this.stepperComponent = stepperComponent;
     if (formname === 'createEmployeeForm') {
       console.log(formPayload);
       this.currentEmployeeUsername = formPayload.emp_username.value;
@@ -242,21 +241,21 @@ export class CreateEmployeeComponent implements OnInit {
         emp_leave_days: formPayload.emp_leave_days.value,
       };
       console.log(payload);
-      this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload);
+      this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload, stepperComponent);
     } else if (formname === 'addEmployeeExperienceForm') {
       console.log(formPayload);
       const payload = {
         experience: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.currentEmployeeUsername}`, payload);
+      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.currentEmployeeUsername}`, payload, stepperComponent);
     } else if (formname === 'addEmployeeEducationDetailsForm') {
       console.log(formPayload);
       const payload = {
         education: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.currentEmployeeUsername}`, payload);
+      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.currentEmployeeUsername}`, payload, stepperComponent);
     } else if (formname === 'addEmployeeNextOfKinDetailsForm') {
       console.log(formPayload);
       const payload: INextOfKinPayload = {
@@ -266,14 +265,14 @@ export class CreateEmployeeComponent implements OnInit {
         nok_relationship: formPayload.nok_relationship.value
       };
       console.log(payload);
-      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.currentEmployeeUsername}`, payload);
+      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.currentEmployeeUsername}`, payload, stepperComponent);
     } else if (formname === 'addEmployeeFamilyDetailsForm') {
       console.log(formPayload);
       const payload = {
         spouse_name: formPayload.spouse_name.value,
         children: formPayload.children.value
       };
-      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.currentEmployeeUsername}`, payload);
+      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.currentEmployeeUsername}`, payload, stepperComponent);
     }
   }
 
@@ -287,7 +286,7 @@ export class CreateEmployeeComponent implements OnInit {
     }
   }
 
-  createEmployee(url: string, payload: IEmployeePayload) {
+  createEmployee(url: string, payload: IEmployeePayload, stepperComponent) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
@@ -296,12 +295,13 @@ export class CreateEmployeeComponent implements OnInit {
         this.stepperComponent.next();
       },
       error => {
-        console.log(error);
+        this.currentEmployeeUsername = "";
+        this.toastr.error(error?.error?.responseMessage || "An Error Occurred", 'Unsuccessful');
       }
     );
   }
 
-  addEmployeeExperience(url: string, payload) {
+  addEmployeeExperience(url: string, payload, stepperComponent) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
@@ -315,7 +315,7 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeEducationDetails(url: string, payload) {
+  addEmployeeEducationDetails(url: string, payload, stepperComponent) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
@@ -328,7 +328,7 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeNextOfKinDetails(url: string, payload: INextOfKinPayload) {
+  addEmployeeNextOfKinDetails(url: string, payload: INextOfKinPayload, stepperComponent) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
@@ -342,7 +342,7 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeFamilyDetails(url: string, payload: IFamilyPayload) {
+  addEmployeeFamilyDetails(url: string, payload: IFamilyPayload, stepperComponent) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);

@@ -88,7 +88,6 @@ export class ViewEmployeeComponent implements OnInit {
   initForm() {
     this.uploadForm = this.fb.group({
       upload_type: [null, Validators.required],
-      fil: [null, Validators.required],
       file: [null, Validators.required]
     });
   }
@@ -123,7 +122,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   onSubmit(formPayload) {
     console.log(formPayload);
-    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails.username}`;
+    const url = `${this.uploadUserDocumentsUrl}`;
     // const fileForUpload = formPayload.file.value.map(obj => {
     //                                                           return {
     //                                                                     upload_type: formPayload.upload_type.value,
@@ -142,7 +141,6 @@ export class ViewEmployeeComponent implements OnInit {
     };
     this.crudService.uploadData(url, payload).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.close();
           this.toastr.success('File Upload Successful');
@@ -150,9 +148,10 @@ export class ViewEmployeeComponent implements OnInit {
         } else if (data.responseCode === '99') {
           this.toastr.error('File Upload Unsuccessful');
         }
+        this.close();
       },
       error => {
-        console.log(error);
+        this.close();
         this.spinner.hide();
         this.toastr.warning('File Upload Unsuccessful', 'An Error Occured');
       }
@@ -187,13 +186,11 @@ export class ViewEmployeeComponent implements OnInit {
     const url = this.getUploadTypesUrl;
     this.crudService.getData(url).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.uploadTypes = data.responseObject.user_types;
         }
       },
       error => {
-        console.log(error);
         this.toastr.warning('Upload Types Unavailable');
       }
     );
