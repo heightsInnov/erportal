@@ -98,9 +98,6 @@ export class HrDocumentComponent implements OnInit {
         file: [{upload_title: file.name, image_byte: reader.result}]
       });
     };
-    this.uploadForm.patchValue({
-      file: this.filesForUpload
-    });
     this.cd.markForCheck();
   }
 

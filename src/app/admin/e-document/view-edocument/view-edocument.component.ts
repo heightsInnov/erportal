@@ -222,7 +222,7 @@ export class ViewEdocumentComponent implements OnInit {
         });
         this.openModal(dialog, act);
       }
-    } else if (act === 'delete') {
+    } else if (act === 'close') {
       const modalData = {
         action: act,
         question: `Do you want to ${act} this entry?`,
