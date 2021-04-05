@@ -129,9 +129,9 @@ export class CreateProjectComponent implements OnInit {
     this.activitiesProjectsProposalForm = this.fb.group({
       subject: [null, Validators.required],
       status: [null, Validators.required],
-      actionRequired: [null, Validators.required],
+      actionRequired: [null],
       actionTaker: [null, Validators.required],
-      expectedOutcome: [null, Validators.required],
+      expectedOutcome: [null],
       completionDate: [null, Validators.required]
     });
     this.documentRegisterForm = this.fb.group({
