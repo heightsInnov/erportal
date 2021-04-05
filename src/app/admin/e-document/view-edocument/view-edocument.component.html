@@ -80,16 +80,23 @@
                 matTooltip="Change Assignment">
                 <mat-icon>preview</mat-icon>
               </button>
-              <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
-              (click)="takeAction(editAssignmentModal, 'edit')"
-              matTooltip="Edit Assignment">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-mini-fab class="mx-1" color="warn" aria-label="Close"
-                (click)="takeAction(deleteAssignmentModal, 'close')"
-                matTooltip="Close">
-                <mat-icon>delete</mat-icon>
-              </button>
+              <ng-container *ngIf="edocEntry && edocEntry.edoc_status != 'CLOSED'">
+                <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
+                (click)="takeAction(editAssignmentModal, 'edit')"
+                matTooltip="Edit Assignment">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab class="mx-1" color="warn" aria-label="Close"
+                  (click)="takeAction(closeAssignmentModal, 'close')"
+                  matTooltip="Close">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <button mat-mini-fab class="mx-1" color="warn" aria-label="Close"
+                  (click)="takeAction(deleteAssignmentModal, 'delete')"
+                  matTooltip="Delete Last Entry">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
             </div>
           </div>
           <div class="card-content">
@@ -112,24 +119,7 @@
                                     </div>
                                     <div class="timeline-info">
                                       <div class="row">
-                                        <div class="col-4 order-2 d-flex align-items-center"
-                                           style="background: transparent;" *ngIf="assignment.edas_status === 'OPEN'">
-                                          <button mat-mini-fab class="mx-1" color="primary" aria-label="New Assign"
-                                            (click)="takeAction(newAssignmentModal, 'assign', assignment)"
-                                            matTooltip="Reassign Assignment">
-                                            <mat-icon>preview</mat-icon>
-                                          </button>
-                                          <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
-                                          (click)="takeAction(editAssignmentModal, 'edit', assignment)"
-                                          matTooltip="Edit Assignment">
-                                            <mat-icon>edit</mat-icon>
-                                          </button>
-                                          <button mat-mini-fab class="mx-1" color="warn" aria-label="Delete Assignment"
-                                            (click)="takeAction(deleteAssignmentModal, 'delete', assignment)"
-                                            matTooltip="Delete Assignment">
-                                            <mat-icon>delete</mat-icon>
-                                          </button>
-                                        </div>
+                                        
 
                                         <div class="col-8 order-1">
                                           <div [ngClass]="{'card':true, 'border-success': assignment.edas_status === 'CLOSED', 'border-warning': assignment.edas_status === 'OPEN'}">
@@ -306,7 +296,7 @@
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="button" (click)="clearForm(newAssignmentForm);" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
                         <i class="feather icon-x d-block d-lg-none"></i>
-                          <span class="d-none d-lg-block">Cancel</span>
+                          <span class="d-none d-lg-block">Clear</span>
                         </button>
                   </fieldset>
                 </div>
@@ -409,7 +399,7 @@
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="button" (click)="clearForm(editAssignmentForm);" mat-dialog-close class="btn btn-outline-light waves-effect waves-light actions">
                         <i class="feather icon-x d-block d-lg-none"></i>
-                          <span class="d-none d-lg-block">Cancel</span>
+                          <span class="d-none d-lg-block">Clear</span>
                         </button>
                   </fieldset>
                 </div>
@@ -446,6 +436,45 @@
                   <fieldset class="form-group position-relative has-icon-left mb-0">
                       <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
                         (click)="deleteAssignment(data.id)">
+                        <i class="feather icon-check d-block d-lg-none"></i>
+                          <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
+                          <span class="d-none d-lg-block">YES</span>
+                      </button>
+                  </fieldset>
+                </div>
+              <!-- </form> -->
+          </section>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #closeAssignmentModal let-data>
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+      <div class="modal-content">
+          <section class="todo-form">
+              <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(formData, ref, data.title)" class="todo-input"> -->
+                <div class="modal-header">
+                  <h5 class="modal-title">{{ data.action | titlecase }} Assignment</h5>
+                  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p> {{ data.question | titlecase}} </p>
+                </div>
+                <div class="modal-footer">
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                    <button type="submit" class="btn btn-default add-todo-item waves-effect waves-light"
+                      mat-dialog-close>
+                      <i class="feather icon-times d-block d-lg-none"></i>
+                        <span class="d-none d-lg-block">NO</span>
+                    </button>
+                  </fieldset>
+                  <fieldset class="form-group position-relative has-icon-left mb-0">
+                      <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
+                        (click)="closeAssignment(data.id)">
                         <i class="feather icon-check d-block d-lg-none"></i>
                           <!-- <span class="d-none d-lg-block">Move to {{ data.title.action | titlecase}}</span> -->
                           <span class="d-none d-lg-block">YES</span>
