@@ -66,6 +66,7 @@ export const environment = {
   getUnitsUrl: 'secured/get-units',
   getAllEmployeeUrl: 'secured/report/get-all-employee',
   getUploadTypesUrl: 'secured/get-upload-types',
+  getNotificationUrl: 'secured/get-notification-messages',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',
   getEmployeeUploadsUrl: 'secured/user/get-user-document',
   getDegreesUrl: 'secured/get-degrees',

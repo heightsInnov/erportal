@@ -59,9 +59,8 @@ export class UploadTypesComponent implements OnInit {
   getUploadTypes() {
     this.crudService.getData(this.fetchUploadsUrl).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
-          this.uploadTypes = data.responseObject.unit;
+          this.uploadTypes = data.responseObject.user_types;
         } else if (data.responseObject === '99') {
           // console.log('error: ', error);
           this.toastr.error('Failed to fetch upload types', 'ERROR');
