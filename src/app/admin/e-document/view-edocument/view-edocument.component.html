@@ -74,6 +74,23 @@
         <div class="card">
           <div class="card-header">
             <h5 class="card-title">Document {{ edocEntry?.edoc_doc_ref | uppercase }} Assignment Trail</h5>
+            <div class="pull-right">
+              <button mat-mini-fab class="mx-1" color="primary" aria-label="Change Assignment"
+                (click)="takeAction(newAssignmentModal, 'assign')"
+                matTooltip="Change Assignment">
+                <mat-icon>preview</mat-icon>
+              </button>
+              <button mat-mini-fab class="mx-1" color="accent" aria-label="Edit Assignment"
+              (click)="takeAction(editAssignmentModal, 'edit')"
+              matTooltip="Edit Assignment">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab class="mx-1" color="warn" aria-label="Close"
+                (click)="takeAction(deleteAssignmentModal, 'close')"
+                matTooltip="Close">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
           </div>
           <div class="card-content">
             <div class="card-body">

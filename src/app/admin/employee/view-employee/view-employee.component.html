@@ -462,7 +462,7 @@
                 <select id="document_type" class="form-control" formControlName="upload_type">
                   <option [value]="null">Select Type</option>
                   <ng-container *ngFor="let type of uploadTypes">
-                    <option [value]="type.code">{{ type.name }}</option>
+                    <option [value]="type.name">{{ type.name }}</option>
                   </ng-container>
                 </select>
 
@@ -472,7 +472,7 @@
               </fieldset>
 
               <fieldset class="form-label-group form-group position-relative">
-                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="fil">
+                <input type="file" class="form-control" (change)="handleFileInput($event.target.files)"  formControlName="file">
                 <!-- <div class="custom-file">
                   <input type="file" class="custom-file-input" id="inputGroupFile01" formControlName="file">
                   <label class="custom-file-label" for="inputGroupFile01">Select Document</label>
@@ -483,7 +483,7 @@
             <div class="modal-footer">
               <fieldset class="form-group position-relative has-icon-left mb-0">
                 <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                  [disabled]="!uploadForm.invalid">
+                  [disabled]="uploadForm.invalid || processing">
                   <i class="feather icon-upload d-block d-lg-none"></i>
                     <span class="d-none d-lg-block">Upload</span></button>
               </fieldset>

@@ -141,6 +141,7 @@ export class ActivityComponent implements OnInit {
   }
 
   updateActivity(url: string, payload: IUpdateActivity) {
+    console.log(url, payload);
     this.crudService.updateData(url, payload).subscribe(
       data => {
         console.log(data);
@@ -252,6 +253,7 @@ export class ActivityComponent implements OnInit {
   }
 
   getOptionMethod(action, activity){
+    this.activityId = activity.activity_id;
     if (action.method === 'in_progress' || action.method === 'completed') {
       // if (action === 'in_progress' || action === 'completed') {
       const modal: TemplateRef<any> = this.activityStatusModal;
@@ -260,7 +262,7 @@ export class ActivityComponent implements OnInit {
           action: action.title,
           question: `do you want to move this activity to ${action.title}?`,
           statusCode: action.title === 'completed' ? 'C' : 'O',
-          id: activity.activityId
+          id: activity.activity_id
         }
         // {
         //   action,
@@ -280,7 +282,7 @@ export class ActivityComponent implements OnInit {
 
   openModal(dialog: TemplateRef<any>, options, updateObj?) {
     if (updateObj) {
-      this.activityId = updateObj.activityId;
+      this.activityId = updateObj.activity_id;
       this.form.patchValue({
         unit: updateObj.unit.unit_code,
         activity: updateObj.activity,

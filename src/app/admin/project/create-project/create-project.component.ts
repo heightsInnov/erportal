@@ -129,9 +129,9 @@ export class CreateProjectComponent implements OnInit {
     this.activitiesProjectsProposalForm = this.fb.group({
       subject: [null, Validators.required],
       status: [null, Validators.required],
-      actionRequired: [null, Validators.required],
+      actionRequired: [null],
       actionTaker: [null, Validators.required],
-      expectedOutcome: [null, Validators.required],
+      expectedOutcome: [null],
       completionDate: [null, Validators.required]
     });
     this.documentRegisterForm = this.fb.group({
@@ -501,7 +501,7 @@ export class CreateProjectComponent implements OnInit {
       data => {
         if (data.responseCode === '00') {
           this.handoverCategories = data.responseObject;
-          data.responseObject.foreach(obj => {
+          data.responseObject.map(obj => {
             if (obj.cat_name === 'DIRECTORY OF BUSINESS CONTACTS') {
               this.businessContactsCategory = obj;
             } else if (obj.cat_name === 'BOOKS, CDS, SOFTWARES AND REFERENCE MANUALS') {

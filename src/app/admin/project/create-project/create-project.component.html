@@ -221,27 +221,15 @@
                   <div class="col-md-6 col-12">
                     <div class="form-group">
                       <label for="actionRequired">Required Follow Up Action</label>
-                      <textarea  [ngClass]="{'form-control' : true,
-                                              'is-invalid' : (activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.invalid,
-                                              'is-valid' : (activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.valid
-                                            }" id="actionRequired" rows="3" formControlName="actionRequired" placeholder="State Required Follow up Action"></textarea>
-                      <ng-container *ngIf="(activitiesProjectsProposalFormData.actionRequired.dirty || activitiesProjectsProposalFormData.actionRequired.touched) && activitiesProjectsProposalFormData.actionRequired.invalid">
-                        <div *ngIf="activitiesProjectsProposalFormData.actionRequired.errors.required" class="invalid-feedback">Please State Required Follow up Action</div>
-                      </ng-container>
-                      </div>
+                      <textarea id="actionRequired" rows="3" formControlName="actionRequired" placeholder="State Required Follow up Action"></textarea>
+                    </div>
                   </div>
 
                   <div class="col-md-6 col-12">
                     <div class="form-group">
                       <label for="expectedOutcome">Expected Outcome</label>
-                      <textarea  [ngClass]="{'form-control' : true,
-                                              'is-invalid' : (activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.invalid,
-                                              'is-valid' : (activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.valid
-                                            }" id="expectedOutcome" rows="3" formControlName="expectedOutcome" placeholder="State Expected Outcome"></textarea>
-                      <ng-container *ngIf="(activitiesProjectsProposalFormData.expectedOutcome.dirty || activitiesProjectsProposalFormData.expectedOutcome.touched) && activitiesProjectsProposalFormData.expectedOutcome.invalid">
-                        <div *ngIf="activitiesProjectsProposalFormData.expectedOutcome.errors.required" class="invalid-feedback">Please State Expected Outcome</div>
-                      </ng-container>
-                      </div>
+                      <textarea  id="expectedOutcome" rows="3" formControlName="expectedOutcome" placeholder="State Expected Outcome"></textarea>
+                    </div>
                   </div>
 
                   <div class="col-md-6 col-12">
@@ -288,7 +276,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="activitiesProjectsProposalForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>
@@ -499,7 +487,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="documentRegisterForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>
@@ -717,7 +705,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="businessContactsForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>
@@ -911,7 +899,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="toolsAndEquipmentsForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>
@@ -1120,7 +1108,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="booksCdsSoftwaresForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>
@@ -1306,7 +1294,7 @@
                 <fieldset class="form-group position-relative has-icon-left mb-0">
                     <button type="reset" (click)="vehicleMaintenanceForm.reset();" class="btn btn-outline-light waves-effect waves-light">
                       <i class="feather icon-x d-block d-lg-none"></i>
-                        <span class="d-none d-lg-block">Cancel</span>
+                        <span class="d-none d-lg-block">Clear</span>
                       </button>
                 </fieldset>
               </div>

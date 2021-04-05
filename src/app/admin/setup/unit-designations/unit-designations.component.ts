@@ -118,7 +118,7 @@ export class UnitDesignationsComponent implements OnInit {
   deleteUnit(payload) {
     this.actionLoading = true;
     const deleteUnitUrl = `${this.unitUrl}?action=D`;
-    this.crudService.deleteData(deleteUnitUrl, payload).subscribe(
+    this.crudService.createData(deleteUnitUrl, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00') {

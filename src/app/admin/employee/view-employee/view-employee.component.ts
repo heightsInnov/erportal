@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-view-employee',
@@ -30,6 +31,10 @@ export class ViewEmployeeComponent implements OnInit {
   uploadedDocuments: any[];
   modal: MatDialogRef<TemplateRef<any>>;
 
+  queryParams: any;
+  processing = false;
+
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -39,7 +44,10 @@ export class ViewEmployeeComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-  ) { }
+  ) { 
+    this.queryParams = this.route.snapshot.queryParamMap;
+    this.queryParams = this.queryParams.params;
+  }
 
   ngOnInit(): void {
     this.getEmployeeUsername();
@@ -48,19 +56,15 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeUsername() {
-    this.route.queryParamMap.subscribe(
-      (params: ParamMap) => {
-        if (params.get('username') !== undefined && params.get('id') !== undefined) {
-          this.employeeDetails = {
-            username: params.get('username'),
-            id: params.get('id')
-          };
-          this.getEmployeeProfile();
-          this.getUploadedDocuments();
-        }
-        console.log('employeeUser: ', this.employeeDetails);
-      }
-    );
+    if(this.queryParams.username && this.queryParams.id){
+      this.employeeDetails = {
+        username: this.queryParams.username,
+        id: this.queryParams.id
+      };
+
+      this.getEmployeeProfile();
+      this.getUploadedDocuments();
+    }
   }
 
   getEmployeeProfile() {
@@ -85,7 +89,6 @@ export class ViewEmployeeComponent implements OnInit {
   initForm() {
     this.uploadForm = this.fb.group({
       upload_type: [null, Validators.required],
-      fil: [null, Validators.required],
       file: [null, Validators.required]
     });
   }
@@ -99,7 +102,6 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    console.log(files);
     const file = files[0];
     const reader = new FileReader();
     let fileData;
@@ -119,8 +121,8 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   onSubmit(formPayload) {
-    console.log(formPayload);
-    const url = `${this.uploadUserDocumentsUrl}/${this.employeeDetails.username}`;
+    this.processing = true;
+    const url = `${this.uploadUserDocumentsUrl}`;
     // const fileForUpload = formPayload.file.value.map(obj => {
     //                                                           return {
     //                                                                     upload_type: formPayload.upload_type.value,
@@ -137,9 +139,12 @@ export class ViewEmployeeComponent implements OnInit {
       // uploadRequest: formPayload.file.value,
       emp_id: `${this.employeeDetails?.id}`
     };
+
+    console.log(url,payload);
+
     this.crudService.uploadData(url, payload).subscribe(
       data => {
-        console.log(data);
+        this.processing = false;
         if (data.responseCode === '00') {
           this.close();
           this.toastr.success('File Upload Successful');
@@ -147,9 +152,11 @@ export class ViewEmployeeComponent implements OnInit {
         } else if (data.responseCode === '99') {
           this.toastr.error('File Upload Unsuccessful');
         }
+        this.close();
       },
       error => {
-        console.log(error);
+        this.processing = false;
+        this.close();
         this.spinner.hide();
         this.toastr.warning('File Upload Unsuccessful', 'An Error Occured');
       }
@@ -184,13 +191,11 @@ export class ViewEmployeeComponent implements OnInit {
     const url = this.getUploadTypesUrl;
     this.crudService.getData(url).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.uploadTypes = data.responseObject.user_types;
         }
       },
       error => {
-        console.log(error);
         this.toastr.warning('Upload Types Unavailable');
       }
     );
