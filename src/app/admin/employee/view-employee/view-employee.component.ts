@@ -30,6 +30,9 @@ export class ViewEmployeeComponent implements OnInit {
   uploadedDocuments: any[];
   modal: MatDialogRef<TemplateRef<any>>;
 
+  queryParams: any;
+
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -39,7 +42,10 @@ export class ViewEmployeeComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
-  ) { }
+  ) { 
+    this.queryParams = this.route.snapshot.queryParamMap;
+    this.queryParams = this.queryParams.params;
+  }
 
   ngOnInit(): void {
     this.getEmployeeUsername();
@@ -48,19 +54,16 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeUsername() {
-    this.route.queryParamMap.subscribe(
-      (params: ParamMap) => {
-        if (params.get('username') !== undefined && params.get('id') !== undefined) {
-          this.employeeDetails = {
-            username: params.get('username'),
-            id: params.get('id')
-          };
-          this.getEmployeeProfile();
-          this.getUploadedDocuments();
-        }
-        console.log('employeeUser: ', this.employeeDetails);
-      }
-    );
+    console.log(this.queryParams.id)
+    if(this.queryParams.username && this.queryParams.id){
+      this.employeeDetails = {
+        username: this.queryParams.username,
+        id: this.queryParams.id
+      };
+
+      this.getEmployeeProfile();
+      this.getUploadedDocuments();
+    }
   }
 
   getEmployeeProfile() {
