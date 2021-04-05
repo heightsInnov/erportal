@@ -71,7 +71,6 @@ export class HeaderComponent implements OnInit {
   getAllEmployee(url: string) {
     this.crudService.getData(url).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00'){
           this.allEmployees = data.responseObject;
           this.currentEvents = this.allEmployees.map((emp, i) => {

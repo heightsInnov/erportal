@@ -27,6 +27,8 @@ export class HrDocumentComponent implements OnInit {
   hrDocuments: { POLICY_DOCUMENT: any[], FORMS: any[] };
   documents: any[] = [];
 
+  processing = false;
+
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -45,7 +47,6 @@ export class HrDocumentComponent implements OnInit {
   getHrDocs() {
     this.crudService.getData(this.getHrDocUrl).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.hrDocuments = {
             FORMS: data.responseObject.filter(obj => obj['FORMS'] ? obj['FORMS'] : [] ),
@@ -95,31 +96,25 @@ export class HrDocumentComponent implements OnInit {
         image_byte: reader.result
       };
       this.uploadForm.patchValue({
-        file: [{upload_title: file.name, image_byte: reader.result}]
+        file: {upload_title: file.name, image_byte: reader.result}
       });
     };
     this.cd.markForCheck();
   }
 
   onSubmit(formPayload) {
-    console.log(formPayload);
+    this.processing = true;
     const url = `${this.uploadUserDocumentsUrl}`;
-    const filesForUpload = formPayload.file.value.map(obj => {
-                                                              return {
-                                                                        upload_type: formPayload.upload_type.value,
-                                                                        upload_title: obj.upload_title,
-                                                                        image_byte: obj.image_byte
-                                                                      };
-                                                            });
-    console.log(filesForUpload);
     const payload = {
-      uploadRequest: filesForUpload[0],
+      upload_type: formPayload.upload_type.value,
+      upload_title: formPayload.file.value.upload_title,
+      file_name: formPayload.file.value.upload_title,
+      image_byte: formPayload.file.value.image_byte,
       emp_id: `${this.employeeDetails?.emp_id}`
     };
-    console.log(payload);
     this.crudService.uploadData(url, payload).subscribe(
       data => {
-        console.log(data);
+        this.processing = false;
         if (data.responseCode === '00') {
           this.close();
           this.toastr.success('HR Document Upload Successful');
@@ -128,7 +123,7 @@ export class HrDocumentComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        this.processing = false;
         this.spinner.hide();
         this.toastr.warning('HR Document Upload Unsuccessful', 'An Error Occured');
       }

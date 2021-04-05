@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-view-employee',
@@ -31,6 +32,7 @@ export class ViewEmployeeComponent implements OnInit {
   modal: MatDialogRef<TemplateRef<any>>;
 
   queryParams: any;
+  processing = false;
 
 
   constructor(
@@ -54,7 +56,6 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   getEmployeeUsername() {
-    console.log(this.queryParams.id)
     if(this.queryParams.username && this.queryParams.id){
       this.employeeDetails = {
         username: this.queryParams.username,
@@ -101,7 +102,6 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    console.log(files);
     const file = files[0];
     const reader = new FileReader();
     let fileData;
@@ -121,7 +121,7 @@ export class ViewEmployeeComponent implements OnInit {
   }
 
   onSubmit(formPayload) {
-    console.log(formPayload);
+    this.processing = true;
     const url = `${this.uploadUserDocumentsUrl}`;
     // const fileForUpload = formPayload.file.value.map(obj => {
     //                                                           return {
@@ -139,8 +139,12 @@ export class ViewEmployeeComponent implements OnInit {
       // uploadRequest: formPayload.file.value,
       emp_id: `${this.employeeDetails?.id}`
     };
+
+    console.log(url,payload);
+
     this.crudService.uploadData(url, payload).subscribe(
       data => {
+        this.processing = false;
         if (data.responseCode === '00') {
           this.close();
           this.toastr.success('File Upload Successful');
@@ -151,6 +155,7 @@ export class ViewEmployeeComponent implements OnInit {
         this.close();
       },
       error => {
+        this.processing = false;
         this.close();
         this.spinner.hide();
         this.toastr.warning('File Upload Unsuccessful', 'An Error Occured');

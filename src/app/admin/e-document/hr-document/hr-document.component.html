@@ -109,7 +109,7 @@
             <div class="modal-footer">
               <fieldset class="form-group position-relative has-icon-left mb-0">
                 <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light"
-                  [disabled]="uploadForm.invalid">
+                  [disabled]="uploadForm.invalid || processing">
                   <i class="feather icon-upload d-block d-lg-none"></i>
                     <span class="d-none d-lg-block">Upload</span></button>
               </fieldset>
