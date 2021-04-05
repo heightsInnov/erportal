@@ -37,6 +37,7 @@ export const environment = {
                   createEntry: 'secured/edocument/register-entry',
                   assignEntry: 'secured/edocument/assign-entry',
                   deleteEntry: 'secured/edocument/delete-entry',
+                  closeEntry: 'secured/edocument/close-entry',
                   editEntry: 'secured/edocument/edit-entry',
                   hrDocuments: 'secured/edocument/get-hr-entry',
                   editAssignment: 'secured/edocument/edit-assignment'

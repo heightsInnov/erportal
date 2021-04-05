@@ -29,6 +29,9 @@ export class ViewEdocumentComponent implements OnInit {
   employees$: Observable<any[]>;
   userData = JSON.parse(localStorage.getItem('user'));
   emps: any[] = [];
+
+  lastEntryAssignment;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -119,9 +122,9 @@ export class ViewEdocumentComponent implements OnInit {
   getEntryDetails(id: string) {
     this.crudService.getData(`${this.edocumentsUrl.getEntry}?operation=ED&data=${id}`).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.edocEntry = data.responseObject[0];
+          console.log(this.edocEntry.edoc_status)
         }
       },
       error => {
@@ -134,9 +137,9 @@ export class ViewEdocumentComponent implements OnInit {
   getEntryAssignment(id: string) {
     this.crudService.getData(`${this.edocumentsUrl.getEntry}?operation=EA&data=${id}`).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00') {
           this.edocEntryAssignments = data.responseObject;
+          this.lastEntryAssignment = this.edocEntryAssignments.length ? this.edocEntryAssignments[this.edocEntryAssignments.length - 1] : "";
         }
       },
       error => {
@@ -196,7 +199,25 @@ export class ViewEdocumentComponent implements OnInit {
     );
   }
 
-  takeAction(dialog: TemplateRef<any>, act, actionObj) {
+  closeAssignment(id) {
+    this.crudService.updateData(`${this.edocumentsUrl.closeEntry}/${id}`, '').subscribe(
+      data => {
+        console.log(data);
+        if (data.responseCode === '00') {
+          this.toastr.success('Entry Closed', 'SUCCESSFUL');
+          this.getDocumentId();
+          this.dialogRef.close();
+        }
+      },
+      error => {
+        console.log(error);
+        this.spinner.hide();
+      }
+    );
+  }
+
+  takeAction(dialog: TemplateRef<any>, act) {
+    let actionObj = this.lastEntryAssignment;
     if (act === 'assign' || act === 'edit') {
       const presentUnit = this.units.filter(unit => unit.name === actionObj.edas_present_unit);
       console.log('presentUnit: ', presentUnit);
@@ -222,11 +243,11 @@ export class ViewEdocumentComponent implements OnInit {
         });
         this.openModal(dialog, act);
       }
-    } else if (act === 'close') {
+    } else if (act === 'close' || act === 'delete') {
       const modalData = {
         action: act,
         question: `Do you want to ${act} this entry?`,
-        id: actionObj.edas_id
+        id: actionObj.edas_edoc_ref
       };
       this.openModal(dialog, modalData);
     }

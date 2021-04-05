@@ -29,8 +29,7 @@
                         <td>{{ notification.not_type != null ? notification.not_type : '' }}</td>
                         <td>{{ notification.not_created_date | date }}</td>
                         <td>
-                              <button class="btn" mat-icon-button matTooltip="Delete Unit"
-                                (click)="openModal(deleteUploadTypeModal, {action: 'delete', extraData: type})" >
+                              <button class="btn" mat-icon-button matTooltip="Delete Unit" >
                                 <mat-icon color="primary">update</mat-icon>
                               </button>
                         </td>
