@@ -12,10 +12,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-
-  uploadTypeForm: FormGroup;
-
-  fetchNotificationUrl = environment.getNotificationUrl;
+  notificationForm: FormGroup;
+  fetchNotificationUrl = environment.setupUrl.notification_messages.get;
+  updateNotificationUrl = environment.setupUrl.notification_messages.update;
 
   dialogRef: MatDialogRef<TemplateRef<any>>;
   actionLoading: boolean;
@@ -30,38 +29,44 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(){
     this.initForm();
     this.getNotification();
   }
 
   initForm() {
-    this.uploadTypeForm = this.fb.group({
-      uploadname: [null, Validators.required],
-      uploadcat: [null, Validators.required]
-    });
+    this.notificationForm = this.fb.group({
+      not_sms_msg: [null],
+      not_email_msg: [null],
+      not_subject: [null],
+      not_id: [null]
+    })
   }
 
-  get uploadTypeFormData() {
-    return this.uploadTypeForm.controls;
+  get notificationFormData() {
+    return this.notificationForm.controls;
   }
 
-  onSubmit(formPayload: { [key: string]: AbstractControl }) {
+  onSubmit(formPayload) {
+    console.log(formPayload)
     const payload = {
-      uploadname: formPayload.uploadname.value,
-      uploadcat: formPayload.uploadcat.value
+      not_id: formPayload.not_id.value,
+      not_sms_msg: formPayload.not_sms_msg.value,
+      not_email_msg: formPayload.not_email_msg.value,
+      not_subject: formPayload.not_subject.value
     };
-    this.createUploadType(payload);
+    this.updateNotification(payload);
   }
 
   getNotification() {
     this.crudService.getData(this.fetchNotificationUrl).subscribe(
       data => {
-        console.log("======fetchNotificationUrl========");
-        console.log(data);
         if (data.responseCode === '00') {
           this.getNotifications = data.responseObject;
         } else if (data.responseObject === '99') {
-          // console.log('error: ', error);
           this.toastr.error('Failed to fetch notifications', 'ERROR');
         }
       },
@@ -72,83 +77,48 @@ export class NotificationsComponent implements OnInit {
     );
   }
 
-  createUploadType(payload) {
+  updateNotification(payload) {
     this.actionLoading = true;
-    const createUploadTypeUrl = "";
-    this.crudService.createData(createUploadTypeUrl, payload).subscribe(
+    this.crudService.updateData(this.updateNotificationUrl, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00') {
           this.actionLoading = false;
-          this.clearForm(this.uploadTypeForm);
+          this.clearForm();
           this.close();
-          this.toastr.success('Upload type Created', 'SUCCESSFUL');
-
+          this.toastr.success('Notification Updated', 'SUCCESSFUL');
+          this.init();
         } else if (data.responseCode === '99') {
           this.actionLoading = false;
-          this.toastr.error('Sorry, failed to create Upload type')
+          this.toastr.error('Sorry, failed to update Notification')
         }
       },
       error => {
         console.log('error: ', error);
         this.actionLoading = false;
-        this.toastr.error('Sorry, failed to create Upload type')
+        this.toastr.error('Sorry, failed to update Notification')
       }
     )
   }
 
-  deleteUploadType(payload) {
-    console.log(payload);
-    this.actionLoading = true;
-    const deleteUnitUrl = "";
-    this.crudService.deleteData(deleteUnitUrl, payload).subscribe(
-      data => {
-        console.log(data);
-        if (data.responseCode === '00') {
-          this.actionLoading = false;
-          this.close();
-          this.toastr.success('Upload type Deleted')
-          
-        } else if (data.responseCode === '99') {
-          this.actionLoading = false;
-          this.toastr.error('Sorry, failed to delete upload type')
-        }
-      },
-      error => {
-        console.log('error: ', error);
-        this.actionLoading = false;
-        this.toastr.error('Sorry, failed to delete upload type')
-      }
-    )
-  }
-
-
-  openModal(dialog: TemplateRef<any>, options?) {
-   if (options) {
-      console.log(options);
-   }
-
+  openModal(dialog: TemplateRef<any>, data) {
+    this.notificationForm.patchValue({
+      not_sms_msg: data.not_sms_msg,
+      not_email_msg: data.not_email_msg,
+      not_subject: data.not_subject,
+      not_id: data.not_id
+    });
     this.dialogRef = this.dialog.open(
-      dialog,
-      {
-        data: options
-      }
+      dialog
     );
   }
 
-  submitModal(modalData) {
-    console.log(modalData);
-    const payload = {
-      uploadid: modalData.extraData.id
-    }
-    this.deleteUploadType(payload);
-  }
-
-  clearForm(form: FormGroup) {
-    form.reset();
+  clearForm() {
+    this.notificationForm.reset();
   }
 
   close() {
+    this.clearForm();
     this.dialogRef.close();
   }
 
