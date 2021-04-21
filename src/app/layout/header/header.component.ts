@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   calendarVisible = false;
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'today',
+      left: '',
       center: 'title',
       right: ''
     },
@@ -71,8 +71,6 @@ export class HeaderComponent implements OnInit {
   getData(url: string) {
     this.crudService.getData(url).subscribe(
       data => {
-        console.log("=========employeebirthdsya=============");
-        console.log(data);
         if (data && data.responseObject){
           let employeeBirthdays = [];
           let that = this;
