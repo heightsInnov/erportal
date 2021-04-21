@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     },
     initialView: 'dayGridMonth',
     // initialEvents: this.currentEvents, // alternatively, use the `events` setting to fetch from a feed
-    events: this.currentEvents,
+    events: [],
     weekends: true,
     editable: false,
     selectable: true,
