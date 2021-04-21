@@ -188,6 +188,7 @@ export class ActivityComponent implements OnInit {
     const path = `${url}/${this.userDetails.emp_username}/A`;
     this.crudService.getData(path).subscribe(
       data => {
+        console.log("========getting activities=========");
         console.log(data);
         if (data.responseCode === '00'){
           if (data.responseObject) {

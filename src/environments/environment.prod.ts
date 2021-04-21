@@ -66,6 +66,7 @@ export const environment = {
   updateActivityStatusURL: 'secured/activity/update-activity-status',
   getUnitsUrl: 'secured/get-units',
   getAllEmployeeUrl: 'secured/report/get-all-employee',
+  getEmployeeBirthday: 'secured/report/get-month-birthday',
   getUploadTypesUrl: 'secured/get-upload-types',
   getNotificationUrl: 'secured/get-notification-messages',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',
