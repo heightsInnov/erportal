@@ -15,6 +15,7 @@ const countryandstate = require('countrycitystatejson');
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
+  formCurrentStep = 1;
   stepperComponent: MatHorizontalStepper;
   createEmployeeForm: FormGroup;
   addEmployeeExperienceForm: FormGroup;
@@ -203,9 +204,9 @@ export class CreateEmployeeComponent implements OnInit {
     return this.createEmployeeForm.controls;
   }
 
-  onSubmit(formPayload, formname: string, stepperComponent){
+  onSubmit(formPayload, formname: string, createEmployeeStepper?){
+    createEmployeeStepper ? this.stepperComponent = createEmployeeStepper : "";
     if (formname === 'createEmployeeForm') {
-      console.log(formPayload);
       this.currentEmployeeUsername = formPayload.emp_username.value;
       const payload: IEmployeePayload = {
         emp_local_govt_ward: formPayload.emp_local_govt_ward.value,
@@ -240,22 +241,21 @@ export class CreateEmployeeComponent implements OnInit {
         emp_hobbies: formPayload.emp_hobbies.value,
         emp_leave_days: formPayload.emp_leave_days.value,
       };
-      console.log(payload);
-      this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload, stepperComponent);
+      this.createEmployee(`${this.employeeUrl.createStaff}/${this.adminUser.emp_username}`, payload);
     } else if (formname === 'addEmployeeExperienceForm') {
       console.log(formPayload);
       const payload = {
         experience: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.currentEmployeeUsername}`, payload, stepperComponent);
+      this.addEmployeeExperience(`${this.employeeUrl.createExperience}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeEducationDetailsForm') {
       console.log(formPayload);
       const payload = {
         education: formPayload.value
       };
       console.log(payload);
-      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.currentEmployeeUsername}`, payload, stepperComponent);
+      this.addEmployeeEducationDetails(`${this.employeeUrl.createEducation}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeNextOfKinDetailsForm') {
       console.log(formPayload);
       const payload: INextOfKinPayload = {
@@ -265,14 +265,14 @@ export class CreateEmployeeComponent implements OnInit {
         nok_relationship: formPayload.nok_relationship.value
       };
       console.log(payload);
-      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.currentEmployeeUsername}`, payload, stepperComponent);
+      this.addEmployeeNextOfKinDetails(`${this.employeeUrl.createNextOfKin}/${this.currentEmployeeUsername}`, payload);
     } else if (formname === 'addEmployeeFamilyDetailsForm') {
       console.log(formPayload);
       const payload = {
         spouse_name: formPayload.spouse_name.value,
         children: formPayload.children.value
       };
-      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.currentEmployeeUsername}`, payload, stepperComponent);
+      this.addEmployeeFamilyDetails(`${this.employeeUrl.createFamily}/${this.currentEmployeeUsername}`, payload);
     }
   }
 
@@ -286,13 +286,16 @@ export class CreateEmployeeComponent implements OnInit {
     }
   }
 
-  createEmployee(url: string, payload: IEmployeePayload, stepperComponent) {
+  createEmployee(url: string, payload: IEmployeePayload) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
         this.toastr.info('Employee Created!', 'Successful');
         this.linearMode = false;
-        this.stepperComponent.next();
+        if(this.formCurrentStep < 2){
+          this.formCurrentStep = 2;
+          this.stepperComponent.next();
+        }
       },
       error => {
         this.currentEmployeeUsername = "";
@@ -301,13 +304,16 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeExperience(url: string, payload, stepperComponent) {
+  addEmployeeExperience(url: string, payload) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
         if (data.responseCode)
         this.toastr.info('Employee Experience Added!', 'Successful');
-        this.stepperComponent.next();
+        if(this.formCurrentStep < 3){
+          this.formCurrentStep = 3;
+          this.stepperComponent.next();
+        }
       },
       error => {
         console.log(error);
@@ -315,12 +321,15 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeEducationDetails(url: string, payload, stepperComponent) {
+  addEmployeeEducationDetails(url: string, payload) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
         this.toastr.info('Employee Education Details Added!', 'Successful');
-        this.stepperComponent.next();
+        if(this.formCurrentStep < 4){
+          this.formCurrentStep = 4;
+          this.stepperComponent.next();
+        }
       },
       error => {
         console.log(error);
@@ -328,13 +337,16 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeNextOfKinDetails(url: string, payload: INextOfKinPayload, stepperComponent) {
+  addEmployeeNextOfKinDetails(url: string, payload: INextOfKinPayload) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
         this.toastr.info('Employee Next of Kin Details added!', 'Successful');
-        this.stepperComponent.reset();
         this.goToEmployee();
+        if(this.formCurrentStep < 5){
+          this.formCurrentStep = 5;
+          this.stepperComponent.next();
+        }
       },
       error => {
         console.log(error);
@@ -342,12 +354,15 @@ export class CreateEmployeeComponent implements OnInit {
     );
   }
 
-  addEmployeeFamilyDetails(url: string, payload: IFamilyPayload, stepperComponent) {
+  addEmployeeFamilyDetails(url: string, payload: IFamilyPayload) {
     this.crudService.createData(url, payload).subscribe(
       data => {
         console.log(data);
         this.toastr.info('Employee Family Details added!', 'Successful');
-        this.stepperComponent.next();
+        if(this.formCurrentStep < 6){
+          this.formCurrentStep = 6;
+          this.stepperComponent.next();
+        }
       },
       error => {
         console.log(error);
