@@ -34,32 +34,43 @@
                                   <th></th>
                                 </tr>
                               </thead>
-                              <tbody class="table-hover table-striped table-hover-animation" *ngFor="let details of allEmployees, let i = index;">
-                                <ng-container *ngIf="allEmployees !== undefined && allEmployees.length > 0">
-                                  <tr>
-                                    <th>{{details.emp_id}}</th>
-                                    <td>{{details.emp_username}}</td>
-                                    <td>{{details.emp_firstname + ' ' + details.emp_lastname}}</td>
-                                    <td>{{details.emp_email}}</td>
-                                    <td>{{details.emp_role}}</td>
-                                    <th>{{details.emp_gender}}</th>
-                                    <td>{{details.emp_age}}</td>
-                                    <td>{{details.emp_present_posting_deployment}}</td>
-                                    <!-- <td>{{details.emp_present_current_Department}}</td> -->
-                                    <td>{{details.emp_employment_date | date}}</td>
-                                    <td>
-                                      <button mat-icon-button aria-label="View Employee" color="primary" class="btn" matTooltip="View Employee"
-                                        matTooltipPosition="below" [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">
-                                        <mat-icon>pageview</mat-icon>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                </ng-container>
-                                  <ng-container *ngIf="allEmployees.length <= 0">
-                                    No employee available
+                              <ng-container *ngIf="allEmployees && allEmployees.content">
+                                <tbody class="table-hover table-striped table-hover-animation" *ngFor="let details of allEmployees.content, let i = index;">
+                                  <ng-container *ngIf="allEmployees.content !== undefined && allEmployees.content.length > 0">
+                                    <tr>
+                                      <th>{{details.emp_id}}</th>
+                                      <td>{{details.emp_username}}</td>
+                                      <td>{{details.emp_firstname + ' ' + details.emp_lastname}}</td>
+                                      <td>{{details.emp_email}}</td>
+                                      <td>{{details.emp_role}}</td>
+                                      <th>{{details.emp_gender}}</th>
+                                      <td>{{details.emp_age}}</td>
+                                      <td>{{details.emp_present_posting_deployment}}</td>
+                                      <!-- <td>{{details.emp_present_current_Department}}</td> -->
+                                      <td>{{details.emp_employment_date | date}}</td>
+                                      <td>
+                                        <button mat-icon-button aria-label="View Employee" color="primary" class="btn" matTooltip="View Employee"
+                                          matTooltipPosition="below" [routerLink]="['/admin/employee/view-employee']" [queryParams]="{username: details.emp_username, id: details.emp_id}">
+                                          <mat-icon>pageview</mat-icon>
+                                        </button>
+                                      </td>
+                                    </tr>
                                   </ng-container>
-                              </tbody>
+                                    <ng-container *ngIf="allEmployees.content.length <= 0">
+                                      No employee available
+                                    </ng-container>
+                                </tbody>
+                              </ng-container>
                             </table>
+                            <ng-container *ngIf="fakeArray.length">
+                              <div class="pagination pull-right pt-5">
+                                <a href="javascript:;" (click)=movePrev()>&laquo;</a>
+                                <ng-container *ngFor="let a of fakeArray; let index = index">
+                                  <a href="javascript:;" [ngClass]="{'active': index+1 == currentPage}" (click)="moveHere(index)">{{index + 1}}</a>
+                                </ng-container>
+                                <a href="javascript:;" (click)=moveNext()>&raquo;</a>
+                              </div>
+                            </ng-container>
                           </div>
                         </div>
                       </div>
@@ -73,3 +84,27 @@
   </section>
 
 </div>
+
+<style>
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+  
+  .pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+</style>
