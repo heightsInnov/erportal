@@ -39,8 +39,8 @@ export class EmployeeComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00'){
           this.allEmployees = data.responseObject;
-          this.currentPage = this.allEmployees.pageable.pageNumber + 1;
-          this.pages = this.allEmployees.totalPages;
+          this.currentPage = this.allEmployees.pageable.page + 1;
+          this.pages = this.allEmployees.pageable.totalPages;
           this.fakeArray = new Array(this.pages);
         }
       },
@@ -56,12 +56,12 @@ export class EmployeeComponent implements OnInit {
 
   movePrev(){
     if(this.currentPage > 1){
-      this.getAllEmployee(this.currentPage - 1);
+      this.getAllEmployee(this.currentPage - 2);
     }
   }
 
   moveNext(){
-    if(this.currentPage > 1 && this.pages > 1){
+    if(this.currentPage > 0 && this.pages > 1){
       this.getAllEmployee(this.currentPage);
     }
   }

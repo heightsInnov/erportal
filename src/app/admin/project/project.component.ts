@@ -33,8 +33,8 @@ export class ProjectComponent implements OnInit {
       data => {
         if (data.responseCode === '00'){
           this.handoverNotes = data.responseObject;
-          this.currentPage = this.handoverNotes.pageable.pageNumber + 1;
-          this.pages = this.handoverNotes.totalPages;
+          this.currentPage = this.handoverNotes.pageable.page + 1;
+          this.pages = this.handoverNotes.pageable.totalPages;
           this.fakeArray = new Array(this.pages);
         }
       },
@@ -46,12 +46,12 @@ export class ProjectComponent implements OnInit {
 
   movePrev(){
     if(this.currentPage > 1){
-      this.getHandoverNotes(this.currentPage - 1);
+      this.getHandoverNotes(this.currentPage - 2);
     }
   }
 
   moveNext(){
-    if(this.currentPage > 1 && this.pages > 1){
+    if(this.currentPage > 0 && this.pages > 1){
       this.getHandoverNotes(this.currentPage);
     }
   }

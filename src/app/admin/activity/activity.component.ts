@@ -193,11 +193,12 @@ export class ActivityComponent implements OnInit {
     const path = `${this.getActivityUrl}/${this.userDetails.emp_username}/A?pageNumber=${pageNumber}`;
     this.crudService.getData(path).subscribe(
       data => {
+        console.log(data);
         if (data.responseCode === '00'){
           if (data.responseObject.content) {
             this.activities = data.responseObject;
-            this.currentPage = this.activities.pageable.pageNumber + 1;
-            this.pages = this.activities.totalPages;
+            this.currentPage = this.activities.pageable.page + 1;
+            this.pages = this.activities.pageable.totalPages;
             this.fakeArray = new Array(this.pages);
             this.todos = [];
             this.inProgress = [];
@@ -222,13 +223,13 @@ export class ActivityComponent implements OnInit {
   }
 
   movePrev(){
-    if(this.currentPage > 1){
-      this.getActivities(this.currentPage - 1);
+    if(this.currentPage > 0){
+      this.getActivities(this.currentPage - 2);
     }
   }
 
   moveNext(){
-    if(this.currentPage > 1 && this.pages > 1){
+    if(this.currentPage > 0 && this.pages > 1){
       this.getActivities(this.currentPage);
     }
   }
