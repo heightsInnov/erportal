@@ -33,7 +33,7 @@ export class EmployeeComponent implements OnInit {
 
   getAllEmployee(pageNo?) {
     let pageNumber = pageNo || 0;
-    let url = `${this.getAllEmployeeUrl}?pageSize=3&SpageNumber=${pageNumber}`;
+    let url = `${this.getAllEmployeeUrl}?pageNumber=${pageNumber}`;
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
