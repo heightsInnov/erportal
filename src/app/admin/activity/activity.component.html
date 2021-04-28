@@ -216,7 +216,8 @@
                           <!-- <th></th> -->
                         </tr>
                       </thead>
-                      <tbody class="table-hover table-striped" *ngFor="let details of activities, let i = index;">
+                      <ng-container *ngIf="activities && activities.content">
+                        <tbody class="table-hover table-striped" *ngFor="let details of activities.content, let i = index;">
                           <tr>
                             <th>{{details.activity_date | date}}</th>
                             <td>{{details.activity}}</td>
@@ -228,19 +229,18 @@
                               action
                             </td> -->
                           </tr>
-                      </tbody>
+                        </tbody>
+                      </ng-container>
                     </table>
-
-                    <div class="pagination">
-                      <a href="#">&laquo;</a>
-                      <a href="#">1</a>
-                      <a href="#" class="active">2</a>
-                      <a href="#">3</a>
-                      <a href="#">4</a>
-                      <a href="#">5</a>
-                      <a href="#">6</a>
-                      <a href="#">&raquo;</a>
-                    </div>
+                    <ng-container *ngIf="fakeArray.length">
+                      <div class="pagination pull-right pt-5">
+                        <a href="javascript:;" (click)=movePrev()>&laquo;</a>
+                        <ng-container *ngFor="let a of fakeArray; let index = index">
+                          <a href="javascript:;" [ngClass]="{'active': index+1 == currentPage}" (click)="moveHere(index)">{{index + 1}}</a>
+                        </ng-container>
+                        <a href="javascript:;" (click)=moveNext()>&raquo;</a>
+                      </div>
+                    </ng-container>
                   </div>
                 </div>
               </div>
