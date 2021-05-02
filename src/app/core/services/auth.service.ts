@@ -39,7 +39,6 @@ export class AuthService {
   getAuthorizationToken(): Observable<any> {
     const url = this.baseUrl + 'login';
     const payload: ILoginPayload = {username: 'web', password: 'weberp@123'};
-    console.log('auth');
     return this.http.post<any>(url, payload, { observe: 'response'}).pipe(
       map(response => {
         if (response.status === 200 && response.headers.has('authorization')) {

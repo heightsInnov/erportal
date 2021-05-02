@@ -424,7 +424,12 @@
                         <th>{{ i + 1}}</th>
                         <td>{{document.uploadType}}</td>
                         <td>{{document.filename}}</td>
-                        <td>{{document.documentUrl}}</td>
+                        <td>
+                          <a mat-icon-button aria-label="Download Document" matTooltip="Download Document" color="primary"
+                            matTooltipPosition="below" [href]="document.documentUrl" [download]="document.filename">
+                            <mat-icon>download</mat-icon>
+                          </a>
+                        </td>
                         <td>{{document.dateUploaded | date}}</td>
                         <td></td>
                       </tr>

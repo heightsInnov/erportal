@@ -30,13 +30,13 @@ export class HeaderComponent implements OnInit {
   calendarVisible = false;
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev,next today',
+      left: '',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      right: ''
     },
     initialView: 'dayGridMonth',
     // initialEvents: this.currentEvents, // alternatively, use the `events` setting to fetch from a feed
-    events: this.currentEvents,
+    events: [],
     weekends: true,
     editable: false,
     selectable: true,
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
     */
   };
 
-  getAllEmployeeUrl = environment.getAllEmployeeUrl;
+  getEmployeeBirthday = environment.getEmployeeBirthday;
   allEmployees: any[];
 
   constructor(
@@ -65,30 +65,36 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.getUserDetails();
     // this.avatarActions();
-    this.getAllEmployee(this.getAllEmployeeUrl);
+    this.getData(this.getEmployeeBirthday);
   }
 
-  getAllEmployee(url: string) {
+  getData(url: string) {
     this.crudService.getData(url).subscribe(
       data => {
-        if (data.responseCode === '00'){
-          this.allEmployees = data.responseObject;
-          this.currentEvents = this.allEmployees.map((emp, i) => {
-            // const date = emp.emp_dob.slice(0, emp.emp_dob.indexOf(' ')).split('-');
-            return {
-                    title: `${emp.emp_firstname} ${emp.emp_lastname}'s Birthday`,
-                    start: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
-                    end: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
-                    allDay: new Date(emp.emp_dob).toISOString().replace(/T.*$/, ''),
-                    id: i++
-                   };
-          });
+        if (data && data.responseObject){
+          let employeeBirthdays = [];
+          let that = this;
+          data.responseObject.map((dob, index)=>{
+            employeeBirthdays.push({date: this.refactorBirthdayToCurrentYear(dob.dob), title: dob.name+" - "+dob.department});
+            if(index+1 == data.responseObject.length){
+              that.calendarOptions.events = employeeBirthdays;
+              console.log(that.calendarOptions.events);
+            }
+          })
+          
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  refactorBirthdayToCurrentYear(birthday){
+    let date = new Date();
+    let year = date.getFullYear();
+    let splitBirthday = birthday.split('-');
+    return year+"-"+splitBirthday[1]+"-"+splitBirthday[2];
   }
 
   openCalendar(dialog: TemplateRef<any>, options) {

@@ -14,7 +14,10 @@ import { environment } from 'src/environments/environment';
 export class EmployeeComponent implements OnInit {
 
   getAllEmployeeUrl = environment.getAllEmployeeUrl;
-  allEmployees: any[];
+  allEmployees: any;
+  currentPage = 0;
+  pages = 0;
+  fakeArray = [];
 
   constructor(
     private router: Router,
@@ -25,15 +28,20 @@ export class EmployeeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getAllEmployee(this.getAllEmployeeUrl);
+    this.getAllEmployee();
   }
 
-  getAllEmployee(url: string) {
+  getAllEmployee(pageNo?) {
+    let pageNumber = pageNo || 0;
+    let url = `${this.getAllEmployeeUrl}?pageNumber=${pageNumber}`;
     this.crudService.getData(url).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00'){
           this.allEmployees = data.responseObject;
+          this.currentPage = this.allEmployees.pageable.page + 1;
+          this.pages = this.allEmployees.pageable.totalPages;
+          this.fakeArray = new Array(this.pages);
         }
       },
       error => {
@@ -42,6 +50,24 @@ export class EmployeeComponent implements OnInit {
         this.toastr.error(error.error.responseMessage);
       }
     );
+  }
+
+
+
+  movePrev(){
+    if(this.currentPage > 1){
+      this.getAllEmployee(this.currentPage - 2);
+    }
+  }
+
+  moveNext(){
+    if(this.currentPage > 0 && this.pages > 1){
+      this.getAllEmployee(this.currentPage);
+    }
+  }
+
+  moveHere(pageNo){
+    this.getAllEmployee(pageNo);
   }
 
 }

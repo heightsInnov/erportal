@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit{
         console.log(data);
         if (data.responseCode === '00'){
           if (data.responseObject) {
-            this.activities = data.responseObject;
+            this.activities = data.responseObject?.content;
             this.todos = [];
             this.inProgress = [];
             this.completed = [];

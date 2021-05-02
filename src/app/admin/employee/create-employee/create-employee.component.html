@@ -6,19 +6,19 @@
             <div class="card-content">
               <div class="card-body">
                 <mat-horizontal-stepper labelPosition="bottom" [linear]="linearMode" #createEmployeeStepper>
-                  <mat-step [stepControl]="createEmployeeForm" [state]="stepperLabel.labelOne" [label]="stepperLabel.labelOne">
+                  <mat-step [completed]="formCurrentStep > 1" [state]="stepperLabel.labelOne" [label]="stepperLabel.labelOne">
                     <ng-container *ngTemplateOutlet="labelOneView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeExperienceForm" [state]="stepperLabel.labelTwo" [label]="stepperLabel.labelTwo">
+                  <mat-step [completed]="formCurrentStep > 2" [state]="stepperLabel.labelTwo" [label]="stepperLabel.labelTwo">
                     <ng-container *ngTemplateOutlet="labelTwoView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeEducationDetailsForm" [state]="stepperLabel.labelThree" [label]="stepperLabel.labelThree">
+                  <mat-step [completed]="formCurrentStep > 3" [state]="stepperLabel.labelThree" [label]="stepperLabel.labelThree">
                     <ng-container *ngTemplateOutlet="labelThreeView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeFamilyDetailsForm" [state]="stepperLabel.labelFour" [label]="stepperLabel.labelFour">
+                  <mat-step [completed]="formCurrentStep > 4" [state]="stepperLabel.labelFour" [label]="stepperLabel.labelFour">
                     <ng-container *ngTemplateOutlet="labelFourView"></ng-container>
                   </mat-step>
-                  <mat-step [stepControl]="addEmployeeNextOfKinDetailsForm" [state]="stepperLabel.labelFive" [label]="stepperLabel.labelFive">
+                  <mat-step [completed]="formCurrentStep > 5" [state]="stepperLabel.labelFive" [label]="stepperLabel.labelFive">
                     <ng-container *ngTemplateOutlet="labelFiveView"></ng-container>
                   </mat-step>
 
@@ -590,7 +590,7 @@
 </ng-template>
 
 <ng-template #labelTwoView>
-  <form  [formGroup]="addEmployeeExperienceForm" (ngSubmit)="onSubmit(addEmployeeExperienceFormData, 'addEmployeeExperienceForm', createEmployeeStepper)" class="form form-vertical">
+  <form  [formGroup]="addEmployeeExperienceForm" (ngSubmit)="onSubmit(addEmployeeExperienceFormData, 'addEmployeeExperienceForm')" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <ng-container formArrayName="experience">
@@ -710,7 +710,7 @@
 </ng-template>
 
 <ng-template #labelThreeView>
-  <form  [formGroup]="addEmployeeEducationDetailsForm" (ngSubmit)="onSubmit(addEmployeeEducationDetailsFormData, 'addEmployeeEducationDetailsForm', createEmployeeStepper)" class="form form-vertical">
+  <form  [formGroup]="addEmployeeEducationDetailsForm" (ngSubmit)="onSubmit(addEmployeeEducationDetailsFormData, 'addEmployeeEducationDetailsForm')" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <ng-container formArrayName="education">
@@ -857,7 +857,7 @@
 </ng-template>
 
 <ng-template #labelFourView>
-  <form  [formGroup]="addEmployeeFamilyDetailsForm" (ngSubmit)="onSubmit(addEmployeeFamilyDetailsFormData, 'addEmployeeFamilyDetailsForm', createEmployeeStepper)" class="form form-vertical">
+  <form  [formGroup]="addEmployeeFamilyDetailsForm" (ngSubmit)="onSubmit(addEmployeeFamilyDetailsFormData, 'addEmployeeFamilyDetailsForm')" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <div class="col-12 mb-2">
@@ -939,7 +939,7 @@
 </ng-template>
 
 <ng-template #labelFiveView>
-  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm', createEmployeeStepper)" class="form form-vertical">
+  <form  [formGroup]="addEmployeeNextOfKinDetailsForm" (ngSubmit)="onSubmit(addEmployeeNextOfKinDetailsFormData, 'addEmployeeNextOfKinDetailsForm')" class="form form-vertical">
     <div class="form-body">
       <div class="row">
         <div class="col-12 mb-2">

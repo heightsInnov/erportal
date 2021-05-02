@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://ec2-54-146-102-180.compute-1.amazonaws.com:5000/erportal/',
+  apiBaseUrl: 'http://144d533a386c.ngrok.io/erportal/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
@@ -70,6 +70,7 @@ export const environment = {
   updateActivityStatusURL: 'secured/activity/update-activity-status',
   getUnitsUrl: 'secured/get-units',
   getAllEmployeeUrl: 'secured/report/get-all-employee',
+  getEmployeeBirthday: 'secured/report/get-month-birthday',
   getUploadTypesUrl: 'secured/get-upload-types',
   getNotificationUrl: 'secured/get-notification-messages',
   uploadEmployeeDocumentUrl: 'secured/user/upload-user-document',

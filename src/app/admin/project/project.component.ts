@@ -11,7 +11,11 @@ import { environment } from 'src/environments/environment';
 export class ProjectComponent implements OnInit {
 
   getHandoverNotesUrl = environment.getHandoverNotesUrl;
-  handoverNotes: any[];
+  handoverNotes: any;
+  currentPage = 0;
+  pages = 0;
+  fakeArray = [];
+
   constructor(
     private router: Router,
     private crudService: CrudService,
@@ -19,21 +23,41 @@ export class ProjectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getHandoverNotes(this.getHandoverNotesUrl);
+    this.getHandoverNotes();
   }
 
-  getHandoverNotes(url: string) {
+  getHandoverNotes(pageNo?) {
+    let pageNumber = pageNo || 0;
+    let url = `${this.getHandoverNotesUrl}?pageNumber=${pageNumber}`
     this.crudService.getData(url).subscribe(
       data => {
-        console.log(data);
         if (data.responseCode === '00'){
           this.handoverNotes = data.responseObject;
+          this.currentPage = this.handoverNotes.pageable.page + 1;
+          this.pages = this.handoverNotes.pageable.totalPages;
+          this.fakeArray = new Array(this.pages);
         }
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  movePrev(){
+    if(this.currentPage > 1){
+      this.getHandoverNotes(this.currentPage - 2);
+    }
+  }
+
+  moveNext(){
+    if(this.currentPage > 0 && this.pages > 1){
+      this.getHandoverNotes(this.currentPage);
+    }
+  }
+
+  moveHere(pageNo){
+    this.getHandoverNotes(pageNo);
   }
 
 }

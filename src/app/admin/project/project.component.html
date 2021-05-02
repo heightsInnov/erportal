@@ -32,32 +32,43 @@
                                         <th></th>
                                       </tr>
                                   </thead>
-                                  <tbody class="table-hover table-striped table-hover-animation"  *ngFor="let note of handoverNotes, let i = index;">
-                                    <ng-container *ngIf="handoverNotes !== undefined && handoverNotes.length > 0">
-                                      <tr>
-                                        <td scope="row"> {{ i + 1 }} </td>
-                                        <td>{{note.resignee_name}}</td>
-                                        <td>{{note.resignee_address}}</td>
-                                        <td>{{note.resignee_phone}}</td>
-                                        <td>{{note.takeover_name}}</td>
-                                        <td>{{note.handover_reason}}</td>
-                                        <th>{{note.handover_witness}}</th>
-                                        <td>{{note.handover_effective_date | date}}</td>
-                                        <td>
-                                          <button mat-icon-button aria-label="View Handovers" color="primary" class="btn" matTooltip="View Handover Note"
-                                            matTooltipPosition="below" [routerLink]="['/admin/handover/view-handover']" [queryParams]="{handoverId: note.handover_id}">
-                                            <mat-icon>pageview</mat-icon>
-                                          </button>
-                                        </td>
-                                      </tr>
-                                    </ng-container>
-                                    <ng-container *ngIf="handoverNotes === undefined && handoverNotes.length <= 0">
-                                      <tr>
-                                        <td colspan="9">No Handover Note data</td>
-                                      </tr>
-                                    </ng-container>
-                                  </tbody>
+                                  <ng-container *ngIf="handoverNotes && handoverNotes.content">
+                                    <tbody class="table-hover table-striped table-hover-animation"  *ngFor="let note of handoverNotes.content, let i = index;">
+                                      <ng-container *ngIf="handoverNotes.content !== undefined && handoverNotes.content.length > 0">
+                                        <tr>
+                                          <td scope="row"> {{ i + 1 }} </td>
+                                          <td>{{note.resignee_name}}</td>
+                                          <td>{{note.resignee_address}}</td>
+                                          <td>{{note.resignee_phone}}</td>
+                                          <td>{{note.takeover_name}}</td>
+                                          <td>{{note.handover_reason}}</td>
+                                          <th>{{note.handover_witness}}</th>
+                                          <td>{{note.handover_effective_date | date}}</td>
+                                          <td>
+                                            <button mat-icon-button aria-label="View Handovers" color="primary" class="btn" matTooltip="View Handover Note"
+                                              matTooltipPosition="below" [routerLink]="['/admin/handover/view-handover']" [queryParams]="{handoverId: note.handover_id}">
+                                              <mat-icon>pageview</mat-icon>
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      </ng-container>
+                                      <ng-container *ngIf="handoverNotes === undefined && handoverNotes.length <= 0">
+                                        <tr>
+                                          <td colspan="9">No Handover Note data</td>
+                                        </tr>
+                                      </ng-container>
+                                    </tbody>
+                                  </ng-container>
                                 </table>
+                                <ng-container *ngIf="fakeArray.length">
+                                  <div class="pagination pull-right pt-5">
+                                    <a href="javascript:;" (click)=movePrev()>&laquo;</a>
+                                    <ng-container *ngFor="let a of fakeArray; let index = index">
+                                      <a href="javascript:;" [ngClass]="{'active': index+1 == currentPage}" (click)="moveHere(index)">{{index + 1}}</a>
+                                    </ng-container>
+                                    <a href="javascript:;" (click)=moveNext()>&raquo;</a>
+                                  </div>
+                                </ng-container>
                               </div>
                             </div>
                           </div>
@@ -71,3 +82,28 @@
   </section>
 
 </div>
+
+
+<style>
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+  
+  .pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+</style>

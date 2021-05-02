@@ -48,11 +48,15 @@ export class ActivityComponent implements OnInit {
   closeModal = false;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
   dialogRef: MatDialogRef<TemplateRef<any>>;
-  activities: any[];
+  activities: any;
   todoStatus: string;
   inProgressStatus: string;
   completedStatus: string;
   modal = {name: '', action: ''};
+
+  fakeArray = [];
+  currentPage = 0;
+  pages = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -69,7 +73,7 @@ export class ActivityComponent implements OnInit {
     this.setBodyStyles();
     this.initForm(); // initialize reactive form on component init
     this.getUnits(this.getUnitsUrl); // get units/depts for activity
-    this.getActivities(this.getActivityUrl);
+    this.getActivities();
     this.getActivityStatus(this.getActivityStatusUrl);
     // this.checkAvailabilty();
   }
@@ -127,7 +131,7 @@ export class ActivityComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00'){
           this.toastr.success('Activity Created', 'Successful');
-          this.getActivities(this.getActivityUrl);
+          this.getActivities();
           this.clearForm();
           this.close();
         }
@@ -147,7 +151,7 @@ export class ActivityComponent implements OnInit {
         console.log(data);
         if (data.responseCode === '00'){
           this.toastr.success('Activity Updated', 'Successful');
-          this.getActivities(this.getActivityUrl);
+          this.getActivities();
           this.clearForm();
           this.close();
         }
@@ -184,18 +188,22 @@ export class ActivityComponent implements OnInit {
   //     return 'activities created';
   //   }
   // }
-  getActivities(url: string) {
-    const path = `${url}/${this.userDetails.emp_username}/A`;
+  getActivities(pageNo?) {
+    let pageNumber = pageNo || 0;
+    const path = `${this.getActivityUrl}/${this.userDetails.emp_username}/A?pageNumber=${pageNumber}`;
     this.crudService.getData(path).subscribe(
       data => {
         console.log(data);
         if (data.responseCode === '00'){
-          if (data.responseObject) {
+          if (data.responseObject.content) {
             this.activities = data.responseObject;
+            this.currentPage = this.activities.pageable.page + 1;
+            this.pages = this.activities.pageable.totalPages;
+            this.fakeArray = new Array(this.pages);
             this.todos = [];
             this.inProgress = [];
             this.completed = [];
-            this.activities.forEach(activity => {
+            this.activities.content.forEach(activity => {
               if (activity.status === 'P') {
                 this.todos.push(activity);
               } else if (activity.status === 'O') {
@@ -212,6 +220,22 @@ export class ActivityComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  movePrev(){
+    if(this.currentPage > 0){
+      this.getActivities(this.currentPage - 2);
+    }
+  }
+
+  moveNext(){
+    if(this.currentPage > 0 && this.pages > 1){
+      this.getActivities(this.currentPage);
+    }
+  }
+
+  moveHere(pageNo){
+    this.getActivities(pageNo);
   }
 
   getStatus(status: string): string{
