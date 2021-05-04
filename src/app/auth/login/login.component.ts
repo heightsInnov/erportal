@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   payload: ILoginPayload;
   loginError: {status: boolean, message: string} = {status: false, message: ''};
-  logo = {url: '../../../assets/images/lagos_logo.png'};
+  logo = {url: '../../../assets/images/goslogo.jpg'};
   loggedIn: string;
 
   constructor(
