@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://ec2-54-146-102-180.compute-1.amazonaws.com:5000/erportal/',
+  apiBaseUrl: 'https://apiadmin.ermportal.org/erportal/',
   loginUrl: 'secured/user/login',
   resetPasswordUrl: 'secured/user/password-reset',
   employeeUrl: {
